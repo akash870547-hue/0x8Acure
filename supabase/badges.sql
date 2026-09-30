@@ -6,6 +6,13 @@ create table if not exists public.badge_catalog (
 create table if not exists public.user_learning_days (
   user_id uuid not null references auth.users(id) on delete cascade, learning_date date not null, primary key(user_id,learning_date)
 );
+create table if not exists public.hint_events (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  task_id text not null,
+  used_at timestamptz not null default now()
+);
+create index if not exists hint_events_user_task_idx on public.hint_events(user_id,task_id);
 alter table public.room_progress add column if not exists hints_used integer not null default 0 check (hints_used >= 0);
 alter table public.room_progress add column if not exists score_percent integer not null default 0 check (score_percent between 0 and 100);
 
@@ -211,16 +218,38 @@ begin
       select count(*) into total from public.task_catalog t where t.room_id=replace(b.id,'room-','');
       select count(distinct s.task_id) into correct from public.task_submissions s join public.task_catalog t on t.id=s.task_id where s.user_id=p_user and t.room_id=replace(b.id,'room-','') and s.correct=true;
       if total>0 and correct*100>=total*70 then perform public.award_badge(p_user,b.id); end if;
-    elsif b.id='path-foundation-complete' and done_count>=6 then perform public.award_badge(p_user,b.id);
-    elsif b.id='path-intermediate-complete' and done_count>=13 then perform public.award_badge(p_user,b.id);
-    elsif b.id='path-advanced-complete' and done_count>=20 then perform public.award_badge(p_user,b.id);
+    elsif b.id like 'path-%-complete' then
+      declare eligible integer;
+      begin
+        select count(*) into eligible from (
+          select t.room_id
+          from public.task_catalog t
+          left join public.task_submissions s on s.task_id=t.id and s.user_id=p_user and s.correct=true
+          group by t.room_id
+          having count(*) > 0 and count(distinct s.task_id)*100 >= count(*)*70
+        ) q;
+        if (b.id='path-foundation-complete' and eligible>=6)
+          or (b.id='path-intermediate-complete' and eligible>=13)
+          or (b.id='path-advanced-complete' and eligible>=20)
+        then perform public.award_badge(p_user,b.id); end if;
+      end;
+
     elsif b.id in ('skill-consent-expert','skill-breach-responder','skill-penalty-analyst') then
       if b.id='skill-consent-expert' then select count(*) into total from public.task_catalog where room_id='f-notice-consent'; select count(distinct s.task_id) into correct from public.task_submissions s join public.task_catalog t on t.id=s.task_id where s.user_id=p_user and t.room_id='f-notice-consent' and s.correct=true;
       elsif b.id='skill-breach-responder' then select count(*) into total from public.task_catalog where room_id='i-breach'; select count(distinct s.task_id) into correct from public.task_submissions s join public.task_catalog t on t.id=s.task_id where s.user_id=p_user and t.room_id='i-breach' and s.correct=true;
       else select count(*) into total from public.task_catalog where room_id in ('f-penalties','a-penalty-analysis'); select count(distinct s.task_id) into correct from public.task_submissions s join public.task_catalog t on t.id=s.task_id where s.user_id=p_user and t.room_id in ('f-penalties','a-penalty-analysis') and s.correct=true; end if;
       if total>0 and correct=total then perform public.award_badge(p_user,b.id); end if;
     elsif b.id='skill-no-hints-room' then
-      if exists(select 1 from public.room_progress where user_id=p_user and completed=true and score_percent>=70 and hints_used=0) then perform public.award_badge(p_user,b.id); end if;
+      if exists(
+        select 1 from (
+          select t.room_id
+          from public.task_catalog t
+          left join public.task_submissions s on s.task_id=t.id and s.user_id=p_user and s.correct=true
+          where t.room_id not in (select distinct he.task_id from public.hint_events he where he.user_id=p_user)
+          group by t.room_id
+          having count(*) > 0 and count(distinct s.task_id)*100 >= count(*)*70
+        ) q
+      ) then perform public.award_badge(p_user,b.id); end if;
     elsif b.id in ('streak-3','streak-7','streak-30') then
       select count(*) into streak from (select learning_date, learning_date-(row_number() over(order by learning_date))::int grp from public.user_learning_days where user_id=p_user) q group by grp order by count(*) desc limit 1;
       if (b.id='streak-3' and coalesce(streak,0)>=3) or (b.id='streak-7' and coalesce(streak,0)>=7) or (b.id='streak-30' and coalesce(streak,0)>=30) then perform public.award_badge(p_user,b.id); end if;
@@ -241,6 +270,7 @@ begin
   ok := t.correct_answer = p_answer;
   insert into public.task_submissions(user_id,task_id,answer,correct,points) values(auth.uid(),p_task_id,p_answer,ok,case when ok then 10 else 0 end);
   insert into public.user_learning_days(user_id,learning_date) values(auth.uid(),current_date) on conflict do nothing;
+  insert into public.hint_events(user_id,task_id) values(auth.uid(),p_task_id);
   perform public.evaluate_badges(auth.uid());
   return jsonb_build_object('correct',ok,'points',case when ok then 10 else 0 end);
 end; $$;
@@ -254,6 +284,7 @@ begin
   if auth.uid() is null then raise exception 'Authentication required'; end if;
   select room_id into rid from public.task_catalog where id=p_task_id;
   if rid is null then raise exception 'Unknown task'; end if;
+  insert into public.hint_events(user_id,task_id) values(auth.uid(),p_task_id);
   insert into public.room_progress(user_id,room_id,hints_used) values(auth.uid(),rid,1)
     on conflict(user_id,room_id) do update set hints_used=public.room_progress.hints_used+1;
   return true;
