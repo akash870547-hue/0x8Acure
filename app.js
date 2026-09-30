@@ -301,7 +301,7 @@
       '<div class="section-head"><div><h2>My Progress</h2><p>Private local learning progress on this browser.</p></div><button class="btn ghost" data-action="home">Home</button></div>' +
       '<div class="progress-strip"><div><div class="kicker">Rooms completed</div><div style="margin:10px 0 7px;font-weight:700">' + completedRooms() + ' completed</div><div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div></div>' +
       '<div style="text-align:right"><div style="font-size:26px;font-weight:800">' + state.xp + '</div><div class="kicker">XP</div></div></div>' +
-      '<div class="notice" style="margin-top:16px">The interface does not expose the total number of rooms or labs. Progress only shows what you have completed.</div><div class="hero-actions"><button class="btn primary" data-action="badges">View Badges</button></div>';
+      '<div class="notice" style="margin-top:16px">The interface does not expose the total number of rooms or labs. Progress only shows what you have completed.</div><div class="hero-actions"><button class="btn primary" data-action="badges">View Badges</button><button class="btn ghost" data-action="certificates">Certificates</button></div>';
   }
 
   function render() {
