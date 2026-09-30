@@ -192,3 +192,50 @@ A provision may only be changed from TODO to DONE after its exact official sourc
 | 50 | a-capstone | Full Incident Simulation | ADVANCED | Capstone Simulations | **UNVERIFIED** |
 
 **Current verified count: 2/50.** `f-overview` and `f-definitions` now have word-for-word verified official-text boxes against the Act PDF. The remaining 48 rooms stay **UNVERIFIED** until their source text is reconciled.
+
+
+## Chapter II rebuild, verified 2026-10-01
+
+Source: MeitY, Digital Personal Data Protection Act, 2023, printed pages 4-9.
+
+| Room | Official text identical to PDF? | Differences |
+|---|---|---|
+| ch2-s4 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s5 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s6 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s7 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-1 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-2 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-3 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-4 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-5 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-6 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-7 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-8 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-9 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-10 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s8-11 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s9 | YES | None found in the operative text reproduced from the official PDF. |
+| ch2-s10 | YES | None found in the operative text reproduced from the official PDF. |
+
+### Granular Chapter II mapping
+
+- Section 4 -> ch2-s4
+- Section 5(1), 5(2), 5(3), and both illustrations -> ch2-s5
+- Section 6(1) through 6(10), including statutory illustrations -> ch2-s6
+- Section 7(a), 7(b)(i)-(ii), 7(c), 7(d), 7(e), 7(f), 7(g), 7(h), Explanation to 7(h), and 7(i), including illustrations -> ch2-s7
+- Section 8(1) -> ch2-s8-1
+- Section 8(2) -> ch2-s8-2
+- Section 8(3)(a)-(b) -> ch2-s8-3
+- Section 8(4) -> ch2-s8-4
+- Section 8(5) -> ch2-s8-5
+- Section 8(6) -> ch2-s8-6
+- Section 8(7)(a)-(b), including both illustrations -> ch2-s8-7
+- Section 8(8)(a)-(b) -> ch2-s8-8
+- Section 8(9) -> ch2-s8-9
+- Section 8(10) -> ch2-s8-10
+- Section 8(11) -> ch2-s8-11
+- Section 9(1)-(5), including its Explanation -> ch2-s9
+- Section 10(1)(a)-(f), 10(2)(a)(i)-(iv), 10(2)(b), 10(2)(c)(i)-(iii) -> ch2-s10
+
+All 17 Chapter II rooms are open. No prerequisite or lock is introduced.
