@@ -2,7 +2,34 @@ const fs=require("fs");
 const path=require("path");
 
 const ROOT=path.join(process.cwd(),"content","rooms");
-if(!fs.existsSync(ROOT)){console.log("No content/rooms directory yet; structural validation will run once official-source room files are added.");process.exit(0);}
+const LEGAL=path.join(process.cwd(),"content","legal-room-content.json");
+
+if(!fs.existsSync(ROOT)){
+  if(!fs.existsSync(LEGAL)){console.log("No room content yet.");process.exit(0);}
+  const registry=JSON.parse(fs.readFileSync(LEGAL,"utf8"));
+  const errors=[];
+  for(const room of (registry.rooms||[])){
+    const tasks=Array.isArray(room.tasks)?room.tasks:[];
+    const questions=tasks.reduce((n,t)=>n+(Array.isArray(t.questions)?t.questions.length:0),0);
+    if(!room.id||!room.title||!room.difficulty||!room.last_verified) errors.push(room.id+": missing room metadata");
+    if(tasks.length<1) errors.push(room.id+": no tasks");
+    if(questions<10) errors.push(room.id+": minimum 10 questions required; found "+questions);
+    if(!room.final_challenge?.scenario||!room.final_challenge?.flag) errors.push(room.id+": missing final challenge/flag");
+    if(!room.summary||!Array.isArray(room.cheat_sheet)) errors.push(room.id+": missing summary/cheat-sheet");
+    for(const task of tasks){
+      if(!task.provision||!Array.isArray(task.official_text)||!task.official_text.length) errors.push(room.id+"/"+task.id+": missing official provision reference");
+      if(!task.simple_words||!Array.isArray(task.key_terms)||!task.real_world_example||!task.student_angle||!Array.isArray(task.common_mistakes)) errors.push(room.id+"/"+task.id+": missing A-F learning content");
+      for(const q of (task.questions||[])){
+        if(q.correct_answer===undefined && q.answer===undefined) errors.push(room.id+"/"+q.id+": missing answer");
+        if(!q.why||!Array.isArray(q.why_wrong)||!q.section_reference) errors.push(room.id+"/"+q.id+": missing rationale/reference");
+      }
+    }
+  }
+  if(errors.length){console.error(errors.join("\n"));process.exit(1);}
+  console.log("Validated legal-room-content.json: "+(registry.rooms||[]).length+" rooms.");
+  process.exit(0);
+}
+
 const files=fs.readdirSync(ROOT).filter(f=>f.endsWith(".json"));
 if(!files.length) throw new Error("content/rooms exists but contains no room JSON files.");
 
