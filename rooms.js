@@ -141,5 +141,15 @@ window.DPDP_QUIZ = [
  {q:"What is the correct first step in a compliance post-mortem?",o:["Guess the penalty","Identify the exact contravention and applicable provision","Delete all logs","Publish a marketing post"],a:1}
 ];
 
-if (window.DPDP_ACT_REFERENCE) window.DPDP_CURRICULUM.push(window.DPDP_ACT_REFERENCE);
-if (window.DPDP_RULES_REFERENCE) window.DPDP_CURRICULUM.push(window.DPDP_RULES_REFERENCE);
+
+/* Keep the original three learning sections. Full legal-reference modules are nested into them. */
+(() => {
+  const act = window.DPDP_ACT_REFERENCE?.lessons || [];
+  const rules = window.DPDP_RULES_REFERENCE?.lessons || [];
+  const paths = window.DPDP_CURRICULUM.slice(0, 3);
+  const ref = [...act, ...rules];
+  paths[0].lessons = [...paths[0].lessons, ...ref.filter((_,i) => i % 3 === 0)];
+  paths[1].lessons = [...paths[1].lessons, ...ref.filter((_,i) => i % 3 === 1)];
+  paths[2].lessons = [...paths[2].lessons, ...ref.filter((_,i) => i % 3 === 2)];
+  window.DPDP_CURRICULUM = paths;
+})();
