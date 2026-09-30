@@ -13,7 +13,7 @@
     let state={};try{state=JSON.parse(localStorage.getItem(LS)||"{}")}catch{}
     const rows=Object.entries(state.completed||{}).map(([room_id,completed])=>({
       user_id:session.user.id,room_id,completed:!!completed,
-      best_score:Number(state.roomQuiz?.[room_id]?.bestScore||0),xp:Number(state.xp||0)
+      best_score:Number(state.roomQuiz?.[room_id]?.bestScore||0)
     }));
     syncing=true;
     try{
