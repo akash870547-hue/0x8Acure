@@ -15,3 +15,7 @@ jobs:
       - run: node --check server.js
       - run: node --check app.js
       - run: node --check curriculum.js
+      - run: node --check supabase-auth-v2.js
+      - run: node --check supabase-sync.js
+      - run: node --check supabase-recovery.js
+      - run: node --check supabase-config.js
