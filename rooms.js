@@ -128,19 +128,6 @@ window.DPDP_SOURCE = {
   note:"https://www.meity.gov.in/writereaddata/files/Explanatory-Note-DPDP-Rules-2025.pdf"
 };
 
-window.DPDP_QUIZ = [
- {q:"Under Section 2, who determines the purpose and means of processing personal data?",o:["Data Principal","Data Fiduciary","Consent Manager","Data Protection Board"],a:1},
- {q:"What is the statutory age boundary used for the definition of a child?",o:["Under 13","Under 16","Under 18","Under 21"],a:2},
- {q:"Which section contains the general duties of a Data Fiduciary?",o:["Section 5","Section 8","Section 13","Section 18"],a:1},
- {q:"Which right is specifically addressed by Section 14?",o:["Nomination","Access","Correction","Appeal"],a:0},
- {q:"Which body is established under the Act for its statutory functions?",o:["Data Protection Board of India","CERT-In","RBI","UIDAI"],a:0},
- {q:"Which rule contains the notified security safeguard requirements?",o:["Rule 3","Rule 4","Rule 6","Rule 15"],a:2},
- {q:"Which rules were placed in the immediate commencement group?",o:["Rules 1, 2 and 17-21","Rules 3-16 only","Rules 5-16 and 22-23","Rule 4 only"],a:0},
- {q:"What does the Act require a Data Principal's consent to be?",o:["Hidden and bundled","Free, specific, informed and unambiguous","Permanent and irrevocable","Only verbal"],a:1},
- {q:"Which section addresses Significant Data Fiduciaries?",o:["Section 7","Section 8","Section 10","Section 17"],a:2},
- {q:"What is the correct first step in a compliance post-mortem?",o:["Guess the penalty","Identify the exact contravention and applicable provision","Delete all logs","Publish a marketing post"],a:1}
-];
-
 
 /* Three paths -> modules -> rooms/labs, with the full legal reference distributed across the three paths. */
 (() => {
