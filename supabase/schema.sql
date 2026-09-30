@@ -105,6 +105,9 @@ create policy badges_delete_own on public.badges_earned for delete
 -- Certificates are intentionally NOT directly readable through the Data API.
 -- Public verification uses the exact certificate ID through the RPC below.
 revoke all on public.certificates from anon, authenticated;
+grant select on public.certificates to authenticated;
+create policy certificates_select_own on public.certificates for select
+  to authenticated using (auth.uid() = user_id);
 
 create or replace function public.verify_certificate(p_certificate_id text)
 returns table (
