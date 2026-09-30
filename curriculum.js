@@ -5,7 +5,7 @@ window.DPDP_CURRICULUM = [
     "name": "FOUNDATION",
     "level": "Foundation",
     "tag": "HR, ops, marketing, students",
-    "description": "Foundation learning path for HR, ops, marketing, students. Paths and rooms unlock in order.",
+    "description": "Foundation learning path for HR, ops, marketing, students. All paths, modules and rooms are open.",
     "modules": [
       {
         "id": "foundation-rooms",
@@ -125,7 +125,7 @@ window.DPDP_CURRICULUM = [
     "name": "INTERMEDIATE",
     "level": "Intermediate",
     "tag": "engineers, product, IT, security",
-    "description": "Intermediate learning path for engineers, product, IT, security. Paths and rooms unlock in order.",
+    "description": "Intermediate learning path for engineers, product, IT, security. All paths, modules and rooms are open.",
     "modules": [
       {
         "id": "intermediate-rooms",
@@ -268,7 +268,7 @@ window.DPDP_CURRICULUM = [
     "name": "ADVANCED",
     "level": "Advanced",
     "tag": "DPO, legal, compliance, founders",
-    "description": "Advanced learning path for DPO, legal, compliance, founders. Paths and rooms unlock in order.",
+    "description": "Advanced learning path for DPO, legal, compliance, founders. All paths, modules and rooms are open.",
     "modules": [
       {
         "id": "advanced-rooms",
@@ -406,7 +406,7 @@ window.DPDP_CURRICULUM = [
         "id": "rules-2025",
         "name": "DPDP Rules 2025",
         "tag": "RULES",
-        "description": "Complete notified Rules 2025 and seven Schedules, source-first and sequentially unlocked.",
+        "description": "Complete notified Rules 2025 and seven Schedules, source-first and always accessible.",
         "rooms": [
           {
             "id": "rule-01",
