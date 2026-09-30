@@ -156,3 +156,158 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 [data-theme="light"] .badge.violet{border-color:#ddd6fe;color:#6d28d9;background:#f5f3ff}
 [data-theme="light"] .badge.amber{border-color:#fde68a;color:#92400e;background:#fffbeb}
 [data-theme="light"] .cert-box{background:#ecfdf5;border-color:#86efac}
+
+/* Refined light theme */
+:root[data-theme="light"]{
+  --bg:#eef3f8;
+  --panel:#ffffff;
+  --panel2:#f7faff;
+  --surface:#ffffff;
+  --surface-2:#f7faff;
+  --surface-3:#eef4f9;
+  --input:#ffffff;
+  --text:#172033;
+  --muted:#5b6b82;
+  --line:#d5dfeb;
+  --cyan:#087ea4;
+  --green:#087f5b;
+  --violet:#6941c6;
+  --amber:#a15c00;
+  --danger:#c92a2a;
+  --shadow:0 12px 32px rgba(30,55,90,.08);
+  --grid:rgba(71,85,105,.045);
+}
+[data-theme="light"] body{
+  background:
+    radial-gradient(circle at 8% 0%,rgba(14,165,233,.07),transparent 28%),
+    radial-gradient(circle at 92% 8%,rgba(16,185,129,.055),transparent 25%),
+    var(--bg);
+}
+[data-theme="light"] .bg-grid{
+  opacity:.7;
+  mask-image:linear-gradient(to bottom,#000 0%,transparent 82%);
+}
+[data-theme="light"] .topbar{
+  background:rgba(255,255,255,.88);
+  border-bottom:1px solid #d9e3ee;
+  box-shadow:0 1px 12px rgba(30,55,90,.04);
+}
+[data-theme="light"] .hero-main,
+[data-theme="light"] .hero-side,
+[data-theme="light"] .panel,
+[data-theme="light"] .path-card,
+[data-theme="light"] .room-card,
+[data-theme="light"] .challenge-card{
+  background:rgba(255,255,255,.94);
+  border-color:#d5dfeb;
+  box-shadow:var(--shadow);
+}
+[data-theme="light"] .hero-main:after{
+  background:radial-gradient(circle,rgba(14,165,233,.09),transparent 65%);
+}
+[data-theme="light"] .hero h1,
+[data-theme="light"] .dashboard-head h1,
+[data-theme="light"] .room-top h1{
+  color:#111827;
+}
+[data-theme="light"] .stat,
+[data-theme="light"] .option,
+[data-theme="light"] .notice,
+[data-theme="light"] .progress-strip,
+[data-theme="light"] .hint-box,
+[data-theme="light"] .explain,
+[data-theme="light"] .modal-card{
+  background:#f8fafc;
+  border-color:#d8e2ec;
+}
+[data-theme="light"] .stat{
+  box-shadow:0 2px 10px rgba(30,55,90,.035);
+}
+[data-theme="light"] .option:hover,
+[data-theme="light"] .path-card:hover,
+[data-theme="light"] .room-card:hover{
+  border-color:#9bb8d2;
+  box-shadow:0 10px 26px rgba(30,55,90,.09);
+}
+[data-theme="light"] .option.selected{
+  background:#effaff;
+  border-color:#38a9c9;
+}
+[data-theme="light"] .task-sidebar,
+[data-theme="light"] .task-details,
+[data-theme="light"] .achievement,
+[data-theme="light"] .metric,
+[data-theme="light"] .challenge-panel{
+  background:#ffffff;
+  border-color:#d5dfeb;
+  box-shadow:0 4px 16px rgba(30,55,90,.045);
+}
+[data-theme="light"] .task-nav:hover,
+[data-theme="light"] .task-nav.active{
+  background:#f0f6fb;
+  border-color:#d5e1ec;
+}
+[data-theme="light"] .progress-track{
+  background:#dfe8f1;
+}
+[data-theme="light"] .progress-fill{
+  background:linear-gradient(90deg,#0891b2,#059669);
+}
+[data-theme="light"] .btn{
+  background:#f8fafc;
+  border-color:#ccd8e5;
+  color:#172033;
+}
+[data-theme="light"] .btn:hover{
+  background:#f0f5f9;
+  border-color:#9db3c9;
+}
+[data-theme="light"] .btn.primary{
+  background:linear-gradient(135deg,#0891b2,#0284c7);
+  border-color:transparent;
+  color:#fff;
+}
+[data-theme="light"] .btn.green{
+  background:linear-gradient(135deg,#059669,#047857);
+  color:#fff;
+}
+[data-theme="light"] .btn.violet{
+  background:linear-gradient(135deg,#7c3aed,#6d28d9);
+  color:#fff;
+}
+[data-theme="light"] .btn.amber{
+  background:linear-gradient(135deg,#d97706,#b45309);
+  color:#fff;
+}
+[data-theme="light"] .form-grid input,
+[data-theme="light"] .form-grid select,
+[data-theme="light"] .search-input,
+[data-theme="light"] .flag-input{
+  background:#fff;
+  border-color:#cbd8e5;
+  box-shadow:inset 0 1px 2px rgba(30,55,90,.025);
+}
+[data-theme="light"] .form-grid input:focus,
+[data-theme="light"] .search-input:focus,
+[data-theme="light"] .flag-input:focus{
+  border-color:#0e9fc1;
+  box-shadow:0 0 0 3px rgba(14,159,193,.10);
+}
+[data-theme="light"] .table-wrap{
+  background:#fff;
+  border:1px solid #d5dfeb;
+  border-radius:12px;
+}
+[data-theme="light"] .score-table th{
+  background:#f3f7fb;
+  color:#526176;
+}
+[data-theme="light"] .score-table td{
+  color:#243044;
+}
+[data-theme="light"] .toast{
+  background:#172033;
+  border-color:#273750;
+  color:#fff;
+  box-shadow:0 12px 30px rgba(15,23,42,.18);
+}
