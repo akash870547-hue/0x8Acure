@@ -355,6 +355,7 @@
       else if (x === "sources") { view = "sources"; render(); }
       else if (x === "progress") { view = "progress"; render(); }
       else if (x === "badges") { window.DPDP_BADGES?.page(); }
+      else if (x === "certificates") { window.DPDP_CERTS?.page(); }
       else if (x === "theme") { state.theme = state.theme === "dark" ? "light" : "dark"; save(); render(); }
     }
 
