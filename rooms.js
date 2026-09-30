@@ -142,14 +142,36 @@ window.DPDP_QUIZ = [
 ];
 
 
-/* Keep the original three learning sections. Full legal-reference modules are nested into them. */
+/* Three paths -> modules -> rooms/labs, in a TryHackMe-style hierarchy. */
 (() => {
   const act = window.DPDP_ACT_REFERENCE?.lessons || [];
   const rules = window.DPDP_RULES_REFERENCE?.lessons || [];
   const paths = window.DPDP_CURRICULUM.slice(0, 3);
-  const ref = [...act, ...rules];
-  paths[0].lessons = [...paths[0].lessons, ...ref.filter((_,i) => i % 3 === 0)];
-  paths[1].lessons = [...paths[1].lessons, ...ref.filter((_,i) => i % 3 === 1)];
-  paths[2].lessons = [...paths[2].lessons, ...ref.filter((_,i) => i % 3 === 2)];
+
+  const module = (id, name, tag, description, rooms) => ({
+    id, name, tag, description, rooms
+  });
+
+  paths[0].modules = [
+    module("start-foundations", "Foundations", "Beginner", "Start with the core DPDP concepts and scope.", paths[0].lessons.filter(x => x.id.startsWith("s"))),
+    module("start-act-reference", "DPDP Act Reference", "Reference", "Section-by-section rooms for the official Act.", act),
+    module("start-rules-reference", "DPDP Rules Reference", "Reference", "Rule-by-rule rooms for the notified Rules and Schedules.", rules)
+  ];
+
+  paths[1].modules = [
+    module("principles-processing", "Processing Principles", "Beginner", "Grounds, notice, consent, legitimate uses and fiduciary duties.", paths[1].lessons.filter(x => x.id.startsWith("p"))),
+    module("principles-act-reference", "DPDP Act Reference", "Reference", "Official Act rooms mapped into this learning path.", act),
+    module("principles-rules-reference", "DPDP Rules Reference", "Reference", "Official Rules rooms mapped into this learning path.", rules)
+  ];
+
+  paths[2].modules = [
+    module("rights-core", "Rights & Duties", "Intermediate", "Access, correction, erasure, grievance, nomination and Data Principal duties.", paths[2].lessons.filter(x => x.id.startsWith("r"))),
+    module("rights-act-reference", "DPDP Act Reference", "Reference", "Official Act rooms for rights, governance and enforcement.", act),
+    module("rights-rules-reference", "DPDP Rules Reference", "Reference", "Official Rules rooms supporting rights and enforcement.", rules)
+  ];
+
+  /* Keep the legal reference content available in the three paths while making
+     the visible hierarchy Path -> Module -> Room. */
+  paths.forEach(p => delete p.lessons);
   window.DPDP_CURRICULUM = paths;
 })();
