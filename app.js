@@ -138,32 +138,30 @@
     const all = (p.modules || []).flatMap(x => x.rooms || []);
     const idx = all.findIndex(x => x.id === r.id);
     if (!roomUnlocked(p, idx)) { toastMsg("Complete the previous room first"); view = "module"; return render(); }
-
-    appEl.innerHTML =
-      '<div class="room-top"><div><div class="kicker">' + esc(p.name) + ' / ' + esc(m.name) + '</div>' +
-      '<h1>' + esc(r.title) + '</h1><p>' + esc(r.sections) + '</p></div><span class="badge cyan">' + esc(r.difficulty) + '</span></div>' +
-      '<div id="room-content" class="room-layout" style="margin-top:18px"><section class="panel"><div class="notice">Loading cited room tasks...</div></section></div>';
-
     try {
       const data = await DPDP_API.request("/api/tasks/room/" + encodeURIComponent(r.id));
-      if (!data) throw new Error("Room backend is not configured.");
       const tasks = data.tasks || [];
-      const sourceText = (r.sourceIds || []).join(" + ");
-      const taskCards = tasks.map((t, i) =>
-        '<article class="panel task-panel"><div class="card-top"><span class="badge">TASK ' + String(i+1).padStart(2,"0") + '</span><span class="badge">' + esc(t.type) + '</span></div>' +
-        '<h3>' + esc(t.prompt) + '</h3><div class="options">' +
-        (t.options || []).map((o,j)=>'<button class="option" data-task="' + esc(t.id) + '" data-answer="' + j + '">' + esc(o) + '</button>').join("") +
-        '</div><div class="hint-box">Citation: ' + esc(t.citation.reference) + '</div><div class="explain" id="feedback-' + esc(t.id) + '" hidden></div></article>'
-      ).join("");
-      document.getElementById("room-content").innerHTML =
-        '<section class="panel room-theory"><div class="kicker">1 · THEORY</div><div class="notice">Sources: ' + esc(sourceText) + ' · Last verified: ' + esc(r.last_verified) + '</div>' +
-        '<h3>Learning objectives</h3><ul>' + r.learning_objectives.map(x=>'<li>'+esc(x)+'</li>').join("") + '</ul>' +
-        '<h3>2 · GUIDED SCENARIO</h3><p>Apply the cited provisions to a realistic compliance situation. Separate the facts from the statutory requirement, then choose the exact provision to verify.</p>' +
-        '<h3>3 · CHALLENGE TASKS</h3>' + taskCards +
-        '<h3>4 · ROOM SUMMARY</h3><p>Re-check the cited Act/Rules provisions, then complete the room. Training content is educational and not legal advice.</p>' +
-        '<div class="hero-actions"><button class="btn primary" data-action="complete">' + (state.completed[r.id] ? "Completed" : "Mark room complete") + '</button><button class="btn ghost" data-action="module">Back to module</button></div></section>';
+      if (!activeTaskId || !tasks.some(t=>t.id===activeTaskId)) activeTaskId = tasks[0]?.id;
+      const active = tasks.find(t=>t.id===activeTaskId) || tasks[0];
+      const done = state.completedTasks || {};
+      const completedCount = tasks.filter(t=>done[t.id]).length;
+      const roomXp = completedCount * 10;
+      const pct = Math.round(completedCount / Math.max(tasks.length,1) * 100);
+      appEl.innerHTML =
+        '<div class="room-heading"><div><div class="kicker">' + esc(p.name) + ' / ROOM</div><h1>' + esc(r.title) + '</h1><div class="room-stats"><span>' + esc(r.difficulty) + '</span><span>' + esc(r.estimated_minutes) + ' min</span><span>+' + roomXp + ' XP earned</span></div></div><button class="btn ghost" data-action="module">Back</button></div>' +
+        '<div class="room-progress"><div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div><span>' + completedCount + '/' + tasks.length + ' tasks</span></div>' +
+        '<div class="room-shell"><aside class="task-sidebar"><div class="sidebar-title">TASKS</div>' +
+        tasks.map((t,i)=>'<button class="task-nav ' + (t.id===active.id?'active ':'') + (done[t.id]?'done':'') + '" data-task-open="' + esc(t.id) + '"><span class="task-index">' + String(i+1).padStart(2,'0') + '</span><span><b>' + esc(t.type) + '</b><small>' + (done[t.id]?'Completed':'Open') + '</small></span><span>' + (done[t.id]?'✓':'') + '</span></button>').join('') +
+        '</aside><section class="room-learning">' +
+        '<details class="task-details" open><summary>THEORY <span>Read the cited requirement</span></summary><div class="task-copy"><p>Study the statutory requirement, then distinguish it from operational guidance. Training content is educational and not legal advice.</p><div class="citation-row">' + (r.sourceIds||[]).map(id=>'<a class="citation-chip" target="_blank" rel="noopener" href="' + esc(id==="rules-2025"?DPDP_SOURCE.rules:DPDP_SOURCE.act) + '">' + esc(id) + '</a>').join('') + '<span class="verify-chip">Last verified ' + esc(r.last_verified) + '</span></div></div></details>' +
+        '<details class="task-details"><summary>GUIDED SCENARIO <span>Apply the rule</span></summary><div class="task-copy"><p>Review a realistic HR, product, engineering or incident scenario. Identify the facts, locate the exact Act or Rule provision, and apply only what the cited text supports.</p></div></details>' +
+        '<details class="task-details" open><summary>CHALLENGE TASKS <span>' + tasks.length + ' tasks</span></summary><div class="task-copy"><p>Choose a task from the sidebar. Answers are checked by the backend.</p></div></details>' +
+        '<details class="task-details"><summary>ROOM SUMMARY <span>Learning objectives</span></summary><div class="task-copy"><ul>' + r.learning_objectives.map(x=>'<li>' + esc(x) + '</li>').join('') + '</ul><p><b>Citation:</b> ' + esc(r.sections) + '</p></div></details>' +
+        '</section><aside class="challenge-panel"><div class="challenge-top"><span class="badge cyan">CHALLENGE</span><span class="badge">' + esc(active.difficulty) + '</span></div><div class="kicker">TASK</div><h2>' + esc(active.prompt) + '</h2><div class="challenge-options">' +
+        (active.options||[]).map((o,j)=>'<button class="option ' + (window._selectedAnswer===j?'selected':'') + '" data-answer-select="' + j + '">' + esc(o) + '</button>').join('') +
+        '</div><div class="challenge-actions"><button class="btn primary" data-task-submit="' + esc(active.id) + '">Submit</button><button class="btn ghost" data-hint="' + esc(active.id) + '">Hint · 5 pts</button></div><div class="feedback" id="task-feedback"></div><div class="citation-box"><b>Citation</b><span>' + esc(active.citation.reference) + '</span><a target="_blank" rel="noopener" href="' + esc(active.citation.source_id==="rules-2025"?DPDP_SOURCE.rules:DPDP_SOURCE.act) + '">Open official source</a></div></aside></div>';
     } catch (err) {
-      document.getElementById("room-content").innerHTML='<section class="panel"><div class="notice"><b>Room unavailable.</b><br>'+esc(err.message)+'</div></section>';
+      appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>' + esc(err.message) + '</div>';
     }
   }
 
