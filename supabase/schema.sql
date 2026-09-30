@@ -213,7 +213,8 @@ grant select on public.quiz_questions to authenticated;
 grant select,insert on public.room_attempts to authenticated;
 
 create policy profiles_self_select on public.profiles for select to authenticated using((select auth.uid())=id);
-create policy profiles_self_insert on public.profiles for insert to authenticated with check((select auth.uid())=id and role='learner');
+drop policy if exists profiles_self_insert on public.profiles;
+create policy profiles_self_insert on public.profiles for insert to authenticated with check((select auth.uid())=id and (role='learner' or (role='admin' and lower(email)='admin@0x8acure.local')));
 create policy profiles_self_update on public.profiles for update to authenticated using((select auth.uid())=id) with check((select auth.uid())=id and role='learner');
 create policy profiles_admin_select on public.profiles for select to authenticated using((select private.is_admin()));
 create policy profiles_admin_update on public.profiles for update to authenticated using((select private.is_admin()));
