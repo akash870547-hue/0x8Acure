@@ -35,7 +35,7 @@
 
   const path = () => DPDP_CURRICULUM.find(p => p.id === pathId);
   const mod = () => path()?.modules?.find(m => m.id === moduleId);
-  const room = () => mod()?.rooms?.find(r => r.id === roomId);
+  const room = () => mod()?.rooms?.find(r => r.id === roomId) || path()?.modules?.flatMap(m => m.rooms || []).find(r => r.id === roomId);
 
   const allRooms = () => DPDP_CURRICULUM.flatMap(p => (p.modules || []).flatMap(m => m.rooms || []));
   const completedRooms = () => Object.keys(state.completed).length;
