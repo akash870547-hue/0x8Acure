@@ -19,5 +19,7 @@ jobs:
       - run: node --check supabase-sync.js
       - run: node --check supabase-recovery.js
       - run: node --check supabase-config.js
+      - run: node --check admin-ui.js
       - run: node --check certificate-ui.js
       - run: node scripts/validate-room-content.js
+      - run: node tests/quiz-types.test.js
