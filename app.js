@@ -165,6 +165,33 @@
     }
   }
 
+  async function submitTask(id) {
+    const answer = window._selectedAnswer;
+    if (answer === undefined) { toastMsg("Choose an answer first"); return; }
+    try {
+      const result = await DPDP_API.request("/api/tasks/" + encodeURIComponent(id) + "/answer", {method:"POST",body:JSON.stringify({answer})});
+      state.completedTasks = state.completedTasks || {};
+      const wasDone = !!state.completedTasks[id];
+      state.completedTasks[id] = !!result.correct;
+      if (result.correct && !wasDone) state.xp += Number(result.points || 10);
+      save();
+      const fb=document.getElementById("task-feedback");
+      if(fb){fb.textContent=(result.correct?"Correct. ":"Not correct. ") + (result.explanation||"");fb.className="feedback " + (result.correct?"success":"error");}
+      setTimeout(render,700);
+    } catch(e) { toastMsg(e.message); }
+  }
+
+  async function leaderboard() {
+    if(localStorage.getItem("0x8acure-leaderboard-optin")!=="yes"){
+      appEl.innerHTML='<section class="panel optin-panel"><h2>Leaderboard is opt-in</h2><p>Enable public participation before viewing learner rankings.</p><label class="check-row"><input id="leaderboard-optin" type="checkbox"> I agree to participate.</label><div class="hero-actions"><button class="btn primary" data-action="leaderboard-enable">Enable leaderboard</button><button class="btn ghost" data-action="home">Cancel</button></div></section>';
+      return;
+    }
+    try{
+      const data=await DPDP_API.request("/api/leaderboard");
+      appEl.innerHTML='<div class="section-head"><div><h2>Leaderboard</h2><p>Opt-in learner rankings.</p></div><button class="btn ghost" data-action="home">Dashboard</button></div><div class="panel table-wrap"><table class="score-table"><thead><tr><th>#</th><th>Learner</th><th>XP</th><th>Rooms</th></tr></thead><tbody>'+(data.rows||[]).map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.name)+'</td><td>'+x.xp+'</td><td>'+x.completed_rooms+'</td></tr>').join('')+'</tbody></table></div>';
+    }catch(e){appEl.innerHTML='<div class="notice">Leaderboard requires the platform backend.</div>';}
+  }
+
   async function quizStart() {
     quizIndex = 0;
     quizSelected = null;
@@ -309,6 +336,12 @@
           render();
         } else toastMsg("Room already completed");
       }
+      else if (x === "continue") {
+        const p = DPDP_CURRICULUM.find(p=>(p.modules||[]).flatMap(m=>m.rooms||[]).some(r=>!state.completed[r.id]));
+        if(p){pathId=p.id;view="path";render();}
+      }
+      else if (x === "leaderboard") leaderboard();
+      else if (x === "leaderboard-enable") { localStorage.setItem("0x8acure-leaderboard-optin","yes"); leaderboard(); }
       else if (x === "quiz") quizStart();
       else if (x === "quizsubmit") quizSubmit();
       else if (x === "sources") { view = "sources"; render(); }
@@ -358,6 +391,27 @@
         feedback.textContent = result.correct ? "Correct. " + (result.explanation || "") : "Not correct. " + (result.explanation || "Review the citation.");
         feedback.className = "explain " + (result.correct ? "" : "wrong");
       }).catch(err => { feedback.textContent = err.message; feedback.className="explain wrong"; });
+    }
+
+    const taskOpen = e.target.closest("[data-task-open]");
+    if (taskOpen) { activeTaskId = taskOpen.dataset.taskOpen; window._selectedAnswer = undefined; render(); return; }
+
+    const answer = e.target.closest("[data-answer-select]");
+    if (answer) {
+      window._selectedAnswer = Number(answer.dataset.answerSelect);
+      document.querySelectorAll("[data-answer-select]").forEach(x=>x.classList.remove("selected"));
+      answer.classList.add("selected");
+      return;
+    }
+
+    const submit = e.target.closest("[data-task-submit]");
+    if (submit) { submitTask(submit.dataset.taskSubmit); return; }
+
+    const hint = e.target.closest("[data-hint]");
+    if (hint) {
+      const fb=document.getElementById("task-feedback");
+      if(fb){fb.textContent="Hint: open the cited provision and verify the exact requirement. Cost: 5 points.";fb.className="feedback hint";}
+      return;
     }
 
     const q = e.target.closest("[data-qoption]");
