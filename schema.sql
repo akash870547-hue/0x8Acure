@@ -1,0 +1,3 @@
+-- Reference schema. server.js auto-creates these tables for local use.
+-- Production PostgreSQL migration should preserve these entities:
+-- users, rooms, progress, challenge_attempts, certificates, audit_log.
