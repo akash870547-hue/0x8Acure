@@ -64,3 +64,95 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 .brand-script{font-family:'Dancing Script',cursive;font-size:31px;font-weight:700;line-height:1;color:#00ff18;letter-spacing:.01em;text-shadow:0 0 10px rgba(0,255,24,.18)}
 .brand-logo:hover .brand-script{filter:brightness(1.08);text-shadow:0 0 14px rgba(0,255,24,.28)}
 @media(max-width:700px){.brand-script{font-size:27px}.nav-links{gap:0}.nav-links button{padding:8px 7px;font-size:12px}}
+
+/* Theme readability pass */
+:root{
+  --surface:#0e1420;
+  --surface-2:#111a29;
+  --surface-3:#0b111b;
+  --input:#070c14;
+  --grid:rgba(148,163,184,.05);
+}
+:root[data-theme="light"]{
+  --bg:#f4f7fb;
+  --panel:#ffffff;
+  --panel2:#eef3f8;
+  --surface:#ffffff;
+  --surface-2:#f8fafc;
+  --surface-3:#eef3f8;
+  --input:#ffffff;
+  --text:#0f172a;
+  --muted:#536276;
+  --line:#cbd6e3;
+  --cyan:#0284c7;
+  --green:#059669;
+  --violet:#7c3aed;
+  --amber:#b45309;
+  --danger:#dc2626;
+  --shadow:0 16px 40px rgba(15,23,42,.10);
+  --grid:rgba(71,85,105,.065);
+}
+.bg-grid{
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+}
+.topbar{
+  border-bottom-color:var(--line);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+}
+.nav-links button,.icon-button{color:var(--muted)}
+.nav-links button:hover,.icon-button:hover{background:var(--panel2);color:var(--text)}
+.hero-main,.hero-side,.panel,.path-card,.room-card,.challenge-card{
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));
+}
+.hero p,.path-card p,.room-card p,.room-top p,.dashboard-head p{color:var(--muted)}
+.stat,.progress-strip,.option,.hint-box,.explain,.notice,.modal-card{
+  background:var(--surface-3);
+}
+.stat span,.path-meta,.room-meta,.challenge-num,.room-footer small,.kicker,.score-table th,.legal{
+  color:var(--muted);
+}
+.badge{color:var(--text)}
+.progress-track{background:var(--surface-2)}
+.theory-block p,.theory-block ul{color:var(--text)}
+.option{color:var(--text)}
+.option.selected{background:color-mix(in srgb,var(--cyan) 10%,var(--panel))}
+.flag-input{
+  background:var(--input);
+  color:var(--text);
+}
+.form-grid input,.form-grid select,.search-input{
+  background:var(--input);
+  color:var(--text);
+}
+.task-sidebar,.task-details,.challenge-panel,.achievement,.metric{
+  background:var(--panel);
+}
+.task-nav:hover,.task-nav.active{background:var(--panel2)}
+.task-copy{color:var(--muted)}
+.citation-chip{
+  border-color:color-mix(in srgb,var(--cyan) 45%,var(--line));
+  background:color-mix(in srgb,var(--cyan) 10%,var(--panel));
+  color:var(--cyan);
+}
+.challenge-panel{
+  border-color:var(--line);
+  background:linear-gradient(180deg,var(--surface-2),var(--panel));
+}
+.btn{background:var(--surface-2);color:var(--text)}
+.btn.ghost{background:transparent}
+.toast{
+  background:var(--panel);
+  border-color:var(--line);
+  color:var(--text);
+}
+[data-theme="light"] .brand-script{color:#00a914;text-shadow:none}
+[data-theme="light"] .brand-script:hover{color:#008f10}
+[data-theme="light"] .eyebrow{color:#0369a1}
+[data-theme="light"] .btn.primary{color:#fff}
+[data-theme="light"] .btn.green{color:#fff}
+[data-theme="light"] .btn.violet{color:#fff}
+[data-theme="light"] .btn.amber{color:#fff}
+[data-theme="light"] .badge.cyan{border-color:#bae6fd;color:#0369a1;background:#f0f9ff}
+[data-theme="light"] .badge.violet{border-color:#ddd6fe;color:#6d28d9;background:#f5f3ff}
+[data-theme="light"] .badge.amber{border-color:#fde68a;color:#92400e;background:#fffbeb}
+[data-theme="light"] .cert-box{background:#ecfdf5;border-color:#86efac}
