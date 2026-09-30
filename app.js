@@ -324,7 +324,17 @@
       else if (x === "module") { view = "module"; render(); }
       else if (x === "complete") {
         const r = room();
-        if (r && !state.completed[r.id]) {
+        if (!r) return;
+        if (window.DPDP_BADGES?.completeRoom) {
+          window.DPDP_BADGES.completeRoom(r.id).then(result => {
+            if (!result?.completed) { toastMsg("Room needs at least 70% correct tasks"); return; }
+            state.completed[r.id] = true;
+            state.xp += 30;
+            save();
+            toastMsg("Room completed");
+            render();
+          }).catch(err => toastMsg(err.message || "Room completion failed"));
+        } else if (!state.completed[r.id]) {
           state.completed[r.id] = true;
           state.xp += 30;
           save();
