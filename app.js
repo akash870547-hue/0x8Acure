@@ -168,7 +168,7 @@
   async function roomView(){
     const p=path(),m=mod(),r=room(); if(!p||!m||!r){view="paths";return render();}
     try{
-      const reg=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json());
+      const base=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json()); const chapter=await fetch("content/chapter-ii-rooms.json",{cache:"no-store"}).then(x=>x.json()); const reg={...base,rooms:[...(base.rooms||[]).filter(x=>!x.id.startsWith("ch2-")),...(chapter.rooms||[])]};
       const legal=(reg.rooms||[]).find(x=>x.id===r.id); if(!legal) throw new Error("Room content unavailable.");
       window.__roomRegistry=reg;
       const meta=roomQuizMeta(legal),qs=meta.all,rs=meta.rs,idx=Math.min(Number(rs.index||0),Math.max(qs.length-1,0)),q=qs[idx],key=String(idx);
@@ -492,5 +492,5 @@
   }
   if(!document.getElementById("academy-footer")){const f=document.createElement("footer");f.id="academy-footer";f.textContent="Educational use. Not legal advice. Refer to the official gazette.";f.style.cssText="padding:20px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:28px";document.body.appendChild(f);}
   if(!document.querySelector('script[src="badge-ui.js"]')){const s=document.createElement('script');s.src='badge-ui.js';document.body.appendChild(s);}
-  fetch("content/legal-room-content.json",{cache:"no-store"}).then(r=>r.json()).then(reg=>{legalStatusByRoom=Object.fromEntries((reg.rooms||[]).map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));render();}).catch(()=>render());
+  Promise.all([fetch("content/legal-room-content.json",{cache:"no-store"}).then(r=>r.json()),fetch("content/chapter-ii-rooms.json",{cache:"no-store"}).then(r=>r.json())]).then(([base,chapter])=>{const rooms=[...(base.rooms||[]).filter(x=>!x.id.startsWith("ch2-")),...(chapter.rooms||[])];legalStatusByRoom=Object.fromEntries(rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));render();}).catch(()=>render());
 })();
