@@ -133,72 +133,165 @@
   }
 
 
-  function rqArrayEqual(a,b){ return Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every((v,i)=>v===b[i]); }
-  function rqSorted(a){ return [...a].sort((x,y)=>x-y); }
-  function rqGrade(q,raw){
-    const expected=q.answer!==undefined?q.answer:q.correct_answer;
-    if(raw===undefined||raw===null) return false;
-    if(q.type==="multi-select") return Array.isArray(raw)&&Array.isArray(expected)&&rqArrayEqual(rqSorted(raw),rqSorted(expected));
-    if(q.type==="order"||q.type==="match") return Array.isArray(raw)&&Array.isArray(expected)&&rqArrayEqual(raw,expected);
-    return raw===expected;
+  async function loadRoomRegistry(){
+    const base=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json());
+    const chapter=await fetch("content/chapter-ii-rooms.json",{cache:"no-store"}).then(x=>x.json());
+    return {...base,rooms:[...(base.rooms||[]).filter(x=>!x.id.startsWith("ch2-")),...(chapter.rooms||[])]};
   }
-  function rqWrongReasons(q,raw,correct){
-    if(correct) return "";
-    if(q.type==="multi-select"&&Array.isArray(q.options)){
-      const chosen=new Set(Array.isArray(raw)?raw:[]), expected=new Set(Array.isArray(q.answer)?q.answer:[]);
-      return q.options.map((opt,i)=>expected.has(i)?(chosen.has(i)?"":"Missing correct option: "+opt):(chosen.has(i)?(q.why_wrong?.[i]||"This option should not be selected."): "")).filter(Boolean).join(" ");
-    }
-    return Array.isArray(q.why_wrong)?q.why_wrong.filter(Boolean).join(" "):"Review the cited provision and exact answer shape.";
+
+  function taskTermsHtml(values){
+    return (values||[]).map(term=>{
+      if(Array.isArray(term)){
+        return '<span class="term-chip"><b>'+esc(term[0])+'</b><small>'+esc(term.slice(1).join(" · "))+'</small></span>';
+      }
+      return '<span class="term-chip"><b>'+esc(term)+'</b></span>';
+    }).join("");
   }
-  function rqQuestionControl(q,selected){
-    if(q.type==="multi-select"){
-      const chosen=new Set(Array.isArray(selected)?selected:[]);
-      return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<label class="option '+(chosen.has(i)?"selected":"")+'"><input type="checkbox" data-rq-multi="'+i+'" '+(chosen.has(i)?"checked":"")+'><span>'+esc(o)+'</span></label>').join("")+'</div><p class="muted">Select all that apply. Scoring: all-correct-or-none.</p>';
-    }
-    if(q.type==="order"){
-      const value=Array.isArray(selected)?selected:Array.from({length:(q.options||[]).length},()=>null);
-      return '<div class="rq-order">'+value.map((v,pos)=>'<label class="rq-order-row"><b>'+(pos+1)+'.</b><select data-rq-order="'+pos+'"><option value="">Choose…</option>'+q.options.map((o,i)=>'<option value="'+i+'" '+(Number(v)===i?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></label>').join('')+'</div><p class="muted">Use every option exactly once. Grading is exact-order.</p>';
-    }
-    if(q.type==="match"){
-      const value=Array.isArray(selected)?selected:[];
-      return '<div class="rq-match">'+q.pairs.map((pair,i)=>'<label class="rq-match-row"><b>'+esc(pair.left)+'</b><select data-rq-match="'+i+'"><option value="">Choose…</option>'+pair.right_options.map((o,j)=>'<option value="'+j+'" '+(Number(value[i])===j?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></label>').join('')+'</div><p class="muted">Every mapping must match exactly.</p>';
-    }
-    return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-rq-option="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
+
+  function mistakesHtml(values){
+    return (values||[]).map(item=>{
+      if(Array.isArray(item)&&item.length>=4){
+        return '<div class="myth-card"><b>'+esc(item[0])+'</b><span>'+esc(item[1])+'</span><b>'+esc(item[2])+'</b><span>'+esc(item[3])+'</span></div>';
+      }
+      return '<div class="myth-card"><b>NOTE</b><span>'+esc(Array.isArray(item)?item.join(" · "):item)+'</span></div>';
+    }).join("");
   }
+
   async function roomView(){
-    const p=path(),m=mod(),r=room(); if(!p||!m||!r){view="paths";return render();}
+    const p=path(),m=mod(),r=room();
+    if(!p||!m||!r){view="paths";return render();}
     try{
-      const base=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json()); const chapter=await fetch("content/chapter-ii-rooms.json",{cache:"no-store"}).then(x=>x.json()); const reg={...base,rooms:[...(base.rooms||[]).filter(x=>!x.id.startsWith("ch2-")),...(chapter.rooms||[])]};
-      const legal=(reg.rooms||[]).find(x=>x.id===r.id); if(!legal) throw new Error("Room content unavailable.");
-      window.__roomRegistry=reg;
-      const meta=roomQuizMeta(legal),qs=meta.all,rs=meta.rs,idx=Math.min(Number(rs.index||0),Math.max(qs.length-1,0)),q=qs[idx],key=String(idx);
+      const reg=await loadRoomRegistry();
+      const legal=(reg.rooms||[]).find(x=>x.id===r.id);
+      if(!legal) throw new Error("Room content unavailable.");
+
       const status=legal.official_text_status==="VERIFIED_WORD_FOR_WORD"?"VERIFIED":"Draft, under verification";
-      const feedback=rs.feedback?.[key];
-      appEl.innerHTML='<div class="room-heading"><div><div class="kicker">'+esc(p.name)+' / ROOM</div><h1>'+esc(legal.title)+'</h1><div class="room-stats"><span>'+esc(legal.difficulty)+'</span><span>'+esc(legal.estimated_minutes)+' min</span><span>'+status+'</span><span>Best: '+Number(rs.bestScore||0)+'%</span></div></div><button class="btn ghost" data-action="module">Back</button></div>'+
-      (status!=="VERIFIED"?'<div class="notice warning"><b>Draft, under verification</b><br>This room remains open while its official text is verified.</div>':"")+
-      '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+legal.learning_objectives.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul><p><b>Sections:</b> '+esc(legal.sections_covered.join(", "))+"</p></div>"+
-      '<div class="room-progress"><div class="progress-track"><div class="progress-fill" style="width:'+meta.score+'%"></div></div><span>'+meta.answered+'/'+qs.length+' questions · '+meta.score+'%</span></div>'+
-      '<div class="room-shell"><section class="room-learning"><details class="task-details" open><summary>A. OFFICIAL TEXT</summary><div class="task-copy">'+(q.official_text||[]).map(x=>'<div class="official-text"><pre>'+esc(x)+'</pre></div>').join("")+'</div></details>'+
-      '<details class="task-details" open><summary>QUESTION '+(idx+1)+' / '+qs.length+' · '+esc(q.type)+'</summary><div class="task-copy"><h2>'+esc(q.prompt)+'</h2>'+rqQuestionControl(q,rs.answers?.[key])+
-      (feedback?'<div class="feedback '+(feedback.correct?"success":"error")+'"><b>'+(feedback.correct?"Correct":"Incorrect")+'</b><br>'+esc(feedback.explanation||"")+(feedback.wrongReasons?'<br><br><b>Wrong-option reasons:</b><br>'+esc(feedback.wrongReasons):"")+"</div>":"")+
-      '</div></details><details class="task-details"><summary>SUMMARY / CHEAT-SHEET</summary><div class="task-copy"><p>'+esc(legal.summary)+'</p><ul>'+legal.cheat_sheet.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul></div></details>'+
-      '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy"><p>'+esc(legal.final_challenge.scenario)+'</p><code>'+esc(legal.final_challenge.flag)+'</code></div></details></section><aside class="challenge-panel">'+
-      '<button class="btn primary" data-rq-submit="'+key+'">Submit answer</button><button class="btn ghost" data-rq-next>Next unanswered</button><button class="btn ghost" data-rq-retry>Retry</button>'+
-      '<div class="score-card"><b>Current score: '+meta.score+'%</b><span>Best score: '+Number(rs.bestScore||0)+'% · Pass mark: 70%</span></div>'+
-      (meta.answered===qs.length ? (meta.score>=70 ? '<button class="btn primary" data-action="complete">Complete room</button>' : '<div class="notice">Not passed. Retry allowed.</div>') : "")+
-      "</aside></div>";
-    }catch(e){appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>'+esc(e.message)+'</div>';}
+      const tasks=(legal.tasks||[]).map((t,i)=>{
+        const official=(t.official_text||[]).map(x=>'<div class="official-text"><pre>'+esc(x)+'</pre></div>').join("");
+        const terms='<div class="term-list">'+taskTermsHtml(t.key_terms)+'</div>';
+        const example=t.real_world_example?'<p>'+esc(t.real_world_example)+'</p>':'';
+        const student=t.student_angle?'<p>'+esc(t.student_angle)+'</p>':'';
+        const mistakes=mistakesHtml(t.common_mistakes);
+        return '<details class="task-details" '+(i===0?"open":"")+'><summary>'+esc(t.title||("TASK "+(i+1)))+'</summary>'+
+          '<div class="task-copy">'+
+          official+
+          (t.simple_words?'<div class="notice"><b>In simple words:</b><br>'+esc(t.simple_words)+'</div>':"")+
+          (t.key_terms?.length?'<h3>Key terms</h3>'+terms:"")+
+          (t.real_world_example?'<h3>Real-world example</h3>'+example:"")+
+          (t.student_angle?'<h3>Student angle</h3>'+student:"")+
+          (t.common_mistakes?.length?'<h3>Myths / facts</h3>'+mistakes:"")+
+          '</div></details>';
+      }).join("");
+
+      const sources=(legal.source_pages!==undefined?'<p><b>Source page(s):</b> '+esc(Array.isArray(legal.source_pages)?legal.source_pages.join(", "):legal.source_pages)+'</p>':"");
+      appEl.innerHTML=
+        '<div class="room-heading"><div><div class="kicker">'+esc(p.name)+' / ROOM</div><h1>'+esc(legal.title)+'</h1>'+
+        '<div class="room-stats"><span>'+esc(legal.difficulty)+'</span><span>'+esc(legal.estimated_minutes)+' min</span><span>'+status+'</span></div></div>'+
+        '<div class="hero-actions"><button class="btn ghost" data-action="module">Back</button><button class="btn primary" data-action="room-quiz">Take Quiz</button></div></div>'+
+        (status!=="VERIFIED"?'<div class="notice warning"><b>Draft, under verification</b><br>This room remains open while its official text is verified.</div>':"")+
+        '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+((legal.learning_objectives||[]).map(x=>'<li>'+esc(x)+'</li>').join(""))+'</ul><p><b>Sections:</b> '+esc((legal.sections_covered||[]).join(", "))+'</p>'+sources+'</div>'+
+        '<div class="room-shell"><section class="room-learning">'+
+        '<details class="task-details" open><summary>LEARNING CONTENT</summary><div class="task-copy">'+
+        tasks+
+        '<details class="task-details"><summary>SUMMARY / CHEAT-SHEET</summary><div class="task-copy">'+
+        (legal.summary?'<p>'+esc(legal.summary)+'</p>':"")+
+        '<ul>'+((legal.cheat_sheet||[]).map(x=>'<li>'+esc(x)+'</li>').join(""))+'</ul>'+
+        '</div></details>'+
+        '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy">'+
+        '<p>'+esc(legal.final_challenge?.scenario||"")+'</p>'+
+        (legal.final_challenge?.flag?'<code>'+esc(legal.final_challenge.flag)+'</code>':"")+
+        '</div></details>'+
+        '</div></details>'+
+        '</section><aside class="challenge-panel">'+
+        '<div class="score-card"><b>Learning room</b><span>Study the material here. Quiz attempts are kept in the separate Quiz section.</span></div>'+
+        '<button class="btn primary" data-action="room-quiz">Start room quiz</button>'+
+        '<button class="btn ghost" data-action="module">Back to module</button>'+
+        '</aside></div>';
+    }catch(e){
+      appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>'+esc(e.message)+'</div>';
+    }
   }
-  function submitRoomAnswer(index){
-    const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId); if(!legal)return;
-    const q=legal.tasks.flatMap(t=>t.questions||[])[Number(index)],rs=roomQuizMeta(legal).rs,raw=rs.answers[String(index)];
-    if(raw===undefined){toastMsg("Choose an answer first");return;}
-    const ok=rqGrade(q,raw); rs.results[String(index)]=ok; rs.feedback||(rs.feedback={});
-    rs.feedback[String(index)]={correct:ok,explanation:q.why||"Review the cited provision.",wrongReasons:rqWrongReasons(q,raw,ok)};
-    const total=legal.tasks.reduce((n,t)=>n+(t.questions||[]).length,0),correct=Object.values(rs.results).filter(Boolean).length,score=total?Math.round(correct/total*100):0;
-    rs.bestScore=Math.max(Number(rs.bestScore||0),score); save(); render();
+
+  async function loadRoomRegistry(){
+    const base=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json());
+    const chapter=await fetch("content/chapter-ii-rooms.json",{cache:"no-store"}).then(x=>x.json());
+    return {...base,rooms:[...(base.rooms||[]).filter(x=>!x.id.startsWith("ch2-")),...(chapter.rooms||[])]};
   }
-  async function leaderboard() {
+
+  function taskTermsHtml(values){
+    return (values||[]).map(term=>{
+      if(Array.isArray(term)){
+        return '<span class="term-chip"><b>'+esc(term[0])+'</b><small>'+esc(term.slice(1).join(" · "))+'</small></span>';
+      }
+      return '<span class="term-chip"><b>'+esc(term)+'</b></span>';
+    }).join("");
+  }
+
+  function mistakesHtml(values){
+    return (values||[]).map(item=>{
+      if(Array.isArray(item)&&item.length>=4){
+        return '<div class="myth-card"><b>'+esc(item[0])+'</b><span>'+esc(item[1])+'</span><b>'+esc(item[2])+'</b><span>'+esc(item[3])+'</span></div>';
+      }
+      return '<div class="myth-card"><b>NOTE</b><span>'+esc(Array.isArray(item)?item.join(" · "):item)+'</span></div>';
+    }).join("");
+  }
+
+  async function roomView(){
+    const p=path(),m=mod(),r=room();
+    if(!p||!m||!r){view="paths";return render();}
+    try{
+      const reg=await loadRoomRegistry();
+      const legal=(reg.rooms||[]).find(x=>x.id===r.id);
+      if(!legal) throw new Error("Room content unavailable.");
+
+      const status=legal.official_text_status==="VERIFIED_WORD_FOR_WORD"?"VERIFIED":"Draft, under verification";
+      const tasks=(legal.tasks||[]).map((t,i)=>{
+        const official=(t.official_text||[]).map(x=>'<div class="official-text"><pre>'+esc(x)+'</pre></div>').join("");
+        const terms='<div class="term-list">'+taskTermsHtml(t.key_terms)+'</div>';
+        const example=t.real_world_example?'<p>'+esc(t.real_world_example)+'</p>':'';
+        const student=t.student_angle?'<p>'+esc(t.student_angle)+'</p>':'';
+        const mistakes=mistakesHtml(t.common_mistakes);
+        return '<details class="task-details" '+(i===0?"open":"")+'><summary>'+esc(t.title||("TASK "+(i+1)))+'</summary>'+
+          '<div class="task-copy">'+
+          official+
+          (t.simple_words?'<div class="notice"><b>In simple words:</b><br>'+esc(t.simple_words)+'</div>':"")+
+          (t.key_terms?.length?'<h3>Key terms</h3>'+terms:"")+
+          (t.real_world_example?'<h3>Real-world example</h3>'+example:"")+
+          (t.student_angle?'<h3>Student angle</h3>'+student:"")+
+          (t.common_mistakes?.length?'<h3>Myths / facts</h3>'+mistakes:"")+
+          '</div></details>';
+      }).join("");
+
+      const sources=(legal.source_pages!==undefined?'<p><b>Source page(s):</b> '+esc(Array.isArray(legal.source_pages)?legal.source_pages.join(", "):legal.source_pages)+'</p>':"");
+      appEl.innerHTML=
+        '<div class="room-heading"><div><div class="kicker">'+esc(p.name)+' / ROOM</div><h1>'+esc(legal.title)+'</h1>'+
+        '<div class="room-stats"><span>'+esc(legal.difficulty)+'</span><span>'+esc(legal.estimated_minutes)+' min</span><span>'+status+'</span></div></div>'+
+        '<div class="hero-actions"><button class="btn ghost" data-action="module">Back</button><button class="btn primary" data-action="room-quiz">Take Quiz</button></div></div>'+
+        (status!=="VERIFIED"?'<div class="notice warning"><b>Draft, under verification</b><br>This room remains open while its official text is verified.</div>':"")+
+        '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+((legal.learning_objectives||[]).map(x=>'<li>'+esc(x)+'</li>').join(""))+'</ul><p><b>Sections:</b> '+esc((legal.sections_covered||[]).join(", "))+'</p>'+sources+'</div>'+
+        '<div class="room-shell"><section class="room-learning">'+
+        '<details class="task-details" open><summary>LEARNING CONTENT</summary><div class="task-copy">'+
+        tasks+
+        '<details class="task-details"><summary>SUMMARY / CHEAT-SHEET</summary><div class="task-copy">'+
+        (legal.summary?'<p>'+esc(legal.summary)+'</p>':"")+
+        '<ul>'+((legal.cheat_sheet||[]).map(x=>'<li>'+esc(x)+'</li>').join(""))+'</ul>'+
+        '</div></details>'+
+        '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy">'+
+        '<p>'+esc(legal.final_challenge?.scenario||"")+'</p>'+
+        (legal.final_challenge?.flag?'<code>'+esc(legal.final_challenge.flag)+'</code>':"")+
+        '</div></details>'+
+        '</div></details>'+
+        '</section><aside class="challenge-panel">'+
+        '<div class="score-card"><b>Learning room</b><span>Study the material here. Quiz attempts are kept in the separate Quiz section.</span></div>'+
+        '<button class="btn primary" data-action="room-quiz">Start room quiz</button>'+
+        '<button class="btn ghost" data-action="module">Back to module</button>'+
+        '</aside></div>';
+    }catch(e){
+      appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>'+esc(e.message)+'</div>';
+    }
+  }
+
+  function rqArrayEqual  async function leaderboard() {
     if(localStorage.getItem("0x8acure-leaderboard-optin")!=="yes"){
       appEl.innerHTML='<section class="panel optin-panel"><h2>Leaderboard is opt-in</h2><p>Enable public participation before viewing learner rankings.</p><label class="check-row"><input id="leaderboard-optin" type="checkbox"> I agree to participate.</label><div class="hero-actions"><button class="btn primary" data-action="leaderboard-enable">Enable leaderboard</button><button class="btn ghost" data-action="home">Cancel</button></div></section>';
       return;
@@ -209,91 +302,145 @@
     }catch(e){appEl.innerHTML='<div class="notice">Leaderboard requires the platform backend.</div>';}
   }
 
-  async function quizStart() {
-    quizIndex = 0;
-    quizSelected = null;
-    quizFeedback = null;
-    state.quizScore = 0;
-    state.quizDone = false;
-    try {
-      const data = await DPDP_API.request("/api/tasks/quiz");
-      if (!data || !Array.isArray(data.tasks)) {
-        appEl.innerHTML = '<div class="notice"><b>Quiz unavailable.</b><br>The assessment requires the platform backend so correct answers stay server-side.</div>';
-        return;
-      }
-      quizTasks = data.tasks;
-      view = "quizRun";
-      renderQuiz();
-    } catch (err) {
-      appEl.innerHTML = '<div class="notice"><b>Quiz unavailable.</b><br>' + esc(err.message) + '</div>';
+  async function quiz(){
+    try{
+      const reg=await loadRoomRegistry();
+      window.__quizRegistry=reg;
+      const rooms=(reg.rooms||[]).filter(r=>(r.tasks||[]).some(t=>(t.questions||[]).length));
+      appEl.innerHTML=
+        '<div class="section-head"><div><span class="badge amber">QUIZ</span><h2 style="margin-top:12px">Quiz Library</h2><p>Rooms contain the learning material. Quizzes are separate assessments.</p></div><button class="btn ghost" data-action="home">Home</button></div>'+
+        '<div class="panel path-intro"><div class="notice">Study a room first, then open its quiz here. Quiz attempts, feedback and best scores are separate from the room content.</div></div>'+
+        '<div class="grid room-grid" style="margin-top:16px">'+
+        rooms.map((r,i)=>{
+          const qs=(r.tasks||[]).flatMap(t=>t.questions||[]);
+          const best=Number(state.roomQuiz?.[r.id]?.bestScore||0);
+          const status=best>0?("Best "+best+"%"):"Not attempted";
+          return '<button class="room-card" data-quiz-room="'+esc(r.id)+'">'+
+            '<div class="card-top"><span class="badge">'+String(i+1).padStart(2,"0")+'</span><span class="badge">'+status+'</span></div>'+
+            '<h3>'+esc(r.title)+'</h3><p>'+esc((r.sections_covered||[]).join(", "))+'</p>'+
+            '<div class="room-meta"><span>'+qs.length+' questions</span><span>Open quiz</span></div></button>';
+        }).join("")+
+        '</div>';
+    }catch(err){
+      appEl.innerHTML='<div class="notice"><b>Quiz unavailable.</b><br>'+esc(err.message)+'</div>';
     }
   }
 
-  function renderQuiz() {
-    const q = quizTasks[quizIndex];
-    if (!q) return quizResult();
+  async function startRoomQuiz(roomKey){
+    try{
+      const reg=window.__quizRegistry||await loadRoomRegistry();
+      window.__quizRegistry=reg;
+      const legal=(reg.rooms||[]).find(r=>r.id===roomKey);
+      if(!legal) throw new Error("Quiz content unavailable.");
+      const all=(legal.tasks||[]).flatMap(t=>t.questions||[]);
+      if(!all.length) throw new Error("This room has no quiz questions.");
+      const currentPath=DPDP_CURRICULUM.find(p=>(p.modules||[]).some(m=>(m.rooms||[]).some(r=>r.id===roomKey)));
+      const currentModule=currentPath?.modules?.find(m=>(m.rooms||[]).some(r=>r.id===roomKey));
+      pathId=currentPath?.id||pathId;
+      moduleId=currentModule?.id||moduleId;
+      roomId=roomKey;
+      activeTaskId=roomKey;
+      quizTasks=all;
+      quizIndex=0;
+      quizSelected=null;
+      quizFeedback=null;
+      view="quizRun";
+      renderQuiz();
+    }catch(err){
+      appEl.innerHTML='<div class="notice"><b>Quiz unavailable.</b><br>'+esc(err.message)+'</div>';
+    }
+  }
 
-    const opts = (q.options || []).map((x, i) =>
-      '<button class="option ' + (quizSelected === i ? "selected" : "") + '" data-qoption="' + i + '">' +
-      '<input type="radio" ' + (quizSelected === i ? "checked" : "") + '><span>' + esc(x) + '</span></button>'
-    ).join("");
+  function quizAnswerStore(){
+    const rs=state.roomQuiz||(state.roomQuiz={});
+    rs[activeTaskId]||(rs[activeTaskId]={answers:{},results:{},feedback:{},bestScore:0,index:0});
+    return rs[activeTaskId];
+  }
 
-    appEl.innerHTML =
-      '<div class="section-head"><div><span class="badge amber">ASSESSMENT</span><h2 style="margin-top:12px">DPDP Knowledge Check</h2><p>Correct answers are validated on the server.</p></div><button class="btn ghost" data-action="home">Exit</button></div>' +
-      '<div class="room-layout"><section class="panel"><div class="kicker">Question ' + (quizIndex + 1) + '</div>' +
-      '<div class="question">' + esc(q.prompt) + '</div><div class="options">' + opts + '</div>' +
-      '<div class="challenge-actions"><button class="btn primary" data-action="quizsubmit">Submit answer</button></div>' +
-      (quizFeedback ? '<div class="explain ' + (quizFeedback.ok ? "" : "wrong") + '">' + esc(quizFeedback.text) + '</div>' : "") +
-      '</section><aside class="challenge-card"><div class="challenge-num">ASSESSMENT</div><p class="muted">Every task has a required legal citation.</p><button class="btn ghost" data-action="sources">Official Sources</button></aside></div>';
+  function quizResultMeta(){
+    const rs=quizAnswerStore();
+    const correct=Object.values(rs.results||{}).filter(Boolean).length;
+    const total=quizTasks.length;
+    return {correct, total, score:total?Math.round(correct/total*100):0, best:Number(rs.bestScore||0)};
+  }
+
+  function renderQuiz(){
+    const q=quizTasks[quizIndex];
+    const title=(window.__quizRegistry?.rooms||[]).find(r=>r.id===activeTaskId)?.title||"Room Quiz";
+    if(!q) return quizResult();
+    const rs=quizAnswerStore();
+    const key=String(quizIndex);
+    const selected=rs.answers?.[key];
+    const feedback=rs.feedback?.[key];
+
+    appEl.innerHTML=
+      '<div class="section-head"><div><span class="badge amber">QUIZ</span><h2 style="margin-top:12px">'+esc(title)+'</h2>'+
+      '<p>Question '+(quizIndex+1)+' of '+quizTasks.length+' · Best '+Number(rs.bestScore||0)+'%</p></div>'+
+      '<div class="hero-actions"><button class="btn ghost" data-action="quiz">Quiz Library</button><button class="btn ghost" data-action="room">Back to room</button></div></div>'+
+      '<div class="room-progress"><div class="progress-track"><div class="progress-fill" style="width:'+Math.round((quizIndex+1)/quizTasks.length*100)+'%"></div></div>'+
+      '<span>'+((quizIndex+1)+'/'+quizTasks.length)+'</span></div>'+
+      '<div class="room-shell"><section class="room-learning">'+
+      '<div class="panel"><div class="kicker">'+esc(q.type||"QUESTION")+'</div><div class="question">'+esc(q.prompt||"")+'</div>'+
+      rqQuestionControl(q,selected)+
+      (feedback?'<div class="feedback '+(feedback.correct?"success":"error")+'"><b>'+(feedback.correct?"Correct":"Incorrect")+'</b><br>'+esc(feedback.explanation||"")+(feedback.wrongReasons?'<br><br><b>Wrong-option reasons:</b><br>'+esc(feedback.wrongReasons):"")+'</div>':"")+
+      '</div></section><aside class="challenge-panel">'+
+      '<div class="score-card"><b>Current score: '+quizResultMeta().score+'%</b><span>Pass mark: 70% · Best: '+Number(rs.bestScore||0)+'%</span></div>'+
+      (feedback?
+        '<button class="btn primary" data-action="quiz-next-room">'+(quizIndex+1<quizTasks.length?"Next question":"Finish quiz")+'</button>':
+        '<button class="btn primary" data-action="quiz-submit-room">Submit answer</button>')+
+      '<button class="btn ghost" data-action="quiz-room-reset">Retry from start</button>'+
+      '</aside></div>';
+  }
+
+  function finishRoomQuiz(){
+    const result=quizResultMeta();
+    const title=(window.__quizRegistry?.rooms||[]).find(r=>r.id===activeTaskId)?.title||"Room Quiz";
+    const passed=result.score>=70;
+    appEl.innerHTML=
+      '<section class="hero"><div class="hero-main"><div class="eyebrow">Quiz complete</div><h1>'+esc(title)+'</h1>'+
+      '<p>'+result.correct+' of '+result.total+' correct · '+result.score+'%</p>'+
+      '<div class="hero-actions">'+
+      '<button class="btn primary" data-action="quiz-room-retry">Retry quiz</button>'+
+      '<button class="btn ghost" data-action="quiz">Quiz library</button>'+
+      '<button class="btn ghost" data-action="room">Back to room</button>'+
+      (passed?'<button class="btn primary" data-action="complete">Complete room</button>':"")+
+      '</div></div><aside class="hero-side">'+
+      '<div class="stat"><b>'+result.score+'%</b><span>Current score</span></div>'+
+      '<div class="stat"><b>'+result.best+'%</b><span>Best score</span></div>'+
+      '<div class="stat"><b>'+result.correct+'/'+result.total+'</b><span>Correct</span></div>'+
+      '</aside></section>';
+  }
+
+  async function quizStart() {
+    view="quiz";
+    return quiz();
   }
 
   async function quizSubmit() {
-    const q = quizTasks[quizIndex];
-    if (!q) return;
-    if (quizSelected === null) {
-      quizFeedback = {ok:false, text:"Select an answer first."};
-      return renderQuiz();
-    }
-    try {
-      const result = window.DPDP_BADGES?.submitTask
-        ? await window.DPDP_BADGES.submitTask(q.id, quizSelected)
-        : await DPDP_API.request("/api/tasks/" + encodeURIComponent(q.id) + "/answer", {
-          method:"POST",
-          body:JSON.stringify({answer:quizSelected})
-        });
-      const ok = !!result.correct;
-      if (ok) {
-        state.quizScore++;
-        state.xp += Number(result.points || 0);
-        quizFeedback = {ok:true, text:"Correct. " + (result.explanation || "")};
-      } else {
-        quizFeedback = {ok:false, text:"Not correct. " + (result.explanation || "Review the cited room.")};
-      }
-      save();
+    const rs=quizAnswerStore();
+    const q=quizTasks[quizIndex];
+    if(!q) return;
+    const raw=rs.answers[String(quizIndex)];
+    if(raw===undefined||raw===null||(Array.isArray(raw)&&raw.some(v=>v===null))){
+      quizFeedback={ok:false,text:"Choose an answer first."};
       renderQuiz();
-      setTimeout(() => {
-        quizIndex++;
-        quizSelected = null;
-        quizFeedback = null;
-        if (quizIndex >= quizTasks.length) {
-          state.quizDone = true;
-          save();
-          quizResult();
-        } else {
-          renderQuiz();
-        }
-      }, 700);
-    } catch (err) {
-      quizFeedback = {ok:false, text:err.message};
-      renderQuiz();
+      return;
     }
+    const ok=rqGrade(q,raw);
+    rs.results[String(quizIndex)]=ok;
+    rs.feedback[String(quizIndex)]={
+      correct:ok,
+      explanation:q.why||"Review the cited provision.",
+      wrongReasons:rqWrongReasons(q,raw,ok)
+    };
+    const result=quizResultMeta();
+    rs.bestScore=Math.max(Number(rs.bestScore||0),result.score);
+    save();
+    renderQuiz();
   }
 
-  function quizResult() {
-    appEl.innerHTML =
-      '<section class="hero"><div class="hero-main"><div class="eyebrow">Assessment complete</div><h1>Knowledge check finished.</h1>' +
-      '<p>Correct answers were validated by the backend.</p><div class="hero-actions"><button class="btn primary" data-action="quiz">Retake quiz</button><button class="btn ghost" data-action="paths">Explore paths</button></div></div>' +
-      '<aside class="hero-side"><div class="stat"><b>' + state.quizScore + '</b><span>Correct answers</span></div><div class="stat"><b>' + state.xp + ' XP</b><span>Total learning XP</span></div></aside></section>';
+  function quizResult(){
+    finishRoomQuiz();
   }
 
   async function sources() {
@@ -331,6 +478,7 @@
     else if (view === "path") pathView();
     else if (view === "module") moduleView();
     else if (view === "room") roomView();
+    else if (view === "quiz") quiz();
     else if (view === "quizRun") renderQuiz();
     else if (view === "sources") sources();
     else if (view === "progress") progress();
@@ -371,8 +519,13 @@
       }
       else if (x === "leaderboard") leaderboard();
       else if (x === "leaderboard-enable") { localStorage.setItem("0x8acure-leaderboard-optin","yes"); leaderboard(); }
-      else if (x === "quiz") quizStart();
+      else if (x === "quiz") { view="quiz"; render(); }
+      else if (x === "room-quiz") { view="quiz"; render(); }
       else if (x === "quizsubmit") quizSubmit();
+      else if (x === "quiz-submit-room") quizSubmit();
+      else if (x === "quiz-next-room") { quizIndex++; quizFeedback=null; renderQuiz(); }
+      else if (x === "quiz-room-retry") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; view="quizRun"; render(); }
+      else if (x === "quiz-room-reset") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; renderQuiz(); }
       else if (x === "sources") { view = "sources"; render(); }
       else if (x === "progress") { view = "progress"; render(); }
       else if (x === "badges") { window.DPDP_BADGES?.page(); }
@@ -410,20 +563,53 @@
       render();
     }
 
-    const rq=e.target.closest("[data-rq-option]");
-    if(rq){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs;rs.answers[String(rs.index||0)]=Number(rq.dataset.rqOption);save();render();return;}
-    const rqm=e.target.closest("[data-rq-multi]");
-    if(rqm){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs,key=String(rs.index||0),cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:[],v=Number(rqm.dataset.rqMulti);rs.answers[key]=cur.includes(v)?cur.filter(x=>x!==v):[...cur,v];save();render();return;}
-    const rqo=e.target.closest("[data-rq-order]");
-    if(rqo){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs,key=String(rs.index||0),q=roomQuizMeta(legal).all[Number(rs.index||0)],cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:Array.from({length:q.options.length},()=>null);cur[Number(rqo.dataset.rqOrder)]=rqo.value===""?null:Number(rqo.value);rs.answers[key]=cur;save();render();return;}
-    const rqx=e.target.closest("[data-rq-match]");
-    if(rqx){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs,key=String(rs.index||0),q=roomQuizMeta(legal).all[Number(rs.index||0)],cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:Array.from({length:q.pairs.length},()=>null);cur[Number(rqx.dataset.rqMatch)]=rqx.value===""?null:Number(rqx.value);rs.answers[key]=cur;save();render();return;}
-    const rqs=e.target.closest("[data-rq-submit]");
-    if(rqs){submitRoomAnswer(rqs.dataset.rqSubmit);return;}
-    const rqn=e.target.closest("[data-rq-next]");
-    if(rqn){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs,keys=Array.from({length:roomQuizMeta(legal).all.length},(_,i)=>String(i)),n=keys.findIndex(k=>rs.results?.[k]===undefined);rs.index=n<0?0:n;save();render();return;}
-    const rqr=e.target.closest("[data-rq-retry]");
-    if(rqr){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),old=roomQuizMeta(legal).rs;state.roomQuiz[roomId]={answers:{},results:{},feedback:{},bestScore:old.bestScore||0,index:0};save();render();return;}
+    const qr=e.target.closest("[data-quiz-room]");
+    if(qr){
+      startRoomQuiz(qr.dataset.quizRoom);
+      return;
+    }
+
+    const backRoom=e.target.closest('[data-action="room"]');
+    if(backRoom && view==="quizRun"){
+      view="room";render();return;
+    }
+
+    const qo=e.target.closest("[data-quiz-option]");
+    if(qo){
+      const rs=quizAnswerStore();
+      rs.answers[String(quizIndex)]=Number(qo.dataset.quizOption);
+      quizFeedback=null;save();renderQuiz();return;
+    }
+
+    const qm=e.target.closest("[data-rq-multi]");
+    if(qm){
+      const rs=quizAnswerStore();
+      const key=String(quizIndex);
+      const cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:[];
+      const v=Number(qm.dataset.rqMulti);
+      rs.answers[key]=cur.includes(v)?cur.filter(x=>x!==v):[...cur,v];
+      quizFeedback=null;save();renderQuiz();return;
+    }
+
+    const qo2=e.target.closest("[data-rq-order]");
+    if(qo2){
+      const rs=quizAnswerStore();
+      const q=quizTasks[quizIndex];
+      const key=String(quizIndex);
+      const cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:Array.from({length:(q.options||[]).length},()=>null);
+      cur[Number(qo2.dataset.rqOrder)]=qo2.value===""?null:Number(qo2.value);
+      rs.answers[key]=cur;quizFeedback=null;save();renderQuiz();return;
+    }
+
+    const qm2=e.target.closest("[data-rq-match]");
+    if(qm2){
+      const rs=quizAnswerStore();
+      const q=quizTasks[quizIndex];
+      const key=String(quizIndex);
+      const cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:Array.from({length:(q.pairs||[]).length},()=>null);
+      cur[Number(qm2.dataset.rqMatch)]=qm2.value===""?null:Number(qm2.value);
+      rs.answers[key]=cur;quizFeedback=null;save();renderQuiz();return;
+    }
 
     const task = e.target.closest("[data-task]");
     if (task) {
