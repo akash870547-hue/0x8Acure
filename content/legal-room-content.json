@@ -184,6 +184,51 @@
                 "Section 8 concerns general obligations of Data Fiduciaries."
               ],
               "section_reference": "Section 2(t)"
+            },
+            {
+              "id": "f-overview-t1-q-multi",
+              "type": "multi-select",
+              "prompt": "Which two terms are expressly defined in Section 2?",
+              "options": [
+                "Data Fiduciary",
+                "Data Processor",
+                "GDPR Controller",
+                "HIPAA Officer"
+              ],
+              "answer": [
+                0,
+                1
+              ],
+              "why": "Section 2 expressly defines Data Fiduciary and Data Processor.",
+              "why_wrong": [
+                "Section 2(i) defines Data Fiduciary.",
+                "Section 2(k) defines Data Processor.",
+                "GDPR Controller is not a term supplied by the cited Act definition.",
+                "HIPAA Officer is not a term supplied by the cited Act definition."
+              ],
+              "section_reference": "Section 2(i), Section 2(k)"
+            },
+            {
+              "id": "f-overview-t1-q-order",
+              "type": "order",
+              "prompt": "Order these statutory concepts from the Act's definitions in the sequence shown by the cited provisions.",
+              "options": [
+                "Data Fiduciary",
+                "Data Principal",
+                "Data Processor"
+              ],
+              "answer": [
+                0,
+                1,
+                2
+              ],
+              "why": "The cited definitions appear as Data Fiduciary, Data Principal and Data Processor in Sections 2(i), 2(j) and 2(k).",
+              "why_wrong": [
+                "Section 2(i) defines Data Fiduciary.",
+                "Section 2(j) defines Data Principal.",
+                "Section 2(k) defines Data Processor."
+              ],
+              "section_reference": "Section 2(i)-2(k)"
             }
           ],
           "source_pages": [
@@ -1015,7 +1060,7 @@
             },
             {
               "id": "f-rights-duties-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Sections 11-15 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -1063,7 +1108,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Sections 11-15 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -1071,7 +1118,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Sections 11-15"
+              "section_reference": "Sections 11-15",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Sections 11-15 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "f-rights-duties-t1-q5",
@@ -1166,7 +1224,7 @@
             },
             {
               "id": "f-rights-duties-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Sections 11-15 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -1214,7 +1272,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Sections 11-15 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -1222,7 +1282,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Sections 11-15"
+              "section_reference": "Sections 11-15",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Sections 11-15 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "f-rights-duties-t2-q5",
@@ -1352,7 +1423,7 @@
             },
             {
               "id": "f-legitimate-uses-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 7 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -1400,7 +1471,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 7 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -1408,7 +1481,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 7"
+              "section_reference": "Section 7",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 7 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "f-legitimate-uses-t1-q5",
@@ -1503,7 +1587,7 @@
             },
             {
               "id": "f-legitimate-uses-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 7 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -1551,7 +1635,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 7 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -1559,7 +1645,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 7"
+              "section_reference": "Section 7",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 7 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "f-legitimate-uses-t2-q5",
@@ -1689,7 +1786,7 @@
             },
             {
               "id": "f-penalties-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 33 and Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -1737,7 +1834,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 33 and Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -1745,7 +1844,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 33 and Schedule"
+              "section_reference": "Section 33 and Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 33 and Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "f-penalties-t1-q5",
@@ -1840,7 +1950,7 @@
             },
             {
               "id": "f-penalties-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 33 and Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -1888,7 +1998,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 33 and Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -1896,7 +2008,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 33 and Schedule"
+              "section_reference": "Section 33 and Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 33 and Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "f-penalties-t2-q5",
@@ -2026,7 +2149,7 @@
             },
             {
               "id": "i-purpose-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 6(1); Second Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -2074,7 +2197,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 6(1); Second Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -2082,7 +2207,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 6(1); Second Schedule"
+              "section_reference": "Section 6(1); Second Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 6(1); Second Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-purpose-t1-q5",
@@ -2177,7 +2313,7 @@
             },
             {
               "id": "i-purpose-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 6(1); Second Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -2225,7 +2361,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 6(1); Second Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -2233,7 +2371,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 6(1); Second Schedule"
+              "section_reference": "Section 6(1); Second Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 6(1); Second Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-purpose-t2-q5",
@@ -2363,7 +2512,7 @@
             },
             {
               "id": "i-security-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(5)-(6); Rules 6-7 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -2411,7 +2560,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(5)-(6); Rules 6-7 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -2419,7 +2570,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(5)-(6); Rules 6-7"
+              "section_reference": "Section 8(5)-(6); Rules 6-7",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(5)-(6); Rules 6-7 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-security-t1-q5",
@@ -2514,7 +2676,7 @@
             },
             {
               "id": "i-security-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(5)-(6); Rules 6-7 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -2562,7 +2724,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(5)-(6); Rules 6-7 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -2570,7 +2734,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(5)-(6); Rules 6-7"
+              "section_reference": "Section 8(5)-(6); Rules 6-7",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(5)-(6); Rules 6-7 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-security-t2-q5",
@@ -2700,7 +2875,7 @@
             },
             {
               "id": "i-retention-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(7)-(8); Rule 8 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -2748,7 +2923,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(7)-(8); Rule 8 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -2756,7 +2933,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(7)-(8); Rule 8"
+              "section_reference": "Section 8(7)-(8); Rule 8",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(7)-(8); Rule 8 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-retention-t1-q5",
@@ -2851,7 +3039,7 @@
             },
             {
               "id": "i-retention-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(7)-(8); Rule 8 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -2899,7 +3087,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(7)-(8); Rule 8 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -2907,7 +3097,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(7)-(8); Rule 8"
+              "section_reference": "Section 8(7)-(8); Rule 8",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(7)-(8); Rule 8 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-retention-t2-q5",
@@ -3037,7 +3238,7 @@
             },
             {
               "id": "i-breach-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(6); Rule 7 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -3085,7 +3286,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(6); Rule 7 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -3093,7 +3296,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(6); Rule 7"
+              "section_reference": "Section 8(6); Rule 7",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(6); Rule 7 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-breach-t1-q5",
@@ -3188,7 +3402,7 @@
             },
             {
               "id": "i-breach-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(6); Rule 7 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -3236,7 +3450,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(6); Rule 7 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -3244,7 +3460,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(6); Rule 7"
+              "section_reference": "Section 8(6); Rule 7",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(6); Rule 7 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-breach-t2-q5",
@@ -3374,7 +3601,7 @@
             },
             {
               "id": "i-processors-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(1)-(2),(7); Rule 6 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -3422,7 +3649,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(1)-(2),(7); Rule 6 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -3430,7 +3659,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(1)-(2),(7); Rule 6"
+              "section_reference": "Section 8(1)-(2),(7); Rule 6",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(1)-(2),(7); Rule 6 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-processors-t1-q5",
@@ -3525,7 +3765,7 @@
             },
             {
               "id": "i-processors-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(1)-(2),(7); Rule 6 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -3573,7 +3813,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(1)-(2),(7); Rule 6 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -3581,7 +3823,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(1)-(2),(7); Rule 6"
+              "section_reference": "Section 8(1)-(2),(7); Rule 6",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(1)-(2),(7); Rule 6 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-processors-t2-q5",
@@ -3711,7 +3964,7 @@
             },
             {
               "id": "i-consent-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 6(7)-(9); Rule 4 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -3759,7 +4012,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 6(7)-(9); Rule 4 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -3767,7 +4022,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 6(7)-(9); Rule 4"
+              "section_reference": "Section 6(7)-(9); Rule 4",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 6(7)-(9); Rule 4 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-consent-t1-q5",
@@ -3862,7 +4128,7 @@
             },
             {
               "id": "i-consent-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 6(7)-(9); Rule 4 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -3910,7 +4176,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 6(7)-(9); Rule 4 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -3918,7 +4186,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 6(7)-(9); Rule 4"
+              "section_reference": "Section 6(7)-(9); Rule 4",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 6(7)-(9); Rule 4 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-consent-t2-q5",
@@ -4048,7 +4327,7 @@
             },
             {
               "id": "i-grievance-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(10); Section 13; Rule 14 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -4096,7 +4375,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(10); Section 13; Rule 14 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -4104,7 +4385,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(10); Section 13; Rule 14"
+              "section_reference": "Section 8(10); Section 13; Rule 14",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(10); Section 13; Rule 14 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-grievance-t1-q5",
@@ -4199,7 +4491,7 @@
             },
             {
               "id": "i-grievance-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 8(10); Section 13; Rule 14 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -4247,7 +4539,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 8(10); Section 13; Rule 14 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -4255,7 +4549,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 8(10); Section 13; Rule 14"
+              "section_reference": "Section 8(10); Section 13; Rule 14",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 8(10); Section 13; Rule 14 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "i-grievance-t2-q5",
@@ -4385,7 +4690,7 @@
             },
             {
               "id": "a-sdf-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 10; Rule 13 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -4433,7 +4738,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 10; Rule 13 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -4441,7 +4748,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 10; Rule 13"
+              "section_reference": "Section 10; Rule 13",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 10; Rule 13 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-sdf-t1-q5",
@@ -4536,7 +4854,7 @@
             },
             {
               "id": "a-sdf-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 10; Rule 13 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -4584,7 +4902,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 10; Rule 13 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -4592,7 +4912,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 10; Rule 13"
+              "section_reference": "Section 10; Rule 13",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 10; Rule 13 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-sdf-t2-q5",
@@ -4722,7 +5053,7 @@
             },
             {
               "id": "a-children-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 9; Rules 10-12 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -4770,7 +5101,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 9; Rules 10-12 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -4778,7 +5111,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 9; Rules 10-12"
+              "section_reference": "Section 9; Rules 10-12",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 9; Rules 10-12 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-children-t1-q5",
@@ -4873,7 +5217,7 @@
             },
             {
               "id": "a-children-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 9; Rules 10-12 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -4921,7 +5265,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 9; Rules 10-12 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -4929,7 +5275,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 9; Rules 10-12"
+              "section_reference": "Section 9; Rules 10-12",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 9; Rules 10-12 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-children-t2-q5",
@@ -5059,7 +5416,7 @@
             },
             {
               "id": "a-crossborder-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 16; Rule 15 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -5107,7 +5464,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 16; Rule 15 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -5115,7 +5474,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 16; Rule 15"
+              "section_reference": "Section 16; Rule 15",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 16; Rule 15 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-crossborder-t1-q5",
@@ -5210,7 +5580,7 @@
             },
             {
               "id": "a-crossborder-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 16; Rule 15 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -5258,7 +5628,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 16; Rule 15 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -5266,7 +5638,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 16; Rule 15"
+              "section_reference": "Section 16; Rule 15",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 16; Rule 15 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-crossborder-t2-q5",
@@ -5396,7 +5779,7 @@
             },
             {
               "id": "a-board-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Sections 18-31; Rules 17-22 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -5444,7 +5827,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Sections 18-31; Rules 17-22 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -5452,7 +5837,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Sections 18-31; Rules 17-22"
+              "section_reference": "Sections 18-31; Rules 17-22",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Sections 18-31; Rules 17-22 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-board-t1-q5",
@@ -5547,7 +5943,7 @@
             },
             {
               "id": "a-board-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Sections 18-31; Rules 17-22 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -5595,7 +5991,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Sections 18-31; Rules 17-22 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -5603,7 +6001,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Sections 18-31; Rules 17-22"
+              "section_reference": "Sections 18-31; Rules 17-22",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Sections 18-31; Rules 17-22 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-board-t2-q5",
@@ -5733,7 +6142,7 @@
             },
             {
               "id": "a-exemptions-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 17 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -5781,7 +6190,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 17 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -5789,7 +6200,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 17"
+              "section_reference": "Section 17",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 17 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-exemptions-t1-q5",
@@ -5884,7 +6306,7 @@
             },
             {
               "id": "a-exemptions-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 17 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -5932,7 +6354,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 17 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -5940,7 +6364,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 17"
+              "section_reference": "Section 17",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 17 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-exemptions-t2-q5",
@@ -6070,7 +6505,7 @@
             },
             {
               "id": "a-penalty-analysis-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 33 and Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -6118,7 +6553,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 33 and Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -6126,7 +6563,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 33 and Schedule"
+              "section_reference": "Section 33 and Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 33 and Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-penalty-analysis-t1-q5",
@@ -6221,7 +6669,7 @@
             },
             {
               "id": "a-penalty-analysis-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Section 33 and Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -6269,7 +6717,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Section 33 and Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -6277,7 +6727,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Section 33 and Schedule"
+              "section_reference": "Section 33 and Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Section 33 and Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-penalty-analysis-t2-q5",
@@ -6407,7 +6868,7 @@
             },
             {
               "id": "a-capstone-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Sections 8(5)-(7), 33 and Rules 6-8 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -6455,7 +6916,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Sections 8(5)-(7), 33 and Rules 6-8 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -6463,7 +6926,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Sections 8(5)-(7), 33 and Rules 6-8"
+              "section_reference": "Sections 8(5)-(7), 33 and Rules 6-8",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Sections 8(5)-(7), 33 and Rules 6-8 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-capstone-t1-q5",
@@ -6558,7 +7032,7 @@
             },
             {
               "id": "a-capstone-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Sections 8(5)-(7), 33 and Rules 6-8 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -6606,7 +7080,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Sections 8(5)-(7), 33 and Rules 6-8 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -6614,7 +7090,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Sections 8(5)-(7), 33 and Rules 6-8"
+              "section_reference": "Sections 8(5)-(7), 33 and Rules 6-8",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Sections 8(5)-(7), 33 and Rules 6-8 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "a-capstone-t2-q5",
@@ -6744,7 +7231,7 @@
             },
             {
               "id": "rule-01-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 1 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -6792,7 +7279,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 1 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -6800,7 +7289,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 1"
+              "section_reference": "Rule 1",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 1 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-01-t1-q5",
@@ -6895,7 +7395,7 @@
             },
             {
               "id": "rule-01-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 1 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -6943,7 +7443,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 1 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -6951,7 +7453,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 1"
+              "section_reference": "Rule 1",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 1 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-01-t2-q5",
@@ -7081,7 +7594,7 @@
             },
             {
               "id": "rule-02-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 2 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -7129,7 +7642,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 2 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -7137,7 +7652,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 2"
+              "section_reference": "Rule 2",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 2 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-02-t1-q5",
@@ -7232,7 +7758,7 @@
             },
             {
               "id": "rule-02-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 2 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -7280,7 +7806,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 2 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -7288,7 +7816,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 2"
+              "section_reference": "Rule 2",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 2 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-02-t2-q5",
@@ -7418,7 +7957,7 @@
             },
             {
               "id": "rule-03-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 3 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -7466,7 +8005,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 3 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -7474,7 +8015,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 3"
+              "section_reference": "Rule 3",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 3 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-03-t1-q5",
@@ -7569,7 +8121,7 @@
             },
             {
               "id": "rule-03-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 3 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -7617,7 +8169,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 3 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -7625,7 +8179,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 3"
+              "section_reference": "Rule 3",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 3 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-03-t2-q5",
@@ -7755,7 +8320,7 @@
             },
             {
               "id": "rule-04-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 4; First Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -7803,7 +8368,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 4; First Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -7811,7 +8378,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 4; First Schedule"
+              "section_reference": "Rule 4; First Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 4; First Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-04-t1-q5",
@@ -7906,7 +8484,7 @@
             },
             {
               "id": "rule-04-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 4; First Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -7954,7 +8532,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 4; First Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -7962,7 +8542,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 4; First Schedule"
+              "section_reference": "Rule 4; First Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 4; First Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-04-t2-q5",
@@ -8092,7 +8683,7 @@
             },
             {
               "id": "rule-05-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 5; Second Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -8140,7 +8731,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 5; Second Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -8148,7 +8741,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 5; Second Schedule"
+              "section_reference": "Rule 5; Second Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 5; Second Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-05-t1-q5",
@@ -8243,7 +8847,7 @@
             },
             {
               "id": "rule-05-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 5; Second Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -8291,7 +8895,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 5; Second Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -8299,7 +8905,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 5; Second Schedule"
+              "section_reference": "Rule 5; Second Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 5; Second Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-05-t2-q5",
@@ -8429,7 +9046,7 @@
             },
             {
               "id": "rule-06-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 6 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -8477,7 +9094,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 6 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -8485,7 +9104,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 6"
+              "section_reference": "Rule 6",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 6 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-06-t1-q5",
@@ -8580,7 +9210,7 @@
             },
             {
               "id": "rule-06-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 6 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -8628,7 +9258,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 6 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -8636,7 +9268,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 6"
+              "section_reference": "Rule 6",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 6 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-06-t2-q5",
@@ -8766,7 +9409,7 @@
             },
             {
               "id": "rule-07-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 7 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -8814,7 +9457,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 7 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -8822,7 +9467,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 7"
+              "section_reference": "Rule 7",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 7 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-07-t1-q5",
@@ -8917,7 +9573,7 @@
             },
             {
               "id": "rule-07-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 7 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -8965,7 +9621,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 7 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -8973,7 +9631,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 7"
+              "section_reference": "Rule 7",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 7 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-07-t2-q5",
@@ -9103,7 +9772,7 @@
             },
             {
               "id": "rule-08-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 8; Third Schedule; Seventh Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -9151,7 +9820,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 8; Third Schedule; Seventh Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -9159,7 +9830,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 8; Third Schedule; Seventh Schedule"
+              "section_reference": "Rule 8; Third Schedule; Seventh Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 8; Third Schedule; Seventh Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-08-t1-q5",
@@ -9254,7 +9936,7 @@
             },
             {
               "id": "rule-08-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 8; Third Schedule; Seventh Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -9302,7 +9984,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 8; Third Schedule; Seventh Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -9310,7 +9994,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 8; Third Schedule; Seventh Schedule"
+              "section_reference": "Rule 8; Third Schedule; Seventh Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 8; Third Schedule; Seventh Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-08-t2-q5",
@@ -9440,7 +10135,7 @@
             },
             {
               "id": "rule-09-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 9 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -9488,7 +10183,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 9 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -9496,7 +10193,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 9"
+              "section_reference": "Rule 9",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 9 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-09-t1-q5",
@@ -9591,7 +10299,7 @@
             },
             {
               "id": "rule-09-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 9 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -9639,7 +10347,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 9 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -9647,7 +10357,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 9"
+              "section_reference": "Rule 9",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 9 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-09-t2-q5",
@@ -9777,7 +10498,7 @@
             },
             {
               "id": "rule-10-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 10 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -9825,7 +10546,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 10 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -9833,7 +10556,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 10"
+              "section_reference": "Rule 10",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 10 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-10-t1-q5",
@@ -9928,7 +10662,7 @@
             },
             {
               "id": "rule-10-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 10 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -9976,7 +10710,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 10 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -9984,7 +10720,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 10"
+              "section_reference": "Rule 10",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 10 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-10-t2-q5",
@@ -10114,7 +10861,7 @@
             },
             {
               "id": "rule-11-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 11 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -10162,7 +10909,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 11 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -10170,7 +10919,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 11"
+              "section_reference": "Rule 11",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 11 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-11-t1-q5",
@@ -10265,7 +11025,7 @@
             },
             {
               "id": "rule-11-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 11 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -10313,7 +11073,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 11 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -10321,7 +11083,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 11"
+              "section_reference": "Rule 11",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 11 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-11-t2-q5",
@@ -10451,7 +11224,7 @@
             },
             {
               "id": "rule-12-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 12; Fourth Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -10499,7 +11272,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 12; Fourth Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -10507,7 +11282,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 12; Fourth Schedule"
+              "section_reference": "Rule 12; Fourth Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 12; Fourth Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-12-t1-q5",
@@ -10602,7 +11388,7 @@
             },
             {
               "id": "rule-12-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 12; Fourth Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -10650,7 +11436,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 12; Fourth Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -10658,7 +11446,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 12; Fourth Schedule"
+              "section_reference": "Rule 12; Fourth Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 12; Fourth Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-12-t2-q5",
@@ -10788,7 +11587,7 @@
             },
             {
               "id": "rule-13-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 13 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -10836,7 +11635,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 13 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -10844,7 +11645,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 13"
+              "section_reference": "Rule 13",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 13 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-13-t1-q5",
@@ -10939,7 +11751,7 @@
             },
             {
               "id": "rule-13-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 13 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -10987,7 +11799,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 13 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -10995,7 +11809,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 13"
+              "section_reference": "Rule 13",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 13 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-13-t2-q5",
@@ -11125,7 +11950,7 @@
             },
             {
               "id": "rule-14-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 14 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -11173,7 +11998,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 14 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -11181,7 +12008,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 14"
+              "section_reference": "Rule 14",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 14 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-14-t1-q5",
@@ -11276,7 +12114,7 @@
             },
             {
               "id": "rule-14-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 14 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -11324,7 +12162,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 14 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -11332,7 +12172,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 14"
+              "section_reference": "Rule 14",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 14 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-14-t2-q5",
@@ -11462,7 +12313,7 @@
             },
             {
               "id": "rule-15-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 15 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -11510,7 +12361,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 15 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -11518,7 +12371,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 15"
+              "section_reference": "Rule 15",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 15 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-15-t1-q5",
@@ -11613,7 +12477,7 @@
             },
             {
               "id": "rule-15-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 15 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -11661,7 +12525,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 15 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -11669,7 +12535,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 15"
+              "section_reference": "Rule 15",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 15 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-15-t2-q5",
@@ -11799,7 +12676,7 @@
             },
             {
               "id": "rule-16-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 16; Second Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -11847,7 +12724,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 16; Second Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -11855,7 +12734,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 16; Second Schedule"
+              "section_reference": "Rule 16; Second Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 16; Second Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-16-t1-q5",
@@ -11950,7 +12840,7 @@
             },
             {
               "id": "rule-16-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 16; Second Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -11998,7 +12888,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 16; Second Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -12006,7 +12898,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 16; Second Schedule"
+              "section_reference": "Rule 16; Second Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 16; Second Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-16-t2-q5",
@@ -12136,7 +13039,7 @@
             },
             {
               "id": "rule-17-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 17 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -12184,7 +13087,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 17 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -12192,7 +13097,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 17"
+              "section_reference": "Rule 17",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 17 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-17-t1-q5",
@@ -12287,7 +13203,7 @@
             },
             {
               "id": "rule-17-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 17 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -12335,7 +13251,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 17 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -12343,7 +13261,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 17"
+              "section_reference": "Rule 17",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 17 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-17-t2-q5",
@@ -12473,7 +13402,7 @@
             },
             {
               "id": "rule-18-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 18; Fifth Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -12521,7 +13450,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 18; Fifth Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -12529,7 +13460,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 18; Fifth Schedule"
+              "section_reference": "Rule 18; Fifth Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 18; Fifth Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-18-t1-q5",
@@ -12624,7 +13566,7 @@
             },
             {
               "id": "rule-18-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 18; Fifth Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -12672,7 +13614,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 18; Fifth Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -12680,7 +13624,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 18; Fifth Schedule"
+              "section_reference": "Rule 18; Fifth Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 18; Fifth Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-18-t2-q5",
@@ -12810,7 +13765,7 @@
             },
             {
               "id": "rule-19-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 19 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -12858,7 +13813,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 19 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -12866,7 +13823,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 19"
+              "section_reference": "Rule 19",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 19 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-19-t1-q5",
@@ -12961,7 +13929,7 @@
             },
             {
               "id": "rule-19-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 19 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -13009,7 +13977,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 19 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -13017,7 +13987,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 19"
+              "section_reference": "Rule 19",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 19 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-19-t2-q5",
@@ -13147,7 +14128,7 @@
             },
             {
               "id": "rule-20-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 20 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -13195,7 +14176,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 20 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -13203,7 +14186,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 20"
+              "section_reference": "Rule 20",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 20 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-20-t1-q5",
@@ -13298,7 +14292,7 @@
             },
             {
               "id": "rule-20-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 20 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -13346,7 +14340,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 20 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -13354,7 +14350,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 20"
+              "section_reference": "Rule 20",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 20 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-20-t2-q5",
@@ -13484,7 +14491,7 @@
             },
             {
               "id": "rule-21-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 21; Sixth Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -13532,7 +14539,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 21; Sixth Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -13540,7 +14549,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 21; Sixth Schedule"
+              "section_reference": "Rule 21; Sixth Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 21; Sixth Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-21-t1-q5",
@@ -13635,7 +14655,7 @@
             },
             {
               "id": "rule-21-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 21; Sixth Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -13683,7 +14703,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 21; Sixth Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -13691,7 +14713,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 21; Sixth Schedule"
+              "section_reference": "Rule 21; Sixth Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 21; Sixth Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-21-t2-q5",
@@ -13821,7 +14854,7 @@
             },
             {
               "id": "rule-22-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 22 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -13869,7 +14902,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 22 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -13877,7 +14912,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 22"
+              "section_reference": "Rule 22",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 22 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-22-t1-q5",
@@ -13972,7 +15018,7 @@
             },
             {
               "id": "rule-22-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 22 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -14020,7 +15066,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 22 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -14028,7 +15076,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 22"
+              "section_reference": "Rule 22",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 22 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-22-t2-q5",
@@ -14158,7 +15217,7 @@
             },
             {
               "id": "rule-23-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 23; Seventh Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -14206,7 +15265,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 23; Seventh Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -14214,7 +15275,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 23; Seventh Schedule"
+              "section_reference": "Rule 23; Seventh Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 23; Seventh Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-23-t1-q5",
@@ -14309,7 +15381,7 @@
             },
             {
               "id": "rule-23-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Rule 23; Seventh Schedule requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -14357,7 +15429,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Rule 23; Seventh Schedule requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -14365,7 +15439,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Rule 23; Seventh Schedule"
+              "section_reference": "Rule 23; Seventh Schedule",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Rule 23; Seventh Schedule exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "rule-23-t2-q5",
@@ -14495,7 +15580,7 @@
             },
             {
               "id": "schedule-01-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the First Schedule; Rule 4 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -14543,7 +15628,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited First Schedule; Rule 4 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -14551,7 +15638,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "First Schedule; Rule 4"
+              "section_reference": "First Schedule; Rule 4",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in First Schedule; Rule 4 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-01-t1-q5",
@@ -14646,7 +15744,7 @@
             },
             {
               "id": "schedule-01-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the First Schedule; Rule 4 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -14694,7 +15792,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited First Schedule; Rule 4 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -14702,7 +15802,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "First Schedule; Rule 4"
+              "section_reference": "First Schedule; Rule 4",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in First Schedule; Rule 4 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-01-t2-q5",
@@ -14832,7 +15943,7 @@
             },
             {
               "id": "schedule-02-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Second Schedule; Rules 5 and 16 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -14880,7 +15991,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Second Schedule; Rules 5 and 16 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -14888,7 +16001,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Second Schedule; Rules 5 and 16"
+              "section_reference": "Second Schedule; Rules 5 and 16",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Second Schedule; Rules 5 and 16 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-02-t1-q5",
@@ -14983,7 +16107,7 @@
             },
             {
               "id": "schedule-02-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Second Schedule; Rules 5 and 16 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -15031,7 +16155,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Second Schedule; Rules 5 and 16 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -15039,7 +16165,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Second Schedule; Rules 5 and 16"
+              "section_reference": "Second Schedule; Rules 5 and 16",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Second Schedule; Rules 5 and 16 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-02-t2-q5",
@@ -15169,7 +16306,7 @@
             },
             {
               "id": "schedule-03-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Third Schedule; Rule 8 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -15217,7 +16354,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Third Schedule; Rule 8 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -15225,7 +16364,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Third Schedule; Rule 8"
+              "section_reference": "Third Schedule; Rule 8",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Third Schedule; Rule 8 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-03-t1-q5",
@@ -15320,7 +16470,7 @@
             },
             {
               "id": "schedule-03-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Third Schedule; Rule 8 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -15368,7 +16518,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Third Schedule; Rule 8 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -15376,7 +16528,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Third Schedule; Rule 8"
+              "section_reference": "Third Schedule; Rule 8",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Third Schedule; Rule 8 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-03-t2-q5",
@@ -15506,7 +16669,7 @@
             },
             {
               "id": "schedule-04-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Fourth Schedule; Rule 12 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -15554,7 +16717,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Fourth Schedule; Rule 12 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -15562,7 +16727,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Fourth Schedule; Rule 12"
+              "section_reference": "Fourth Schedule; Rule 12",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Fourth Schedule; Rule 12 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-04-t1-q5",
@@ -15657,7 +16833,7 @@
             },
             {
               "id": "schedule-04-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Fourth Schedule; Rule 12 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -15705,7 +16881,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Fourth Schedule; Rule 12 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -15713,7 +16891,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Fourth Schedule; Rule 12"
+              "section_reference": "Fourth Schedule; Rule 12",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Fourth Schedule; Rule 12 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-04-t2-q5",
@@ -15843,7 +17032,7 @@
             },
             {
               "id": "schedule-05-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Fifth Schedule; Rule 18 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -15891,7 +17080,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Fifth Schedule; Rule 18 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -15899,7 +17090,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Fifth Schedule; Rule 18"
+              "section_reference": "Fifth Schedule; Rule 18",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Fifth Schedule; Rule 18 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-05-t1-q5",
@@ -15994,7 +17196,7 @@
             },
             {
               "id": "schedule-05-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Fifth Schedule; Rule 18 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -16042,7 +17244,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Fifth Schedule; Rule 18 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -16050,7 +17254,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Fifth Schedule; Rule 18"
+              "section_reference": "Fifth Schedule; Rule 18",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Fifth Schedule; Rule 18 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-05-t2-q5",
@@ -16180,7 +17395,7 @@
             },
             {
               "id": "schedule-06-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Sixth Schedule; Rule 21 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -16228,7 +17443,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Sixth Schedule; Rule 21 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -16236,7 +17453,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Sixth Schedule; Rule 21"
+              "section_reference": "Sixth Schedule; Rule 21",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Sixth Schedule; Rule 21 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-06-t1-q5",
@@ -16331,7 +17559,7 @@
             },
             {
               "id": "schedule-06-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Sixth Schedule; Rule 21 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -16379,7 +17607,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Sixth Schedule; Rule 21 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -16387,7 +17617,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Sixth Schedule; Rule 21"
+              "section_reference": "Sixth Schedule; Rule 21",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Sixth Schedule; Rule 21 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-06-t2-q5",
@@ -16517,7 +17758,7 @@
             },
             {
               "id": "schedule-07-t1-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Seventh Schedule; Rules 8 and 23 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -16565,7 +17806,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Seventh Schedule; Rules 8 and 23 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -16573,7 +17816,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Seventh Schedule; Rules 8 and 23"
+              "section_reference": "Seventh Schedule; Rules 8 and 23",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Seventh Schedule; Rules 8 and 23 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-07-t1-q5",
@@ -16668,7 +17922,7 @@
             },
             {
               "id": "schedule-07-t2-q2",
-              "type": "true-false",
+              "type": "true_false",
               "prompt": "True or false: a learner should apply the Seventh Schedule; Rules 8 and 23 requirement by checking the cited source rather than inventing an additional rule.",
               "options": [
                 "True",
@@ -16716,7 +17970,9 @@
                 "Replace the statutory requirement with GDPR requirements",
                 "Assume the requirement never needs evidence"
               ],
-              "answer": 0,
+              "answer": [
+                0
+              ],
               "why": "The source-grounded approach is to apply the cited Seventh Schedule; Rules 8 and 23 requirement and preserve the evidence for the decision.",
               "why_wrong": [
                 "The cited provision cannot simply be ignored.",
@@ -16724,7 +17980,18 @@
                 "GDPR is not the legal source cited for this room.",
                 "Compliance evidence should not be assumed unnecessary."
               ],
-              "section_reference": "Seventh Schedule; Rules 8 and 23"
+              "section_reference": "Seventh Schedule; Rules 8 and 23",
+              "pairs": [
+                {
+                  "left": "Correct answer",
+                  "right_options": [
+                    "Apply the requirement in Seventh Schedule; Rules 8 and 23 exactly as stated",
+                    "Ignore the provision because the data is digital",
+                    "Replace the statutory requirement with GDPR requirements",
+                    "Assume the requirement never needs evidence"
+                  ]
+                }
+              ]
             },
             {
               "id": "schedule-07-t2-q5",
