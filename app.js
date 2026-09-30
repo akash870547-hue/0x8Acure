@@ -36,6 +36,8 @@
   const path = () => DPDP_CURRICULUM.find(p => p.id === pathId);
   const mod = () => path()?.modules?.find(m => m.id === moduleId);
   const room = () => mod()?.rooms?.find(r => r.id === roomId) || path()?.modules?.flatMap(m => m.rooms || []).find(r => r.id === roomId);
+  let legalStatusByRoom = {};
+  const draftBadge = id => legalStatusByRoom[id] === "VERIFIED_WORD_FOR_WORD" ? "" : '<span class="badge amber">Draft, under verification</span>';
 
   const allRooms = () => DPDP_CURRICULUM.flatMap(p => (p.modules || []).flatMap(m => m.rooms || []));
   const completedRooms = () => Object.keys(state.completed).length;
@@ -123,7 +125,7 @@
         m.rooms.map((r, i) => {
           const unlocked = roomUnlocked(p, roomIndexInPath(p, r.id));
           return '<button class="room-card ' + (state.completed[r.id] ? "complete" : "") + (unlocked ? "" : " locked") + '" data-room="' + r.id + '" data-locked="' + (!unlocked) + '">' +
-            '<div class="card-top"><span class="badge">' + String(i + 1).padStart(2,"0") + '</span><span class="badge">' + (state.completed[r.id] ? "Completed" : unlocked ? "Room" : "Locked") + '</span></div>' +
+            '<div class="card-top"><span class="badge">' + String(i + 1).padStart(2,"0") + '</span><span class="badge">' + (state.completed[r.id] ? "Completed" : unlocked ? "Room" : "Locked") + '</span>' + draftBadge(r.id) + '</div>' +
             '<h3>' + esc(r.title) + '</h3><p>' + esc(r.sections) + '</p>' +
             '<div class="room-meta"><span>' + esc(r.sourceIds.join(" + ")) + '</span><span>' + (unlocked ? "Open room" : "Open room") + '</span></div></button>';
         }).join("") +
@@ -490,5 +492,5 @@
   }
   if(!document.getElementById("academy-footer")){const f=document.createElement("footer");f.id="academy-footer";f.textContent="Educational use. Not legal advice. Refer to the official gazette.";f.style.cssText="padding:20px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:28px";document.body.appendChild(f);}
   if(!document.querySelector('script[src="badge-ui.js"]')){const s=document.createElement('script');s.src='badge-ui.js';document.body.appendChild(s);}
-  render();
+  fetch("content/legal-room-content.json",{cache:"no-store"}).then(r=>r.json()).then(reg=>{legalStatusByRoom=Object.fromEntries((reg.rooms||[]).map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));render();}).catch(()=>render());
 })();
