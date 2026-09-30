@@ -131,45 +131,70 @@
   }
 
 
+  function rqArrayEqual(a,b){ return Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every((v,i)=>v===b[i]); }
+  function rqSorted(a){ return [...a].sort((x,y)=>x-y); }
+  function rqGrade(q,raw){
+    const expected=q.answer!==undefined?q.answer:q.correct_answer;
+    if(raw===undefined||raw===null) return false;
+    if(q.type==="multi-select") return Array.isArray(raw)&&Array.isArray(expected)&&rqArrayEqual(rqSorted(raw),rqSorted(expected));
+    if(q.type==="order"||q.type==="match") return Array.isArray(raw)&&Array.isArray(expected)&&rqArrayEqual(raw,expected);
+    return raw===expected;
+  }
+  function rqWrongReasons(q,raw,correct){
+    if(correct) return "";
+    if(q.type==="multi-select"&&Array.isArray(q.options)){
+      const chosen=new Set(Array.isArray(raw)?raw:[]), expected=new Set(Array.isArray(q.answer)?q.answer:[]);
+      return q.options.map((opt,i)=>expected.has(i)?(chosen.has(i)?"":"Missing correct option: "+opt):(chosen.has(i)?(q.why_wrong?.[i]||"This option should not be selected."): "")).filter(Boolean).join(" ");
+    }
+    return Array.isArray(q.why_wrong)?q.why_wrong.filter(Boolean).join(" "):"Review the cited provision and exact answer shape.";
+  }
+  function rqQuestionControl(q,selected){
+    if(q.type==="multi-select"){
+      const chosen=new Set(Array.isArray(selected)?selected:[]);
+      return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<label class="option '+(chosen.has(i)?"selected":"")+'"><input type="checkbox" data-rq-multi="'+i+'" '+(chosen.has(i)?"checked":"")+'><span>'+esc(o)+'</span></label>').join("")+'</div><p class="muted">Select all that apply. Scoring: all-correct-or-none.</p>';
+    }
+    if(q.type==="order"){
+      const value=Array.isArray(selected)?selected:Array.from({length:(q.options||[]).length},()=>null);
+      return '<div class="rq-order">'+value.map((v,pos)=>'<label class="rq-order-row"><b>'+(pos+1)+'.</b><select data-rq-order="'+pos+'"><option value="">Choose…</option>'+q.options.map((o,i)=>'<option value="'+i+'" '+(Number(v)===i?"selected":"")+">'+esc(o)+'</option>').join("")+'</select></label>').join("")+'</div><p class="muted">Use every option exactly once. Grading is exact-order.</p>';
+    }
+    if(q.type==="match"){
+      const value=Array.isArray(selected)?selected:[];
+      return '<div class="rq-match">'+q.pairs.map((pair,i)=>'<label class="rq-match-row"><b>'+esc(pair.left)+'</b><select data-rq-match="'+i+'"><option value="">Choose…</option>'+pair.right_options.map((o,j)=>'<option value="'+j+'" '+(Number(value[i])===j?"selected":"")+">'+esc(o)+'</option>').join("")+'</select></label>').join("")+'</div><p class="muted">Every mapping must match exactly.</p>';
+    }
+    return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-rq-option="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
+  }
   async function roomView(){
     const p=path(),m=mod(),r=room(); if(!p||!m||!r){view="paths";return render();}
     try{
       const reg=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json());
       const legal=(reg.rooms||[]).find(x=>x.id===r.id); if(!legal) throw new Error("Room content unavailable.");
       window.__roomRegistry=reg;
-      const meta=roomQuizMeta(legal), qs=meta.all, rs=meta.rs;
-      const idx=Math.min(Number(rs.index||0),Math.max(qs.length-1,0)), q=qs[idx], key=String(idx);
+      const meta=roomQuizMeta(legal),qs=meta.all,rs=meta.rs,idx=Math.min(Number(rs.index||0),Math.max(qs.length-1,0)),q=qs[idx],key=String(idx);
       const status=legal.official_text_status==="VERIFIED_WORD_FOR_WORD"?"VERIFIED":"Draft, under verification";
-      const selected=rs.answers?.[key];
-      const opts=(q.options||[]).map((o,i)=>'<button class="option '+(Number(selected)===i?"selected":"")+'" data-rq-option="'+i+'">'+esc(o)+'</button>').join("");
       const feedback=rs.feedback?.[key];
       appEl.innerHTML='<div class="room-heading"><div><div class="kicker">'+esc(p.name)+' / ROOM</div><h1>'+esc(legal.title)+'</h1><div class="room-stats"><span>'+esc(legal.difficulty)+'</span><span>'+esc(legal.estimated_minutes)+' min</span><span>'+status+'</span><span>Best: '+Number(rs.bestScore||0)+'%</span></div></div><button class="btn ghost" data-action="module">Back</button></div>'+
-      (status!=="VERIFIED"?'<div class="notice warning"><b>Draft, under verification</b><br>This room remains open while its official text is verified.</div>':'')+
-      '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+legal.learning_objectives.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul><p><b>Sections:</b> '+esc(legal.sections_covered.join(", "))+'</p></div>'+
+      (status!=="VERIFIED"?'<div class="notice warning"><b>Draft, under verification</b><br>This room remains open while its official text is verified.</div>':"")+
+      '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+legal.learning_objectives.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul><p><b>Sections:</b> '+esc(legal.sections_covered.join(", "))+"</p></div>"+
       '<div class="room-progress"><div class="progress-track"><div class="progress-fill" style="width:'+meta.score+'%"></div></div><span>'+meta.answered+'/'+qs.length+' questions · '+meta.score+'%</span></div>'+
-      '<div class="room-shell"><section class="room-learning">'+
-      '<details class="task-details" open><summary>A. OFFICIAL TEXT</summary><div class="task-copy">'+(q.official_text||[]).map(x=>'<div class="official-text"><pre>'+esc(x)+'</pre></div>').join("")+'</div></details>'+
-      '<details class="task-details" open><summary>QUESTION '+(idx+1)+' / '+qs.length+' · '+esc(q.type)+'</summary><div class="task-copy"><h2>'+esc(q.prompt)+'</h2><div class="challenge-options">'+opts+'</div>'+
-      (feedback?'<div class="feedback '+(feedback.correct?"success":"error")+'"><b>'+(feedback.correct?"Correct":"Incorrect")+'</b><br>'+esc(feedback.explanation||"")+'<br><br><b>Wrong-option reasons:</b><br>'+esc(feedback.wrongReasons||"")+'</div>':'')+
+      '<div class="room-shell"><section class="room-learning"><details class="task-details" open><summary>A. OFFICIAL TEXT</summary><div class="task-copy">'+(q.official_text||[]).map(x=>'<div class="official-text"><pre>'+esc(x)+'</pre></div>').join("")+'</div></details>'+
+      '<details class="task-details" open><summary>QUESTION '+(idx+1)+' / '+qs.length+' · '+esc(q.type)+'</summary><div class="task-copy"><h2>'+esc(q.prompt)+'</h2>'+rqQuestionControl(q,rs.answers?.[key])+
+      (feedback?'<div class="feedback '+(feedback.correct?"success":"error")+'"><b>'+(feedback.correct?"Correct":"Incorrect")+'</b><br>'+esc(feedback.explanation||"")+(feedback.wrongReasons?'<br><br><b>Wrong-option reasons:</b><br>'+esc(feedback.wrongReasons):"")+"</div>":"")+
       '</div></details><details class="task-details"><summary>SUMMARY / CHEAT-SHEET</summary><div class="task-copy"><p>'+esc(legal.summary)+'</p><ul>'+legal.cheat_sheet.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul></div></details>'+
-      '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy"><p>'+esc(legal.final_challenge.scenario)+'</p><code>'+esc(legal.final_challenge.flag)+'</code></div></details>'+
-      '</section><aside class="challenge-panel"><button class="btn primary" data-rq-submit="'+key+'">Submit answer</button><button class="btn ghost" data-rq-next>Next unanswered</button><button class="btn ghost" data-rq-retry>Retry</button>'+
+      '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy"><p>'+esc(legal.final_challenge.scenario)+'</p><code>'+esc(legal.final_challenge.flag)+'</code></div></details></section><aside class="challenge-panel">'+
+      '<button class="btn primary" data-rq-submit="'+key+'">Submit answer</button><button class="btn ghost" data-rq-next>Next unanswered</button><button class="btn ghost" data-rq-retry>Retry</button>'+
       '<div class="score-card"><b>Current score: '+meta.score+'%</b><span>Best score: '+Number(rs.bestScore||0)+'% · Pass mark: 70%</span></div>'+
-      (meta.answered===qs.length?(meta.score>=70?'<button class="btn primary" data-action="complete">Complete room</button>':'<div class="notice">Not passed. Retry allowed.</div>'):'')+
-      '</aside></div>';
+      (meta.answered===qs.length?(meta.score>=70?'<button class="btn primary" data-action="complete">Complete room</button>':'<div class="notice">Not passed. Retry allowed.</div>':"")+
+      "</aside></div>";
     }catch(e){appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>'+esc(e.message)+'</div>';}
   }
-
   function submitRoomAnswer(index){
-    const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId), q=legal.tasks.flatMap(t=>t.questions||[])[Number(index)], rs=roomQuizMeta(legal).rs;
-    const raw=rs.answers[String(index)]; if(raw===undefined){toastMsg("Choose an answer first");return;}
-    const expected=q.answer??q.correct_answer, ok=JSON.stringify(raw)===JSON.stringify(expected);
-    rs.results[String(index)]=ok; rs.feedback||(rs.feedback={});
-    let wrong="";
-    if(Array.isArray(q.options)) wrong=q.options.map((x,i)=>i===Number(expected)?"":(q.why_wrong?.[i]||"")).filter(Boolean).join(" ");
-    rs.feedback[String(index)]={correct:ok,explanation:ok?q.why:(q.why_wrong?.[Number(raw)]||"Review the cited provision."),wrongReasons:wrong};
-    const total=legal.tasks.reduce((n,t)=>n+(t.questions||[]).length,0),correct=Object.values(rs.results).filter(Boolean).length;
-    rs.bestScore=Math.max(Number(rs.bestScore||0),Math.round(correct/total*100)); save(); render();
+    const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId); if(!legal)return;
+    const q=legal.tasks.flatMap(t=>t.questions||[])[Number(index)],rs=roomQuizMeta(legal).rs,raw=rs.answers[String(index)];
+    if(raw===undefined){toastMsg("Choose an answer first");return;}
+    const ok=rqGrade(q,raw); rs.results[String(index)]=ok; rs.feedback||(rs.feedback={});
+    rs.feedback[String(index)]={correct:ok,explanation:q.why||"Review the cited provision.",wrongReasons:rqWrongReasons(q,raw,ok)};
+    const total=legal.tasks.reduce((n,t)=>n+(t.questions||[]).length,0),correct=Object.values(rs.results).filter(Boolean).length,score=total?Math.round(correct/total*100):0;
+    rs.bestScore=Math.max(Number(rs.bestScore||0),score); save(); render();
   }
   async function leaderboard() {
     if(localStorage.getItem("0x8acure-leaderboard-optin")!=="yes"){
@@ -385,6 +410,12 @@
 
     const rq=e.target.closest("[data-rq-option]");
     if(rq){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs;rs.answers[String(rs.index||0)]=Number(rq.dataset.rqOption);save();render();return;}
+    const rqm=e.target.closest("[data-rq-multi]");
+    if(rqm){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs,key=String(rs.index||0),cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:[],v=Number(rqm.dataset.rqMulti);rs.answers[key]=cur.includes(v)?cur.filter(x=>x!==v):[...cur,v];save();render();return;}
+    const rqo=e.target.closest("[data-rq-order]");
+    if(rqo){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs,key=String(rs.index||0),q=roomQuizMeta(legal).all[Number(rs.index||0)],cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:Array.from({length:q.options.length},()=>null);cur[Number(rqo.dataset.rqOrder)]=rqo.value===""?null:Number(rqo.value);rs.answers[key]=cur;save();render();return;}
+    const rqx=e.target.closest("[data-rq-match]");
+    if(rqx){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs,key=String(rs.index||0),q=roomQuizMeta(legal).all[Number(rs.index||0)],cur=Array.isArray(rs.answers[key])?[...rs.answers[key]]:Array.from({length:q.pairs.length},()=>null);cur[Number(rqx.dataset.rqMatch)]=rqx.value===""?null:Number(rqx.value);rs.answers[key]=cur;save();render();return;}
     const rqs=e.target.closest("[data-rq-submit]");
     if(rqs){submitRoomAnswer(rqs.dataset.rqSubmit);return;}
     const rqn=e.target.closest("[data-rq-next]");
