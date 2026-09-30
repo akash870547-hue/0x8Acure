@@ -14,6 +14,28 @@ const secret = process.env.JWT_SECRET || "change-this-secret";
 const dbPath = process.env.DB_PATH || path.join(root, "data", "dpdp-ctf.db");
 fs.mkdirSync(path.dirname(dbPath), {recursive:true});
 const db = new Database(dbPath);
+const contentDir = path.join(root, "content");
+const sourceRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "sources.json"), "utf8"));
+const taskRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "tasks.json"), "utf8"));
+const sourceIds = new Set((sourceRegistry.sources || []).map(s => s.id));
+
+function validateTask(task) {
+  if (!task || typeof task !== "object") throw new Error("Task must be an object");
+  if (!task.id || !task.type || !task.prompt || task.correct_answer === undefined || !task.explanation) {
+    throw new Error("Task is missing a required field");
+  }
+  if (!task.citation || !task.citation.reference || !task.citation.source_id) {
+    throw new Error("Task rejected: citation is required");
+  }
+  if (!sourceIds.has(task.citation.source_id)) {
+    throw new Error("Task rejected: citation source_id is not registered");
+  }
+  if (!Array.isArray(task.hints)) throw new Error("Task rejected: hints must be an array");
+  return true;
+}
+
+for (const task of (taskRegistry.tasks || [])) validateTask(task);
+
 db.pragma("journal_mode = WAL");
 db.exec([
   "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT NOT NULL UNIQUE,name TEXT NOT NULL,password_hash TEXT NOT NULL,role TEXT NOT NULL DEFAULT 'learner',organization TEXT,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,last_login_at TEXT)",
@@ -74,6 +96,28 @@ app.get("/api/me",auth,(req,res)=>{
 
 app.get("/api/rooms",(req,res)=>{
   res.json({rooms:db.prepare("SELECT * FROM rooms WHERE status='published' ORDER BY path,code").all()});
+});
+
+app.get("/api/tasks/quiz",auth,(req,res)=>{
+  const tasks=(taskRegistry.tasks || []).map(({correct_answer, ...publicTask})=>publicTask);
+  res.json({tasks,last_verified:taskRegistry.last_verified});
+});
+
+app.post("/api/tasks/:taskId/answer",auth,(req,res)=>{
+  const task=(taskRegistry.tasks || []).find(t=>t.id===req.params.taskId);
+  if(!task) return res.status(404).json({error:"Task not found"});
+  validateTask(task);
+  const supplied=req.body?.answer;
+  const correct=JSON.stringify(supplied)===JSON.stringify(task.correct_answer);
+  const points=correct ? task.points : 0;
+  audit(req.user,"task_answered","task",task.id,{correct});
+  res.json({
+    correct,
+    points,
+    explanation:task.explanation,
+    citation:task.citation,
+    hint_costs:(task.hints || []).map(h=>h.cost)
+  });
 });
 
 app.get("/api/progress",auth,(req,res)=>{
