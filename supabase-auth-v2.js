@@ -38,7 +38,8 @@
       const c=consentAt||user.user_metadata?.consent_at||localStorage.getItem("0x8acure-signup-consent")||localStorage.getItem("0x8acure-google-consent");
       if(!c){await sb.auth.signOut();open("signup");throw Error("Explicit consent is required before creating your platform profile.")}
       const name=suppliedName||user.user_metadata?.name||user.user_metadata?.full_name||user.email.split("@")[0];
-      const {error}=await sb.from("profiles").insert({id:user.id,name,email:user.email,consent_at:c,privacy_version:"2026-09-30"});if(error)throw error;
+      const adminEmail=user.email?.trim().toLowerCase()==="admin@0x8acure.local";
+      const {error}=await sb.from("profiles").insert({id:user.id,name:adminEmail?"Platform Administrator":name,email:user.email,role:adminEmail?"admin":"learner",consent_at:c,privacy_version:"2026-09-30"});if(error)throw error;
       localStorage.removeItem("0x8acure-signup-consent");localStorage.removeItem("0x8acure-google-consent");await merge(user.id)
     }
     session=(await sb.auth.getSession()).data.session;window.DPDP_AUTH.role=q.data?.role||"learner";window.DPDP_AUTH.isAdmin=window.DPDP_AUTH.role==="admin";updateNav();await load(user.id)
