@@ -437,5 +437,6 @@
     toastMsg.t = setTimeout(() => t.classList.remove("show"), 2200);
   }
 
+  if(!document.querySelector('script[src="badge-ui.js"]')){const s=document.createElement('script');s.src='badge-ui.js';document.body.appendChild(s);}
   render();
 })();
