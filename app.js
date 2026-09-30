@@ -11,6 +11,7 @@
   let quizSelected = null;
   let quizFeedback = null;
   let quizTasks = [];
+  let activeTaskId = null;
 
   const appEl = document.getElementById("app");
   const streakEl = document.getElementById("streakCount");
@@ -49,37 +50,23 @@
       '</div>';
   }
 
+  function badges() {
+    const n = completedRooms();
+    return [n >= 1 ? "First Room" : null, n >= 5 ? "Five Rooms" : null, state.xp >= 100 ? "100 XP" : null, n >= 10 ? "Path Runner" : null].filter(Boolean);
+  }
+
   function home() {
+    const current = DPDP_CURRICULUM.find(p => (p.modules||[]).flatMap(m=>m.rooms||[]).some(r=>!state.completed[r.id]));
+    const earned = badges();
     appEl.innerHTML =
-      '<section class="hero">' +
-        '<div class="hero-main">' +
-          '<div class="eyebrow">0x8Acure · DPDP Learning Platform</div>' +
-          '<h1>Train on India’s digital data protection framework.</h1>' +
-          '<p>Learn the DPDP Act, 2023 and notified DPDP Rules, 2025 through guided paths, modules and hands-on rooms.</p>' +
-          topActions() +
-          '<div class="legal">Primary-source curriculum: ' +
-            sourceLink("MeitY DPDP Act 2023", DPDP_SOURCE.act) + ' · ' +
-            sourceLink("MeitY DPDP Rules 2025", DPDP_SOURCE.rules) +
-            '. Training content is educational and not legal advice.</div>' +
-        '</div>' +
-        '<aside class="hero-side">' +
-          '<div class="stat"><b>Continue learning</b><span>Choose a path and work through its modules and rooms.</span></div>' +
-          '<div class="stat"><b>' + state.xp + ' XP</b><span>Learning progress</span></div>' +
-          '<div class="stat"><b>Official-source first</b><span>Government material is the source of truth.</span></div>' +
-          '<div class="notice">Path → Module → Room. The platform intentionally does not expose total room or lab counts.</div>' +
-        '</aside>' +
-      '</section>' +
-      '<div class="section-head"><div><h2>Learning Paths</h2><p>Choose where you want to start.</p></div></div>' +
-      '<div class="grid path-grid">' +
-        DPDP_CURRICULUM.map((p, i) =>
-          '<button class="path-card ' + (pathUnlocked(i) ? "" : "locked") + '" data-path="' + p.id + '" data-locked="' + (!pathUnlocked(i)) + '">' +
-            '<div class="card-top"><span class="badge cyan">' + esc(p.level) + '</span><span class="badge">' + esc(p.tag) + '</span></div>' +
-            '<h3>' + esc(p.name) + '</h3>' +
-            '<p>' + esc(p.description) + '</p>' +
-            '<div class="path-meta"><span>Open path</span><span>Modules inside</span></div>' +
-          '</button>'
-        ).join("") +
-      '</div>';
+      '<section class="dashboard-head"><div><div class="eyebrow">0x8Acure · Dashboard</div><h1>Continue your DPDP training.</h1><p>Three ordered paths, official-source rooms, practical scenarios and cited challenges.</p></div>' +
+      '<div class="dash-actions"><button class="btn primary" data-action="continue">' + (current ? "Continue learning" : "Explore paths") + '</button><button class="btn ghost" data-action="paths">Path overview</button></div></section>' +
+      '<section class="metric-grid dashboard-metrics"><div class="metric"><b>' + state.xp + '</b><span>XP earned</span></div><div class="metric"><b>' + completedRooms() + '</b><span>Rooms completed</span></div><div class="metric"><b>' + (state.streak || 0) + '</b><span>Day streak</span></div><div class="metric"><b>' + earned.length + '</b><span>Badges</span></div></section>' +
+      '<section class="dashboard-grid"><div><div class="section-head"><div><h2>Current path</h2><p>' + (current ? esc(current.name) : "All paths complete") + '</p></div></div>' +
+      (current ? '<button class="path-card current-path" data-path="' + current.id + '"><div class="card-top"><span class="badge cyan">' + esc(current.level) + '</span><span class="badge">' + esc(current.tag) + '</span></div><h3>' + esc(current.name) + '</h3><p>' + esc(current.description) + '</p><div class="path-meta"><span>Continue in order</span><span>Official sources</span></div></button>' : '<div class="panel"><div class="notice">You have completed the available rooms.</div></div>') +
+      '</div><aside><div class="section-head"><div><h2>Badges</h2><p>Earned locally on this browser.</p></div></div><div class="badge-stack">' +
+      (earned.length ? earned.map(x=>'<span class="achievement"><b>0x8A</b>'+esc(x)+'</span>').join("") : '<div class="panel muted">Complete rooms to earn badges.</div>') +
+      '</div><div class="section-head"><div><h2>Leaderboard</h2><p>Opt in before viewing public rankings.</p></div></div><button class="panel optin-card" data-action="leaderboard"><b>View leaderboard</b><span>Participation is opt-in.</span></button></aside></section>';
   }
 
   function paths() {
