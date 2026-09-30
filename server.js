@@ -17,6 +17,7 @@ const db = new Database(dbPath);
 const contentDir = path.join(root, "content");
 const sourceRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "sources.json"), "utf8"));
 const taskRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "tasks.json"), "utf8"));
+const curriculumRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "learning-paths.json"), "utf8"));
 const sourceIds = new Set((sourceRegistry.sources || []).map(s => s.id));
 
 function validateTask(task) {
@@ -96,6 +97,16 @@ app.get("/api/me",auth,(req,res)=>{
 
 app.get("/api/rooms",(req,res)=>{
   res.json({rooms:db.prepare("SELECT * FROM rooms WHERE status='published' ORDER BY path,code").all()});
+});
+
+app.get("/api/curriculum",(req,res)=>res.json(curriculumRegistry));
+
+app.get("/api/tasks/room/:roomId",(req,res)=>{
+  const roomId=String(req.params.roomId||"");
+  const room=curriculumRegistry.paths.flatMap(p=>p.modules||[]).flatMap(m=>m.rooms||[]).find(r=>r.id===roomId);
+  if(!room) return res.status(404).json({error:"Room not found"});
+  const tasks=(taskRegistry.tasks||[]).filter(t=>t.id.startsWith(roomId+"-")).map(({correct_answer,...publicTask})=>publicTask);
+  res.json({room,tasks});
 });
 
 app.get("/api/tasks/quiz",(req,res)=>{
