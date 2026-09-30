@@ -4,6 +4,7 @@ update public.certificates set certificate_type=coalesce(certificate_type,'legac
 alter table public.certificates alter column certificate_type set not null,alter column path_id set not null,alter column score_percent set not null,alter column completion_date set not null;
 create unique index if not exists certificates_user_type_uidx on public.certificates(user_id,certificate_type);
 revoke all on public.certificates from anon,authenticated;
+grant select on public.certificates to authenticated;
 
 create or replace function public.issue_certificate(p_type text)
 returns table(certificate_id text,certificate_type text,path_id text,course text,holder_name text,score_percent integer,completion_date date,verification_hash text)
@@ -33,6 +34,8 @@ begin
 end; $$;
 revoke all on function public.issue_certificate(text) from public,anon;
 grant execute on function public.issue_certificate(text) to authenticated;
+
+drop function if exists public.verify_certificate(text);
 
 create or replace function public.verify_certificate(p_certificate_id text)
 returns table(certificate_id text,valid boolean,course text,holder_name text,score_percent integer,completion_date date,issued_at timestamptz,certificate_type text,verification_hash text,legal_basis_line text)
