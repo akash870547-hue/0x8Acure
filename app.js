@@ -157,11 +157,11 @@
     }
     if(q.type==="order"){
       const value=Array.isArray(selected)?selected:Array.from({length:(q.options||[]).length},()=>null);
-      return '<div class="rq-order">'+value.map((v,pos)=>'<label class="rq-order-row"><b>'+(pos+1)+'.</b><select data-rq-order="'+pos+'"><option value="">Choose…</option>'+q.options.map((o,i)=>'<option value="'+i+'" '+(Number(v)===i?"selected":"")+">'+esc(o)+'</option>').join("")+'</select></label>').join("")+'</div><p class="muted">Use every option exactly once. Grading is exact-order.</p>';
+      return '<div class="rq-order">'+value.map((v,pos)=>'<label class="rq-order-row"><b>'+(pos+1)+'.</b><select data-rq-order="'+pos+'"><option value="">Choose…</option>'+q.options.map((o,i)=>'<option value="'+i+'" '+(Number(v)===i?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></label>').join('')+'</div><p class="muted">Use every option exactly once. Grading is exact-order.</p>';
     }
     if(q.type==="match"){
       const value=Array.isArray(selected)?selected:[];
-      return '<div class="rq-match">'+q.pairs.map((pair,i)=>'<label class="rq-match-row"><b>'+esc(pair.left)+'</b><select data-rq-match="'+i+'"><option value="">Choose…</option>'+pair.right_options.map((o,j)=>'<option value="'+j+'" '+(Number(value[i])===j?"selected":"")+">'+esc(o)+'</option>').join("")+'</select></label>').join("")+'</div><p class="muted">Every mapping must match exactly.</p>';
+      return '<div class="rq-match">'+q.pairs.map((pair,i)=>'<label class="rq-match-row"><b>'+esc(pair.left)+'</b><select data-rq-match="'+i+'"><option value="">Choose…</option>'+pair.right_options.map((o,j)=>'<option value="'+j+'" '+(Number(value[i])===j?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></label>').join('')+'</div><p class="muted">Every mapping must match exactly.</p>';
     }
     return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-rq-option="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
   }
