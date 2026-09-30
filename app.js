@@ -234,10 +234,12 @@
       return renderQuiz();
     }
     try {
-      const result = await DPDP_API.request("/api/tasks/" + encodeURIComponent(q.id) + "/answer", {
-        method:"POST",
-        body:JSON.stringify({answer:quizSelected})
-      });
+      const result = window.DPDP_BADGES?.submitTask
+        ? await window.DPDP_BADGES.submitTask(q.id, quizSelected)
+        : await DPDP_API.request("/api/tasks/" + encodeURIComponent(q.id) + "/answer", {
+          method:"POST",
+          body:JSON.stringify({answer:quizSelected})
+        });
       const ok = !!result.correct;
       if (ok) {
         state.quizScore++;
