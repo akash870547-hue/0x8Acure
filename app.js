@@ -10,6 +10,7 @@
   let quizIndex = 0;
   let quizSelected = null;
   let quizFeedback = null;
+  let quizTasks = [];
 
   const appEl = document.getElementById("app");
   const streakEl = document.getElementById("streakCount");
@@ -178,80 +179,89 @@
       '</div>';
   }
 
-  function quizStart() {
+  async function quizStart() {
     quizIndex = 0;
     quizSelected = null;
     quizFeedback = null;
     state.quizScore = 0;
     state.quizDone = false;
-    save();
-    view = "quizRun";
-    renderQuiz();
+    try {
+      const data = await DPDP_API.request("/api/tasks/quiz");
+      if (!data || !Array.isArray(data.tasks)) {
+        appEl.innerHTML = '<div class="notice"><b>Quiz unavailable.</b><br>The assessment requires the platform backend so correct answers stay server-side.</div>';
+        return;
+      }
+      quizTasks = data.tasks;
+      view = "quizRun";
+      renderQuiz();
+    } catch (err) {
+      appEl.innerHTML = '<div class="notice"><b>Quiz unavailable.</b><br>' + esc(err.message) + '</div>';
+    }
   }
 
   function renderQuiz() {
-    const q = DPDP_QUIZ[quizIndex];
+    const q = quizTasks[quizIndex];
     if (!q) return quizResult();
 
-    const opts = q.o.map((x, i) =>
+    const opts = (q.options || []).map((x, i) =>
       '<button class="option ' + (quizSelected === i ? "selected" : "") + '" data-qoption="' + i + '">' +
-        '<input type="radio" ' + (quizSelected === i ? "checked" : "") + '><span>' + esc(x) + '</span>' +
-      '</button>'
+      '<input type="radio" ' + (quizSelected === i ? "checked" : "") + '><span>' + esc(x) + '</span></button>'
     ).join("");
 
     appEl.innerHTML =
-      '<div class="section-head"><div><span class="badge amber">ASSESSMENT</span><h2 style="margin-top:12px">DPDP Knowledge Check</h2><p>Standalone quiz area based on the official-source curriculum.</p></div><button class="btn ghost" data-action="home">Exit</button></div>' +
-      '<div class="room-layout"><section class="panel">' +
-        '<div class="kicker">Question ' + (quizIndex + 1) + '</div>' +
-        '<div class="question">' + esc(q.q) + '</div>' +
-        '<div class="options">' + opts + '</div>' +
-        '<div class="challenge-actions"><button class="btn primary" data-action="quizsubmit">Submit answer</button></div>' +
-        (quizFeedback ? '<div class="explain ' + (quizFeedback.ok ? "" : "wrong") + '">' + esc(quizFeedback.text) + '</div>' : "") +
-      '</section><aside class="challenge-card"><div class="challenge-num">ASSESSMENT</div><p class="muted">Review the cited Act or Rules room if you need a refresher.</p><button class="btn ghost" data-action="sources">Official Sources</button></aside></div>';
+      '<div class="section-head"><div><span class="badge amber">ASSESSMENT</span><h2 style="margin-top:12px">DPDP Knowledge Check</h2><p>Correct answers are validated on the server.</p></div><button class="btn ghost" data-action="home">Exit</button></div>' +
+      '<div class="room-layout"><section class="panel"><div class="kicker">Question ' + (quizIndex + 1) + '</div>' +
+      '<div class="question">' + esc(q.prompt) + '</div><div class="options">' + opts + '</div>' +
+      '<div class="challenge-actions"><button class="btn primary" data-action="quizsubmit">Submit answer</button></div>' +
+      (quizFeedback ? '<div class="explain ' + (quizFeedback.ok ? "" : "wrong") + '">' + esc(quizFeedback.text) + '</div>' : "") +
+      '</section><aside class="challenge-card"><div class="challenge-num">ASSESSMENT</div><p class="muted">Every task has a required legal citation.</p><button class="btn ghost" data-action="sources">Official Sources</button></aside></div>';
   }
 
-  function quizSubmit() {
-    const q = DPDP_QUIZ[quizIndex];
+  async function quizSubmit() {
+    const q = quizTasks[quizIndex];
+    if (!q) return;
     if (quizSelected === null) {
       quizFeedback = {ok:false, text:"Select an answer first."};
       return renderQuiz();
     }
-
-    const ok = quizSelected === q.a;
-    if (ok) {
-      state.quizScore++;
-      state.xp += 20;
-      quizFeedback = {ok:true, text:"Correct. Good work."};
-    } else {
-      quizFeedback = {ok:false, text:"Not correct. Review the cited Act or Rules room."};
-    }
-    save();
-    renderQuiz();
-
-    if (ok) {
+    try {
+      const result = await DPDP_API.request("/api/tasks/" + encodeURIComponent(q.id) + "/answer", {
+        method:"POST",
+        body:JSON.stringify({answer:quizSelected})
+      });
+      const ok = !!result.correct;
+      if (ok) {
+        state.quizScore++;
+        state.xp += Number(result.points || 0);
+        quizFeedback = {ok:true, text:"Correct. " + (result.explanation || "")};
+      } else {
+        quizFeedback = {ok:false, text:"Not correct. " + (result.explanation || "Review the cited room.")};
+      }
+      save();
+      renderQuiz();
       setTimeout(() => {
         quizIndex++;
         quizSelected = null;
         quizFeedback = null;
-        if (quizIndex >= DPDP_QUIZ.length) {
+        if (quizIndex >= quizTasks.length) {
           state.quizDone = true;
           save();
           quizResult();
         } else {
           renderQuiz();
         }
-      }, 500);
+      }, 700);
+    } catch (err) {
+      quizFeedback = {ok:false, text:err.message};
+      renderQuiz();
     }
   }
 
   function quizResult() {
     appEl.innerHTML =
-      '<section class="hero"><div class="hero-main">' +
-        '<div class="eyebrow">Assessment complete</div>' +
-        '<h1>Knowledge check finished.</h1>' +
-        '<p>Your score is stored locally on this browser. Revisit any path to strengthen weak areas.</p>' +
-        '<div class="hero-actions"><button class="btn primary" data-action="quiz">Retake quiz</button><button class="btn ghost" data-action="paths">Explore paths</button></div>' +
-      '</div><aside class="hero-side"><div class="stat"><b>' + state.quizScore + '</b><span>Correct answers</span></div><div class="stat"><b>' + state.xp + ' XP</b><span>Total learning XP</span></div></aside></section>';
+      '<section class="hero"><div class="hero-main"><div class="eyebrow">Assessment complete</div><h1>Knowledge check finished.</h1>' +
+      '<p>Correct answers were validated by the backend.</p><div class="hero-actions"><button class="btn primary" data-action="quiz">Retake quiz</button><button class="btn ghost" data-action="paths">Explore paths</button></div></div>' +
+      '<aside class="hero-side"><div class="stat"><b>' + state.quizScore + '</b><span>Correct answers</span></div><div class="stat"><b>' + state.xp + ' XP</b><span>Total learning XP</span></div></aside></section>';
   }
 
   async function sources() {
