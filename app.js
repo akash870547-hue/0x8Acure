@@ -40,7 +40,8 @@
   const allRooms = () => DPDP_CURRICULUM.flatMap(p => (p.modules || []).flatMap(m => m.rooms || []));
   const completedRooms = () => Object.keys(state.completed).length;
   const pathUnlocked = idx => idx === 0 || DPDP_CURRICULUM.slice(0, idx).every(p => (p.modules || []).flatMap(m => m.rooms || []).every(r => state.completed[r.id]));
-  const roomIndexInPath = (p, roomId) => (p?.modules || []).flatMap(m => m.rooms || []).findIndex(r => r.id === roomId);\n  const roomUnlocked = (p, idx) => idx === 0 || (p.modules || []).flatMap(m => m.rooms || []).slice(0, idx).every(r => state.completed[r.id]);
+  const roomIndexInPath = (p, roomId) => (p?.modules || []).flatMap(m => m.rooms || []).findIndex(r => r.id === roomId);
+  const roomUnlocked = (p, idx) => idx === 0 || (p.modules || []).flatMap(m => m.rooms || []).slice(0, idx).every(r => state.completed[r.id]);
 
   const sourceUrl = item => String(item?.source || "").includes("Rules")
     ? DPDP_SOURCE.rules
