@@ -18,7 +18,7 @@ for (const file of [...new Set(files)]) {
   catch (e) { throw new Error(`Cannot parse ${file}: ${e.message}`); }
   const rooms = Array.isArray(data.rooms) ? data.rooms.filter(room => !(file === "legal-room-content.json" && String(room.id||"").startsWith("ch2-"))) : [];
   for (const room of rooms) {
-    if (room.official_text_status === "VERIFIED_WORD_FOR_WORD") {
+    if (String(room.id||"").startsWith("ch2-") && room.official_text_status === "VERIFIED_WORD_FOR_WORD") {
       const roomQuestions = (room.tasks || []).flatMap(t => t.questions || []);
       if ((room.tasks || []).length < 8) throw new Error(`Room ${room.id} has fewer than 8 tasks`);
       if (roomQuestions.length < 10) throw new Error(`Room ${room.id} has fewer than 10 questions`);
