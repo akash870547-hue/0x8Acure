@@ -217,7 +217,7 @@ begin
     if b.category='room' then
       select count(*) into total from public.task_catalog t where t.room_id=replace(b.id,'room-','');
       select count(distinct s.task_id) into correct from public.task_submissions s join public.task_catalog t on t.id=s.task_id where s.user_id=p_user and t.room_id=replace(b.id,'room-','') and s.correct=true;
-      if total>0 and correct*100>=total*70 then perform public.award_badge(p_user,b.id); end if;
+      if total>0 and correct*100>=total*70 and exists(select 1 from public.room_progress rp where rp.user_id=p_user and rp.room_id=replace(b.id,'room-','') and rp.completed=true and rp.score_percent>=70) then perform public.award_badge(p_user,b.id); end if;
     elsif b.id like 'path-%-complete' then
       declare eligible integer;
       begin
