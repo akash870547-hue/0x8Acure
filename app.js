@@ -39,7 +39,8 @@
 
   const allRooms = () => DPDP_CURRICULUM.flatMap(p => (p.modules || []).flatMap(m => m.rooms || []));
   const completedRooms = () => Object.keys(state.completed).length;
-  const pathUnlocked = idx => idx === 0 || DPDP_CURRICULUM.slice(0, idx).every(p => (p.modules || []).flatMap(m => m.rooms || []).every(r => state.completed[r.id]));
+  // Paths, modules and rooms are always accessible. Login only persists progress.
+  const pathUnlocked = () => true;
   const roomIndexInPath = (p, roomId) => (p?.modules || []).flatMap(m => m.rooms || []).findIndex(r => r.id === roomId);
   const roomUnlocked = (p, idx) => idx === 0 || (p.modules || []).flatMap(m => m.rooms || []).slice(0, idx).every(r => state.completed[r.id]);
 
@@ -376,7 +377,6 @@
     const p = e.target.closest("[data-path]");
     if (p) {
       const idx = DPDP_CURRICULUM.findIndex(x => x.id === p.dataset.path);
-      if (!pathUnlocked(idx)) { toastMsg("Unlock the previous learning path first"); return; }
       pathId = p.dataset.path;
       moduleId = null;
       roomId = null;
