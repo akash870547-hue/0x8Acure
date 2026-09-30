@@ -17,7 +17,7 @@ const db = new Database(dbPath);
 const contentDir = path.join(root, "content");
 const sourceRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "sources.json"), "utf8"));
 const taskRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "tasks.json"), "utf8"));
-const curriculumRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "learning-paths.json"), "utf8"));
+const curriculumRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "learning-paths.json"), "utf8"));\nconst legalRoomRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "legal-room-content.json"), "utf8"));
 const sourceIds = new Set((sourceRegistry.sources || []).map(s => s.id));
 
 function validateTask(task) {
@@ -107,6 +107,34 @@ app.get("/api/tasks/room/:roomId",(req,res)=>{
   if(!room) return res.status(404).json({error:"Room not found"});
   const tasks=(taskRegistry.tasks||[]).filter(t=>t.id.startsWith(roomId+"-")).map(({correct_answer,...publicTask})=>publicTask);
   res.json({room,tasks});
+});
+
+app.get("/api/legal-rooms/:roomId",(req,res)=>{
+  const room=(legalRoomRegistry.rooms||[]).find(r=>r.id===String(req.params.roomId||""));
+  if(!room) return res.status(404).json({error:"Legal room not found"});
+  const safe=JSON.parse(JSON.stringify(room));
+  for(const task of safe.tasks||[]) for(const q of task.questions||[]) delete q.answer;
+  res.json({room:safe,last_verified:legalRoomRegistry.last_verified});
+});
+
+app.post("/api/legal-tasks/:taskId/answer",(req,res)=>{
+  const id=String(req.params.taskId||"");
+  for(const room of legalRoomRegistry.rooms||[]){
+    for(const task of room.tasks||[]){
+      if(task.id!==id) continue;
+      const q=task.questions?.[0];
+      if(!q) return res.status(400).json({error:"Question not configured"});
+      const answer=Number(req.body?.answer);
+      const correct=Number.isInteger(answer)&&answer===Number(q.answer);
+      return res.json({
+        correct,
+        points:correct?10:0,
+        explanation:correct?q.why:((q.why_wrong?.[answer]||"Review the official text.")+" Section reference: "+q.section_reference),
+        section_reference:q.section_reference
+      });
+    }
+  }
+  return res.status(404).json({error:"Legal task not found"});
 });
 
 app.get("/api/tasks/quiz",(req,res)=>{
