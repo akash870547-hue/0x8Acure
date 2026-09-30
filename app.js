@@ -383,6 +383,15 @@
       render();
     }
 
+    const rq=e.target.closest("[data-rq-option]");
+    if(rq){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs;rs.answers[String(rs.index||0)]=Number(rq.dataset.rqOption);save();render();return;}
+    const rqs=e.target.closest("[data-rq-submit]");
+    if(rqs){submitRoomAnswer(rqs.dataset.rqSubmit);return;}
+    const rqn=e.target.closest("[data-rq-next]");
+    if(rqn){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),rs=roomQuizMeta(legal).rs,keys=Array.from({length:roomQuizMeta(legal).all.length},(_,i)=>String(i)),n=keys.findIndex(k=>rs.results?.[k]===undefined);rs.index=n<0?0:n;save();render();return;}
+    const rqr=e.target.closest("[data-rq-retry]");
+    if(rqr){const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId),old=roomQuizMeta(legal).rs;state.roomQuiz[roomId]={answers:{},results:{},feedback:{},bestScore:old.bestScore||0,index:0};save();render();return;}
+
     const task = e.target.closest("[data-task]");
     if (task) {
       const feedback = document.getElementById("feedback-" + task.dataset.task);
