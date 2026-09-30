@@ -401,7 +401,7 @@
       else if (x === "leaderboard") leaderboard();
       else if (x === "leaderboard-enable") { localStorage.setItem("0x8acure-leaderboard-optin","yes"); leaderboard(); }
       else if (x === "quiz") { view="quiz"; render(); }
-      else if (x === "room-quiz") { view="quiz"; render(); }
+      else if (x === "room-quiz") startRoomQuiz(roomId);
       else if (x === "quizsubmit") quizSubmit();
       else if (x === "quiz-next-room") { quizIndex++; quizFeedback=null; renderQuiz(); }
       else if (x === "quiz-room-retry") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; view="quizRun"; render(); }
