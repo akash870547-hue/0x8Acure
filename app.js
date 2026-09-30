@@ -199,7 +199,7 @@
       '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+((legal.learning_objectives||[]).map(x=>'<li>'+esc(x)+'</li>').join(""))+'</ul>'+
       '<p><b>Sections:</b> '+esc((legal.sections_covered||[]).join(", "))+'</p>'+
       (legal.source_pages!==undefined?'<p><b>Source page(s):</b> '+esc(Array.isArray(legal.source_pages)?legal.source_pages.join(", "):legal.source_pages)+'</p>':"")+
-      '</div><div class="room-shell"><section class="room-learning">'+
+      '</div><div class="room-shell room-content-shell"><section class="room-learning">'+
       '<details class="task-details" open><summary>LEARNING CONTENT</summary><div class="task-copy">'+tasks+
       '<details class="task-details"><summary>SUMMARY / CHEAT-SHEET</summary><div class="task-copy">'+
       (legal.summary?'<p>'+esc(legal.summary)+'</p>':"")+
