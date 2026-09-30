@@ -40,7 +40,7 @@
   const allRooms = () => DPDP_CURRICULUM.flatMap(p => (p.modules || []).flatMap(m => m.rooms || []));
   const completedRooms = () => Object.keys(state.completed).length;
   const pathUnlocked = idx => idx === 0 || DPDP_CURRICULUM.slice(0, idx).every(p => (p.modules || []).flatMap(m => m.rooms || []).every(r => state.completed[r.id]));
-  const roomUnlocked = (p, idx) => idx === 0 || (p.modules || []).flatMap(m => m.rooms || []).slice(0, idx).every(r => state.completed[r.id]);
+  const roomIndexInPath = (p, roomId) => (p?.modules || []).flatMap(m => m.rooms || []).findIndex(r => r.id === roomId);\n  const roomUnlocked = (p, idx) => idx === 0 || (p.modules || []).flatMap(m => m.rooms || []).slice(0, idx).every(r => state.completed[r.id]);
 
   const sourceUrl = item => String(item?.source || "").includes("Rules")
     ? DPDP_SOURCE.rules
@@ -119,7 +119,7 @@
       '<div class="panel path-intro"><div class="notice">Room-based learning. Open a room, study the objective, then mark it learned when you are done.</div></div>' +
       '<div class="grid room-grid" style="margin-top:16px">' +
         m.rooms.map((r, i) => {
-          const unlocked = roomUnlocked(p, i);
+          const unlocked = roomUnlocked(p, roomIndexInPath(p, r.id));
           return '<button class="room-card ' + (state.completed[r.id] ? "complete" : "") + (unlocked ? "" : " locked") + '" data-room="' + r.id + '" data-locked="' + (!unlocked) + '">' +
             '<div class="card-top"><span class="badge">' + String(i + 1).padStart(2,"0") + '</span><span class="badge">' + (state.completed[r.id] ? "Completed" : unlocked ? "Room" : "Locked") + '</span></div>' +
             '<h3>' + esc(r.title) + '</h3><p>' + esc(r.sections) + '</p>' +
@@ -128,55 +128,62 @@
       '</div>';
   }
 
+
   async function roomView() {
-    const p = path(), m = mod(), r = room();
-    if (!p || !m || !r) { view = "paths"; return render(); }
-    const all = (p.modules || []).flatMap(x => x.rooms || []);
-    const idx = all.findIndex(x => x.id === r.id);
-    if (!roomUnlocked(p, idx)) { toastMsg("Complete the previous room first"); view = "module"; return render(); }
-    try {
-      const data = await DPDP_API.request("/api/tasks/room/" + encodeURIComponent(r.id));
-      const tasks = data.tasks || [];
-      if (!activeTaskId || !tasks.some(t=>t.id===activeTaskId)) activeTaskId = tasks[0]?.id;
-      const active = tasks.find(t=>t.id===activeTaskId) || tasks[0];
-      const done = state.completedTasks || {};
-      const completedCount = tasks.filter(t=>done[t.id]).length;
-      const roomXp = completedCount * 10;
-      const pct = Math.round(completedCount / Math.max(tasks.length,1) * 100);
-      appEl.innerHTML =
-        '<div class="room-heading"><div><div class="kicker">' + esc(p.name) + ' / ROOM</div><h1>' + esc(r.title) + '</h1><div class="room-stats"><span>' + esc(r.difficulty) + '</span><span>' + esc(r.estimated_minutes) + ' min</span><span>+' + roomXp + ' XP earned</span></div></div><button class="btn ghost" data-action="module">Back</button></div>' +
-        '<div class="room-progress"><div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div><span>' + completedCount + '/' + tasks.length + ' tasks</span></div>' +
-        '<div class="room-shell"><aside class="task-sidebar"><div class="sidebar-title">TASKS</div>' +
-        tasks.map((t,i)=>'<button class="task-nav ' + (t.id===active.id?'active ':'') + (done[t.id]?'done':'') + '" data-task-open="' + esc(t.id) + '"><span class="task-index">' + String(i+1).padStart(2,'0') + '</span><span><b>' + esc(t.type) + '</b><small>' + (done[t.id]?'Completed':'Open') + '</small></span><span>' + (done[t.id]?'✓':'') + '</span></button>').join('') +
-        '</aside><section class="room-learning">' +
-        '<details class="task-details" open><summary>THEORY <span>Read the cited requirement</span></summary><div class="task-copy"><p>Study the statutory requirement, then distinguish it from operational guidance. Training content is educational and not legal advice.</p><div class="citation-row">' + (r.sourceIds||[]).map(id=>'<a class="citation-chip" target="_blank" rel="noopener" href="' + esc(id==="rules-2025"?DPDP_SOURCE.rules:DPDP_SOURCE.act) + '">' + esc(id) + '</a>').join('') + '<span class="verify-chip">Last verified ' + esc(r.last_verified) + '</span></div></div></details>' +
-        '<details class="task-details"><summary>GUIDED SCENARIO <span>Apply the rule</span></summary><div class="task-copy"><p>Review a realistic HR, product, engineering or incident scenario. Identify the facts, locate the exact Act or Rule provision, and apply only what the cited text supports.</p></div></details>' +
-        '<details class="task-details" open><summary>CHALLENGE TASKS <span>' + tasks.length + ' tasks</span></summary><div class="task-copy"><p>Choose a task from the sidebar. Answers are checked by the backend.</p></div></details>' +
-        '<details class="task-details"><summary>ROOM SUMMARY <span>Learning objectives</span></summary><div class="task-copy"><ul>' + r.learning_objectives.map(x=>'<li>' + esc(x) + '</li>').join('') + '</ul><p><b>Citation:</b> ' + esc(r.sections) + '</p></div></details>' +
-        '</section><aside class="challenge-panel"><div class="challenge-top"><span class="badge cyan">CHALLENGE</span><span class="badge">' + esc(active.difficulty) + '</span></div><div class="kicker">TASK</div><h2>' + esc(active.prompt) + '</h2><div class="challenge-options">' +
-        (active.options||[]).map((o,j)=>'<button class="option ' + (window._selectedAnswer===j?'selected':'') + '" data-answer-select="' + j + '">' + esc(o) + '</button>').join('') +
-        '</div><div class="challenge-actions"><button class="btn primary" data-task-submit="' + esc(active.id) + '">Submit</button><button class="btn ghost" data-hint="' + esc(active.id) + '">Hint · 5 pts</button></div><div class="feedback" id="task-feedback"></div><div class="citation-box"><b>Citation</b><span>' + esc(active.citation.reference) + '</span><a target="_blank" rel="noopener" href="' + esc(active.citation.source_id==="rules-2025"?DPDP_SOURCE.rules:DPDP_SOURCE.act) + '">Open official source</a></div></aside></div>';
-    } catch (err) {
-      appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>' + esc(err.message) + '</div>';
-    }
+    const p=path(),m=mod(),r=room();
+    if(!p||!m||!r){view="paths";return render();}
+    const idx=roomIndexInPath(p,r.id);
+    if(!roomUnlocked(p,idx)){toastMsg("Complete the previous room first");view="path";return render();}
+    try{
+      const registry=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json());
+      const legal=(registry.rooms||[]).find(x=>x.id===r.id);
+      if(!legal){appEl.innerHTML='<div class="panel"><h2>'+esc(r.title)+'</h2><p>Legacy room content is being migrated.</p></div>';return;}
+      const tasks=legal.tasks||[];
+      if(!activeTaskId||!tasks.some(t=>t.id===activeTaskId))activeTaskId=tasks[0]?.id;
+      const active=tasks.find(t=>t.id===activeTaskId)||tasks[0],done=state.completedTasks||{};
+      const count=tasks.filter(t=>done[t.id]).length,pct=Math.round(count/Math.max(tasks.length,1)*100),completed=!!state.completed[r.id];
+      const sourceFor=p=>/Rule/i.test(String(p||''))?registry.sources["rules-2025"]:registry.sources["act-2023"];
+      const official=(active.official_text||[]).map((x,i)=>'<div class="official-text"><div class="official-label">OFFICIAL TEXT · '+esc(active.provision)+(active.official_text.length>1?' · Part '+(i+1):'')+'</div><pre>'+esc(x)+'</pre></div>').join('');
+      const terms=(active.key_terms||[]).map(x=>'<span class="term-chip"><b>'+esc(x[0])+'</b><small>'+esc(x[1])+' · '+esc(x[2])+'</small></span>').join('');
+      const myths=(active.common_mistakes||[]).map(x=>'<div class="myth-card"><b>'+esc(x[0])+'</b><span>'+esc(x[1])+'</span><b>Fact</b><span>'+esc(x[2])+'</span></div>').join('');
+      appEl.innerHTML=
+        '<div class="room-heading"><div><div class="kicker">'+esc(p.name)+' / ROOM</div><h1>'+esc(legal.title)+'</h1><div class="room-stats"><span>'+esc(legal.difficulty)+'</span><span>'+esc(legal.estimated_minutes)+' min</span><span>Last verified: '+esc(legal.last_verified)+'</span></div></div><button class="btn ghost" data-action="module">Back</button></div>'+
+        '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+legal.learning_objectives.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><p><b>Sections:</b> '+esc(legal.sections_covered.join(', '))+'</p></div>'+
+        '<div class="room-progress"><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div><span>'+count+'/'+tasks.length+' concepts · '+pct+'%</span></div>'+
+        '<div class="room-shell"><aside class="task-sidebar"><div class="sidebar-title">TASKS</div>'+tasks.map((t,i)=>'<button class="task-nav '+(t.id===active.id?'active ':'')+(done[t.id]?'done':'')+'" data-task-open="'+esc(t.id)+'"><span class="task-index">'+String(i+1).padStart(2,'0')+'</span><span><b>'+esc(t.title)+'</b><small>'+(done[t.id]?'Completed':'Open')+'</small></span><span>'+(done[t.id]?'✓':'')+'</span></button>').join('')+'</aside>'+
+        '<section class="room-learning">'+
+        '<details class="task-details" open><summary>A. OFFICIAL TEXT <span>Verbatim source</span></summary><div class="task-copy">'+official+'<div class="citation-row"><span class="verify-chip">Last verified: '+esc(legal.last_verified)+'</span><a class="citation-chip" target="_blank" rel="noopener" href="'+esc(sourceFor(active.provision).url)+'">Open official source</a></div></div></details>'+
+        '<details class="task-details" open><summary>B. IN SIMPLE WORDS</summary><div class="task-copy"><p>'+esc(active.simple_words)+'</p></div></details>'+
+        '<details class="task-details"><summary>C. KEY TERMS</summary><div class="task-copy term-list">'+terms+'</div></details>'+
+        '<details class="task-details"><summary>D. REAL-WORLD EXAMPLE</summary><div class="task-copy"><p>'+esc(active.real_world_example)+'</p></div></details>'+
+        '<details class="task-details"><summary>E. STUDENT ANGLE</summary><div class="task-copy"><p>'+esc(active.student_angle)+'</p></div></details>'+
+        '<details class="task-details"><summary>F. COMMON MISTAKES / MYTHS VS FACTS</summary><div class="task-copy">'+myths+'</div></details>'+
+        '<details class="task-details" open><summary>G. CHECK YOUR UNDERSTANDING <span>'+active.questions.length+' questions</span></summary><div class="task-copy">'+active.questions.map((q,i)=>'<div class="mini-question"><span class="badge">Q'+(i+1)+'</span> <b>'+esc(q.type)+'</b><p>'+esc(q.prompt)+'</p><ol>'+q.options.map(o=>'<li>'+esc(o)+'</li>').join('')+'</ol></div>').join('')+'</div></details>'+
+        '<details class="task-details"><summary>ROOM SUMMARY / CHEAT-SHEET</summary><div class="task-copy"><p>'+esc(legal.summary)+'</p><ul>'+legal.cheat_sheet.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></details>'+
+        '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy"><p><b>Scenario:</b> '+esc(legal.final_challenge.scenario)+'</p><p><b>Flag:</b> <code>'+esc(legal.final_challenge.flag)+'</code></p><p>'+esc(legal.final_challenge.answer_explanation)+'</p></div></details>'+
+        '</section><aside class="challenge-panel"><div class="challenge-top"><span class="badge cyan">CHECK</span><span class="badge">'+esc(active.provision)+'</span></div><div class="kicker">CHECK QUESTION 1</div><h2>'+esc(active.questions[0]?.prompt||'Review the cited provision.')+'</h2><div class="challenge-options">'+(active.questions[0]?.options||[]).map((o,j)=>'<button class="option '+(window._selectedAnswer===j?'selected':'')+'" data-answer-select="'+j+'">'+esc(o)+'</button>').join('')+'</div><div class="challenge-actions"><button class="btn primary" data-task-submit="'+esc(active.id)+'">Submit Task</button><button class="btn ghost" data-hint="'+esc(active.id)+'">Hint</button></div><div class="feedback" id="task-feedback"></div><div class="citation-box"><b>Citation</b><span>'+esc(active.provision)+'</span><a target="_blank" rel="noopener" href="'+esc(sourceFor(active.provision).url)+'">Open official source</a></div>'+(completed?'<div class="notice success">Room completed.</div>':'<button class="btn primary" data-action="complete" style="margin-top:12px;width:100%">Complete room at 70%+</button>')+'</aside></div>';
+    }catch(err){appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>'+esc(err.message)+'</div>';}
   }
 
   async function submitTask(id) {
-    const answer = window._selectedAnswer;
-    if (answer === undefined) { toastMsg("Choose an answer first"); return; }
-    try {
-      const result = window.DPDP_BADGES?.submitTask ? await window.DPDP_BADGES.submitTask(id, answer) : await DPDP_API.request("/api/tasks/" + encodeURIComponent(id) + "/answer", {method:"POST",body:JSON.stringify({answer})});
-      state.completedTasks = state.completedTasks || {};
-      const wasDone = !!state.completedTasks[id];
-      state.completedTasks[id] = !!result.correct;
-      if (result.correct && !wasDone) state.xp += Number(result.points || 10);
+    const answer=window._selectedAnswer;
+    if(answer===undefined){toastMsg("Choose an answer first");return;}
+    try{
+      const registry=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(r=>r.json());
+      const holder=(registry.rooms||[]).find(r=>r.tasks.some(t=>t.id===id));
+      const task=holder?.tasks.find(t=>t.id===id),q=task?.questions?.[0];
+      if(!q)throw new Error("Question data is unavailable.");
+      const correct=Number(answer)===Number(q.answer);
+      state.completedTasks=state.completedTasks||{};
+      const wasDone=!!state.completedTasks[id];
+      state.completedTasks[id]=correct;
+      if(correct&&!wasDone)state.xp+=10;
       save();
       const fb=document.getElementById("task-feedback");
-      if(fb){fb.textContent=(result.correct?"Correct. ":"Not correct. ") + (result.explanation||"");fb.className="feedback " + (result.correct?"success":"error");}
-      setTimeout(render,700);
-    } catch(e) { toastMsg(e.message); }
+      if(fb){const detail=correct?q.why:((q.why_wrong?.[answer]||"Review the official provision.")+" Section reference: "+q.section_reference);fb.textContent=(correct?"Correct. ":"Not correct. ")+detail;fb.className="feedback "+(correct?"success":"error");}
+      setTimeout(render,900);
+    }catch(e){toastMsg(e.message);}
   }
-
   async function leaderboard() {
     if(localStorage.getItem("0x8acure-leaderboard-optin")!=="yes"){
       appEl.innerHTML='<section class="panel optin-panel"><h2>Leaderboard is opt-in</h2><p>Enable public participation before viewing learner rankings.</p><label class="check-row"><input id="leaderboard-optin" type="checkbox"> I agree to participate.</label><div class="hero-actions"><button class="btn primary" data-action="leaderboard-enable">Enable leaderboard</button><button class="btn ghost" data-action="home">Cancel</button></div></section>';
