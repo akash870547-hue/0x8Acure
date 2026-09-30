@@ -1235,7 +1235,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "beginner",
+      "estimated_minutes": 25
     },
     {
       "id": "f-legitimate-uses",
@@ -1570,7 +1572,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "beginner",
+      "estimated_minutes": 25
     },
     {
       "id": "f-penalties",
@@ -1905,7 +1909,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "beginner",
+      "estimated_minutes": 25
     },
     {
       "id": "i-purpose",
@@ -2240,7 +2246,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 25
     },
     {
       "id": "i-security",
@@ -2575,7 +2583,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 25
     },
     {
       "id": "i-retention",
@@ -2910,7 +2920,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 25
     },
     {
       "id": "i-breach",
@@ -3245,7 +3257,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 25
     },
     {
       "id": "i-processors",
@@ -3580,7 +3594,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 25
     },
     {
       "id": "i-consent",
@@ -3915,7 +3931,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 25
     },
     {
       "id": "i-grievance",
@@ -4250,7 +4268,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 25
     },
     {
       "id": "a-sdf",
@@ -4585,7 +4605,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 25
     },
     {
       "id": "a-children",
@@ -4920,7 +4942,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 25
     },
     {
       "id": "a-crossborder",
@@ -5255,7 +5279,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 25
     },
     {
       "id": "a-board",
@@ -5590,7 +5616,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 25
     },
     {
       "id": "a-exemptions",
@@ -5925,7 +5953,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 25
     },
     {
       "id": "a-penalty-analysis",
@@ -6260,7 +6290,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 25
     },
     {
       "id": "a-capstone",
@@ -6595,7 +6627,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 25
     },
     {
       "id": "rule-01",
@@ -6930,7 +6964,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "beginner",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-02",
@@ -7265,7 +7301,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "beginner",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-03",
@@ -7600,7 +7638,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "beginner",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-04",
@@ -7935,7 +7975,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-05",
@@ -8270,7 +8312,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-06",
@@ -8605,7 +8649,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-07",
@@ -8940,7 +8986,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-08",
@@ -9275,7 +9323,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-09",
@@ -9610,7 +9660,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-10",
@@ -9945,7 +9997,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-11",
@@ -10280,7 +10334,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-12",
@@ -10615,7 +10671,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-13",
@@ -10950,7 +11008,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-14",
@@ -11285,7 +11345,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-15",
@@ -11620,7 +11682,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-16",
@@ -11955,7 +12019,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-17",
@@ -12290,7 +12356,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-18",
@@ -12625,7 +12693,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-19",
@@ -12960,7 +13030,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-20",
@@ -13295,7 +13367,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-21",
@@ -13630,7 +13704,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-22",
@@ -13965,7 +14041,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "rule-23",
@@ -14300,7 +14378,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "schedule-01",
@@ -14635,7 +14715,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "schedule-02",
@@ -14970,7 +15052,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "schedule-03",
@@ -15305,7 +15389,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "schedule-04",
@@ -15640,7 +15726,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "intermediate",
+      "estimated_minutes": 30
     },
     {
       "id": "schedule-05",
@@ -15975,7 +16063,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "schedule-06",
@@ -16310,7 +16400,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     },
     {
       "id": "schedule-07",
@@ -16645,7 +16737,9 @@
       "score_screen": {
         "passing_percent": 70,
         "feedback": "Score 70% or higher to complete the room."
-      }
+      },
+      "difficulty": "advanced",
+      "estimated_minutes": 30
     }
   ]
 }
