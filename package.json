@@ -1,0 +1,18 @@
+{
+  "name": "dpdp-ctf-platform",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Scenario-based DPDP compliance CTF platform with optional backend, auth, progress, leaderboard and HR administration.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "better-sqlite3": "^12.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
