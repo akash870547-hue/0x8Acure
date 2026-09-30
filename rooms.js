@@ -142,11 +142,19 @@ window.DPDP_QUIZ = [
 ];
 
 
-/* Three paths -> modules -> rooms/labs, in a TryHackMe-style hierarchy. */
+/* Three paths -> modules -> rooms/labs, with the full legal reference distributed across the three paths. */
 (() => {
   const act = window.DPDP_ACT_REFERENCE?.lessons || [];
   const rules = window.DPDP_RULES_REFERENCE?.lessons || [];
   const paths = window.DPDP_CURRICULUM.slice(0, 3);
+
+  const split3 = arr => {
+    const n = Math.ceil(arr.length / 3);
+    return [arr.slice(0, n), arr.slice(n, n * 2), arr.slice(n * 2)];
+  };
+
+  const [actA, actB, actC] = split3(act);
+  const [ruleA, ruleB, ruleC] = split3(rules);
 
   const module = (id, name, tag, description, rooms) => ({
     id, name, tag, description, rooms
@@ -154,24 +162,22 @@ window.DPDP_QUIZ = [
 
   paths[0].modules = [
     module("start-foundations", "Foundations", "Beginner", "Start with the core DPDP concepts and scope.", paths[0].lessons.filter(x => x.id.startsWith("s"))),
-    module("start-act-reference", "DPDP Act Reference", "Reference", "Section-by-section rooms for the official Act.", act),
-    module("start-rules-reference", "DPDP Rules Reference", "Reference", "Rule-by-rule rooms for the notified Rules and Schedules.", rules)
+    module("start-act-reference", "DPDP Act Reference", "Reference", "Official Act rooms covering the first legal-reference set.", actA),
+    module("start-rules-reference", "DPDP Rules Reference", "Reference", "Official Rules rooms covering the first rules-reference set.", ruleA)
   ];
 
   paths[1].modules = [
     module("principles-processing", "Processing Principles", "Beginner", "Grounds, notice, consent, legitimate uses and fiduciary duties.", paths[1].lessons.filter(x => x.id.startsWith("p"))),
-    module("principles-act-reference", "DPDP Act Reference", "Reference", "Official Act rooms mapped into this learning path.", act),
-    module("principles-rules-reference", "DPDP Rules Reference", "Reference", "Official Rules rooms mapped into this learning path.", rules)
+    module("principles-act-reference", "DPDP Act Reference", "Reference", "Official Act rooms covering the second legal-reference set.", actB),
+    module("principles-rules-reference", "DPDP Rules Reference", "Reference", "Official Rules rooms covering the second rules-reference set.", ruleB)
   ];
 
   paths[2].modules = [
     module("rights-core", "Rights & Duties", "Intermediate", "Access, correction, erasure, grievance, nomination and Data Principal duties.", paths[2].lessons.filter(x => x.id.startsWith("r"))),
-    module("rights-act-reference", "DPDP Act Reference", "Reference", "Official Act rooms for rights, governance and enforcement.", act),
-    module("rights-rules-reference", "DPDP Rules Reference", "Reference", "Official Rules rooms supporting rights and enforcement.", rules)
+    module("rights-act-reference", "DPDP Act Reference", "Reference", "Official Act rooms covering the final legal-reference set and Schedule.", actC),
+    module("rights-rules-reference", "DPDP Rules Reference", "Reference", "Official Rules rooms covering the final rules-reference set and Schedules.", ruleC)
   ];
 
-  /* Keep the legal reference content available in the three paths while making
-     the visible hierarchy Path -> Module -> Room. */
   paths.forEach(p => delete p.lessons);
   window.DPDP_CURRICULUM = paths;
 })();
