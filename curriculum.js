@@ -73,7 +73,10 @@ window.DPDP_CURRICULUM = [
             "prerequisites": [],
             "last_verified": "2026-09-30"
           }
-        ]
+        ,
+        {"id":"ch2-s4","title":"Section 4: Grounds for processing personal data","sections":"Section 4","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 4 word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s5","title":"Section 5: Notice","sections":"Section 5","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 5 word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s6","title":"Section 6: Consent","sections":"Section 6","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 6 word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"}]
       },
       {
         "id": "foundation-legitimate-uses",
@@ -98,7 +101,8 @@ window.DPDP_CURRICULUM = [
             "prerequisites": [],
             "last_verified": "2026-09-30"
           }
-        ]
+        ,
+        {"id":"ch2-s7","title":"Section 7: Certain legitimate uses","sections":"Section 7","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 7 word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"}]
       },
       {
         "id": "foundation-rights",
@@ -236,7 +240,13 @@ window.DPDP_CURRICULUM = [
             "prerequisites": [],
             "last_verified": "2026-09-30"
           }
-        ]
+        ,
+        {"id":"ch2-s8-1","title":"Section 8(1): Data Fiduciary responsibility","sections":"Section 8(1)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(1) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s8-2","title":"Section 8(2): Data Processor contract","sections":"Section 8(2)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(2) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s8-3","title":"Section 8(3): Completeness, accuracy and consistency","sections":"Section 8(3)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(3) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s8-4","title":"Section 8(4): Technical and organisational measures","sections":"Section 8(4)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(4) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s8-10","title":"Section 8(10): Grievance redressal mechanism","sections":"Section 8(10)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(10) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s8-11","title":"Section 8(11): Meaning of not having approached","sections":"Section 8(11)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(11) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"}]
       },
       {
         "id": "intermediate-security",
@@ -280,7 +290,10 @@ window.DPDP_CURRICULUM = [
             "prerequisites": [],
             "last_verified": "2026-09-30"
           }
-        ]
+        ,
+        {"id":"ch2-s8-5","title":"Section 8(5): Reasonable security safeguards","sections":"Section 8(5)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(5) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s8-6","title":"Section 8(6): Personal data breach intimation","sections":"Section 8(6)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(6) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s8-9","title":"Section 8(9): Contact information","sections":"Section 8(9)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(9) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"}]
       },
       {
         "id": "intermediate-retention",
@@ -306,7 +319,9 @@ window.DPDP_CURRICULUM = [
             "prerequisites": [],
             "last_verified": "2026-09-30"
           }
-        ]
+        ,
+        {"id":"ch2-s8-7","title":"Section 8(7): Erasure and processor erasure","sections":"Section 8(7)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(7) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"},
+        {"id":"ch2-s8-8","title":"Section 8(8): When specified purpose is no longer served","sections":"Section 8(8)","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 8(8) word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"}]
       },
       {
         "id": "intermediate-children",
@@ -368,7 +383,8 @@ window.DPDP_CURRICULUM = [
             "prerequisites": [],
             "last_verified": "2026-10-01"
           }
-        ]
+        ,
+        {"id":"ch2-s9","title":"Section 9: Processing personal data of children","sections":"Section 9","sourceIds":["act-2023"],"difficulty":"intermediate,"estimated_minutes":35,"learning_objectives":["Read Section 9 word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"}]
       },
       {
         "id": "intermediate-consent-managers",
@@ -617,7 +633,8 @@ window.DPDP_CURRICULUM = [
             "prerequisites": [],
             "last_verified": "2026-10-01"
           }
-        ]
+        ,
+        {"id":"ch2-s10","title":"Section 10: Significant Data Fiduciary","sections":"Section 10","sourceIds":["act-2023"],"difficulty":"advanced,"estimated_minutes":35,"learning_objectives":["Read Section 10 word-for-word from the official Act PDF.","Apply the provision to a guided Indian student scenario.","Identify the exact statutory requirement."],"prerequisites":[],"last_verified":"2026-10-01"}]
       },
       {
         "id": "advanced-crossborder",
