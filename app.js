@@ -185,7 +185,7 @@
       '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy"><p>'+esc(legal.final_challenge.scenario)+'</p><code>'+esc(legal.final_challenge.flag)+'</code></div></details></section><aside class="challenge-panel">'+
       '<button class="btn primary" data-rq-submit="'+key+'">Submit answer</button><button class="btn ghost" data-rq-next>Next unanswered</button><button class="btn ghost" data-rq-retry>Retry</button>'+
       '<div class="score-card"><b>Current score: '+meta.score+'%</b><span>Best score: '+Number(rs.bestScore||0)+'% · Pass mark: 70%</span></div>'+
-      (meta.answered===qs.length?(meta.score>=70?'<button class="btn primary" data-action="complete">Complete room</button>':'<div class="notice">Not passed. Retry allowed.</div>':"")+
+      (meta.answered===qs.length ? (meta.score>=70 ? '<button class="btn primary" data-action="complete">Complete room</button>' : '<div class="notice">Not passed. Retry allowed.</div>') : "")+
       "</aside></div>";
     }catch(e){appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>'+esc(e.message)+'</div>';}
   }
