@@ -87,24 +87,13 @@
   function pathView() {
     const p = path();
     if (!p) { view = "paths"; return render(); }
-
+    const rooms = (p.modules || []).flatMap(m => m.rooms || []);
+    const done = rooms.filter(r=>state.completed[r.id]).length;
     appEl.innerHTML =
-      '<div class="section-head">' +
-        '<div><span class="badge cyan">' + esc(p.level) + ' · ' + esc(p.tag) + '</span>' +
-        '<h2 style="margin-top:12px">' + esc(p.name) + '</h2>' +
-        '<p>' + esc(p.description) + '</p></div>' +
-        '<button class="btn ghost" data-action="paths">All paths</button>' +
-      '</div>' +
-      '<div class="panel path-intro"><div class="notice">Choose a module. Inside each module you will find individual rooms/labs. Complete rooms to build XP and progress.</div></div>' +
-      '<div class="grid path-grid" style="margin-top:16px">' +
-        p.modules.map((m, i) =>
-          '<button class="path-card" data-module="' + m.id + '">' +
-            '<div class="card-top"><span class="badge cyan">MODULE ' + String(i + 1).padStart(2,"0") + '</span><span class="badge">' + esc(m.tag) + '</span></div>' +
-            '<h3>' + esc(m.name) + '</h3>' +
-            '<p>' + esc(m.description) + '</p>' +
-            '<div class="path-meta"><span>Enter module</span><span>Rooms inside</span></div>' +
-          '</button>'
-        ).join("") +
+      '<div class="section-head"><div><span class="badge cyan">' + esc(p.level) + ' · ' + esc(p.tag) + '</span><h2 style="margin-top:12px">' + esc(p.name) + '</h2><p>' + esc(p.description) + '</p></div><button class="btn ghost" data-action="paths">All paths</button></div>' +
+      '<div class="progress-strip"><div><div class="kicker">Path progress</div><div style="margin:8px 0">Complete rooms in order to unlock the next one.</div><div class="progress-track"><div class="progress-fill" style="width:' + Math.round(done/Math.max(rooms.length,1)*100) + '%"></div></div></div><div><b>' + done + '</b><div class="kicker">completed</div></div></div>' +
+      '<div class="grid room-grid" style="margin-top:16px">' +
+      rooms.map((r,i)=>{const unlocked=roomUnlocked(p,i);return '<button class="room-card ' + (state.completed[r.id]?'complete ':'') + (!unlocked?'locked':'') + '" data-room="' + r.id + '"><div class="card-top"><span class="badge">' + String(i+1).padStart(2,'0') + '</span><span class="badge">' + (state.completed[r.id]?'Completed':unlocked?'Room':'Locked') + '</span></div><h3>' + esc(r.title) + '</h3><p>' + esc(r.sections) + '</p><div class="room-meta"><span>' + esc(r.difficulty) + ' · ' + esc(r.estimated_minutes) + ' min</span><span>' + (unlocked?'Open room':'Complete previous') + '</span></div></button>';}).join('') +
       '</div>';
   }
 
