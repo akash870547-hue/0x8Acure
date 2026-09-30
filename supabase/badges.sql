@@ -245,7 +245,7 @@ begin
           select t.room_id
           from public.task_catalog t
           left join public.task_submissions s on s.task_id=t.id and s.user_id=p_user and s.correct=true
-          where t.room_id not in (select distinct he.task_id from public.hint_events he where he.user_id=p_user)
+          where t.id not in (select distinct he.task_id from public.hint_events he where he.user_id=p_user)
           group by t.room_id
           having count(*) > 0 and count(distinct s.task_id)*100 >= count(*)*70
         ) q
