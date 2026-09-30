@@ -165,7 +165,7 @@
     const answer = window._selectedAnswer;
     if (answer === undefined) { toastMsg("Choose an answer first"); return; }
     try {
-      const result = await DPDP_API.request("/api/tasks/" + encodeURIComponent(id) + "/answer", {method:"POST",body:JSON.stringify({answer})});
+      const result = window.DPDP_BADGES?.submitTask ? await window.DPDP_BADGES.submitTask(id, answer) : await DPDP_API.request("/api/tasks/" + encodeURIComponent(id) + "/answer", {method:"POST",body:JSON.stringify({answer})});
       state.completedTasks = state.completedTasks || {};
       const wasDone = !!state.completedTasks[id];
       state.completedTasks[id] = !!result.correct;
@@ -299,7 +299,7 @@
       '<div class="section-head"><div><h2>My Progress</h2><p>Private local learning progress on this browser.</p></div><button class="btn ghost" data-action="home">Home</button></div>' +
       '<div class="progress-strip"><div><div class="kicker">Rooms completed</div><div style="margin:10px 0 7px;font-weight:700">' + completedRooms() + ' completed</div><div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div></div>' +
       '<div style="text-align:right"><div style="font-size:26px;font-weight:800">' + state.xp + '</div><div class="kicker">XP</div></div></div>' +
-      '<div class="notice" style="margin-top:16px">The interface does not expose the total number of rooms or labs. Progress only shows what you have completed.</div>';
+      '<div class="notice" style="margin-top:16px">The interface does not expose the total number of rooms or labs. Progress only shows what you have completed.</div><div class="hero-actions"><button class="btn primary" data-action="badges">View Badges</button></div>';
   }
 
   function render() {
@@ -342,6 +342,7 @@
       else if (x === "quizsubmit") quizSubmit();
       else if (x === "sources") { view = "sources"; render(); }
       else if (x === "progress") { view = "progress"; render(); }
+      else if (x === "badges") { window.DPDP_BADGES?.page(); }
       else if (x === "theme") { state.theme = state.theme === "dark" ? "light" : "dark"; save(); render(); }
     }
 
@@ -406,7 +407,7 @@
     const hint = e.target.closest("[data-hint]");
     if (hint) {
       const fb=document.getElementById("task-feedback");
-      if(fb){fb.textContent="Hint: open the cited provision and verify the exact requirement. Cost: 5 points.";fb.className="feedback hint";}
+      if(fb){(window.DPDP_BADGES?.useHint ? window.DPDP_BADGES.useHint(hint.dataset.hint).catch(()=>{}) : Promise.resolve());fb.textContent="Hint: open the cited provision and verify the exact requirement. Cost: 5 points.";fb.className="feedback hint";}
       return;
     }
 
