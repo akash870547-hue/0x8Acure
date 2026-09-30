@@ -144,7 +144,7 @@
       const active=tasks.find(t=>t.id===activeTaskId)||tasks[0],done=state.completedTasks||{};
       const count=tasks.filter(t=>done[t.id]).length,pct=Math.round(count/Math.max(tasks.length,1)*100),completed=!!state.completed[r.id];
       const sourceFor=p=>/Rule/i.test(String(p||''))?registry.sources["rules-2025"]:registry.sources["act-2023"];
-      const official=(active.official_text||[]).map((x,i)=>'<div class="official-text"><div class="official-label">OFFICIAL TEXT · '+esc(active.provision)+(active.official_text.length>1?' · Part '+(i+1):'')+'</div><pre>'+esc(x)+'</pre></div>').join('');
+      const official=(active.official_text||[]).map((x,i)=>'<div class="official-text"><div class="official-label">'+(active.official_text_mode==="verbatim"?"OFFICIAL TEXT · ":"OFFICIAL PROVISION REFERENCE · ")+esc(active.provision)+(active.official_text.length>1?' · Part '+(i+1):'')+'</div><pre>'+esc(x)+'</pre></div>').join('');
       const terms=(active.key_terms||[]).map(x=>'<span class="term-chip"><b>'+esc(x[0])+'</b><small>'+esc(x[1])+' · '+esc(x[2])+'</small></span>').join('');
       const myths=(active.common_mistakes||[]).map(x=>'<div class="myth-card"><b>'+esc(x[0])+'</b><span>'+esc(x[1])+'</span><b>Fact</b><span>'+esc(x[2])+'</span></div>').join('');
       appEl.innerHTML=
