@@ -98,19 +98,19 @@ app.get("/api/rooms",(req,res)=>{
   res.json({rooms:db.prepare("SELECT * FROM rooms WHERE status='published' ORDER BY path,code").all()});
 });
 
-app.get("/api/tasks/quiz",auth,(req,res)=>{
+app.get("/api/tasks/quiz",(req,res)=>{
   const tasks=(taskRegistry.tasks || []).map(({correct_answer, ...publicTask})=>publicTask);
   res.json({tasks,last_verified:taskRegistry.last_verified});
 });
 
-app.post("/api/tasks/:taskId/answer",auth,(req,res)=>{
+app.post("/api/tasks/:taskId/answer",(req,res)=>{
   const task=(taskRegistry.tasks || []).find(t=>t.id===req.params.taskId);
   if(!task) return res.status(404).json({error:"Task not found"});
   validateTask(task);
   const supplied=req.body?.answer;
   const correct=JSON.stringify(supplied)===JSON.stringify(task.correct_answer);
   const points=correct ? task.points : 0;
-  audit(req.user,"task_answered","task",task.id,{correct});
+  audit(req.user || null,"task_answered","task",task.id,{correct});
   res.json({
     correct,
     points,
