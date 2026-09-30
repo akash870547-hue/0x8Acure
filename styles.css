@@ -58,3 +58,9 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
   max-width:900px;
   margin:16px auto;
 }
+
+/* 0x8Acure handwritten brand */
+.brand-logo{min-width:max-content;padding:0;border:0;background:transparent}
+.brand-script{font-family:'Dancing Script',cursive;font-size:31px;font-weight:700;line-height:1;color:#00ff18;letter-spacing:.01em;text-shadow:0 0 10px rgba(0,255,24,.18)}
+.brand-logo:hover .brand-script{filter:brightness(1.08);text-shadow:0 0 14px rgba(0,255,24,.28)}
+@media(max-width:700px){.brand-script{font-size:27px}.nav-links{gap:0}.nav-links button{padding:8px 7px;font-size:12px}}
