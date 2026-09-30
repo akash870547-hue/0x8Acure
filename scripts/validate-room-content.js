@@ -1,5 +1,5 @@
-const fs=require("fs");
-const path=require("path");
+import fs from "node:fs";
+import path from "node:path";
 
 const ROOT=path.join(process.cwd(),"content","rooms");
 const LEGAL=path.join(process.cwd(),"content","legal-room-content.json");
