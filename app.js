@@ -21,6 +21,13 @@
   }[c]));
 
   const save = () => {
+    const today = new Date().toISOString().slice(0,10);
+    if (state.lastActiveDate !== today) {
+      const prev = state.lastActiveDate ? new Date(state.lastActiveDate) : null;
+      const diff = prev ? Math.round((new Date(today) - prev) / 86400000) : 0;
+      state.streak = diff === 1 ? Number(state.streak || 0) + 1 : 1;
+      state.lastActiveDate = today;
+    }
     localStorage.setItem(LS, JSON.stringify(state));
     document.documentElement.dataset.theme = state.theme;
     if (streakEl) streakEl.textContent = "";
