@@ -401,613 +401,613 @@ window.DPDP_CURRICULUM = [
             "last_verified": "2026-09-30"
           }
         ]
+      },
+      {
+        "id": "rules-2025",
+        "name": "DPDP Rules 2025",
+        "tag": "RULES",
+        "description": "Complete notified Rules 2025 and seven Schedules, source-first and sequentially unlocked.",
+        "rooms": [
+          {
+            "id": "rule-01",
+            "title": "Rule 1: Short title and commencement",
+            "sections": "Rule 1",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "beginner",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-02",
+            "title": "Rule 2: Definitions",
+            "sections": "Rule 2",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "beginner",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-01"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-03",
+            "title": "Rule 3: Notice given by Data Fiduciary to Data Principal",
+            "sections": "Rule 3",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "beginner",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-02"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-04",
+            "title": "Rule 4: Registration and obligations of Consent Manager",
+            "sections": "Rule 4; First Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-03"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-05",
+            "title": "Rule 5: Processing for subsidy, benefit, service, certificate, licence or permit by State",
+            "sections": "Rule 5; Second Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-04"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-06",
+            "title": "Rule 6: Reasonable security safeguards",
+            "sections": "Rule 6",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-05"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-07",
+            "title": "Rule 7: Intimation of personal data breach",
+            "sections": "Rule 7",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-06"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-08",
+            "title": "Rule 8: Time period for specified purpose to be deemed as no longer being served",
+            "sections": "Rule 8; Third Schedule; Seventh Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-07"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-09",
+            "title": "Rule 9: Contact information for questions about processing",
+            "sections": "Rule 9",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-08"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-10",
+            "title": "Rule 10: Verifiable consent for processing personal data of child",
+            "sections": "Rule 10",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-09"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-11",
+            "title": "Rule 11: Verifiable consent for person with disability with lawful guardian",
+            "sections": "Rule 11",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-10"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-12",
+            "title": "Rule 12: Exemptions from certain obligations for child data",
+            "sections": "Rule 12; Fourth Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-11"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-13",
+            "title": "Rule 13: Additional obligations of Significant Data Fiduciary",
+            "sections": "Rule 13",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-12"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-14",
+            "title": "Rule 14: Rights of Data Principals",
+            "sections": "Rule 14",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-13"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-15",
+            "title": "Rule 15: Transfer of personal data outside India",
+            "sections": "Rule 15",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-14"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-16",
+            "title": "Rule 16: Exemption for research, archiving or statistical purposes",
+            "sections": "Rule 16; Second Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-15"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-17",
+            "title": "Rule 17: Appointment of Chairperson and other Members",
+            "sections": "Rule 17",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-16"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-18",
+            "title": "Rule 18: Salary, allowances and service conditions",
+            "sections": "Rule 18; Fifth Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-17"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-19",
+            "title": "Rule 19: Board meetings and authentication",
+            "sections": "Rule 19",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-18"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-20",
+            "title": "Rule 20: Functioning of Board as digital office",
+            "sections": "Rule 20",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-19"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-21",
+            "title": "Rule 21: Appointment and service of Board officers/employees",
+            "sections": "Rule 21; Sixth Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-20"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-22",
+            "title": "Rule 22: Appeal to Appellate Tribunal",
+            "sections": "Rule 22",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-21"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-23",
+            "title": "Rule 23: Calling for information from Data Fiduciary or intermediary",
+            "sections": "Rule 23; Seventh Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-22"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "schedule-01",
+            "title": "First Schedule: Consent Manager",
+            "sections": "First Schedule; Rule 4",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "rule-23"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "schedule-02",
+            "title": "Second Schedule: State processing and research standards",
+            "sections": "Second Schedule; Rules 5 and 16",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "schedule-01"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "schedule-03",
+            "title": "Third Schedule: Deemed purpose-completion periods",
+            "sections": "Third Schedule; Rule 8",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "schedule-02"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "schedule-04",
+            "title": "Fourth Schedule: Child-data exemptions",
+            "sections": "Fourth Schedule; Rule 12",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "schedule-03"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "schedule-05",
+            "title": "Fifth Schedule: Chairperson and Member service conditions",
+            "sections": "Fifth Schedule; Rule 18",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "schedule-04"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "schedule-06",
+            "title": "Sixth Schedule: Board officers and employees",
+            "sections": "Sixth Schedule; Rule 21",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "schedule-05"
+            ],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "schedule-07",
+            "title": "Seventh Schedule: Information requests and specified purposes",
+            "sections": "Seventh Schedule; Rules 8 and 23",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [
+              "schedule-06"
+            ],
+            "last_verified": "2026-10-01"
+          }
+        ]
       }
     ]
-  },
-  {
-  "id": "rules-2025",
-  "name": "DPDP Rules 2025 · Rule-by-Rule",
-  "tag": "OFFICIAL RULES",
-  "description": "Notified Digital Personal Data Protection Rules, 2025, organised rule-by-rule with all seven Schedules. Official text is linked to the MeitY Gazette source.",
-  "rooms": [
-    {
-      "id": "rule-01",
-      "title": "Rule 1: Short title and commencement",
-      "sections": "Rule 1",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "beginner",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-02",
-      "title": "Rule 2: Definitions",
-      "sections": "Rule 2",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "beginner",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-01"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-03",
-      "title": "Rule 3: Notice given by Data Fiduciary to Data Principal",
-      "sections": "Rule 3",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "beginner",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-02"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-04",
-      "title": "Rule 4: Registration and obligations of Consent Manager",
-      "sections": "Rule 4; First Schedule",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-03"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-05",
-      "title": "Rule 5: Processing for subsidy, benefit, service, certificate, licence or permit by State",
-      "sections": "Rule 5; Second Schedule",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-04"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-06",
-      "title": "Rule 6: Reasonable security safeguards",
-      "sections": "Rule 6",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-05"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-07",
-      "title": "Rule 7: Intimation of personal data breach",
-      "sections": "Rule 7",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-06"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-08",
-      "title": "Rule 8: Time period for specified purpose to be deemed as no longer being served",
-      "sections": "Rule 8; Third Schedule; Seventh Schedule",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-07"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-09",
-      "title": "Rule 9: Contact information for questions about processing",
-      "sections": "Rule 9",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-08"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-10",
-      "title": "Rule 10: Verifiable consent for processing personal data of child",
-      "sections": "Rule 10",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-09"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-11",
-      "title": "Rule 11: Verifiable consent for person with disability with lawful guardian",
-      "sections": "Rule 11",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-10"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-12",
-      "title": "Rule 12: Exemptions from certain obligations for child data",
-      "sections": "Rule 12; Fourth Schedule",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-11"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-13",
-      "title": "Rule 13: Additional obligations of Significant Data Fiduciary",
-      "sections": "Rule 13",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-12"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-14",
-      "title": "Rule 14: Rights of Data Principals",
-      "sections": "Rule 14",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-13"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-15",
-      "title": "Rule 15: Transfer of personal data outside India",
-      "sections": "Rule 15",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-14"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-16",
-      "title": "Rule 16: Exemption for research, archiving or statistical purposes",
-      "sections": "Rule 16; Second Schedule",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-15"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-17",
-      "title": "Rule 17: Appointment of Chairperson and other Members",
-      "sections": "Rule 17",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-16"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-18",
-      "title": "Rule 18: Salary, allowances and service conditions",
-      "sections": "Rule 18; Fifth Schedule",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-17"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-19",
-      "title": "Rule 19: Board meetings and authentication",
-      "sections": "Rule 19",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-18"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-20",
-      "title": "Rule 20: Functioning of Board as digital office",
-      "sections": "Rule 20",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-19"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-21",
-      "title": "Rule 21: Appointment and service of Board officers/employees",
-      "sections": "Rule 21; Sixth Schedule",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-20"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-22",
-      "title": "Rule 22: Appeal to Appellate Tribunal",
-      "sections": "Rule 22",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-21"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "rule-23",
-      "title": "Rule 23: Calling for information from Data Fiduciary or intermediary",
-      "sections": "Rule 23; Seventh Schedule",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-22"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "schedule-01",
-      "title": "First Schedule: Consent Manager",
-      "sections": "First Schedule; Rule 4",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "rule-23"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "schedule-02",
-      "title": "Second Schedule: State processing and research standards",
-      "sections": "Second Schedule; Rules 5 and 16",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "schedule-01"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "schedule-03",
-      "title": "Third Schedule: Deemed purpose-completion periods",
-      "sections": "Third Schedule; Rule 8",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "schedule-02"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "schedule-04",
-      "title": "Fourth Schedule: Child-data exemptions",
-      "sections": "Fourth Schedule; Rule 12",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "intermediate",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "schedule-03"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "schedule-05",
-      "title": "Fifth Schedule: Chairperson and Member service conditions",
-      "sections": "Fifth Schedule; Rule 18",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "schedule-04"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "schedule-06",
-      "title": "Sixth Schedule: Board officers and employees",
-      "sections": "Sixth Schedule; Rule 21",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "schedule-05"
-      ],
-      "last_verified": "2026-10-01"
-    },
-    {
-      "id": "schedule-07",
-      "title": "Seventh Schedule: Information requests and specified purposes",
-      "sections": "Seventh Schedule; Rules 8 and 23",
-      "sourceIds": [
-        "rules-2025"
-      ],
-      "difficulty": "advanced",
-      "estimated_minutes": 30,
-      "learning_objectives": [
-        "Read the notified provision and identify its operative requirements.",
-        "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-        "Apply only the requirements supported by the official notified text.",
-        "Complete the source-linked challenge tasks for this provision."
-      ],
-      "prerequisites": [
-        "schedule-06"
-      ],
-      "last_verified": "2026-10-01"
-    }
-  ]
-}
+  }
 ];
