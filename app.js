@@ -399,6 +399,8 @@
       const roomIndex = ordered.findIndex(x => x.id === r.dataset.room);
       if (!roomUnlocked(currentPath, roomIndex)) { toastMsg("Complete the previous room first"); return; }
       roomId = r.dataset.room;
+      const roomModule = (currentPath?.modules || []).find(m => (m.rooms || []).some(x => x.id === roomId));
+      moduleId = roomModule?.id || null;
       view = "room";
       render();
     }
