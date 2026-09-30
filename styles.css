@@ -23,3 +23,38 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 [data-theme="light"] .task-details,[data-theme="light"] .task-sidebar,[data-theme="light"] .challenge-panel{background:#fff}[data-theme="light"] .citation-chip{background:#ecfeff;color:#155e75;border-color:#67e8f9}[data-theme="light"] .achievement{background:#fff}
 @media(max-width:1100px){.room-shell{grid-template-columns:190px minmax(0,1fr)}.challenge-panel{grid-column:1/-1;position:static}.dashboard-grid{grid-template-columns:1fr}.task-sidebar{top:82px}}
 @media(max-width:760px){.dashboard-head{display:block}.dash-actions{margin-top:18px}.room-shell{grid-template-columns:1fr}.task-sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.sidebar-title{grid-column:1/-1}.room-heading{display:block}.room-heading .btn{margin-top:12px}.task-details summary span{display:none}}
+
+/* Centered room learning layout */
+.room-content-shell{
+  grid-template-columns:minmax(0,900px);
+  justify-content:center;
+}
+.room-content-shell .room-learning{
+  width:100%;
+  max-width:900px;
+}
+.room-content-shell .task-details{
+  width:100%;
+}
+.room-content-shell .task-copy{
+  max-width:820px;
+  margin:0 auto;
+}
+.room-content-shell .challenge-panel{
+  position:static;
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+}
+.room-content-shell .room-learning + .challenge-panel{
+  grid-column:auto;
+}
+.room-heading{
+  max-width:1100px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.room-objectives{
+  max-width:900px;
+  margin:16px auto;
+}
