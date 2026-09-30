@@ -31,6 +31,8 @@
 
   const allRooms = () => DPDP_CURRICULUM.flatMap(p => (p.modules || []).flatMap(m => m.rooms || []));
   const completedRooms = () => Object.keys(state.completed).length;
+  const pathUnlocked = idx => idx === 0 || DPDP_CURRICULUM.slice(0, idx).every(p => (p.modules || []).flatMap(m => m.rooms || []).every(r => state.completed[r.id]));
+  const roomUnlocked = (p, idx) => idx === 0 || (p.modules || []).flatMap(m => m.rooms || []).slice(0, idx).every(r => state.completed[r.id]);
 
   const sourceUrl = item => String(item?.source || "").includes("Rules")
     ? DPDP_SOURCE.rules
@@ -69,8 +71,8 @@
       '</section>' +
       '<div class="section-head"><div><h2>Learning Paths</h2><p>Choose where you want to start.</p></div></div>' +
       '<div class="grid path-grid">' +
-        DPDP_CURRICULUM.map(p =>
-          '<button class="path-card" data-path="' + p.id + '">' +
+        DPDP_CURRICULUM.map((p, i) =>
+          '<button class="path-card ' + (pathUnlocked(i) ? "" : "locked") + '" data-path="' + p.id + '" data-locked="' + (!pathUnlocked(i)) + '">' +
             '<div class="card-top"><span class="badge cyan">' + esc(p.level) + '</span><span class="badge">' + esc(p.tag) + '</span></div>' +
             '<h3>' + esc(p.name) + '</h3>' +
             '<p>' + esc(p.description) + '</p>' +
@@ -84,8 +86,8 @@
     appEl.innerHTML =
       '<div class="section-head"><div><h2>Learning Paths</h2><p>Three paths. Pick one and enter its modules.</p></div><button class="btn ghost" data-action="home">Home</button></div>' +
       '<div class="grid path-grid">' +
-        DPDP_CURRICULUM.map(p =>
-          '<button class="path-card" data-path="' + p.id + '">' +
+        DPDP_CURRICULUM.map((p, i) =>
+          '<button class="path-card ' + (pathUnlocked(i) ? "" : "locked") + '" data-path="' + p.id + '" data-locked="' + (!pathUnlocked(i)) + '">' +
             '<div class="card-top"><span class="badge violet">' + esc(p.level) + '</span><span class="badge">' + esc(p.tag) + '</span></div>' +
             '<h3>' + esc(p.name) + '</h3>' +
             '<p>' + esc(p.description) + '</p>' +
@@ -133,50 +135,49 @@
       '</div>' +
       '<div class="panel path-intro"><div class="notice">Room-based learning. Open a room, study the objective, then mark it learned when you are done.</div></div>' +
       '<div class="grid room-grid" style="margin-top:16px">' +
-        m.rooms.map((r, i) =>
-          '<button class="room-card ' + (state.completed[r.id] ? "complete" : "") + '" data-room="' + r.id + '">' +
-            '<div class="card-top"><span class="badge">' + String(i + 1).padStart(2,"0") + '</span><span class="badge">' + (state.completed[r.id] ? "Completed" : "Room") + '</span></div>' +
-            '<h3>' + esc(r.title) + '</h3>' +
-            '<p>' + esc(r.sections) + '</p>' +
-            '<div class="room-meta"><span>' + esc(r.source || "Official source") + '</span><span>Open room</span></div>' +
-          '</button>'
-        ).join("") +
+        m.rooms.map((r, i) => {
+          const unlocked = roomUnlocked(p, i);
+          return '<button class="room-card ' + (state.completed[r.id] ? "complete" : "") + (unlocked ? "" : " locked") + '" data-room="' + r.id + '" data-locked="' + (!unlocked) + '">' +
+            '<div class="card-top"><span class="badge">' + String(i + 1).padStart(2,"0") + '</span><span class="badge">' + (state.completed[r.id] ? "Completed" : unlocked ? "Room" : "Locked") + '</span></div>' +
+            '<h3>' + esc(r.title) + '</h3><p>' + esc(r.sections) + '</p>' +
+            '<div class="room-meta"><span>' + esc(r.sourceIds.join(" + ")) + '</span><span>' + (unlocked ? "Open room" : "Complete previous room") + '</span></div></button>';
+        }).join("") +
       '</div>';
   }
 
-  function roomView() {
-    const p = path();
-    const m = mod();
-    const r = room();
+  async function roomView() {
+    const p = path(), m = mod(), r = room();
     if (!p || !m || !r) { view = "paths"; return render(); }
+    const all = (p.modules || []).flatMap(x => x.rooms || []);
+    const idx = all.findIndex(x => x.id === r.id);
+    if (!roomUnlocked(p, idx)) { toastMsg("Complete the previous room first"); view = "module"; return render(); }
 
     appEl.innerHTML =
-      '<div class="room-top">' +
-        '<div><div class="kicker">' + esc(p.name) + ' / ' + esc(m.name) + '</div>' +
-        '<h1>' + esc(r.title) + '</h1><p>' + esc(m.description) + '</p></div>' +
-        '<span class="badge cyan">ROOM</span>' +
-      '</div>' +
-      '<div class="room-layout" style="margin-top:18px">' +
-        '<section class="panel room-theory">' +
-          '<div class="notice">Source of truth: ' + esc(r.source || "Government source") + '</div>' +
-          '<div class="theory-block"><div class="kicker">Room objective</div>' +
-            (r.body || []).map(x => '<p>' + esc(x) + '</p>').join("") +
-          '</div>' +
-          '<div class="theory-block"><div class="kicker">Official source</div><p>' +
-            sourceLink("Open official MeitY source", sourceUrl(r)) +
-          '</p></div>' +
-          '<div class="hero-actions">' +
-            '<button class="btn primary" data-action="complete">' + (state.completed[r.id] ? "Completed" : "Mark room complete") + '</button>' +
-            '<button class="btn ghost" data-action="module">Back to module</button>' +
-          '</div>' +
-        '</section>' +
-        '<aside class="challenge-card">' +
-          '<div class="challenge-head"><div class="challenge-num">ROOM</div><span class="badge">Hands-on learning</span></div>' +
-          '<div class="question">Study the source, understand the requirement, then use the separate Quiz section to test yourself.</div>' +
-          '<button class="btn violet" style="width:100%" data-action="quiz">Open Quiz</button>' +
-          '<div class="hint-box">Tip: distinguish the exact statutory requirement from operational guidance.</div>' +
-        '</aside>' +
-      '</div>';
+      '<div class="room-top"><div><div class="kicker">' + esc(p.name) + ' / ' + esc(m.name) + '</div>' +
+      '<h1>' + esc(r.title) + '</h1><p>' + esc(r.sections) + '</p></div><span class="badge cyan">' + esc(r.difficulty) + '</span></div>' +
+      '<div id="room-content" class="room-layout" style="margin-top:18px"><section class="panel"><div class="notice">Loading cited room tasks...</div></section></div>';
+
+    try {
+      const data = await DPDP_API.request("/api/tasks/room/" + encodeURIComponent(r.id));
+      if (!data) throw new Error("Room backend is not configured.");
+      const tasks = data.tasks || [];
+      const sourceText = (r.sourceIds || []).join(" + ");
+      const taskCards = tasks.map((t, i) =>
+        '<article class="panel task-panel"><div class="card-top"><span class="badge">TASK ' + String(i+1).padStart(2,"0") + '</span><span class="badge">' + esc(t.type) + '</span></div>' +
+        '<h3>' + esc(t.prompt) + '</h3><div class="options">' +
+        (t.options || []).map((o,j)=>'<button class="option" data-task="' + esc(t.id) + '" data-answer="' + j + '">' + esc(o) + '</button>').join("") +
+        '</div><div class="hint-box">Citation: ' + esc(t.citation.reference) + '</div><div class="explain" id="feedback-' + esc(t.id) + '" hidden></div></article>'
+      ).join("");
+      document.getElementById("room-content").innerHTML =
+        '<section class="panel room-theory"><div class="kicker">1 · THEORY</div><div class="notice">Sources: ' + esc(sourceText) + ' · Last verified: ' + esc(r.last_verified) + '</div>' +
+        '<h3>Learning objectives</h3><ul>' + r.learning_objectives.map(x=>'<li>'+esc(x)+'</li>').join("") + '</ul>' +
+        '<h3>2 · GUIDED SCENARIO</h3><p>Apply the cited provisions to a realistic compliance situation. Separate the facts from the statutory requirement, then choose the exact provision to verify.</p>' +
+        '<h3>3 · CHALLENGE TASKS</h3>' + taskCards +
+        '<h3>4 · ROOM SUMMARY</h3><p>Re-check the cited Act/Rules provisions, then complete the room. Training content is educational and not legal advice.</p>' +
+        '<div class="hero-actions"><button class="btn primary" data-action="complete">' + (state.completed[r.id] ? "Completed" : "Mark room complete") + '</button><button class="btn ghost" data-action="module">Back to module</button></div></section>';
+    } catch (err) {
+      document.getElementById("room-content").innerHTML='<section class="panel"><div class="notice"><b>Room unavailable.</b><br>'+esc(err.message)+'</div></section>';
+    }
   }
 
   async function quizStart() {
@@ -332,6 +333,8 @@
 
     const p = e.target.closest("[data-path]");
     if (p) {
+      const idx = DPDP_CURRICULUM.findIndex(x => x.id === p.dataset.path);
+      if (!pathUnlocked(idx)) { toastMsg("Unlock the previous learning path first"); return; }
       pathId = p.dataset.path;
       moduleId = null;
       roomId = null;
@@ -349,9 +352,27 @@
 
     const r = e.target.closest("[data-room]");
     if (r) {
+      const currentPath = path();
+      const ordered = currentPath ? (currentPath.modules || []).flatMap(m => m.rooms || []) : [];
+      const roomIndex = ordered.findIndex(x => x.id === r.dataset.room);
+      if (!roomUnlocked(currentPath, roomIndex)) { toastMsg("Complete the previous room first"); return; }
       roomId = r.dataset.room;
       view = "room";
       render();
+    }
+
+    const task = e.target.closest("[data-task]");
+    if (task) {
+      const feedback = document.getElementById("feedback-" + task.dataset.task);
+      if (!feedback) return;
+      feedback.hidden = false;
+      feedback.textContent = "Checking answer...";
+      DPDP_API.request("/api/tasks/" + encodeURIComponent(task.dataset.task) + "/answer", {
+        method:"POST", body:JSON.stringify({answer:Number(task.dataset.answer)})
+      }).then(result => {
+        feedback.textContent = result.correct ? "Correct. " + (result.explanation || "") : "Not correct. " + (result.explanation || "Review the citation.");
+        feedback.className = "explain " + (result.correct ? "" : "wrong");
+      }).catch(err => { feedback.textContent = err.message; feedback.className="explain wrong"; });
     }
 
     const q = e.target.closest("[data-qoption]");
