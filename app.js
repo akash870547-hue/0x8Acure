@@ -435,6 +435,8 @@
   });
 
   // Room quiz state is persisted locally until Supabase migration.
+  const roomQuizState=()=>state.roomQuiz||(state.roomQuiz={});
+
   function roomQuizMeta(roomData){
     const all=(roomData.tasks||[]).flatMap(t=>t.questions||[]);
     const rs=state.roomQuiz?.[roomData.id]||{answers:{},results:{},bestScore:0};
