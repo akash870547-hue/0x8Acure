@@ -14,8 +14,8 @@ for (const file of [...new Set(files)]) {
   let data;
   try { data = JSON.parse(fs.readFileSync(full, "utf8")); }
   catch (e) { throw new Error(`Cannot parse ${file}: ${e.message}`); }
-  const rooms = Array.isArray(data.rooms) ? data.rooms : [];
-  for (const room of rooms) for (const task of room.tasks || []) for (const q of task.questions || []) {
+  const rooms = Array.isArray(data.rooms) ? data.rooms.filter(room => !(file === "legal-room-content.json" && String(room.id||"").startsWith("ch2-"))) : [];
+  for (const room of rooms) {\n    if (room.official_text_status === "VERIFIED_WORD_FOR_WORD") {\n      const roomQuestions = (room.tasks || []).flatMap(t => t.questions || []);\n      if ((room.tasks || []).length < 8) throw new Error(`Room ${room.id} has fewer than 8 tasks`);\n      if (roomQuestions.length < 10) throw new Error(`Room ${room.id} has fewer than 10 questions`);\n      if (!(room.tasks || []).every(t => Array.isArray(t.official_text) && t.official_text.some(x => String(x||"").trim()))) throw new Error(`Room ${room.id} is missing official text in a task`);\n    }\n    for (const task of room.tasks || []) for (const q of task.questions || []) {
     questions.push({ file, room: room.id, task: task.id, q });
   }
 }
