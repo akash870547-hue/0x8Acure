@@ -445,6 +445,15 @@
     }
   });
 
+  // Room quiz state is persisted locally until Supabase migration.
+  function roomQuizMeta(roomData){
+    const all=(roomData.tasks||[]).flatMap(t=>t.questions||[]);
+    const rs=state.roomQuiz?.[roomData.id]||{answers:{},results:{},bestScore:0};
+    const answered=Object.keys(rs.results||{}).length;
+    const correct=Object.values(rs.results||{}).filter(Boolean).length;
+    return {all,rs,answered,correct,score:answered?Math.round(correct/all.length*100):0};
+  }
+
   function toastMsg(msg) {
     const t = document.getElementById("toast");
     if (!t) return;
