@@ -270,7 +270,6 @@ begin
   ok := t.correct_answer = p_answer;
   insert into public.task_submissions(user_id,task_id,answer,correct,points) values(auth.uid(),p_task_id,p_answer,ok,case when ok then 10 else 0 end);
   insert into public.user_learning_days(user_id,learning_date) values(auth.uid(),current_date) on conflict do nothing;
-  insert into public.hint_events(user_id,task_id) values(auth.uid(),p_task_id);
   perform public.evaluate_badges(auth.uid());
   return jsonb_build_object('correct',ok,'points',case when ok then 10 else 0 end);
 end; $$;
