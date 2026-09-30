@@ -42,7 +42,7 @@
   // Paths, modules and rooms are always accessible. Login only persists progress.
   const pathUnlocked = () => true;
   const roomIndexInPath = (p, roomId) => (p?.modules || []).flatMap(m => m.rooms || []).findIndex(r => r.id === roomId);
-  const roomUnlocked = (p, idx) => idx === 0 || (p.modules || []).flatMap(m => m.rooms || []).slice(0, idx).every(r => state.completed[r.id]);
+  const roomUnlocked = () => true;
 
   const sourceUrl = item => String(item?.source || "").includes("Rules")
     ? DPDP_SOURCE.rules
@@ -100,9 +100,9 @@
     const done = rooms.filter(r=>state.completed[r.id]).length;
     appEl.innerHTML =
       '<div class="section-head"><div><span class="badge cyan">' + esc(p.level) + ' · ' + esc(p.tag) + '</span><h2 style="margin-top:12px">' + esc(p.name) + '</h2><p>' + esc(p.description) + '</p></div><button class="btn ghost" data-action="paths">All paths</button></div>' +
-      '<div class="progress-strip"><div><div class="kicker">Path progress</div><div style="margin:8px 0">Complete rooms in order to unlock the next one.</div><div class="progress-track"><div class="progress-fill" style="width:' + Math.round(done/Math.max(rooms.length,1)*100) + '%"></div></div></div><div><b>' + done + '</b><div class="kicker">completed</div></div></div>' +
+      '<div class="progress-strip"><div><div class="kicker">Path progress</div><div style="margin:8px 0">All rooms are open. Complete rooms to track progress.</div><div class="progress-track"><div class="progress-fill" style="width:' + Math.round(done/Math.max(rooms.length,1)*100) + '%"></div></div></div><div><b>' + done + '</b><div class="kicker">completed</div></div></div>' +
       '<div class="grid room-grid" style="margin-top:16px">' +
-      rooms.map((r,i)=>{const unlocked=roomUnlocked(p,i);return '<button class="room-card ' + (state.completed[r.id]?'complete ':'') + (!unlocked?'locked':'') + '" data-room="' + r.id + '"><div class="card-top"><span class="badge">' + String(i+1).padStart(2,'0') + '</span><span class="badge">' + (state.completed[r.id]?'Completed':unlocked?'Room':'Locked') + '</span></div><h3>' + esc(r.title) + '</h3><p>' + esc(r.sections) + '</p><div class="room-meta"><span>' + esc(r.difficulty) + ' · ' + esc(r.estimated_minutes) + ' min</span><span>' + (unlocked?'Open room':'Complete previous') + '</span></div></button>';}).join('') +
+      rooms.map((r,i)=>{const unlocked=roomUnlocked(p,i);return '<button class="room-card ' + (state.completed[r.id]?'complete ':'') + (!unlocked?'locked':'') + '" data-room="' + r.id + '"><div class="card-top"><span class="badge">' + String(i+1).padStart(2,'0') + '</span><span class="badge">' + (state.completed[r.id]?'Completed':unlocked?'Room':'Locked') + '</span></div><h3>' + esc(r.title) + '</h3><p>' + esc(r.sections) + '</p><div class="room-meta"><span>' + esc(r.difficulty) + ' · ' + esc(r.estimated_minutes) + ' min</span><span>' + (unlocked?'Open room':'Open room') + '</span></div></button>';}).join('') +
       '</div>';
   }
 
@@ -125,7 +125,7 @@
           return '<button class="room-card ' + (state.completed[r.id] ? "complete" : "") + (unlocked ? "" : " locked") + '" data-room="' + r.id + '" data-locked="' + (!unlocked) + '">' +
             '<div class="card-top"><span class="badge">' + String(i + 1).padStart(2,"0") + '</span><span class="badge">' + (state.completed[r.id] ? "Completed" : unlocked ? "Room" : "Locked") + '</span></div>' +
             '<h3>' + esc(r.title) + '</h3><p>' + esc(r.sections) + '</p>' +
-            '<div class="room-meta"><span>' + esc(r.sourceIds.join(" + ")) + '</span><span>' + (unlocked ? "Open room" : "Complete previous room") + '</span></div></button>';
+            '<div class="room-meta"><span>' + esc(r.sourceIds.join(" + ")) + '</span><span>' + (unlocked ? "Open room" : "Open room") + '</span></div></button>';
         }).join("") +
       '</div>';
   }
@@ -135,7 +135,6 @@
     const p=path(),m=mod(),r=room();
     if(!p||!m||!r){view="paths";return render();}
     const idx=roomIndexInPath(p,r.id);
-    if(!roomUnlocked(p,idx)){toastMsg("Complete the previous room first");view="path";return render();}
     try{
       const registry=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json());
       const legal=(registry.rooms||[]).find(x=>x.id===r.id);
@@ -397,7 +396,6 @@
       const currentPath = path();
       const ordered = currentPath ? (currentPath.modules || []).flatMap(m => m.rooms || []) : [];
       const roomIndex = ordered.findIndex(x => x.id === r.dataset.room);
-      if (!roomUnlocked(currentPath, roomIndex)) { toastMsg("Complete the previous room first"); return; }
       roomId = r.dataset.room;
       const roomModule = (currentPath?.modules || []).find(m => (m.rooms || []).some(x => x.id === roomId));
       moduleId = roomModule?.id || null;
