@@ -297,3 +297,9 @@ revoke all on function public.admin_question_failures() from public,anon;grant e
 create or replace function public.admin_revoke_certificate(p_certificate_id text)returns boolean language plpgsql security definer set search_path=''
 as $$begin if not(select private.is_admin())then raise exception 'Admin role required';end if;update public.certificates set revoked_at=coalesce(revoked_at,now())where certificate_id=p_certificate_id;return found;end$$;
 revoke all on function public.admin_revoke_certificate(text) from public,anon;grant execute on function public.admin_revoke_certificate(text) to authenticated;
+
+create or replace function public.public_leaderboard()
+returns jsonb language sql security definer set search_path=''
+as $$select coalesce(jsonb_agg(jsonb_build_object('name',p.name,'xp',p.xp,'completed_rooms',(select count(*) from public.room_progress rp where rp.user_id=p.id and rp.completed) ) order by p.xp desc),'[]'::jsonb) from public.profiles p where p.leaderboard_opt_in=true$$;
+revoke all on function public.public_leaderboard() from public;
+grant execute on function public.public_leaderboard() to anon,authenticated;
