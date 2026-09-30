@@ -1,25 +1,29 @@
 (() => {
   const LS="dpdp-platform-v4";
   const originalSet=localStorage.setItem.bind(localStorage);
-  localStorage.setItem=(key,value)=>{originalSet(key,value);if(key===LS)window.dispatchEvent(new CustomEvent("0x8acure:progress-changed"));};
-  const wrap=()=>{
-    if(!window.DPDP_API||window.DPDP_API.__supabaseWrapped)return;
-    const original=window.DPDP_API.request.bind(window.DPDP_API);
-    window.DPDP_API.request=async(path,options={})=>{
-      const result=await original(path,options);
-      if(/^\/api\/tasks\/[^/]+\/answer$/.test(path)&&options.method==="POST"&&window.DPDP_AUTH?.configured){
-        try{
-          const {data}=await window.DPDP_AUTH.client.auth.getSession(),u=data.session?.user;
-          if(u){
-            const taskId=decodeURIComponent(path.split("/")[3]);
-            let answer=null;try{answer=JSON.parse(options.body||"{}").answer}catch{}
-            await window.DPDP_AUTH.client.from("task_submissions").insert({user_id:u.id,task_id:taskId,answer,correct:!!result.correct,points:Number(result.points||0)});
-          }
-        }catch{}
-      }
-      return result;
-    };
-    window.DPDP_API.__supabaseWrapped=true;
+  let syncing=false;
+  localStorage.setItem=(key,value)=>{
+    originalSet(key,value);
+    if(key===LS && !syncing) window.dispatchEvent(new CustomEvent("0x8acure:progress-changed"));
   };
-  window.addEventListener("load",()=>setTimeout(wrap,0));
+  async function sync(){
+    const c=window.DPDP_AUTH?.client;
+    if(!c||syncing)return;
+    const {data:{session}}=await c.auth.getSession(); if(!session?.user)return;
+    let state={};try{state=JSON.parse(localStorage.getItem(LS)||"{}")}catch{}
+    const rows=Object.entries(state.completed||{}).map(([room_id,completed])=>({
+      user_id:session.user.id,room_id,completed:!!completed,
+      best_score:Number(state.roomQuiz?.[room_id]?.bestScore||0),xp:Number(state.xp||0)
+    }));
+    syncing=true;
+    try{
+      if(rows.length) await c.from("room_progress").upsert(rows,{onConflict:"user_id,room_id"});
+      await c.from("profiles").update({
+        xp:Number(state.xp||0),streak:Number(state.streak||0),
+        last_active_date:state.lastActiveDate||null,updated_at:new Date().toISOString()
+      }).eq("id",session.user.id);
+    } finally { syncing=false; }
+  }
+  window.addEventListener("0x8acure:progress-changed",()=>{sync().catch(()=>{})});
+  window.addEventListener("load",()=>setTimeout(()=>sync().catch(()=>{}),900));
 })();
