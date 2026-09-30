@@ -303,3 +303,6 @@ returns jsonb language sql security definer set search_path=''
 as $$select coalesce(jsonb_agg(jsonb_build_object('name',p.name,'xp',p.xp,'completed_rooms',(select count(*) from public.room_progress rp where rp.user_id=p.id and rp.completed) ) order by p.xp desc),'[]'::jsonb) from public.profiles p where p.leaderboard_opt_in=true$$;
 revoke all on function public.public_leaderboard() from public;
 grant execute on function public.public_leaderboard() to anon,authenticated;
+
+alter table public.profiles drop constraint if exists profiles_role_check;
+alter table public.profiles add constraint profiles_role_check check(role in('learner','admin'));
