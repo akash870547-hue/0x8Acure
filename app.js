@@ -254,16 +254,22 @@
       '</div><aside class="hero-side"><div class="stat"><b>' + state.quizScore + '</b><span>Correct answers</span></div><div class="stat"><b>' + state.xp + ' XP</b><span>Total learning XP</span></div></aside></section>';
   }
 
-  function sources() {
-    appEl.innerHTML =
-      '<div class="section-head"><div><h2>Official Sources</h2><p>Government material only for the legal curriculum.</p></div><button class="btn ghost" data-action="home">Home</button></div>' +
-      '<div class="grid room-grid">' +
-        '<a class="room-card" target="_blank" rel="noopener" href="' + DPDP_SOURCE.act + '"><span class="badge cyan">MEITY / GAZETTE</span><h3>Digital Personal Data Protection Act, 2023</h3><p>Primary statutory text hosted by MeitY.</p></a>' +
-        '<a class="room-card" target="_blank" rel="noopener" href="' + DPDP_SOURCE.rules + '"><span class="badge cyan">MEITY</span><h3>Digital Personal Data Protection Rules, 2025</h3><p>Notified Rules and official MeitY document page.</p></a>' +
-        '<a class="room-card" target="_blank" rel="noopener" href="' + DPDP_SOURCE.note + '"><span class="badge cyan">MEITY</span><h3>Explanatory Note to the Rules</h3><p>Official explanatory material, not statutory text.</p></a>' +
-        '<a class="room-card" target="_blank" rel="noopener" href="' + DPDP_SOURCE.actPage + '"><span class="badge cyan">MEITY</span><h3>MeitY DPDP Act Page</h3><p>Official Ministry landing page for the Act.</p></a>' +
-      '</div>' +
-      '<div class="notice" style="margin-top:16px"><b>Commencement note:</b> the notified Rules use phased commencement. Rules 1, 2 and 17-21 commence on publication; Rule 4 follows one year after publication; Rules 3, 5-16, 22 and 23 follow eighteen months after publication.</div>';
+  async function sources() {
+    appEl.innerHTML = '<div class="section-head"><div><h2>Official Sources</h2><p>Government sources used by the platform. Last verified: 2026-09-30.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="panel"><div class="notice">Not legal advice. Educational use only.</div><div id="source-list" class="grid room-grid" style="margin-top:16px">Loading source registry...</div></div>';
+    try {
+      const r = await fetch("content/sources.json", {cache:"no-store"});
+      if (!r.ok) throw new Error("Source registry could not be loaded.");
+      const registry = await r.json();
+      document.getElementById("source-list").innerHTML = (registry.sources || []).map(s =>
+        '<a class="room-card" target="_blank" rel="noopener" href="' + esc(s.url) + '">' +
+        '<span class="badge cyan">' + esc(s.document_type) + '</span>' +
+        '<h3>' + esc(s.title) + '</h3>' +
+        '<p><b>Publisher:</b> ' + esc(s.publisher) + '<br><b>Document date:</b> ' + esc(s.date) + '<br><b>Covers:</b> ' + esc(s.covers) + '</p>' +
+        '<div class="room-meta"><span>Last verified: ' + esc(registry.last_verified) + '</span><span>Open source</span></div></a>'
+      ).join("");
+    } catch (err) {
+      document.getElementById("source-list").innerHTML = '<div class="notice">' + esc(err.message) + '</div>';
+    }
   }
 
   function progress() {
