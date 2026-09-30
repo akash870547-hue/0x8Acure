@@ -21,10 +21,10 @@ Last updated: 2026-10-01
 
 | Provision | Room | Status |
 |---|---|---|
-| Chapter I: Ss. 1-3 | Foundation / Core Concepts | TODO |
-| S.1(1)-(2) | Foundation / Core Concepts | TODO |
-| S.2(a)-(zb), including sub-clauses | Foundation / Core Concepts | TODO |
-| S.3(a)(i)-(ii), 3(b), 3(c)(i)-(ii)(A)-(B), Illustration | Foundation / Core Concepts | TODO |
+| Chapter I: Ss. 1-3 | Foundation / Core Concepts | DONE |
+| S.1(1)-(2) | Foundation / Core Concepts | DONE |
+| S.2(a)-(zb), including sub-clauses | Foundation / Core Concepts | DONE |
+| S.3(a)(i)-(ii), 3(b), 3(c)(i)-(ii)(A)-(B), Illustration | Foundation / Core Concepts | DONE |
 | Chapter II: Ss. 4-10 | Foundation + Intermediate + Advanced modules | TODO |
 | S.4(1)(a)-(b), 4(2) | Foundation / Legitimate Uses | TODO |
 | S.5(1)(i)-(iii), 5(2)(a)(i)-(iii), 5(2)(b), 5(3), Illustrations | Foundation / Notice and Consent | TODO |
@@ -191,4 +191,4 @@ A provision may only be changed from TODO to DONE after its exact official sourc
 | 49 | schedule-07 | Seventh Schedule: Information requests and specified purposes | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
 | 50 | a-capstone | Full Incident Simulation | ADVANCED | Capstone Simulations | **UNVERIFIED** |
 
-**Current verified count: 0/50.** The existing Rules rooms contain headings/references rather than the full notified Rule text, and the existing Act rooms contain partial selections or text that still require word-for-word reconciliation. These are intentionally not treated as verified until the chapter-by-chapter rebuild.
+**Current verified count: 2/50.** `f-overview` and `f-definitions` now have word-for-word verified official-text boxes against the Act PDF. The remaining 48 rooms stay **UNVERIFIED** until their source text is reconciled.

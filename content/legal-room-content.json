@@ -185,7 +185,14 @@
               ],
               "section_reference": "Section 2(t)"
             }
-          ]
+          ],
+          "source_pages": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "official_text_verified": true
         },
         {
           "id": "f-overview-t2",
@@ -311,7 +318,14 @@
               ],
               "section_reference": "Section 3"
             }
-          ]
+          ],
+          "source_pages": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "official_text_verified": true
         }
       ],
       "summary": "Section 1 establishes phased commencement. Section 2 supplies statutory definitions. Section 3 defines the Act's application and exclusions. Do not extend these provisions beyond the words in the source.",
@@ -325,7 +339,9 @@
         "flag": "DPDP{section_3}",
         "answer_explanation": "The scenario directly tracks Section 3(b)."
       },
-      "score_screen": "Score = correct questions / attempted questions. Room completion requires at least 70%."
+      "score_screen": "Score = correct questions / attempted questions. Room completion requires at least 70%.",
+      "official_text_status": "VERIFIED_WORD_FOR_WORD",
+      "source_pdf_page_range": "PDF pages 1-4"
     },
     {
       "id": "f-definitions",
@@ -347,7 +363,7 @@
           "title": "Task 1: Actors",
           "provision": "Section 2(g), 2(i), 2(j), 2(k)",
           "official_text": [
-            "(g) “Consent Manager” means a person registered with the Board, who acts as a single point of contact to enable a Data Principal to give, manage, review and withdraw her consent through an accessible, transparent and interoperable platform;\n\n(i) “Data Fiduciary” means any person who alone or in conjunction with other persons determines the purpose and means of processing of personal data;\n\n(j) “Data Principal” means the individual to whom the personal data relates and where such individual is—\n(i) a child, includes the parents or lawful guardian of such child;\n(ii) a person with disability, includes her lawful guardian, acting on her behalf;\n\n(k) “Data Processor” means any person who processes personal data on behalf of a Data Fiduciary;"
+            "(g) “Consent Manager” means a person registered with the Board, who acts as a single point of contact to enable a Data Principal to give, manage, review and withdraw her consent through an accessible, transparent and interoperable platform;\n\n(i) “Data Fiduciary” means any person who alone or in conjunction with other persons determines the purpose and means of processing of personal data;\n\n(j) “Data Principal” means the individual to whom the personal data relates and where such individual is—\n(i) a child, includes the parents or lawful guardian of such a child;\n(ii) a person with disability, includes her lawful guardian, acting on her behalf;\n\n(k) “Data Processor” means any person who processes personal data on behalf of a Data Fiduciary;"
           ],
           "simple_words": "The Act separates the person the data relates to, the person deciding why and how the data is processed, the person processing it on behalf of that decision-maker, and the Consent Manager role.",
           "key_terms": [
@@ -473,7 +489,12 @@
               ],
               "section_reference": "Section 2(i)"
             }
-          ]
+          ],
+          "source_pages": [
+            2,
+            3
+          ],
+          "official_text_verified": true
         },
         {
           "id": "f-definitions-t2",
@@ -602,7 +623,12 @@
               ],
               "section_reference": "Section 2(x)"
             }
-          ]
+          ],
+          "source_pages": [
+            2,
+            3
+          ],
+          "official_text_verified": true
         }
       ],
       "summary": "The role definitions in Section 2 are foundational. The platform should use Data Principal, Data Fiduciary and Data Processor according to their statutory definitions.",
@@ -620,7 +646,9 @@
         "flag": "DPDP{section_2}",
         "answer_explanation": "The statutory role mapping is found in Section 2(i) and 2(k)."
       },
-      "score_screen": "Score = correct questions / attempted questions. Room completion requires at least 70%."
+      "score_screen": "Score = correct questions / attempted questions. Room completion requires at least 70%.",
+      "official_text_status": "VERIFIED_WORD_FOR_WORD",
+      "source_pdf_page_range": "PDF pages 2-3"
     },
     {
       "id": "f-notice-consent",
