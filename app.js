@@ -1,254 +1,106 @@
 (() => {
   const API = window.DPDP_API;
-  const LS = "dpdp-ctf-local-v2";
+  const LS = "dpdp-platform-v3";
   const saved = JSON.parse(localStorage.getItem(LS) || "{}");
-  const state = Object.assign({ xp: 0, streak: 0, lastPlayed: null, completed: {}, hints: {}, theme: "dark" }, saved);
-  let view = "home";
-  let roomId = null;
-  let taskIndex = 0;
-  let selected = null;
-  let feedback = null;
+  const state = Object.assign({xp:0,theme:"dark",completed:{},quizScore:0,quizDone:false},saved);
+  let view="home", pathId=null, lessonId=null, quizIndex=0, quizSelected=null, quizFeedback=null;
 
-  const app = document.getElementById("app");
-  const toast = document.getElementById("toast");
-  const streakEl = document.getElementById("streakCount");
+  const appEl=document.getElementById("app");
+  const streakEl=document.getElementById("streakCount");
+  const esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+  const save=()=>{localStorage.setItem(LS,JSON.stringify(state));document.documentElement.dataset.theme=state.theme; if(streakEl) streakEl.textContent="";};
+  const path=()=>DPDP_CURRICULUM.find(p=>p.id===pathId);
+  const lesson=()=>path()?.lessons.find(l=>l.id===lessonId);
+  const totalLessons=()=>DPDP_CURRICULUM.reduce((n,p)=>n+p.lessons.length,0);
+  const completedLessons=()=>Object.keys(state.completed).length;
+  const sourceLink=(title,url)=>'<a target="_blank" rel="noopener" href="'+url+'">'+esc(title)+'</a>';
 
-  function esc(v) {
-    return String(v).replace(/[&<>"']/g, function(c) {
-      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c];
-    });
+  function topActions(){
+    return '<div class="hero-actions"><button class="btn primary" data-action="paths">Explore Learning</button><button class="btn ghost" data-action="quiz">Quiz</button><button class="btn ghost" data-action="sources">Official Sources</button></div>';
   }
-  function save() {
-    localStorage.setItem(LS, JSON.stringify(state));
-    document.documentElement.dataset.theme = state.theme;
-    streakEl.textContent = String(state.streak || 0);
+
+  function home(){
+    appEl.innerHTML='<section class="hero"><div class="hero-main"><div class="eyebrow">0x8Acure · DPDP Learning Platform</div><h1>Train on India’s digital data protection framework.</h1><p>Learn the DPDP Act, 2023 and notified DPDP Rules, 2025 through guided paths, legal concepts, operational scenarios and a dedicated assessment area.</p>'+topActions()+'<div class="legal">Primary-source curriculum: '+sourceLink("MeitY DPDP Act 2023",DPDP_SOURCE.act)+' · '+sourceLink("MeitY DPDP Rules 2025",DPDP_SOURCE.rules)+'. Training content is educational and not legal advice.</div></div><aside class="hero-side"><div class="stat"><b>Continue learning</b><span>Pick any path. Your local progress is saved.</span></div><div class="stat"><b>'+state.xp+' XP</b><span>Learning progress</span></div><div class="stat"><b>Official-source first</b><span>Government material is the source of truth.</span></div><div class="notice">The platform does not display a total room/lab count. Learning is organised as a curriculum, like a security-training platform.</div></aside></section><div class="section-head"><div><h2>Continue where you left off</h2><p>Choose a learning track.</p></div></div><div class="grid path-grid">'+DPDP_CURRICULUM.map(p=>'<button class="path-card" data-path="'+p.id+'"><div class="card-top"><span class="badge cyan">'+esc(p.level)+'</span><span class="badge">'+esc(p.tag)+'</span></div><h3>'+esc(p.name)+'</h3><p>'+esc(p.description)+'</p><div class="path-meta"><span>Open curriculum</span><span>'+p.lessons.length+' modules</span></div></button>').join("")+'</div>';
   }
-  function toastMsg(msg) {
-    toast.textContent = msg;
-    toast.classList.add("show");
-    clearTimeout(toastMsg.t);
-    toastMsg.t = setTimeout(function() { toast.classList.remove("show"); }, 2200);
+
+  function paths(){
+    appEl.innerHTML='<div class="section-head"><div><h2>Learning Paths</h2><p>Follow a path or jump directly into a topic.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="grid path-grid">'+DPDP_CURRICULUM.map(p=>'<button class="path-card" data-path="'+p.id+'"><div class="card-top"><span class="badge violet">'+esc(p.level)+'</span><span class="badge">'+esc(p.tag)+'</span></div><h3>'+esc(p.name)+'</h3><p>'+esc(p.description)+'</p><div class="path-meta"><span>Open path</span><span>'+p.lessons.length+' modules</span></div></button>').join("")+'</div>';
   }
-  function allRooms() {
-    return DPDP_ROOMS.flatMap(function(p) {
-      return p.rooms.map(function(r) {
-        return Object.assign({}, r, { pathName: p.name, accent: p.accent, path: p.path });
-      });
-    });
+
+  function pathView(){
+    const p=path(); if(!p){view="paths";return render();}
+    appEl.innerHTML='<div class="section-head"><div><span class="badge cyan">'+esc(p.level)+' · '+esc(p.tag)+'</span><h2 style="margin-top:12px">'+esc(p.name)+'</h2><p>'+esc(p.description)+'</p></div><button class="btn ghost" data-action="paths">All paths</button></div><div class="panel path-intro"><div class="notice">Learn the legal rule first, then apply it. Each module shows its statutory source so learners can distinguish primary law from internal operating guidance.</div></div><div class="grid room-grid" style="margin-top:16px">'+p.lessons.map((l,i)=>'<button class="room-card '+(state.completed[l.id]?"complete":"")+'" data-lesson="'+l.id+'"><div class="card-top"><span class="badge">'+String(i+1).padStart(2,"0")+'</span><span class="badge">'+(state.completed[l.id]?"Completed":"Learn")+'</span></div><h3>'+esc(l.title)+'</h3><p>'+esc(l.sections)+'</p><div class="room-meta"><span>'+esc(l.source||"Official source")+'</span><span>Open</span></div></button>').join("")+'</div>';
   }
-  function room(id) { return allRooms().find(function(r) { return r.id === id; }); }
-  function completedCount() { return allRooms().filter(function(r){return state.completed[r.id];}).length; }
-  function totalRooms() { return allRooms().length; }
-  function bumpStreak() {
-    const today = new Date().toISOString().slice(0,10);
-    if (state.lastPlayed === today) return;
-    if (!state.lastPlayed) state.streak = 1;
-    else {
-      const prev = new Date(state.lastPlayed + "T00:00:00");
-      const now = new Date(today + "T00:00:00");
-      state.streak = Math.round((now - prev) / 86400000) === 1 ? (state.streak || 0) + 1 : 1;
-    }
-    state.lastPlayed = today;
+
+  function lessonView(){
+    const l=lesson(); const p=path(); if(!l||!p){view="paths";return render();}
+    appEl.innerHTML='<div class="room-top"><div><div class="kicker">'+esc(p.level)+' · '+esc(l.sections)+'</div><h1>'+esc(l.title)+'</h1><p>'+esc(p.description)+'</p></div><span class="badge cyan">LEARNING MODULE</span></div><div class="room-layout" style="margin-top:18px"><section class="panel room-theory"><div class="notice">Source of truth: '+esc(l.source||"Government source")+'</div><div class="theory-block"><div class="kicker">Core learning</div>'+l.body.map(x=>'<p>'+esc(x)+'</p>').join("")+'</div><div class="theory-block"><div class="kicker">Source</div><p>'+sourceLink("Open official MeitY source", l.source?.includes("Rules")?DPDP_SOURCE.rules:DPDP_SOURCE.act)+'</p></div><div class="hero-actions"><button class="btn primary" data-action="complete">Mark learned</button><button class="btn ghost" data-action="path">Back to path</button></div></section><aside class="challenge-card"><div class="challenge-head"><div class="challenge-num">KNOWLEDGE CHECK</div><span class="badge">No room counter</span></div><div class="question">After studying this module, test yourself in the separate Quiz section.</div><button class="btn violet" style="width:100%" data-action="quiz">Open Quiz</button><div class="hint-box">Tip: read the cited statutory section before treating an operational recommendation as a legal requirement.</div></aside></div>';
+  }
+
+  function quiz(){
+    quizIndex=0;quizSelected=null;quizFeedback=null;state.quizDone=false;save();renderQuiz();
+  }
+  function renderQuiz(){
+    const q=DPDP_QUIZ[quizIndex];
+    if(!q){view="home";return render();}
+    const opts=q.o.map((x,i)=>'<button class="option '+(quizSelected===i?"selected":"")+'" data-qoption="'+i+'"><input type="radio" '+(quizSelected===i?"checked":"")+'><span>'+esc(x)+'</span></button>').join("");
+    appEl.innerHTML='<div class="section-head"><div><span class="badge amber">ASSESSMENT</span><h2 style="margin-top:12px">DPDP Knowledge Check</h2><p>Standalone quiz area. Quiz questions are based on the official-source curriculum.</p></div><button class="btn ghost" data-action="home">Exit</button></div><div class="room-layout"><section class="panel"><div class="kicker">Question '+(quizIndex+1)+'</div><div class="question">'+esc(q.q)+'</div><div class="options">'+opts+'</div><div class="challenge-actions"><button class="btn primary" data-action="quizsubmit">Submit answer</button></div>'+(quizFeedback?'<div class="explain '+(quizFeedback.ok?"":"wrong")+'">'+esc(quizFeedback.text)+'</div>':"")+'</section><aside class="challenge-card"><div class="challenge-num">ASSESSMENT</div><p class="muted">Use the primary source links if you need to review a concept, then return here.</p><button class="btn ghost" data-action="sources">Official Sources</button></aside></div>';
+  }
+  function quizSubmit(){
+    const q=DPDP_QUIZ[quizIndex];
+    if(quizSelected===null){quizFeedback={ok:false,text:"Select an answer first."};return renderQuiz();}
+    const ok=quizSelected===q.a;
+    if(ok){state.quizScore++;state.xp+=20;quizFeedback={ok:true,text:"Correct. The curriculum and source mapping support this answer."};}
+    else quizFeedback={ok:false,text:"Not correct. Review the cited Act or Rules module and try again."};
+    save();renderQuiz();
+    if(ok)setTimeout(()=>{quizIndex++;quizSelected=null;quizFeedback=null;if(quizIndex>=DPDP_QUIZ.length){state.quizDone=true;save();quizResult();}else renderQuiz();},650);
+  }
+  function quizResult(){
+    appEl.innerHTML='<section class="hero"><div class="hero-main"><div class="eyebrow">Assessment complete</div><h1>Knowledge check finished.</h1><p>Your score is tracked locally for this session. Revisit any learning path to strengthen weak areas.</p><div class="hero-actions"><button class="btn primary" data-action="quiz">Retake quiz</button><button class="btn ghost" data-action="paths">Explore paths</button></div></div><aside class="hero-side"><div class="stat"><b>'+state.quizScore+'</b><span>Correct answers</span></div><div class="stat"><b>'+state.xp+' XP</b><span>Total learning XP</span></div></aside></section>';
+  }
+
+  function sources(){
+    appEl.innerHTML='<div class="section-head"><div><h2>Official Sources</h2><p>Government material only for the legal curriculum.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="grid room-grid"><a class="room-card" target="_blank" rel="noopener" href="'+DPDP_SOURCE.act+'"><span class="badge cyan">MEITY / GAZETTE</span><h3>Digital Personal Data Protection Act, 2023</h3><p>Primary statutory text hosted by MeitY.</p></a><a class="room-card" target="_blank" rel="noopener" href="'+DPDP_SOURCE.rules+'"><span class="badge cyan">MEITY</span><h3>Digital Personal Data Protection Rules, 2025</h3><p>Notified Rules and official MeitY document page.</p></a><a class="room-card" target="_blank" rel="noopener" href="'+DPDP_SOURCE.note+'"><span class="badge cyan">MEITY</span><h3>Explanatory Note to the Rules</h3><p>Official explanatory material. It is educational and not itself the statutory text.</p></a><a class="room-card" target="_blank" rel="noopener" href="'+DPDP_SOURCE.actPage+'"><span class="badge cyan">MEITY</span><h3>MeitY DPDP Act Page</h3><p>Official Ministry landing page for the Act.</p></a></div><div class="notice" style="margin-top:16px"><b>Commencement note:</b> the notified Rules use phased commencement. Rules 1, 2 and 17-21 commence on publication; Rule 4 follows one year after publication; Rules 3, 5-16, 22 and 23 follow eighteen months after publication. The platform keeps this distinction visible so learners do not confuse a notified rule with one already in force.</div>';
+  }
+
+  function progress(){
+    appEl.innerHTML='<div class="section-head"><div><h2>My Progress</h2><p>Private local learning progress on this browser.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="progress-strip"><div><div class="kicker">Modules completed</div><div style="margin:10px 0 7px;font-weight:700">'+completedLessons()+' completed</div><div class="progress-track"><div class="progress-fill" style="width:'+Math.min(100,completedLessons()/Math.max(1,totalLessons())*100)+'%"></div></div></div><div style="text-align:right"><div style="font-size:26px;font-weight:800">'+state.xp+'</div><div class="kicker">XP</div></div></div><div class="notice" style="margin-top:16px">Progress is curriculum-based. The platform intentionally avoids exposing a total room/lab count.</div>';
+  }
+
+  function render(){
     save();
-  }
-  function nav() {
-    return '<div class="hero-actions">' +
-      '<button class="btn primary" data-action="paths">Learning Paths</button>' +
-      '<button class="btn ghost" data-action="progress">Progress</button>' +
-      '<button class="btn ghost" data-action="leaderboard">Leaderboard</button>' +
-      '<button class="btn ghost" data-action="account">' + (API.token ? "Account" : "Sign in") + '</button>' +
-      '</div>';
-  }
-  function home() {
-    app.innerHTML =
-      '<section class="hero">' +
-      '<div class="hero-main"><div class="eyebrow">0x8Acure · DPDP Compliance CTF</div>' +
-      '<h1>Learn DPDP by solving real scenarios.</h1>' +
-      '<p>Practice roles, consent, rights, minimization, security controls, incident handling, governance and penalty analysis through short challenge rooms.</p>' +
-      nav() +
-      '<div class="legal">Training only, not legal advice. Primary source links: <a target="_blank" rel="noopener" href="https://www.meity.gov.in/writereaddata/files/Digital%20Personal%20Data%20Protection%20Act%202023.pdf">DPDP Act 2023</a> and <a target="_blank" rel="noopener" href="https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa?pageTitle=Digital-Personal-Data-Protection-Rules-2025">DPDP Rules 2025</a>.</div></div>' +
-      '<aside class="hero-side">' +
-      '<div class="stat"><b>' + completedCount() + " / " + totalRooms() + '</b><span>Rooms completed</span></div>' +
-      '<div class="stat"><b>' + state.xp + '</b><span>Local XP</span></div>' +
-      '<div class="stat"><b>' + Math.round(completedCount() / totalRooms() * 100) + '%</b><span>Overall progress</span></div>' +
-      '<div class="notice">Backend mode is optional. Enable the API base to persist learner activity and use HR controls.</div>' +
-      '</aside></section>';
-  }
-  function paths() {
-    app.innerHTML = '<div class="section-head"><div><h2>Learning Paths</h2><p>Three tracks, nine scenario rooms.</p></div><button class="btn ghost" data-action="home">Home</button></div>' +
-      DPDP_ROOMS.map(function(p) {
-        return '<section class="panel" style="margin:14px 0"><div class="section-head" style="margin-top:0"><div><span class="badge ' + p.accent + '">' + p.level + " · " + esc(p.difficulty) + '</span><h2 style="margin-top:12px">' + esc(p.name) + '</h2><p>' + esc(p.audience) + '</p></div><div class="badge">' + p.rooms.filter(function(r){return state.completed[r.id];}).length + "/" + p.rooms.length + ' complete</div></div>' +
-        '<p class="muted">' + esc(p.description) + '</p><div class="grid room-grid">' +
-        p.rooms.map(function(r) {
-          return '<button class="room-card ' + (state.completed[r.id] ? "complete" : "") + '" data-room="' + r.id + '"><div class="card-top"><span class="badge ' + p.accent + '">' + r.code + '</span><span class="badge">' + (state.completed[r.id] ? "Complete" : r.type) + '</span></div><h3>' + esc(r.title) + '</h3><p>' + esc(r.description) + '</p><div class="room-meta"><span>' + r.xp + " XP</span><span>" + r.tasks.length + " challenges</span></div></button>";
-        }).join("") + '</div></section>';
-      }).join("");
-  }
-  function renderRoom() {
-    const r = room(roomId);
-    const t = r.tasks[taskIndex];
-    if (!r || !t) { view = "paths"; render(); return; }
-    const opts = t.type === "mcq" ? '<div class="options">' + t.options.map(function(o,i) {
-      return '<button class="option ' + (selected === i ? "selected" : "") + '" data-option="' + i + '"><input type="radio" ' + (selected === i ? "checked" : "") + '><span>' + esc(o) + '</span></button>';
-    }).join("") + '</div>' : '<input id="flagInput" class="flag-input" placeholder="flag{...} or answer" autocomplete="off">';
-    app.innerHTML =
-      '<div class="room-top"><div><div class="kicker">' + r.code + " · " + esc(r.pathName) + '</div><h1>' + esc(r.title) + '</h1><p>' + esc(r.description) + '</p></div><div class="badge ' + r.accent + '">' + (taskIndex + 1) + "/" + r.tasks.length + '</div></div>' +
-      '<div class="room-layout" style="margin-top:18px"><section class="panel room-theory"><div class="notice">Mission: understand the scenario, choose the correct compliance outcome and capture the concept.</div>' +
-      '<div class="theory-block"><div class="kicker">Mission Brief</div>' + r.theory.map(function(x){return "<p>" + esc(x) + "</p>";}).join("") + '</div>' +
-      '<div class="theory-block"><div class="kicker">Objectives</div><ul><li>Identify the correct role or control.</li><li>Reason from the scenario.</li><li>Submit the exact concept requested.</li></ul></div></section>' +
-      '<aside class="challenge-card"><div class="challenge-head"><div class="challenge-num">CHALLENGE ' + (taskIndex+1) + '</div><span class="badge">+' + t.xp + ' XP</span></div>' +
-      '<div class="question">' + esc(t.q) + '</div>' + opts +
-      '<div class="challenge-actions"><button class="btn ghost" data-action="hint">Hint</button><button class="btn primary" data-action="submit">Submit</button></div>' +
-      (state.hints[r.id + ":" + taskIndex] ? '<div class="hint-box">Use the exact role, principle or control named by the scenario.</div>' : '') +
-      (feedback ? '<div class="explain ' + (feedback.ok ? "" : "wrong") + '"><b>' + (feedback.ok ? "Accepted" : "Not yet") + '</b><br>' + esc(feedback.text) + '</div>' : '') +
-      '</aside></div>';
-  }
-  async function syncAttempt(ok, xp) {
-    if (!API.base || !API.token) return;
-    try {
-      await API.request("/api/progress/attempt", {method:"POST", body:JSON.stringify({roomId:roomId, challengeIndex:taskIndex, correct:ok, xp:xp})});
-    } catch (e) { toastMsg(e.message); }
-  }
-  async function syncComplete(r) {
-    if (!API.base || !API.token) return;
-    try {
-      await API.request("/api/progress/complete-room", {method:"POST", body:JSON.stringify({roomId:r.id, xp:r.xp})});
-    } catch (e) { toastMsg(e.message); }
-  }
-  async function submit() {
-    const r = room(roomId);
-    const t = r.tasks[taskIndex];
-    let ok = false;
-    if (t.type === "mcq") ok = selected === t.answer;
-    else {
-      const el = document.getElementById("flagInput");
-      const raw = (el ? el.value : "").trim().toLowerCase().replace(/^flag\{|\}$/g, "");
-      ok = raw === t.answer.toLowerCase();
-    }
-    bumpStreak();
-    const key = r.id + ":" + taskIndex;
-    const earned = ok ? Math.max(0, t.xp - (state.hints[key] ? 10 : 0)) : 0;
-    if (ok && !state.completed[key]) state.xp += earned;
-    feedback = {ok: ok, text: ok ? t.explanation : "Review the scenario and try again."};
-    if (ok) {
-      state.completed[key] = true;
-      const done = r.tasks.every(function(_, i){ return state.completed[r.id + ":" + i]; });
-      if (done) { state.completed[r.id] = true; await syncComplete(r); toastMsg("Room completed"); }
-      else toastMsg("Correct, +" + earned + " XP");
-      save();
-      await syncAttempt(true, earned);
-      if (!done) {
-        setTimeout(function(){ taskIndex += 1; selected = null; feedback = null; renderRoom(); }, 650);
-        return;
-      }
-    } else {
-      await syncAttempt(false, 0);
-    }
-    renderRoom();
-  }
-  async function progress() {
-    if (API.base && API.token) {
-      try {
-        const remote = await API.request("/api/progress");
-        (remote.rows || []).forEach(function(x){ if(x.completed) state.completed[x.room_id] = true; });
-        state.xp = Math.max(state.xp, Number(remote.totals && remote.totals.xp || 0));
-        save();
-      } catch (e) {}
-    }
-    view = "progress";
-    render();
-  }
-  async function leaderboard() {
-    let rows = [];
-    if (API.base) { try { rows = (await API.request("/api/leaderboard")).rows || []; } catch (e) {} }
-    if (!rows.length) rows = [{name:"Local player", xp:state.xp, completed_rooms:completedCount()}];
-    app.innerHTML = '<div class="section-head"><div><h2>Leaderboard</h2><p>' + (API.base ? "Backend leaderboard" : "Local fallback") + '</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="panel table-wrap"><table class="score-table"><thead><tr><th>#</th><th>Player</th><th>XP</th><th>Rooms</th></tr></thead><tbody>' +
-      rows.map(function(x,i){return '<tr><td>'+(i+1)+'</td><td>'+esc(x.name||"Player")+'</td><td>'+Number(x.xp||0)+'</td><td>'+Number(x.completed_rooms||0)+'</td></tr>';}).join("") + '</tbody></table></div>';
-  }
-  function progressView() {
-    const pct = Math.round(completedCount()/totalRooms()*100);
-    app.innerHTML = '<div class="section-head"><div><h2>Your Progress</h2><p>Track rooms, XP and completion.</p></div><button class="btn ghost" data-action="home">Home</button></div>' +
-      '<div class="progress-strip"><div><div class="kicker">Completion</div><div style="margin:10px 0 7px;font-weight:700">' + completedCount() + " of " + totalRooms() + ' rooms</div><div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div></div><div style="text-align:right"><div style="font-size:26px;font-weight:800">' + state.xp + '</div><div class="kicker">XP</div></div></div>' +
-      '<div class="grid room-grid" style="margin-top:16px">' + allRooms().map(function(r){return '<button class="room-card ' + (state.completed[r.id] ? "complete" : "") + '" data-room="' + r.id + '"><div class="card-top"><span class="badge '+r.accent+'">'+r.code+'</span><span class="badge">'+(state.completed[r.id]?"Complete":"Play")+'</span></div><h3>'+esc(r.title)+'</h3><p>'+esc(r.description)+'</p></button>';}).join("") + '</div>';
-  }
-  function account() {
-    if (!API.base) {
-      app.innerHTML = '<div class="section-head"><div><h2>Account</h2><p>Set an API base URL in local storage to enable server-backed authentication.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="panel"><p class="muted">Backend API example: http://localhost:8080</p></div>';
-      return;
-    }
-    if (API.token) {
-      app.innerHTML = '<div class="section-head"><div><h2>Account</h2><p>Signed in as ' + esc(API.user && API.user.name || "learner") + '</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="panel auth-panel"><div class="account-bar"><span class="user-pill">'+esc(API.user && API.user.role || "learner")+'</span></div><div class="hero-actions"><button class="btn ghost" data-action="logout">Sign out</button>' + (((API.user && (API.user.role==="hr"||API.user.role==="admin"))) ? '<button class="btn amber" data-action="hr">HR dashboard</button>' : '') + '<button class="btn ghost" data-action="verify">Verify certificate</button></div></div>';
-      return;
-    }
-    app.innerHTML = '<div class="section-head"><div><h2>Sign in / Register</h2><p>Create an account for persistent progress.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="panel auth-panel"><div class="form-grid"><input id="name" placeholder="Full name"><input id="email" type="email" placeholder="Email"><input id="password" type="password" placeholder="Password, 8+ characters"><input id="org" placeholder="Organization (optional)"><div class="hero-actions"><button class="btn primary" data-action="register">Create account</button><button class="btn ghost" data-action="login">Login</button></div></div></div>';
-  }
-  async function auth(kind) {
-    const body = {email:document.getElementById("email").value, password:document.getElementById("password").value};
-    if (kind === "register") Object.assign(body, {name:document.getElementById("name").value, organization:document.getElementById("org").value});
-    try {
-      const r = await API.request("/api/auth/" + kind, {method:"POST",body:JSON.stringify(body)});
-      API.setToken(r.token); API.user = r.user; toastMsg(kind === "login" ? "Logged in" : "Account created"); progress();
-    } catch (e) { toastMsg(e.message); }
-  }
-  async function hr() {
-    try {
-      const s = await API.request("/api/admin/summary");
-      const u = await API.request("/api/admin/users");
-      app.innerHTML = '<div class="section-head"><div><h2>HR Dashboard</h2><p>Learner progress and completion overview.</p></div><button class="btn ghost" data-action="account">Account</button></div>' +
-        '<div class="metric-grid"><div class="metric"><b>'+s.users+'</b><span>Learners</span></div><div class="metric"><b>'+s.completions+'</b><span>Completions</span></div><div class="metric"><b>'+s.attempts+'</b><span>Attempts</span></div><div class="metric"><b>'+s.certificates+'</b><span>Certificates</span></div></div>' +
-        '<div class="panel table-wrap" style="margin-top:18px"><table class="score-table"><thead><tr><th>Name</th><th>Email</th><th>Org</th><th>XP</th><th>Rooms</th><th></th></tr></thead><tbody>' +
-        (u.rows||[]).map(function(x){return '<tr><td>'+esc(x.name)+'</td><td>'+esc(x.email)+'</td><td>'+esc(x.organization||"")+'</td><td>'+x.xp+'</td><td>'+x.completed_rooms+'/'+totalRooms()+'</td><td><button class="btn ghost" data-cert="'+x.id+'">Issue cert</button></td></tr>';}).join("") +
-        '</tbody></table></div>';
-    } catch (e) { toastMsg(e.message); }
-  }
-  async function verify() {
-    const no = prompt("Certificate number");
-    if (!no) return;
-    try {
-      const r = await API.request("/api/certificates/verify/" + encodeURIComponent(no));
-      app.innerHTML = '<div class="section-head"><div><h2>Certificate Verification</h2><p>Public verification result.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="cert-box"><b>Valid certificate</b><p>Name: '+esc(r.name)+'</p><p>Course: '+esc(r.course)+'</p><p>Certificate: <code>'+esc(r.certificate_no)+'</code></p><p>Issued: '+esc(r.issued_at)+'</p></div>';
-    } catch (e) { toastMsg("Certificate not found"); }
-  }
-  async function issueCert(id) {
-    try { const r = await API.request("/api/certificates/issue",{method:"POST",body:JSON.stringify({userId:Number(id)})}); toastMsg("Issued " + r.certificateNo); }
-    catch (e) { toastMsg(e.message); }
-  }
-  function render() {
-    save();
-    if (view === "paths") paths();
-    else if (view === "room") renderRoom();
-    else if (view === "progress") progressView();
-    else if (view === "leaderboard") leaderboard();
-    else if (view === "account") account();
-    else if (view === "hr") hr();
+    if(view==="paths")paths();
+    else if(view==="path")pathView();
+    else if(view==="lesson")lessonView();
+    else if(view==="quiz")quiz();
+    else if(view==="quizRun")renderQuiz();
+    else if(view==="sources")sources();
+    else if(view==="progress")progress();
     else home();
   }
-  document.addEventListener("click", function(e) {
-    const action = e.target.closest("[data-action]");
-    if (action) {
-      const a = action.dataset.action;
-      if (a==="home") {view="home"; render();}
-      else if (a==="paths") {view="paths"; render();}
-      else if (a==="progress") {progress();}
-      else if (a==="leaderboard") {leaderboard();}
-      else if (a==="account") {view="account"; render();}
-      else if (a==="theme") {state.theme=state.theme==="dark"?"light":"dark"; save();}
-      else if (a==="room") {roomId=action.dataset.roomId;taskIndex=0;selected=null;feedback=null;view="room";render();}
-      else if (a==="hint") {state.hints[roomId+":"+taskIndex]=true;save();renderRoom();}
-      else if (a==="submit") {submit();}
-      else if (a==="register") {auth("register");}
-      else if (a==="login") {auth("login");}
-      else if (a==="logout") {API.setToken("");API.user=null;view="account";render();}
-      else if (a==="hr") {view="hr";hr();}
-      else if (a==="verify") {verify();}
+
+  document.addEventListener("click",e=>{
+    const a=e.target.closest("[data-action]");
+    if(a){
+      const x=a.dataset.action;
+      if(x==="home"){view="home";render();}
+      else if(x==="paths"){view="paths";render();}
+      else if(x==="path"){view="path";render();}
+      else if(x==="complete"){const l=lesson();if(l&&!state.completed[l.id]){state.completed[l.id]=true;state.xp+=30;save();toastMsg("Module marked learned");}else toastMsg("Already completed");}
+      else if(x==="quiz"){view="quizRun";quiz();}
+      else if(x==="quizsubmit"){quizSubmit();}
+      else if(x==="sources"){view="sources";render();}
+      else if(x==="progress"){view="progress";render();}
+      else if(x==="theme"){state.theme=state.theme==="dark"?"light":"dark";save();render();}
     }
-    const r = e.target.closest("[data-room]");
-    if (r) {roomId=r.dataset.room;taskIndex=0;selected=null;feedback=null;view="room";render();}
-    const o = e.target.closest("[data-option]");
-    if (o) {selected=Number(o.dataset.option);renderRoom();}
-    const c = e.target.closest("[data-cert]");
-    if (c) issueCert(c.dataset.cert);
+    const p=e.target.closest("[data-path]");
+    if(p){pathId=p.dataset.path;view="path";render();}
+    const l=e.target.closest("[data-lesson]");
+    if(l){lessonId=l.dataset.lesson;view="lesson";render();}
+    const q=e.target.closest("[data-qoption]");
+    if(q){quizSelected=Number(q.dataset.qoption);renderQuiz();}
   });
+  function toastMsg(msg){const t=document.getElementById("toast");if(!t)return;t.textContent=msg;t.classList.add("show");clearTimeout(toastMsg.t);toastMsg.t=setTimeout(()=>t.classList.remove("show"),2200);}
   window.DPDP_API.setBase(localStorage.getItem("dpdp-api-base") || ((!location.hostname.includes("github.io")) ? location.origin : ""));
   render();
 })();
