@@ -1,17 +1,17 @@
-/* Generated learning-path catalogue. Task answers remain server-side. */
+/* Generated learning-path catalogue. All paths, modules and rooms are open. */
 window.DPDP_CURRICULUM = [
   {
     "id": "path-foundation",
     "name": "FOUNDATION",
     "level": "Foundation",
     "tag": "HR, ops, marketing, students",
-    "description": "Foundation learning path for HR, ops, marketing, students. All paths, modules and rooms are open.",
+    "description": "Foundation learning path. All paths, modules and rooms are open.",
     "modules": [
       {
-        "id": "foundation-rooms",
-        "name": "Foundation Rooms",
-        "tag": "ROOMS",
-        "description": "Theory → guided scenario → challenge tasks → room summary.",
+        "id": "foundation-core-concepts",
+        "name": "Core Concepts",
+        "tag": "CORE",
+        "description": "Scope, definitions and foundational concepts.",
         "rooms": [
           {
             "id": "f-overview",
@@ -46,7 +46,15 @@ window.DPDP_CURRICULUM = [
             ],
             "prerequisites": [],
             "last_verified": "2026-09-30"
-          },
+          }
+        ]
+      },
+      {
+        "id": "foundation-notice-consent",
+        "name": "Notice and Consent",
+        "tag": "CONSENT",
+        "description": "Notice and consent foundations.",
+        "rooms": [
           {
             "id": "f-notice-consent",
             "title": "Notice and Consent",
@@ -64,24 +72,15 @@ window.DPDP_CURRICULUM = [
             ],
             "prerequisites": [],
             "last_verified": "2026-09-30"
-          },
-          {
-            "id": "f-rights-duties",
-            "title": "Rights and Duties of Data Principals",
-            "sections": "Sections 11-15",
-            "sourceIds": [
-              "act-2023"
-            ],
-            "difficulty": "beginner",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain rights and duties of data principals using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
-          },
+          }
+        ]
+      },
+      {
+        "id": "foundation-legitimate-uses",
+        "name": "Legitimate Uses",
+        "tag": "USES",
+        "description": "Certain legitimate uses and their application.",
+        "rooms": [
           {
             "id": "f-legitimate-uses",
             "title": "Certain Legitimate Uses",
@@ -98,18 +97,26 @@ window.DPDP_CURRICULUM = [
             ],
             "prerequisites": [],
             "last_verified": "2026-09-30"
-          },
+          }
+        ]
+      },
+      {
+        "id": "foundation-rights",
+        "name": "Rights of a Data Principal",
+        "tag": "RIGHTS",
+        "description": "Core rights and grievance concepts.",
+        "rooms": [
           {
-            "id": "f-penalties",
-            "title": "Penalties at a Glance",
-            "sections": "Section 33 and Schedule",
+            "id": "f-rights-duties",
+            "title": "Rights and Duties of Data Principals",
+            "sections": "Sections 11-15",
             "sourceIds": [
               "act-2023"
             ],
             "difficulty": "beginner",
             "estimated_minutes": 25,
             "learning_objectives": [
-              "Explain penalties at a glance using the cited provisions.",
+              "Explain rights and duties of data principals using the cited provisions.",
               "Apply the requirement to a guided scenario.",
               "Complete six cited challenge tasks."
             ],
@@ -117,21 +124,64 @@ window.DPDP_CURRICULUM = [
             "last_verified": "2026-09-30"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "path-intermediate",
-    "name": "INTERMEDIATE",
-    "level": "Intermediate",
-    "tag": "engineers, product, IT, security",
-    "description": "Intermediate learning path for engineers, product, IT, security. All paths, modules and rooms are open.",
-    "modules": [
+      },
       {
-        "id": "intermediate-rooms",
-        "name": "Intermediate Rooms",
-        "tag": "ROOMS",
-        "description": "Theory → guided scenario → challenge tasks → room summary.",
+        "id": "foundation-duties",
+        "name": "Duties of a Data Principal",
+        "tag": "DUTIES",
+        "description": "Data Principal duties and responsible exercise of rights.",
+        "rooms": [
+          {
+            "id": "i-grievance",
+            "title": "Grievance Redressal",
+            "sections": "Section 8(10); Section 13; Rule 14",
+            "sourceIds": [
+              "act-2023",
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 25,
+            "learning_objectives": [
+              "Explain grievance redressal using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
+          }
+        ]
+      },
+      {
+        "id": "foundation-children-intro",
+        "name": "Children and Persons with Disability (intro)",
+        "tag": "CHILDREN",
+        "description": "Introductory treatment of child and lawful-guardian concepts.",
+        "rooms": [
+          {
+            "id": "a-children",
+            "title": "Children's Data and Verifiable Parental Consent",
+            "sections": "Section 9; Rules 10-12",
+            "sourceIds": [
+              "act-2023",
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 25,
+            "learning_objectives": [
+              "Explain children's data and verifiable parental consent using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
+          }
+        ]
+      },
+      {
+        "id": "foundation-student-lab",
+        "name": "Student Privacy Lab",
+        "tag": "STUDENT LAB",
+        "description": "Student-focused privacy scenarios and data necessity.",
         "rooms": [
           {
             "id": "i-purpose",
@@ -150,7 +200,50 @@ window.DPDP_CURRICULUM = [
             ],
             "prerequisites": [],
             "last_verified": "2026-09-30"
-          },
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "path-intermediate",
+    "name": "INTERMEDIATE",
+    "level": "Intermediate",
+    "tag": "engineers, product, IT, security",
+    "description": "Intermediate learning path. All paths, modules and rooms are open.",
+    "modules": [
+      {
+        "id": "intermediate-fiduciary",
+        "name": "Data Fiduciary Obligations",
+        "tag": "FIDUCIARY",
+        "description": "Core Data Fiduciary and processor obligations.",
+        "rooms": [
+          {
+            "id": "i-processors",
+            "title": "Data Processor Obligations",
+            "sections": "Section 8(1)-(2),(7); Rule 6",
+            "sourceIds": [
+              "act-2023",
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 25,
+            "learning_objectives": [
+              "Explain data processor obligations using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
+          }
+        ]
+      },
+      {
+        "id": "intermediate-security",
+        "name": "Security Safeguards and Breach Intimation",
+        "tag": "SECURITY",
+        "description": "Security safeguards and breach intimation.",
+        "rooms": [
           {
             "id": "i-security",
             "title": "Security Safeguards",
@@ -163,24 +256,6 @@ window.DPDP_CURRICULUM = [
             "estimated_minutes": 25,
             "learning_objectives": [
               "Explain security safeguards using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
-          },
-          {
-            "id": "i-retention",
-            "title": "Retention and Erasure",
-            "sections": "Section 8(7)-(8); Rule 8",
-            "sourceIds": [
-              "act-2023",
-              "rules-2025"
-            ],
-            "difficulty": "intermediate",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain retention and erasure using the cited provisions.",
               "Apply the requirement to a guided scenario.",
               "Complete six cited challenge tasks."
             ],
@@ -204,11 +279,19 @@ window.DPDP_CURRICULUM = [
             ],
             "prerequisites": [],
             "last_verified": "2026-09-30"
-          },
+          }
+        ]
+      },
+      {
+        "id": "intermediate-retention",
+        "name": "Retention and Erasure",
+        "tag": "RETENTION",
+        "description": "Retention, erasure and purpose completion.",
+        "rooms": [
           {
-            "id": "i-processors",
-            "title": "Data Processor Obligations",
-            "sections": "Section 8(1)-(2),(7); Rule 6",
+            "id": "i-retention",
+            "title": "Retention and Erasure",
+            "sections": "Section 8(7)-(8); Rule 8",
             "sourceIds": [
               "act-2023",
               "rules-2025"
@@ -216,13 +299,83 @@ window.DPDP_CURRICULUM = [
             "difficulty": "intermediate",
             "estimated_minutes": 25,
             "learning_objectives": [
-              "Explain data processor obligations using the cited provisions.",
+              "Explain retention and erasure using the cited provisions.",
               "Apply the requirement to a guided scenario.",
               "Complete six cited challenge tasks."
             ],
             "prerequisites": [],
             "last_verified": "2026-09-30"
+          }
+        ]
+      },
+      {
+        "id": "intermediate-children",
+        "name": "Children's Data in Depth",
+        "tag": "CHILDREN",
+        "description": "Detailed child-data rules and safeguards.",
+        "rooms": [
+          {
+            "id": "rule-10",
+            "title": "Rule 10: Verifiable consent for processing personal data of child",
+            "sections": "Rule 10",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-10-01"
           },
+          {
+            "id": "rule-11",
+            "title": "Rule 11: Verifiable consent for person with disability with lawful guardian",
+            "sections": "Rule 11",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-10-01"
+          },
+          {
+            "id": "rule-12",
+            "title": "Rule 12: Exemptions from certain obligations for child data",
+            "sections": "Rule 12; Fourth Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-10-01"
+          }
+        ]
+      },
+      {
+        "id": "intermediate-consent-managers",
+        "name": "Consent Managers",
+        "tag": "CONSENT MANAGERS",
+        "description": "Consent Manager obligations and registration.",
+        "rooms": [
           {
             "id": "i-consent",
             "title": "Consent Managers",
@@ -242,171 +395,30 @@ window.DPDP_CURRICULUM = [
             "last_verified": "2026-09-30"
           },
           {
-            "id": "i-grievance",
-            "title": "Grievance Redressal",
-            "sections": "Section 8(10); Section 13; Rule 14",
+            "id": "rule-04",
+            "title": "Rule 4: Registration and obligations of Consent Manager",
+            "sections": "Rule 4; First Schedule",
             "sourceIds": [
-              "act-2023",
               "rules-2025"
             ],
             "difficulty": "intermediate",
-            "estimated_minutes": 25,
+            "estimated_minutes": 30,
             "learning_objectives": [
-              "Explain grievance redressal using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
             ],
             "prerequisites": [],
-            "last_verified": "2026-09-30"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "path-advanced",
-    "name": "ADVANCED",
-    "level": "Advanced",
-    "tag": "DPO, legal, compliance, founders",
-    "description": "Advanced learning path for DPO, legal, compliance, founders. All paths, modules and rooms are open.",
-    "modules": [
-      {
-        "id": "advanced-rooms",
-        "name": "Advanced Rooms",
-        "tag": "ROOMS",
-        "description": "Theory → guided scenario → challenge tasks → room summary.",
-        "rooms": [
-          {
-            "id": "a-sdf",
-            "title": "Significant Data Fiduciary Obligations",
-            "sections": "Section 10; Rule 13",
-            "sourceIds": [
-              "act-2023",
-              "rules-2025"
-            ],
-            "difficulty": "advanced",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain significant data fiduciary obligations using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
-          },
-          {
-            "id": "a-children",
-            "title": "Children's Data and Verifiable Parental Consent",
-            "sections": "Section 9; Rules 10-12",
-            "sourceIds": [
-              "act-2023",
-              "rules-2025"
-            ],
-            "difficulty": "advanced",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain children's data and verifiable parental consent using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
-          },
-          {
-            "id": "a-crossborder",
-            "title": "Cross-border Transfer",
-            "sections": "Section 16; Rule 15",
-            "sourceIds": [
-              "act-2023",
-              "rules-2025"
-            ],
-            "difficulty": "advanced",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain cross-border transfer using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
-          },
-          {
-            "id": "a-board",
-            "title": "Data Protection Board and Appeals",
-            "sections": "Sections 18-31; Rules 17-22",
-            "sourceIds": [
-              "act-2023",
-              "rules-2025"
-            ],
-            "difficulty": "advanced",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain data protection board and appeals using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
-          },
-          {
-            "id": "a-exemptions",
-            "title": "Exemptions",
-            "sections": "Section 17",
-            "sourceIds": [
-              "act-2023"
-            ],
-            "difficulty": "advanced",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain exemptions using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
-          },
-          {
-            "id": "a-penalty-analysis",
-            "title": "Penalty Schedule Analysis",
-            "sections": "Section 33 and Schedule",
-            "sourceIds": [
-              "act-2023"
-            ],
-            "difficulty": "advanced",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain penalty schedule analysis using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
-          },
-          {
-            "id": "a-capstone",
-            "title": "Full Incident Simulation",
-            "sections": "Sections 8(5)-(7), 33 and Rules 6-8",
-            "sourceIds": [
-              "act-2023",
-              "rules-2025"
-            ],
-            "difficulty": "advanced",
-            "estimated_minutes": 25,
-            "learning_objectives": [
-              "Explain full incident simulation using the cited provisions.",
-              "Apply the requirement to a guided scenario.",
-              "Complete six cited challenge tasks."
-            ],
-            "prerequisites": [],
-            "last_verified": "2026-09-30"
+            "last_verified": "2026-10-01"
           }
         ]
       },
       {
-        "id": "rules-2025",
-        "name": "DPDP Rules 2025",
-        "tag": "RULES",
-        "description": "Complete notified Rules 2025 and seven Schedules, source-first and always accessible.",
+        "id": "intermediate-rules-part1",
+        "name": "DPDP Rules 2025 Part 1",
+        "tag": "RULES PART 1",
+        "description": "Notified Rules 1-12, source-first.",
         "rooms": [
           {
             "id": "rule-01",
@@ -441,9 +453,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-01"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -461,29 +471,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-02"
-            ],
-            "last_verified": "2026-10-01"
-          },
-          {
-            "id": "rule-04",
-            "title": "Rule 4: Registration and obligations of Consent Manager",
-            "sections": "Rule 4; First Schedule",
-            "sourceIds": [
-              "rules-2025"
-            ],
-            "difficulty": "intermediate",
-            "estimated_minutes": 30,
-            "learning_objectives": [
-              "Read the notified provision and identify its operative requirements.",
-              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-              "Apply only the requirements supported by the official notified text.",
-              "Complete the source-linked challenge tasks for this provision."
-            ],
-            "prerequisites": [
-              "rule-03"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -501,9 +489,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-04"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -521,9 +507,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-05"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -541,9 +525,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-06"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -561,9 +543,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-07"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -581,70 +561,43 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-08"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
-          },
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "path-advanced",
+    "name": "ADVANCED",
+    "level": "Advanced",
+    "tag": "DPO, legal, compliance, founders",
+    "description": "Advanced learning path. All paths, modules and rooms are open.",
+    "modules": [
+      {
+        "id": "advanced-sdf",
+        "name": "Significant Data Fiduciary",
+        "tag": "SDF",
+        "description": "Significant Data Fiduciary obligations.",
+        "rooms": [
           {
-            "id": "rule-10",
-            "title": "Rule 10: Verifiable consent for processing personal data of child",
-            "sections": "Rule 10",
+            "id": "a-sdf",
+            "title": "Significant Data Fiduciary Obligations",
+            "sections": "Section 10; Rule 13",
             "sourceIds": [
+              "act-2023",
               "rules-2025"
             ],
-            "difficulty": "intermediate",
-            "estimated_minutes": 30,
+            "difficulty": "advanced",
+            "estimated_minutes": 25,
             "learning_objectives": [
-              "Read the notified provision and identify its operative requirements.",
-              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-              "Apply only the requirements supported by the official notified text.",
-              "Complete the source-linked challenge tasks for this provision."
+              "Explain significant data fiduciary obligations using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
             ],
-            "prerequisites": [
-              "rule-09"
-            ],
-            "last_verified": "2026-10-01"
-          },
-          {
-            "id": "rule-11",
-            "title": "Rule 11: Verifiable consent for person with disability with lawful guardian",
-            "sections": "Rule 11",
-            "sourceIds": [
-              "rules-2025"
-            ],
-            "difficulty": "intermediate",
-            "estimated_minutes": 30,
-            "learning_objectives": [
-              "Read the notified provision and identify its operative requirements.",
-              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-              "Apply only the requirements supported by the official notified text.",
-              "Complete the source-linked challenge tasks for this provision."
-            ],
-            "prerequisites": [
-              "rule-10"
-            ],
-            "last_verified": "2026-10-01"
-          },
-          {
-            "id": "rule-12",
-            "title": "Rule 12: Exemptions from certain obligations for child data",
-            "sections": "Rule 12; Fourth Schedule",
-            "sourceIds": [
-              "rules-2025"
-            ],
-            "difficulty": "intermediate",
-            "estimated_minutes": 30,
-            "learning_objectives": [
-              "Read the notified provision and identify its operative requirements.",
-              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-              "Apply only the requirements supported by the official notified text.",
-              "Complete the source-linked challenge tasks for this provision."
-            ],
-            "prerequisites": [
-              "rule-11"
-            ],
-            "last_verified": "2026-10-01"
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
           },
           {
             "id": "rule-13",
@@ -661,30 +614,51 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-12"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
-          },
+          }
+        ]
+      },
+      {
+        "id": "advanced-crossborder",
+        "name": "Cross-border Transfer and Exemptions",
+        "tag": "CROSS-BORDER",
+        "description": "Cross-border transfer and statutory exemptions.",
+        "rooms": [
           {
-            "id": "rule-14",
-            "title": "Rule 14: Rights of Data Principals",
-            "sections": "Rule 14",
+            "id": "a-crossborder",
+            "title": "Cross-border Transfer",
+            "sections": "Section 16; Rule 15",
             "sourceIds": [
+              "act-2023",
               "rules-2025"
             ],
-            "difficulty": "intermediate",
-            "estimated_minutes": 30,
+            "difficulty": "advanced",
+            "estimated_minutes": 25,
             "learning_objectives": [
-              "Read the notified provision and identify its operative requirements.",
-              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-              "Apply only the requirements supported by the official notified text.",
-              "Complete the source-linked challenge tasks for this provision."
+              "Explain cross-border transfer using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
             ],
-            "prerequisites": [
-              "rule-13"
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
+          },
+          {
+            "id": "a-exemptions",
+            "title": "Exemptions",
+            "sections": "Section 17",
+            "sourceIds": [
+              "act-2023"
             ],
-            "last_verified": "2026-10-01"
+            "difficulty": "advanced",
+            "estimated_minutes": 25,
+            "learning_objectives": [
+              "Explain exemptions using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
           },
           {
             "id": "rule-15",
@@ -701,9 +675,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-14"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -721,10 +693,34 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-15"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
+          }
+        ]
+      },
+      {
+        "id": "advanced-board",
+        "name": "Data Protection Board",
+        "tag": "BOARD",
+        "description": "Board establishment, composition and functions.",
+        "rooms": [
+          {
+            "id": "a-board",
+            "title": "Data Protection Board and Appeals",
+            "sections": "Sections 18-31; Rules 17-22",
+            "sourceIds": [
+              "act-2023",
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 25,
+            "learning_objectives": [
+              "Explain data protection board and appeals using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
           },
           {
             "id": "rule-17",
@@ -741,9 +737,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-16"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -761,11 +755,17 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-17"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
-          },
+          }
+        ]
+      },
+      {
+        "id": "advanced-board-powers",
+        "name": "Board Powers and Procedure",
+        "tag": "BOARD POWERS",
+        "description": "Board procedure, digital office and powers.",
+        "rooms": [
           {
             "id": "rule-19",
             "title": "Rule 19: Board meetings and authentication",
@@ -781,9 +781,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-18"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -801,31 +799,17 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-19"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
-          },
-          {
-            "id": "rule-21",
-            "title": "Rule 21: Appointment and service of Board officers/employees",
-            "sections": "Rule 21; Sixth Schedule",
-            "sourceIds": [
-              "rules-2025"
-            ],
-            "difficulty": "advanced",
-            "estimated_minutes": 30,
-            "learning_objectives": [
-              "Read the notified provision and identify its operative requirements.",
-              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
-              "Apply only the requirements supported by the official notified text.",
-              "Complete the source-linked challenge tasks for this provision."
-            ],
-            "prerequisites": [
-              "rule-20"
-            ],
-            "last_verified": "2026-10-01"
-          },
+          }
+        ]
+      },
+      {
+        "id": "advanced-appeal",
+        "name": "Appeal, Mediation, Voluntary Undertaking",
+        "tag": "APPEAL",
+        "description": "Appeals, mediation and voluntary undertakings.",
+        "rooms": [
           {
             "id": "rule-22",
             "title": "Rule 22: Appeal to Appellate Tribunal",
@@ -841,9 +825,75 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-21"
+            "prerequisites": [],
+            "last_verified": "2026-10-01"
+          }
+        ]
+      },
+      {
+        "id": "advanced-penalties",
+        "name": "Penalties and the Schedule",
+        "tag": "PENALTIES",
+        "description": "Penalties, adjudication and the statutory Schedule.",
+        "rooms": [
+          {
+            "id": "a-penalty-analysis",
+            "title": "Penalty Schedule Analysis",
+            "sections": "Section 33 and Schedule",
+            "sourceIds": [
+              "act-2023"
             ],
+            "difficulty": "advanced",
+            "estimated_minutes": 25,
+            "learning_objectives": [
+              "Explain penalty schedule analysis using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
+          },
+          {
+            "id": "f-penalties",
+            "title": "Penalties at a Glance",
+            "sections": "Section 33 and Schedule",
+            "sourceIds": [
+              "act-2023"
+            ],
+            "difficulty": "beginner",
+            "estimated_minutes": 25,
+            "learning_objectives": [
+              "Explain penalties at a glance using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
+          }
+        ]
+      },
+      {
+        "id": "advanced-misc",
+        "name": "Miscellaneous and Amendments",
+        "tag": "MISC",
+        "description": "Miscellaneous provisions and information powers.",
+        "rooms": [
+          {
+            "id": "rule-21",
+            "title": "Rule 21: Appointment and service of Board officers/employees",
+            "sections": "Rule 21; Sixth Schedule",
+            "sourceIds": [
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -861,9 +911,33 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-22"
+            "prerequisites": [],
+            "last_verified": "2026-10-01"
+          }
+        ]
+      },
+      {
+        "id": "advanced-rules-part2",
+        "name": "DPDP Rules 2025 Part 2 and all Schedules",
+        "tag": "RULES PART 2",
+        "description": "Notified Rules 13-23 and all seven Schedules.",
+        "rooms": [
+          {
+            "id": "rule-14",
+            "title": "Rule 14: Rights of Data Principals",
+            "sections": "Rule 14",
+            "sourceIds": [
+              "rules-2025"
             ],
+            "difficulty": "intermediate",
+            "estimated_minutes": 30,
+            "learning_objectives": [
+              "Read the notified provision and identify its operative requirements.",
+              "Identify any Act section expressly referenced by the provision or incorporated Schedule.",
+              "Apply only the requirements supported by the official notified text.",
+              "Complete the source-linked challenge tasks for this provision."
+            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -881,9 +955,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "rule-23"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -901,9 +973,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "schedule-01"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -921,9 +991,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "schedule-02"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -941,9 +1009,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "schedule-03"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -961,9 +1027,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "schedule-04"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -981,9 +1045,7 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "schedule-05"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
           },
           {
@@ -1001,10 +1063,34 @@ window.DPDP_CURRICULUM = [
               "Apply only the requirements supported by the official notified text.",
               "Complete the source-linked challenge tasks for this provision."
             ],
-            "prerequisites": [
-              "schedule-06"
-            ],
+            "prerequisites": [],
             "last_verified": "2026-10-01"
+          }
+        ]
+      },
+      {
+        "id": "advanced-capstone",
+        "name": "Capstone Simulations",
+        "tag": "CAPSTONE",
+        "description": "Integrated DPDP incident and compliance simulations.",
+        "rooms": [
+          {
+            "id": "a-capstone",
+            "title": "Full Incident Simulation",
+            "sections": "Sections 8(5)-(7), 33 and Rules 6-8",
+            "sourceIds": [
+              "act-2023",
+              "rules-2025"
+            ],
+            "difficulty": "advanced",
+            "estimated_minutes": 25,
+            "learning_objectives": [
+              "Explain full incident simulation using the cited provisions.",
+              "Apply the requirement to a guided scenario.",
+              "Complete six cited challenge tasks."
+            ],
+            "prerequisites": [],
+            "last_verified": "2026-09-30"
           }
         ]
       }

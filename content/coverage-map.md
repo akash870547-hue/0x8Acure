@@ -132,3 +132,63 @@ Last updated: 2026-10-01
 ## Status rule
 
 A provision may only be changed from TODO to DONE after its exact official source text, all applicable sub-provisions/provisos/explanations/illustrations, source citation, commencement status where applicable, and room learning treatment have been verified against the official government source.
+
+
+## Existing 50-room official-text audit
+
+**Audit rule:** A room is marked **UNVERIFIED** unless every official-text box currently present in that room has been checked word-for-word against the applicable official PDF. Existing rooms are retained; none are deleted.
+
+| # | Room ID | Title | Path | Module | Official-text status |
+|---:|---|---|---|---|---|
+| 1 | f-overview | DPDP Overview and Scope | FOUNDATION | Core Concepts | **UNVERIFIED** |
+| 2 | f-definitions | Key Definitions and Roles | FOUNDATION | Core Concepts | **UNVERIFIED** |
+| 3 | f-notice-consent | Notice and Consent | FOUNDATION | Notice and Consent | **UNVERIFIED** |
+| 4 | f-legitimate-uses | Certain Legitimate Uses | FOUNDATION | Legitimate Uses | **UNVERIFIED** |
+| 5 | f-rights-duties | Rights and Duties of Data Principals | FOUNDATION | Rights of a Data Principal | **UNVERIFIED** |
+| 6 | i-grievance | Grievance Redressal | FOUNDATION | Duties of a Data Principal | **UNVERIFIED** |
+| 7 | a-children | Children's Data and Verifiable Parental Consent | FOUNDATION | Children and Persons with Disability (intro) | **UNVERIFIED** |
+| 8 | i-purpose | Purpose Limitation and Data Necessity | FOUNDATION | Student Privacy Lab | **UNVERIFIED** |
+| 9 | i-processors | Data Processor Obligations | INTERMEDIATE | Data Fiduciary Obligations | **UNVERIFIED** |
+| 10 | i-security | Security Safeguards | INTERMEDIATE | Security Safeguards and Breach Intimation | **UNVERIFIED** |
+| 11 | i-breach | Personal Data Breach Intimation | INTERMEDIATE | Security Safeguards and Breach Intimation | **UNVERIFIED** |
+| 12 | i-retention | Retention and Erasure | INTERMEDIATE | Retention and Erasure | **UNVERIFIED** |
+| 13 | rule-10 | Rule 10: Verifiable consent for processing personal data of child | INTERMEDIATE | Children's Data in Depth | **UNVERIFIED** |
+| 14 | rule-11 | Rule 11: Verifiable consent for person with disability with lawful guardian | INTERMEDIATE | Children's Data in Depth | **UNVERIFIED** |
+| 15 | rule-12 | Rule 12: Exemptions from certain obligations for child data | INTERMEDIATE | Children's Data in Depth | **UNVERIFIED** |
+| 16 | i-consent | Consent Managers | INTERMEDIATE | Consent Managers | **UNVERIFIED** |
+| 17 | rule-04 | Rule 4: Registration and obligations of Consent Manager | INTERMEDIATE | Consent Managers | **UNVERIFIED** |
+| 18 | rule-01 | Rule 1: Short title and commencement | INTERMEDIATE | DPDP Rules 2025 Part 1 | **UNVERIFIED** |
+| 19 | rule-02 | Rule 2: Definitions | INTERMEDIATE | DPDP Rules 2025 Part 1 | **UNVERIFIED** |
+| 20 | rule-03 | Rule 3: Notice given by Data Fiduciary to Data Principal | INTERMEDIATE | DPDP Rules 2025 Part 1 | **UNVERIFIED** |
+| 21 | rule-05 | Rule 5: Processing for subsidy, benefit, service, certificate, licence or permit by State | INTERMEDIATE | DPDP Rules 2025 Part 1 | **UNVERIFIED** |
+| 22 | rule-06 | Rule 6: Reasonable security safeguards | INTERMEDIATE | DPDP Rules 2025 Part 1 | **UNVERIFIED** |
+| 23 | rule-07 | Rule 7: Intimation of personal data breach | INTERMEDIATE | DPDP Rules 2025 Part 1 | **UNVERIFIED** |
+| 24 | rule-08 | Rule 8: Time period for specified purpose to be deemed as no longer being served | INTERMEDIATE | DPDP Rules 2025 Part 1 | **UNVERIFIED** |
+| 25 | rule-09 | Rule 9: Contact information for questions about processing | INTERMEDIATE | DPDP Rules 2025 Part 1 | **UNVERIFIED** |
+| 26 | a-sdf | Significant Data Fiduciary Obligations | ADVANCED | Significant Data Fiduciary | **UNVERIFIED** |
+| 27 | rule-13 | Rule 13: Additional obligations of Significant Data Fiduciary | ADVANCED | Significant Data Fiduciary | **UNVERIFIED** |
+| 28 | a-crossborder | Cross-border Transfer | ADVANCED | Cross-border Transfer and Exemptions | **UNVERIFIED** |
+| 29 | a-exemptions | Exemptions | ADVANCED | Cross-border Transfer and Exemptions | **UNVERIFIED** |
+| 30 | rule-15 | Rule 15: Transfer of personal data outside India | ADVANCED | Cross-border Transfer and Exemptions | **UNVERIFIED** |
+| 31 | rule-16 | Rule 16: Exemption for research, archiving or statistical purposes | ADVANCED | Cross-border Transfer and Exemptions | **UNVERIFIED** |
+| 32 | a-board | Data Protection Board and Appeals | ADVANCED | Data Protection Board | **UNVERIFIED** |
+| 33 | rule-17 | Rule 17: Appointment of Chairperson and other Members | ADVANCED | Data Protection Board | **UNVERIFIED** |
+| 34 | rule-18 | Rule 18: Salary, allowances and service conditions | ADVANCED | Data Protection Board | **UNVERIFIED** |
+| 35 | rule-19 | Rule 19: Board meetings and authentication | ADVANCED | Board Powers and Procedure | **UNVERIFIED** |
+| 36 | rule-20 | Rule 20: Functioning of Board as digital office | ADVANCED | Board Powers and Procedure | **UNVERIFIED** |
+| 37 | rule-22 | Rule 22: Appeal to Appellate Tribunal | ADVANCED | Appeal, Mediation, Voluntary Undertaking | **UNVERIFIED** |
+| 38 | a-penalty-analysis | Penalty Schedule Analysis | ADVANCED | Penalties and the Schedule | **UNVERIFIED** |
+| 39 | f-penalties | Penalties at a Glance | ADVANCED | Penalties and the Schedule | **UNVERIFIED** |
+| 40 | rule-21 | Rule 21: Appointment and service of Board officers/employees | ADVANCED | Miscellaneous and Amendments | **UNVERIFIED** |
+| 41 | rule-23 | Rule 23: Calling for information from Data Fiduciary or intermediary | ADVANCED | Miscellaneous and Amendments | **UNVERIFIED** |
+| 42 | rule-14 | Rule 14: Rights of Data Principals | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
+| 43 | schedule-01 | First Schedule: Consent Manager | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
+| 44 | schedule-02 | Second Schedule: State processing and research standards | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
+| 45 | schedule-03 | Third Schedule: Deemed purpose-completion periods | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
+| 46 | schedule-04 | Fourth Schedule: Child-data exemptions | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
+| 47 | schedule-05 | Fifth Schedule: Chairperson and Member service conditions | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
+| 48 | schedule-06 | Sixth Schedule: Board officers and employees | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
+| 49 | schedule-07 | Seventh Schedule: Information requests and specified purposes | ADVANCED | DPDP Rules 2025 Part 2 and all Schedules | **UNVERIFIED** |
+| 50 | a-capstone | Full Incident Simulation | ADVANCED | Capstone Simulations | **UNVERIFIED** |
+
+**Current verified count: 0/50.** The existing Rules rooms contain headings/references rather than the full notified Rule text, and the existing Act rooms contain partial selections or text that still require word-for-word reconciliation. These are intentionally not treated as verified until the chapter-by-chapter rebuild.
