@@ -17,7 +17,8 @@ const db = new Database(dbPath);
 const contentDir = path.join(root, "content");
 const sourceRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "sources.json"), "utf8"));
 const taskRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "tasks.json"), "utf8"));
-const curriculumRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "learning-paths.json"), "utf8"));\nconst legalRoomRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "legal-room-content.json"), "utf8"));
+const curriculumRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "learning-paths.json"), "utf8"));
+const legalRoomRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "legal-room-content.json"), "utf8"));
 const sourceIds = new Set((sourceRegistry.sources || []).map(s => s.id));
 
 function validateTask(task) {
