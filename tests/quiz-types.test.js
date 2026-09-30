@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 "use strict";
 
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const contentDir = path.resolve(__dirname, "../content");
 const files = fs.readdirSync(contentDir).filter(f => /\.json$/.test(f) && /legal-room-content|room|question|quiz/i.test(f));
