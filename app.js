@@ -169,18 +169,24 @@
     const answer=window._selectedAnswer;
     if(answer===undefined){toastMsg("Choose an answer first");return;}
     try{
-      const registry=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(r=>r.json());
-      const holder=(registry.rooms||[]).find(r=>r.tasks.some(t=>t.id===id));
-      const task=holder?.tasks.find(t=>t.id===id),q=task?.questions?.[0];
-      if(!q)throw new Error("Question data is unavailable.");
-      const correct=Number(answer)===Number(q.answer);
+      let result=null;
+      try{ result=await DPDP_API.request("/api/legal-tasks/"+encodeURIComponent(id)+"/answer",{method:"POST",body:JSON.stringify({answer})}); }catch{}
+      if(!result){
+        const registry=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(r=>r.json());
+        const holder=(registry.rooms||[]).find(r=>r.tasks.some(t=>t.id===id));
+        const task=holder?.tasks.find(t=>t.id===id),q=task?.questions?.[0];
+        if(!q)throw new Error("Question data is unavailable.");
+        const correct=Number(answer)===Number(q.answer);
+        result={correct,points:correct?10:0,explanation:correct?q.why:((q.why_wrong?.[answer]||"Review the official provision.")+" Section reference: "+q.section_reference)};
+      }
+      const correct=!!result.correct;
       state.completedTasks=state.completedTasks||{};
       const wasDone=!!state.completedTasks[id];
       state.completedTasks[id]=correct;
-      if(correct&&!wasDone)state.xp+=10;
+      if(correct&&!wasDone)state.xp+=Number(result.points||10);
       save();
       const fb=document.getElementById("task-feedback");
-      if(fb){const detail=correct?q.why:((q.why_wrong?.[answer]||"Review the official provision.")+" Section reference: "+q.section_reference);fb.textContent=(correct?"Correct. ":"Not correct. ")+detail;fb.className="feedback "+(correct?"success":"error");}
+      if(fb){fb.textContent=(correct?"Correct. ":"Not correct. ")+(result.explanation||"");fb.className="feedback "+(correct?"success":"error");}
       setTimeout(render,900);
     }catch(e){toastMsg(e.message);}
   }
