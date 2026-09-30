@@ -1,17 +1,3106 @@
 {
-  "version": "2026.1",
+  "version": "2026.2",
   "last_verified": "2026-09-30",
-  "rooms": [],
   "tasks": [
-    {"id":"quiz-act-001","type":"mcq","prompt":"Under Section 2, who determines the purpose and means of processing personal data?","options":["Data Principal","Data Fiduciary","Consent Manager","Data Protection Board"],"correct_answer":1,"explanation":"Section 2 defines the Data Fiduciary by reference to determining the purpose and means of processing personal data.","citation":{"reference":"Act Section 2","source_id":"act-2023"},"hints":[{"text":"Look at the statutory definition of Data Fiduciary.","cost":5}],"points":10,"difficulty":"beginner"},
-    {"id":"quiz-act-002","type":"mcq","prompt":"Which section contains the general obligations of a Data Fiduciary?","options":["Section 5","Section 8","Section 13","Section 18"],"correct_answer":1,"explanation":"Section 8 is titled General obligations of Data Fiduciary.","citation":{"reference":"Act Section 8","source_id":"act-2023"},"hints":[{"text":"Check the Act section dealing with general Data Fiduciary obligations.","cost":5}],"points":10,"difficulty":"beginner"},
-    {"id":"quiz-act-003","type":"mcq","prompt":"Which right is specifically addressed by Section 14?","options":["Nomination","Access","Correction","Appeal"],"correct_answer":0,"explanation":"Section 14 is the right to nominate.","citation":{"reference":"Act Section 14","source_id":"act-2023"},"hints":[{"text":"Read the heading of Section 14.","cost":5}],"points":10,"difficulty":"beginner"},
-    {"id":"quiz-act-004","type":"mcq","prompt":"Which section establishes the Data Protection Board of India?","options":["Section 10","Section 18","Section 27","Section 33"],"correct_answer":1,"explanation":"Section 18 provides for establishment of the Data Protection Board of India.","citation":{"reference":"Act Section 18","source_id":"act-2023"},"hints":[{"text":"Look at the chapter on the Board.","cost":5}],"points":10,"difficulty":"beginner"},
-    {"id":"quiz-rules-001","type":"mcq","prompt":"Which Rule specifies reasonable security safeguards?","options":["Rule 3","Rule 4","Rule 6","Rule 15"],"correct_answer":2,"explanation":"Rule 6 is titled Reasonable security safeguards.","citation":{"reference":"DPDP Rules 2025 Rule 6","source_id":"rules-2025"},"hints":[{"text":"Look for the Rule dealing with security safeguards.","cost":5}],"points":10,"difficulty":"beginner"},
-    {"id":"quiz-rules-002","type":"mcq","prompt":"Which Rules commenced on publication of the Gazette notification?","options":["Rules 1, 2 and 17-21","Rules 3-16 only","Rules 5-16 and 22-23","Rule 4 only"],"correct_answer":0,"explanation":"Rule 1(2) provides that Rules 1, 2 and 17 to 21 come into force on the date of publication in the Official Gazette.","citation":{"reference":"DPDP Rules 2025 Rule 1(2)","source_id":"rules-2025"},"hints":[{"text":"Check Rule 1(2).","cost":5}],"points":10,"difficulty":"beginner"},
-    {"id":"quiz-act-005","type":"mcq","prompt":"Which section addresses Significant Data Fiduciaries?","options":["Section 7","Section 8","Section 10","Section 17"],"correct_answer":2,"explanation":"Section 10 provides additional obligations of Significant Data Fiduciary.","citation":{"reference":"Act Section 10","source_id":"act-2023"},"hints":[{"text":"Look for the section specifically titled with Significant Data Fiduciary.","cost":5}],"points":10,"difficulty":"intermediate"},
-    {"id":"quiz-act-006","type":"mcq","prompt":"Which section provides for penalties?","options":["Section 27","Section 29","Section 33","Section 40"],"correct_answer":2,"explanation":"Section 33 is titled Penalties.","citation":{"reference":"Act Section 33","source_id":"act-2023"},"hints":[{"text":"Check the enforcement chapter of the Act.","cost":5}],"points":10,"difficulty":"intermediate"},
-    {"id":"quiz-rules-003","type":"mcq","prompt":"Which Rule addresses transfer of personal data outside the territory of India?","options":["Rule 6","Rule 10","Rule 13","Rule 15"],"correct_answer":3,"explanation":"Rule 15 addresses transfer of personal data outside the territory of India.","citation":{"reference":"DPDP Rules 2025 Rule 15","source_id":"rules-2025"},"hints":[{"text":"Check the Rules provision on transfers outside India.","cost":5}],"points":10,"difficulty":"intermediate"},
-    {"id":"quiz-act-007","type":"mcq","prompt":"Which section provides for the right to grievance redressal?","options":["Section 11","Section 12","Section 13","Section 14"],"correct_answer":2,"explanation":"Section 13 provides for the right to grievance redressal.","citation":{"reference":"Act Section 13","source_id":"act-2023"},"hints":[{"text":"Check the sequence of Data Principal rights in Sections 11 to 14.","cost":5}],"points":10,"difficulty":"beginner"}
+    {
+      "id": "f-overview-t1",
+      "type": "read",
+      "prompt": "Read the Act's scope provisions.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 1-3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 1-3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-overview-t2",
+      "type": "mcq",
+      "prompt": "Which section addresses application?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 1-3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 1-3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-overview-t3",
+      "type": "scenario",
+      "prompt": "A company processes digital personal data in India. Which scope provision should you inspect first?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 1-3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 1-3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-overview-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the statement not supported by Section 3.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 1-3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 1-3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-overview-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a basic scope check.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Sections 1-3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 1-3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-overview-t6",
+      "type": "flag",
+      "prompt": "Flag the primary source for scope.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 1-3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 1-3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-definitions-t1",
+      "type": "read",
+      "prompt": "Read the statutory roles in Section 2.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 2. Educational content only.",
+      "citation": {
+        "reference": "Act Section 2",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-definitions-t2",
+      "type": "mcq",
+      "prompt": "Which role determines the purpose and means of processing?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 2. Educational content only.",
+      "citation": {
+        "reference": "Act Section 2",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-definitions-t3",
+      "type": "scenario",
+      "prompt": "A vendor processes data on behalf of a company. Which statutory role applies?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 2. Educational content only.",
+      "citation": {
+        "reference": "Act Section 2",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-definitions-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect role definition.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 2. Educational content only.",
+      "citation": {
+        "reference": "Act Section 2",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-definitions-t5",
+      "type": "order-the-steps",
+      "prompt": "Order the role-identification steps.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 2. Educational content only.",
+      "citation": {
+        "reference": "Act Section 2",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-definitions-t6",
+      "type": "flag",
+      "prompt": "Flag the definition source.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 2. Educational content only.",
+      "citation": {
+        "reference": "Act Section 2",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-notice-consent-t1",
+      "type": "read",
+      "prompt": "Read Sections 5-6 and Rule 3.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 5-6; DPDP Rules 2025 Rule 3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 5-6; DPDP Rules 2025 Rule 3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-notice-consent-t2",
+      "type": "mcq",
+      "prompt": "Which section governs consent?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 5-6; DPDP Rules 2025 Rule 3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 5-6; DPDP Rules 2025 Rule 3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-notice-consent-t3",
+      "type": "scenario",
+      "prompt": "A notice bundles unrelated purposes. Which provision should you inspect?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 5-6; DPDP Rules 2025 Rule 3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 5-6; DPDP Rules 2025 Rule 3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-notice-consent-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the deficient notice element.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 5-6; DPDP Rules 2025 Rule 3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 5-6; DPDP Rules 2025 Rule 3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-notice-consent-t5",
+      "type": "order-the-steps",
+      "prompt": "Order notice, consent request, processing.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Sections 5-6; DPDP Rules 2025 Rule 3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 5-6; DPDP Rules 2025 Rule 3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-notice-consent-t6",
+      "type": "flag",
+      "prompt": "Flag the consent requirement.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 5-6; DPDP Rules 2025 Rule 3. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 5-6; DPDP Rules 2025 Rule 3",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-rights-duties-t1",
+      "type": "read",
+      "prompt": "Read Sections 11-15.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 11-15. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 11-15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-rights-duties-t2",
+      "type": "mcq",
+      "prompt": "Which section covers grievance redressal?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 11-15. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 11-15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-rights-duties-t3",
+      "type": "scenario",
+      "prompt": "A Data Principal wants to exercise a statutory right. Which chapter should you inspect?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 11-15. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 11-15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-rights-duties-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the statement that is not a Data Principal duty.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 11-15. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 11-15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-rights-duties-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a rights-request workflow.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Sections 11-15. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 11-15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-rights-duties-t6",
+      "type": "flag",
+      "prompt": "Flag the statutory chapter.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 11-15. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 11-15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-legitimate-uses-t1",
+      "type": "read",
+      "prompt": "Read Section 7.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-legitimate-uses-t2",
+      "type": "mcq",
+      "prompt": "Which section is titled Certain legitimate uses?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-legitimate-uses-t3",
+      "type": "scenario",
+      "prompt": "A State-processing scenario relies on a Section 7 use. Which provision should you test?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-legitimate-uses-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the claim outside Section 7.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-legitimate-uses-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a Section 7 assessment.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-legitimate-uses-t6",
+      "type": "flag",
+      "prompt": "Flag the source.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-penalties-t1",
+      "type": "read",
+      "prompt": "Read Section 33 and the Schedule.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-penalties-t2",
+      "type": "mcq",
+      "prompt": "Which provision contains the penalty schedule?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-penalties-t3",
+      "type": "scenario",
+      "prompt": "An incident may trigger a scheduled penalty. Which provisions should you inspect?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-penalties-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect penalty mapping.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-penalties-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a penalty-schedule analysis.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "f-penalties-t6",
+      "type": "flag",
+      "prompt": "Flag the Schedule.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "i-purpose-t1",
+      "type": "read",
+      "prompt": "Read Section 6(1) and the Second Schedule.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(1); DPDP Rules 2025 Second Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(1); DPDP Rules 2025 Second Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-purpose-t2",
+      "type": "mcq",
+      "prompt": "Which provision limits consent to personal data necessary for the specified purpose?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(1); DPDP Rules 2025 Second Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(1); DPDP Rules 2025 Second Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-purpose-t3",
+      "type": "scenario",
+      "prompt": "A product collects extra data unrelated to the stated purpose. Which provision should you assess?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(1); DPDP Rules 2025 Second Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(1); DPDP Rules 2025 Second Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-purpose-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the unsupported minimisation claim.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(1); DPDP Rules 2025 Second Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(1); DPDP Rules 2025 Second Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-purpose-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a purpose-and-necessity review.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 6(1); DPDP Rules 2025 Second Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(1); DPDP Rules 2025 Second Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-purpose-t6",
+      "type": "flag",
+      "prompt": "Flag the relevant source pair.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(1); DPDP Rules 2025 Second Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(1); DPDP Rules 2025 Second Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-security-t1",
+      "type": "read",
+      "prompt": "Read Section 8(5)-(6) and Rules 6-7.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-security-t2",
+      "type": "mcq",
+      "prompt": "Which Rule specifies reasonable security safeguards?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-security-t3",
+      "type": "scenario",
+      "prompt": "A breach is discovered. Which security and intimation provisions apply?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-security-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the missing safeguard or notification step.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-security-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a breach response.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-security-t6",
+      "type": "flag",
+      "prompt": "Flag the correct Rule.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(5)-(6); DPDP Rules 2025 Rules 6-7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-retention-t1",
+      "type": "read",
+      "prompt": "Read Section 8(7)-(8) and Rule 8.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(7)-(8); DPDP Rules 2025 Rule 8. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(7)-(8); DPDP Rules 2025 Rule 8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-retention-t2",
+      "type": "mcq",
+      "prompt": "When does Section 8 require erasure?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(7)-(8); DPDP Rules 2025 Rule 8. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(7)-(8); DPDP Rules 2025 Rule 8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-retention-t3",
+      "type": "scenario",
+      "prompt": "A specified purpose is no longer being served. Which retention provision applies?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(7)-(8); DPDP Rules 2025 Rule 8. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(7)-(8); DPDP Rules 2025 Rule 8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-retention-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect retention statement.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(7)-(8); DPDP Rules 2025 Rule 8. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(7)-(8); DPDP Rules 2025 Rule 8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-retention-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a retention review.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 8(7)-(8); DPDP Rules 2025 Rule 8. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(7)-(8); DPDP Rules 2025 Rule 8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-retention-t6",
+      "type": "flag",
+      "prompt": "Flag the relevant Rule.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(7)-(8); DPDP Rules 2025 Rule 8. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(7)-(8); DPDP Rules 2025 Rule 8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-breach-t1",
+      "type": "read",
+      "prompt": "Read Section 8(6) and Rule 7.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(6); DPDP Rules 2025 Rule 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(6); DPDP Rules 2025 Rule 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-breach-t2",
+      "type": "mcq",
+      "prompt": "Which section requires intimation to the Board and affected Data Principals?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(6); DPDP Rules 2025 Rule 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(6); DPDP Rules 2025 Rule 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-breach-t3",
+      "type": "scenario",
+      "prompt": "A breach is confirmed. Who must be notified?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(6); DPDP Rules 2025 Rule 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(6); DPDP Rules 2025 Rule 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-breach-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect breach-intimation statement.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(6); DPDP Rules 2025 Rule 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(6); DPDP Rules 2025 Rule 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-breach-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a breach notification workflow.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 8(6); DPDP Rules 2025 Rule 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(6); DPDP Rules 2025 Rule 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-breach-t6",
+      "type": "flag",
+      "prompt": "Flag Rule 7.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(6); DPDP Rules 2025 Rule 7. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(6); DPDP Rules 2025 Rule 7",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-processors-t1",
+      "type": "read",
+      "prompt": "Read Section 8(1)-(2) and related safeguards.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-processors-t2",
+      "type": "mcq",
+      "prompt": "Who remains responsible when processing is undertaken by a Data Processor?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-processors-t3",
+      "type": "scenario",
+      "prompt": "A fiduciary appoints a processor without the required contractual basis. Which provision should you inspect?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-processors-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect processor statement.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-processors-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a processor governance check.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-processors-t6",
+      "type": "flag",
+      "prompt": "Flag the relevant Act provision.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6. Educational content only.",
+      "citation": {
+        "reference": "Act Section 8(1)-(2),(7); DPDP Rules 2025 Rule 6",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-consent-t1",
+      "type": "read",
+      "prompt": "Read Section 6(7)-(9) and Rule 4.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(7)-(9); DPDP Rules 2025 Rule 4. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(7)-(9); DPDP Rules 2025 Rule 4",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-consent-t2",
+      "type": "mcq",
+      "prompt": "What registration does a Consent Manager require?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(7)-(9); DPDP Rules 2025 Rule 4. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(7)-(9); DPDP Rules 2025 Rule 4",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-consent-t3",
+      "type": "scenario",
+      "prompt": "A Consent Manager is being designed. Which statutory registration requirement applies?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(7)-(9); DPDP Rules 2025 Rule 4. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(7)-(9); DPDP Rules 2025 Rule 4",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-consent-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the unsupported Consent Manager claim.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(7)-(9); DPDP Rules 2025 Rule 4. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(7)-(9); DPDP Rules 2025 Rule 4",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-consent-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a Consent Manager compliance check.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 6(7)-(9); DPDP Rules 2025 Rule 4. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(7)-(9); DPDP Rules 2025 Rule 4",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-consent-t6",
+      "type": "flag",
+      "prompt": "Flag Rule 4.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 6(7)-(9); DPDP Rules 2025 Rule 4. Educational content only.",
+      "citation": {
+        "reference": "Act Section 6(7)-(9); DPDP Rules 2025 Rule 4",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-grievance-t1",
+      "type": "read",
+      "prompt": "Read Section 8(10), Section 13 and Rule 14.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(10), 13; DPDP Rules 2025 Rule 14. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(10), 13; DPDP Rules 2025 Rule 14",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-grievance-t2",
+      "type": "mcq",
+      "prompt": "Which provision establishes the grievance mechanism duty?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(10), 13; DPDP Rules 2025 Rule 14. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(10), 13; DPDP Rules 2025 Rule 14",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-grievance-t3",
+      "type": "scenario",
+      "prompt": "A Data Principal raises a grievance. Which statutory route should be checked?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(10), 13; DPDP Rules 2025 Rule 14. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(10), 13; DPDP Rules 2025 Rule 14",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-grievance-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect grievance statement.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(10), 13; DPDP Rules 2025 Rule 14. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(10), 13; DPDP Rules 2025 Rule 14",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-grievance-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a grievance-handling workflow.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Sections 8(10), 13; DPDP Rules 2025 Rule 14. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(10), 13; DPDP Rules 2025 Rule 14",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "i-grievance-t6",
+      "type": "flag",
+      "prompt": "Flag the relevant sources.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(10), 13; DPDP Rules 2025 Rule 14. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(10), 13; DPDP Rules 2025 Rule 14",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "a-sdf-t1",
+      "type": "read",
+      "prompt": "Read Section 10 and Rule 13.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 10; DPDP Rules 2025 Rule 13. Educational content only.",
+      "citation": {
+        "reference": "Act Section 10; DPDP Rules 2025 Rule 13",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-sdf-t2",
+      "type": "mcq",
+      "prompt": "Which section contains additional obligations of Significant Data Fiduciaries?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 10; DPDP Rules 2025 Rule 13. Educational content only.",
+      "citation": {
+        "reference": "Act Section 10; DPDP Rules 2025 Rule 13",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-sdf-t3",
+      "type": "scenario",
+      "prompt": "An entity is notified as an SDF. Which additional-obligation provision applies?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 10; DPDP Rules 2025 Rule 13. Educational content only.",
+      "citation": {
+        "reference": "Act Section 10; DPDP Rules 2025 Rule 13",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-sdf-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the unsupported SDF requirement.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 10; DPDP Rules 2025 Rule 13. Educational content only.",
+      "citation": {
+        "reference": "Act Section 10; DPDP Rules 2025 Rule 13",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-sdf-t5",
+      "type": "order-the-steps",
+      "prompt": "Order an SDF compliance review.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 10; DPDP Rules 2025 Rule 13. Educational content only.",
+      "citation": {
+        "reference": "Act Section 10; DPDP Rules 2025 Rule 13",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-sdf-t6",
+      "type": "flag",
+      "prompt": "Flag Rule 13.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 10; DPDP Rules 2025 Rule 13. Educational content only.",
+      "citation": {
+        "reference": "Act Section 10; DPDP Rules 2025 Rule 13",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-children-t1",
+      "type": "read",
+      "prompt": "Read Section 9 and Rules 10-12.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 9; DPDP Rules 2025 Rules 10-12. Educational content only.",
+      "citation": {
+        "reference": "Act Section 9; DPDP Rules 2025 Rules 10-12",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-children-t2",
+      "type": "mcq",
+      "prompt": "What consent must be obtained before covered child processing?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 9; DPDP Rules 2025 Rules 10-12. Educational content only.",
+      "citation": {
+        "reference": "Act Section 9; DPDP Rules 2025 Rules 10-12",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-children-t3",
+      "type": "scenario",
+      "prompt": "A service wants to process a child's data. Which consent requirement applies?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 9; DPDP Rules 2025 Rules 10-12. Educational content only.",
+      "citation": {
+        "reference": "Act Section 9; DPDP Rules 2025 Rules 10-12",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-children-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect child-processing claim.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 9; DPDP Rules 2025 Rules 10-12. Educational content only.",
+      "citation": {
+        "reference": "Act Section 9; DPDP Rules 2025 Rules 10-12",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-children-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a verifiable-consent assessment.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 9; DPDP Rules 2025 Rules 10-12. Educational content only.",
+      "citation": {
+        "reference": "Act Section 9; DPDP Rules 2025 Rules 10-12",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-children-t6",
+      "type": "flag",
+      "prompt": "Flag the relevant provisions.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 9; DPDP Rules 2025 Rules 10-12. Educational content only.",
+      "citation": {
+        "reference": "Act Section 9; DPDP Rules 2025 Rules 10-12",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-crossborder-t1",
+      "type": "read",
+      "prompt": "Read Section 16 and Rule 15.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 16; DPDP Rules 2025 Rule 15. Educational content only.",
+      "citation": {
+        "reference": "Act Section 16; DPDP Rules 2025 Rule 15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-crossborder-t2",
+      "type": "mcq",
+      "prompt": "Which section addresses processing of personal data outside India?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 16; DPDP Rules 2025 Rule 15. Educational content only.",
+      "citation": {
+        "reference": "Act Section 16; DPDP Rules 2025 Rule 15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-crossborder-t3",
+      "type": "scenario",
+      "prompt": "A transfer is proposed to a foreign country. Which provision should you inspect?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 16; DPDP Rules 2025 Rule 15. Educational content only.",
+      "citation": {
+        "reference": "Act Section 16; DPDP Rules 2025 Rule 15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-crossborder-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect cross-border claim.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 16; DPDP Rules 2025 Rule 15. Educational content only.",
+      "citation": {
+        "reference": "Act Section 16; DPDP Rules 2025 Rule 15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-crossborder-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a cross-border assessment.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 16; DPDP Rules 2025 Rule 15. Educational content only.",
+      "citation": {
+        "reference": "Act Section 16; DPDP Rules 2025 Rule 15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-crossborder-t6",
+      "type": "flag",
+      "prompt": "Flag Rule 15.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 16; DPDP Rules 2025 Rule 15. Educational content only.",
+      "citation": {
+        "reference": "Act Section 16; DPDP Rules 2025 Rule 15",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-board-t1",
+      "type": "read",
+      "prompt": "Read Sections 18-31 and Rules 17-22.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 18-31; DPDP Rules 2025 Rules 17-22. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 18-31; DPDP Rules 2025 Rules 17-22",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-board-t2",
+      "type": "mcq",
+      "prompt": "Which section establishes the Board?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 18-31; DPDP Rules 2025 Rules 17-22. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 18-31; DPDP Rules 2025 Rules 17-22",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-board-t3",
+      "type": "scenario",
+      "prompt": "A Board proceeding is challenged. Which appeal provisions should you inspect?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 18-31; DPDP Rules 2025 Rules 17-22. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 18-31; DPDP Rules 2025 Rules 17-22",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-board-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect Board or appeal claim.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 18-31; DPDP Rules 2025 Rules 17-22. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 18-31; DPDP Rules 2025 Rules 17-22",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-board-t5",
+      "type": "order-the-steps",
+      "prompt": "Order the Board-process review.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Sections 18-31; DPDP Rules 2025 Rules 17-22. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 18-31; DPDP Rules 2025 Rules 17-22",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-board-t6",
+      "type": "flag",
+      "prompt": "Flag the relevant appeal provision.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 18-31; DPDP Rules 2025 Rules 17-22. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 18-31; DPDP Rules 2025 Rules 17-22",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-exemptions-t1",
+      "type": "read",
+      "prompt": "Read Section 17.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 17. Educational content only.",
+      "citation": {
+        "reference": "Act Section 17",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-exemptions-t2",
+      "type": "mcq",
+      "prompt": "Which section contains exemptions?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 17. Educational content only.",
+      "citation": {
+        "reference": "Act Section 17",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-exemptions-t3",
+      "type": "scenario",
+      "prompt": "A processing activity may fall within an exemption. Which statutory test should you apply?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 17. Educational content only.",
+      "citation": {
+        "reference": "Act Section 17",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-exemptions-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the overbroad exemption claim.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 17. Educational content only.",
+      "citation": {
+        "reference": "Act Section 17",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-exemptions-t5",
+      "type": "order-the-steps",
+      "prompt": "Order an exemption assessment.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 17. Educational content only.",
+      "citation": {
+        "reference": "Act Section 17",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-exemptions-t6",
+      "type": "flag",
+      "prompt": "Flag Section 17.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 17. Educational content only.",
+      "citation": {
+        "reference": "Act Section 17",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-penalty-analysis-t1",
+      "type": "read",
+      "prompt": "Read Section 33 and the Schedule.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-penalty-analysis-t2",
+      "type": "mcq",
+      "prompt": "Which provision links penalties to the Schedule?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-penalty-analysis-t3",
+      "type": "scenario",
+      "prompt": "A breach involves safeguards and breach intimation. Which Schedule entries should you inspect?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-penalty-analysis-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the incorrect penalty amount mapping.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-penalty-analysis-t5",
+      "type": "order-the-steps",
+      "prompt": "Order a penalty-schedule analysis.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-penalty-analysis-t6",
+      "type": "flag",
+      "prompt": "Flag the Schedule.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Section 33; Schedule. Educational content only.",
+      "citation": {
+        "reference": "Act Section 33; Schedule",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-capstone-t1",
+      "type": "read",
+      "prompt": "Read Sections 8(5)-(7) and Rules 6-8.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-capstone-t2",
+      "type": "mcq",
+      "prompt": "Which provisions govern safeguards, breach intimation and erasure?",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-capstone-t3",
+      "type": "scenario",
+      "prompt": "An incident has security failure, notification and retention issues. Which provisions should you triage?",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-capstone-t4",
+      "type": "spot-the-violation",
+      "prompt": "Spot the first legal-reference error in the response plan.",
+      "options": [
+        "The cited provision",
+        "An unrelated provision",
+        "A third-party rule",
+        "No statutory provision"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-capstone-t5",
+      "type": "order-the-steps",
+      "prompt": "Order the incident response and compliance review.",
+      "options": [
+        "Identify facts",
+        "Map provision",
+        "Check requirement",
+        "Record conclusion"
+      ],
+      "correct_answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Verify this answer against Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "a-capstone-t6",
+      "type": "flag",
+      "prompt": "Flag every primary source needed.",
+      "options": [
+        "Official Act/Rules provision",
+        "Unverified blog",
+        "Generic GDPR guidance",
+        "Social media post"
+      ],
+      "correct_answer": 0,
+      "explanation": "Verify this answer against Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8. Educational content only.",
+      "citation": {
+        "reference": "Act Sections 8(5)-(7), 33; DPDP Rules 2025 Rules 6-8",
+        "source_id": "act-2023"
+      },
+      "hints": [
+        {
+          "text": "Open the cited official source and read the exact provision.",
+          "cost": 5
+        }
+      ],
+      "points": 10,
+      "difficulty": "advanced"
+    }
   ]
 }
