@@ -249,6 +249,6 @@
     const c = e.target.closest("[data-cert]");
     if (c) issueCert(c.dataset.cert);
   });
-  window.DPDP_API.setBase(localStorage.getItem("dpdp-api-base") || "");
+  window.DPDP_API.setBase(localStorage.getItem("dpdp-api-base") || ((!location.hostname.includes("github.io")) ? location.origin : ""));
   render();
 })();
