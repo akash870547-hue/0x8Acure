@@ -70,10 +70,11 @@
         const consentAt=new Date().toISOString();const {data,error}=await sb.auth.signUp({email,password,options:{data:{username,name:username,consent_at:consentAt,privacy_version:"2026-09-30"},emailRedirectTo:route("/login")}});if(error)throw error;
         if(data.session){localStorage.setItem("0x8acure-session-start",String(Date.now()));await finish(data.user,username,consentAt);location.href=route(isAdmin()?"/admin/dashboard":"/dashboard")}else{location.hash="";renderLoginPage();document.getElementById("auth-error").innerHTML='<span class="auth-success">Account created. Verify your email, then log in.</span>'}
       }else{
-        const email=await resolveEmail(document.getElementById("auth-email").value),remember=document.getElementById("remember-me")?.checked!==false;
+        const loginValue=document.getElementById("auth-email").value,remember=document.getElementById("remember-me")?.checked!==false,password=document.getElementById("auth-password").value;
         localStorage.setItem("0x8acure-remember",remember?"1":"0");
         sb=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:remember?localStorage:sessionStorage}});window.DPDP_AUTH.client=sb;
-        const {data,error}=await sb.auth.signInWithPassword({email,password:document.getElementById("auth-password").value});if(error)throw error;
+        const candidates=loginValue.trim().toLowerCase()==="admin"?["admin@0x8acure.local","admin@0x8acure.in"]:[await resolveEmail(loginValue)];
+        let data=null,error=null;for(const email of candidates){const r=await sb.auth.signInWithPassword({email,password});if(!r.error){data=r.data;break}error=r.error}if(error)throw error;
         localStorage.setItem("0x8acure-session-start",String(Date.now()));
         await finish(data.user);location.href=route(isAdmin()?"/admin/dashboard":"/dashboard");
       }
