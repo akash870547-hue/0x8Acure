@@ -13,7 +13,7 @@
 
   function css(){
     if(document.getElementById("auth-css"))return;
-    const s=document.createElement("style");s.id="auth-css";s.textContent=String.raw\`
+    const s=document.createElement("style");s.id="auth-css";s.textContent=String.raw`
       .auth-page{min-height:calc(100vh - 150px);display:grid;place-items:center;padding:36px 0 70px}
       .auth-page-card{width:min(900px,100%);display:grid;grid-template-columns:.82fr 1.18fr;overflow:hidden;border:1px solid rgba(0,229,255,.22);border-radius:24px;background:rgba(10,15,24,.94);box-shadow:0 28px 90px rgba(0,0,0,.42)}
       .auth-visual{position:relative;padding:38px;background:radial-gradient(circle at 80% 15%,rgba(0,255,157,.15),transparent 35%),linear-gradient(150deg,#09131a,#0b1321 55%,#101329);border-right:1px solid rgba(0,229,255,.14)}
@@ -35,7 +35,7 @@
       .unauthorized-banner{margin-bottom:14px;padding:11px 13px;border:1px solid rgba(251,113,133,.4);background:rgba(251,113,133,.08);color:#fecdd3;border-radius:10px;font-size:12px}
       @media(max-width:760px){.auth-page{padding:20px 0 50px}.auth-page-card{grid-template-columns:1fr}.auth-visual{padding:24px;border-right:0;border-bottom:1px solid rgba(0,229,255,.14)}.auth-visual h1{margin:42px 0 8px;font-size:30px}.auth-visual p{font-size:12px}.auth-points{grid-template-columns:1fr 1fr}.auth-main{padding:26px 22px}}
       @media(max-width:440px){.auth-points{grid-template-columns:1fr}.auth-main{padding:23px 17px}}
-    \`;document.head.appendChild(s);
+    `;document.head.appendChild(s);
   }
   function nav(){const a=document.querySelector(".nav-actions");if(!a)return;let b=document.getElementById("auth-nav");if(!b){b=document.createElement("button");b.id="auth-nav";a.prepend(b)}b.className="auth-button";b.type="button";b.onclick=()=>session?account():go("/login");updateNav()}
   function updateNav(){const b=document.getElementById("auth-nav"),a=document.querySelector(".nav-actions");if(b){b.textContent=session?"Account":"Sign in";b.setAttribute("aria-label",session?"Open account":"Sign in")}document.getElementById("admin-nav")?.remove();if(a&&isAdmin()){const x=document.createElement("button");x.id="admin-nav";x.className="auth-button";x.textContent="Admin";x.onclick=()=>go("/admin/dashboard");a.prepend(x)}}
@@ -44,7 +44,7 @@
   function renderLoginPage(message=""){
     css();document.getElementById("academy-footer")?.style.setProperty("display","none");
     const signup=location.hash==="#signup";
-    document.getElementById("app").innerHTML=String.raw\`
+    document.getElementById("app").innerHTML=String.raw`
       <section class="auth-page"><div class="auth-page-card"><aside class="auth-visual"><div class="auth-brand">0x8Acure · Secure Access</div><h1>Learn. Practice. Prove.</h1><p>Private learning, practical security scenarios, and verifiable progress in one focused workspace.</p><div class="auth-points"><div class="auth-point"><i>01</i>Scenario-led training</div><div class="auth-point"><i>02</i>Progress sync</div><div class="auth-point"><i>03</i>Verifiable credentials</div></div></aside>
       <section class="auth-main">\${message?'<div class="unauthorized-banner">'+esc(message)+'</div>':""}<div class="eyebrow">0x8Acure Authentication</div><h2>\${signup?"Create your account":"Welcome back"}</h2><p>\${signup?"Create a learner account to sync your progress.":"Sign in with your username or email."}</p>
       <div class="auth-tabs" role="tablist"><button class="auth-tab \${!signup?"active":""}" data-auth-tab="login" role="tab">Existing User Login</button><button class="auth-tab \${signup?"active":""}" data-auth-tab="signup" role="tab">Create Account</button></div>
@@ -54,7 +54,7 @@
       \${signup?'<label>Confirm Password<input id="auth-confirm" type="password" minlength="8" autocomplete="new-password" required placeholder="Repeat your password"></label>':'<label class="auth-check"><input id="remember-me" type="checkbox" checked><span>Remember Me</span></label>'}
       <div id="auth-error" class="auth-error" aria-live="polite"></div><button class="btn primary auth-submit" type="submit">\${signup?"Create Account":"Login"}</button></form>
       <div class="auth-footer-row">\${signup?'<button class="auth-link" id="to-login" type="button">Already have an account? Login</button>':'<button class="auth-link" id="forgot-password" type="button">Forgot password?</button><button class="auth-link" id="to-signup" type="button">Create an account</button>'}</div>
-      </section></div></section>\`;
+      </section></div></section>`;
     document.querySelectorAll("[data-auth-tab]").forEach(b=>b.onclick=()=>{location.hash=b.dataset.authTab==="signup"?"signup":"";renderLoginPage(message)});
     document.getElementById("to-login")?.addEventListener("click",()=>{location.hash="";renderLoginPage()});
     document.getElementById("to-signup")?.addEventListener("click",()=>{location.hash="signup";renderLoginPage()});
