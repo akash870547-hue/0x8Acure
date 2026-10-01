@@ -1,18 +1,54 @@
 {
-  "name": "dpdp-ctf-platform",
-  "version": "0.2.0",
+  "name": "0x8acure-platform",
+  "version": "1.0.0",
   "private": true,
-  "description": "Scenario-based DPDP compliance CTF platform with optional backend, auth, progress, leaderboard and HR administration.",
   "type": "module",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js"
+    "dev": "concurrently -k \"node server.js\" \"vite --configLoader runner --config frontend/vite.config.ts --host 0.0.0.0\"",
+    "start": "node server.js",
+    "build": "prisma generate && vite --configLoader runner --config frontend/vite.config.ts build",
+    "typecheck": "tsc --noEmit -p frontend/tsconfig.json",
+    "preview": "vite --configLoader runner --config frontend/vite.config.ts preview --host 0.0.0.0",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio"
   },
+  "overrides": {"deepmerge-ts": "^8.0.2"},
   "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "@supabase/supabase-js": "^2.57.0",
     "bcryptjs": "^3.0.2",
     "better-sqlite3": "^12.2.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2"
-  }
+    "express-rate-limit": "^8.1.0",
+    "framer-motion": "^12.23.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.468.0",
+    "prisma": "^6.19.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-markdown": "^10.1.0",
+    "rehype-sanitize": "^6.0.0",
+    "tsx": "^4.20.5",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.18.0",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.2",
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7"
+  },
+  "engines": {"node": ">=20.19.0"}
 }

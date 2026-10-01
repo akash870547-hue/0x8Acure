@@ -165,10 +165,17 @@
     }
     return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-rq-option="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
   }
-  async function loadRoomRegistry(){
-    const base=await fetch("content/legal-room-content.json",{cache:"no-store"}).then(x=>x.json());
-    const chapter=await fetch("content/chapter-ii-rooms.json",{cache:"no-store"}).then(x=>x.json());
-    return {...base,rooms:[...(base.rooms||[]).filter(x=>!x.id.startsWith("ch2-")),...(chapter.rooms||[])]};
+  let roomRegistryRequest;
+  function loadRoomRegistry(){
+    if(!roomRegistryRequest) roomRegistryRequest=fetch(window.DPDP_API_URL?window.DPDP_API_URL("/api/legal-rooms"):"/api/legal-rooms").then(response=>{
+      if(!response.ok) throw new Error("Room content could not be loaded.");
+      return response.json();
+    }).then(registry=>{
+      legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
+      window.__roomRegistry=registry;
+      return registry;
+    }).catch(error=>{roomRegistryRequest=null;throw error;});
+    return roomRegistryRequest;
   }
 
   function roomContentHtml(legal){
@@ -295,6 +302,20 @@
     return {total,correct,score:total?Math.round(correct/total*100):0,best:Number(rs.bestScore||0)};
   }
 
+  async function quizSubmit(){
+    const key=String(quizIndex),rs=quizAnswerStore(),answer=rs.answers?.[key];
+    if(answer===undefined){toastMsg("Choose an answer first.");return;}
+    try{
+      const feedback=await DPDP_API.request("/api/legal-quizzes/"+encodeURIComponent(activeTaskId)+"/answer",{
+        method:"POST",body:JSON.stringify({index:quizIndex,answer})
+      });
+      rs.results[key]=!!feedback.correct;
+      rs.feedback[key]=feedback;
+      save();
+      renderQuiz();
+    }catch(error){toastMsg(error.message||"Could not check this answer.");}
+  }
+
   function renderQuiz(){
     const q=quizTasks[quizIndex]; if(!q) return finishRoomQuiz();
     const rs=quizAnswerStore(); const key=String(quizIndex);
@@ -356,7 +377,13 @@
     save();
     if (view === "paths") paths();
     else if (view === "path") pathView();
-    else if (view === "module") moduleView();
+    else if (view === "module") {
+      if(window.__roomRegistry) moduleView();
+      else {
+        appEl.innerHTML='<section class="panel" role="status">Loading room details…</section>';
+        loadRoomRegistry().then(()=>{if(view==="module") moduleView();}).catch(()=>{if(view==="module") moduleView();});
+      }
+    }
     else if (view === "room") roomView();
     else if (view === "quiz") quiz();
     else if (view === "quizRun") renderQuiz();
@@ -512,7 +539,38 @@
   if(!document.getElementById("room-content-inline-style")){
     const s=document.createElement("style");s.id="room-content-inline-style";s.textContent=".official-text{margin:14px 0;border:1px solid rgba(34,211,238,.35);border-left:4px solid var(--cyan);border-radius:12px;background:rgba(3,10,18,.72);overflow:hidden}.official-label{padding:9px 12px;font:700 11px/1.2 \"JetBrains Mono\",monospace;letter-spacing:.08em;color:var(--cyan);background:rgba(34,211,238,.07)}.official-text pre{margin:0;padding:16px;white-space:pre-wrap;font:500 12px/1.75 \"JetBrains Mono\",monospace;color:var(--text);overflow:auto}.room-objectives{margin:14px 0}.room-objectives ul{margin:10px 0 0 20px}.room-objectives li{margin:6px 0}.term-list{display:flex;gap:9px;flex-wrap:wrap}.term-chip{display:inline-flex;flex-direction:column;gap:4px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);min-width:150px}.term-chip b{font-size:12px}.term-chip small{color:var(--muted);line-height:1.45}.myth-card{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);margin:8px 0}.myth-card b{color:var(--cyan);font-size:11px;text-transform:uppercase}.myth-card span{font-size:13px;line-height:1.5}.mini-question{padding:14px;border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--panel2)}.mini-question p{margin:8px 0;line-height:1.5}.mini-question ol{margin:8px 0 0 22px}.mini-question li{margin:4px 0}@media(max-width:700px){.official-text pre{font-size:11px}.term-chip{min-width:100%}.myth-card{grid-template-columns:1fr}.room-stats{flex-wrap:wrap}}";document.head.appendChild(s);
   }
-  if(!document.getElementById("academy-footer")){const f=document.createElement("footer");f.id="academy-footer";f.textContent="Educational use. Not legal advice. Refer to the official gazette.";f.style.cssText="padding:20px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:28px";document.body.appendChild(f);}
   if(!document.querySelector('script[src="badge-ui.js"]')){const s=document.createElement('script');s.src='badge-ui.js';document.body.appendChild(s);}
-  Promise.all([fetch("content/legal-room-content.json",{cache:"no-store"}).then(r=>r.json()),fetch("content/chapter-ii-rooms.json",{cache:"no-store"}).then(r=>r.json())]).then(([base,chapter])=>{const rooms=[...(base.rooms||[]).filter(x=>!x.id.startsWith("ch2-")),...(chapter.rooms||[])];legalStatusByRoom=Object.fromEntries(rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));render();}).catch(()=>render());
+  window.DPDP_NAVIGATE = target => {
+    if(!target||typeof target!=="object") return false;
+    if(target.type==="view"){
+      if(target.value==="admin"){
+        if(window.DPDP_AUTH?.isAdmin) window.DPDP_ADMIN?.open();
+        else document.getElementById("auth-nav")?.click();
+      }else if(target.value==="badges") window.DPDP_BADGES?.page();
+      else if(target.value==="certificates") window.DPDP_CERTS?.page();
+      else if(target.value==="leaderboard") leaderboard();
+      else if(target.value==="account") document.getElementById("auth-nav")?.click();
+      else if(["home","paths","quiz","sources","progress"].includes(target.value)){view=target.value;render();}
+      else return false;
+      return true;
+    }
+    if(target.type==="path"){
+      const p=DPDP_CURRICULUM.find(x=>x.id===target.id);
+      if(!p) return false;
+      pathId=p.id;moduleId=null;roomId=null;view="path";render();return true;
+    }
+    if(target.type==="module"){
+      const p=DPDP_CURRICULUM.find(x=>x.id===target.pathId),m=p?.modules?.find(x=>x.id===target.id);
+      if(!p||!m) return false;
+      pathId=p.id;moduleId=m.id;roomId=null;view="module";render();return true;
+    }
+    if(target.type==="room"){
+      for(const p of DPDP_CURRICULUM){
+        const m=(p.modules||[]).find(x=>(x.rooms||[]).some(r=>r.id===target.id));
+        if(m){pathId=p.id;moduleId=m.id;roomId=target.id;view="room";render();return true;}
+      }
+    }
+    return false;
+  };
+  render();
 })();

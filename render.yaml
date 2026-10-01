@@ -1,18 +1,46 @@
+databases:
+  - name: 0x8acure-postgres
+    databaseName: 0x8acure
+    user: 0x8acure
+    plan: basic-256mb
+
 services:
   - type: web
     name: 0x8acure-dpdp-ctf
-    env: node
+    runtime: node
     plan: starter
-    buildCommand: npm install
+    buildCommand: npm ci && npm run typecheck && npm run build
+    preDeployCommand: npm run db:migrate && npm run db:seed
     startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: dpdp-sqlite
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 8080
       - key: JWT_SECRET
         generateValue: true
-      - key: CORS_ORIGIN
-        value: "*"
+      - key: DB_PATH
+        value: /var/data/dpdp-ctf.db
+      - key: CORS_ORIGINS
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: 0x8acure-postgres
+          property: connectionString
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
       - key: ADMIN_EMAIL
         sync: false
-      - key: ADMIN_PASSWORD
-        sync: false
+      - key: ADMIN_USERNAME
+        value: 0x8acure-admin

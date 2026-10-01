@@ -1,5 +1,8 @@
+import "./config/env.js";
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
+import { rateLimit } from "express-rate-limit";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Database from "better-sqlite3";
@@ -7,6 +10,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import fs from "node:fs";
+import { createFeatureApi } from "./services/feature-api.js";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PORT || 8080);
@@ -19,6 +23,8 @@ const sourceRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "sources
 const taskRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "tasks.json"), "utf8"));
 const curriculumRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "learning-paths.json"), "utf8"));
 const legalRoomRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "legal-room-content.json"), "utf8"));
+const chapterRoomRegistry = JSON.parse(fs.readFileSync(path.join(contentDir, "chapter-ii-rooms.json"), "utf8"));
+const secureLegalRooms = [...(legalRoomRegistry.rooms||[]).filter(room=>!room.id.startsWith("ch2-")),...(chapterRoomRegistry.rooms||[])];
 const sourceIds = new Set((sourceRegistry.sources || []).map(s => s.id));
 
 function validateTask(task) {
@@ -49,9 +55,35 @@ db.exec([
 ].join(";"));
 
 const app = express();
-app.use(cors({origin: process.env.CORS_ORIGIN || "*"}));
-app.use(express.json({limit:"100kb"}));
-app.use(express.static(root));
+app.set("trust proxy",process.env.NODE_ENV==="production"?1:false);
+const corsOrigins=(process.env.CORS_ORIGINS||"http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080").split(",").map(value=>value.trim()).filter(Boolean);
+app.use(helmet({
+  contentSecurityPolicy:{directives:{
+    defaultSrc:["'self'"],baseUri:["'self'"],formAction:["'self'"],frameAncestors:["'none'"],objectSrc:["'none'"],
+    scriptSrc:["'self'","https://cdn.jsdelivr.net"],styleSrc:["'self'","'unsafe-inline'","https://fonts.googleapis.com"],
+    fontSrc:["'self'","https://fonts.gstatic.com","data:"],imgSrc:["'self'","data:","blob:","https:"],
+    connectSrc:["'self'","https://*.supabase.co","wss://*.supabase.co"],upgradeInsecureRequests:process.env.NODE_ENV==="production"?[]:null
+  }},crossOriginResourcePolicy:{policy:"cross-origin"}
+}));
+app.use(cors({origin(origin,callback){if(!origin||corsOrigins.includes(origin))return callback(null,true);return callback(new Error("Origin is not allowed by CORS."));},credentials:true,methods:["GET","POST","PUT","PATCH","DELETE","OPTIONS"],allowedHeaders:["Authorization","Content-Type","X-Request-Id"]}));
+app.use(express.json({limit:"64kb"}));
+const apiLimiter=rateLimit({windowMs:15*60_000,limit:300,standardHeaders:"draft-8",legacyHeaders:false,message:{error:"Too many requests. Try again shortly."}});
+const authLimiter=rateLimit({windowMs:15*60_000,limit:10,standardHeaders:"draft-8",legacyHeaders:false,message:{error:"Too many sign-in attempts. Try again later."}});
+app.use("/api",apiLimiter);
+app.use("/api/auth/login",authLimiter);
+app.use("/api/auth/register",authLimiter);
+app.use("/api",createFeatureApi());
+app.use("/app",express.static(path.join(root,"public","app"),{index:false,maxAge:"1y",immutable:true,setHeaders(res,filePath){if(path.basename(filePath)==="index.html")res.setHeader("Cache-Control","no-cache");}}));
+app.get(/^\/app(?:\/.*)?$/, (req,res)=>res.sendFile(path.join(root,"public","app","index.html")));
+const privateAsset=(req,res,next)=>{
+  const pathname=decodeURIComponent(req.path).replace(/\\/g,"/");
+  if(/^\/(?:prisma|supabase|scripts|docs|\.github|\.git|node_modules)(?:\/|$)/i.test(pathname)||
+    /^\/(?:\.env|package(?:-lock)?\.json|server\.js|README\.md|SUPABASE_SETUP\.md|schema\.sql|render\.yaml|coverage-map\.md)$/i.test(pathname)||
+    /^\/content\/(?:legal-room-content|chapter-ii-rooms|tasks)\.json$/i.test(pathname)) return res.sendStatus(404);
+  next();
+};
+app.use(privateAsset);
+app.use(express.static(root,{dotfiles:"deny",etag:true,maxAge:process.env.NODE_ENV==="production"?"1h":0}));
 
 function token(user){ return jwt.sign({sub:user.id,role:user.role,email:user.email},secret,{expiresIn:"7d"}); }
 function auth(req,res,next){
@@ -110,12 +142,29 @@ app.get("/api/tasks/room/:roomId",(req,res)=>{
   res.json({room,tasks});
 });
 
+app.get("/api/legal-rooms",(req,res)=>{
+  const rooms=JSON.parse(JSON.stringify(secureLegalRooms));
+  for(const room of rooms) for(const task of room.tasks||[]) for(const question of task.questions||[]) {delete question.answer;delete question.correct_answer;}
+  res.set("Cache-Control","public, max-age=60").json({rooms,last_verified:legalRoomRegistry.last_verified});
+});
+
 app.get("/api/legal-rooms/:roomId",(req,res)=>{
-  const room=(legalRoomRegistry.rooms||[]).find(r=>r.id===String(req.params.roomId||""));
+  const room=secureLegalRooms.find(r=>r.id===String(req.params.roomId||""));
   if(!room) return res.status(404).json({error:"Legal room not found"});
   const safe=JSON.parse(JSON.stringify(room));
-  for(const task of safe.tasks||[]) for(const q of task.questions||[]) delete q.answer;
+  for(const task of safe.tasks||[]) for(const q of task.questions||[]) {delete q.answer;delete q.correct_answer;}
   res.json({room:safe,last_verified:legalRoomRegistry.last_verified});
+});
+
+app.post("/api/legal-quizzes/:roomId/answer",authLimiter,(req,res)=>{
+  const room=secureLegalRooms.find(item=>item.id===String(req.params.roomId||""));
+  const index=Number(req.body?.index),answer=req.body?.answer;
+  if(!room||!Number.isInteger(index)||index<0||!Array.isArray(room.tasks)) return res.status(400).json({error:"Invalid quiz submission."});
+  const question=room.tasks.flatMap(task=>task.questions||[])[index];
+  if(!question)return res.status(404).json({error:"Question not found."});
+  const correct=JSON.stringify(answer)===JSON.stringify(question.answer??question.correct_answer);
+  const wrongReasons=correct?"":(Array.isArray(question.why_wrong)?question.why_wrong.filter(Boolean).join(" "):"Review the cited provision and exact answer shape.");
+  res.set("Cache-Control","no-store").json({correct,explanation:question.why||"Review the cited provision.",wrongReasons});
 });
 
 app.post("/api/legal-tasks/:taskId/answer",(req,res)=>{

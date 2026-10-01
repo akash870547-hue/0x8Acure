@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @db.Uuid
+  email     String   @unique
+  username  String   @unique
+  role      String   @default("user")
+  xp        Int      @default(0)
+  avatarUrl String?  @map("avatar_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  projects  Project[]
+  attempts  QuizAttempt[]
+  messages  Message[]
+
+  @@map("cyber_users")
+}
+
+model Project {
+  id             String   @id @default(uuid()) @db.Uuid
+  title          String
+  slug           String   @unique
+  summary        String
+  content        String   @db.Text
+  tags           String[]
+  repoUrl        String?  @map("repo_url")
+  liveUrl        String?  @map("live_url")
+  featured       Boolean  @default(false)
+  published      Boolean  @default(false)
+  createdById    String?  @map("created_by") @db.Uuid
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  createdBy      User?    @relation(fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  @@index([published, featured])
+  @@map("cyber_projects")
+}
+
+model Quiz {
+  id          String     @id @default(uuid()) @db.Uuid
+  title       String
+  slug        String     @unique
+  description String
+  category    String
+  difficulty  String
+  isActive    Boolean    @default(false) @map("is_active")
+  timeLimit   Int        @default(30) @map("time_limit")
+  questions   Question[]
+  attempts    QuizAttempt[]
+  createdAt   DateTime   @default(now()) @map("created_at")
+
+  @@map("cyber_quizzes")
+}
+
+model Question {
+  id            String   @id @default(uuid()) @db.Uuid
+  quizId        String   @map("quiz_id") @db.Uuid
+  prompt        String   @db.Text
+  options       Json     @db.JsonB
+  correctOption Int      @map("correct_option")
+  explanation   String   @db.Text
+  category      String
+  difficulty    String
+  position      Int
+  quiz          Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@unique([quizId, position])
+  @@index([quizId])
+  @@map("cyber_questions")
+}
+
+model QuizAttempt {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @map("user_id") @db.Uuid
+  quizId       String   @map("quiz_id") @db.Uuid
+  score        Int
+  maxScore     Int      @map("max_score")
+  timeSpent    Int      @default(0) @map("time_spent")
+  answersJson  Json     @map("answers_json") @db.JsonB
+  xpAwarded    Int      @default(0) @map("xp_awarded")
+  attemptKey   String   @unique @map("attempt_key") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quiz         Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([quizId, score])
+  @@map("cyber_quiz_attempts")
+}
+
+model Room {
+  id        String    @id @default(uuid()) @db.Uuid
+  title     String
+  slug      String    @unique
+  topic     String
+  isActive  Boolean   @default(true) @map("is_active")
+  createdBy String?   @map("created_by") @db.Uuid
+  createdAt DateTime  @default(now()) @map("created_at")
+  messages  Message[]
+
+  @@map("cyber_rooms")
+}
+
+model Message {
+  id        String   @id @default(uuid()) @db.Uuid
+  roomId    String   @map("room_id") @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  content   String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([roomId, createdAt])
+  @@map("cyber_room_messages")
+}

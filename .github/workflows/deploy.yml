@@ -25,13 +25,36 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build Cyber Lab
+        run: npm ci && npm run typecheck && npm run build
+        env:
+          VITE_API_BASE_URL: ${{ vars.CYBER_API_BASE_URL }}
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Assemble public website
+        run: |
+          mkdir -p _site/content
+          cp index.html styles.css app.js command-palette.js curriculum.js rooms.js act-reference.js rules-reference.js api-client.js supabase-config.js supabase-auth-v2.js supabase-sync.js supabase-recovery.js admin-ui.js certificate-ui.js badge-ui.js 404.html og-preview.png _site/
+          cp content/sources.json content/learning-paths.json _site/content/
+          cp -R public/app _site/app
+          node -e 'require("fs").writeFileSync("_site/public-config.js", "window.DPDP_API_BASE = " + JSON.stringify(process.env.CYBER_API_BASE_URL || "") + ";")'
+        env:
+          CYBER_API_BASE_URL: ${{ vars.CYBER_API_BASE_URL }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment

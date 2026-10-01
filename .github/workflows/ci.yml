@@ -9,9 +9,17 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/0x8acure
     steps:
       - uses: actions/checkout@v4
-      - run: npm install
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
       - run: node --check server.js
       - run: node --check app.js
       - run: node --check curriculum.js
