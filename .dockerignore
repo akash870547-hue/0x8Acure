@@ -1,0 +1,8 @@
+node_modules
+public/app
+.git
+.env
+.env.*
+!.env.example
+data/*.db
+coverage

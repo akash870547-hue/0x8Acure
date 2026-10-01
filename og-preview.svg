@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#080c13"/><stop offset="1" stop-color="#101b25"/></linearGradient>
+    <linearGradient id="line" x2="1"><stop stop-color="#00ff9d"/><stop offset="1" stop-color="#00e5ff"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#00ff9d" stop-opacity=".17"/><stop offset="1" stop-color="#00ff9d" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#23303c" stroke-opacity=".6"/></pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity=".55"/>
+  <ellipse cx="880" cy="310" rx="380" ry="300" fill="url(#halo)"/>
+  <circle cx="894" cy="315" r="206" fill="none" stroke="#00e5ff" stroke-opacity=".14" stroke-width="1"/>
+  <circle cx="894" cy="315" r="153" fill="none" stroke="#00ff9d" stroke-opacity=".23" stroke-width="1"/>
+  <circle cx="894" cy="315" r="97" fill="none" stroke="#00e5ff" stroke-opacity=".24" stroke-width="1"/>
+  <circle cx="894" cy="315" r="53" fill="#00ff9d" fill-opacity=".08" stroke="url(#line)" stroke-width="2"/>
+  <circle cx="894" cy="109" r="5" fill="#00e5ff"/><circle cx="1046" cy="394" r="4" fill="#00ff9d"/><circle cx="755" cy="465" r="4" fill="#00e5ff"/>
+  <text x="894" y="328" text-anchor="middle" font-family="monospace" font-size="34" font-weight="700" fill="#00ff9d">0x</text>
+  <g transform="translate(86 74)">
+    <rect width="172" height="34" rx="17" fill="#00ff9d" fill-opacity=".08" stroke="#00ff9d" stroke-opacity=".38"/>
+    <circle cx="18" cy="17" r="4" fill="#00ff9d"/><text x="32" y="22" font-family="monospace" font-size="12" letter-spacing="2" fill="#b8ffe1">CYBER LEARNING LAB</text>
+  </g>
+  <text x="82" y="223" font-family="Arial,sans-serif" font-size="77" font-weight="700" letter-spacing="-4" fill="#f8fafc">0x8Acure</text>
+  <text x="86" y="283" font-family="Arial,sans-serif" font-size="29" font-weight="600" fill="#d7e2ed">Build skill. Trace the evidence.</text>
+  <text x="86" y="333" font-family="Arial,sans-serif" font-size="19" fill="#94a3b8">DFIR · CHFI · QUIZ ARENA · DEFENSIVE LABS</text>
+  <g transform="translate(86 395)">
+    <rect width="147" height="66" rx="10" fill="#101923" stroke="#263746"/>
+    <text x="17" y="27" font-family="monospace" font-size="11" fill="#00ff9d">01 / STUDY</text><text x="17" y="48" font-family="Arial,sans-serif" font-size="14" fill="#d7e2ed">CHFI &amp; DFIR</text>
+    <rect x="161" width="147" height="66" rx="10" fill="#101923" stroke="#263746"/>
+    <text x="178" y="27" font-family="monospace" font-size="11" fill="#00e5ff">02 / PRACTICE</text><text x="178" y="48" font-family="Arial,sans-serif" font-size="14" fill="#d7e2ed">Gamified quizzes</text>
+    <rect x="322" width="147" height="66" rx="10" fill="#101923" stroke="#263746"/>
+    <text x="339" y="27" font-family="monospace" font-size="11" fill="#a78bfa">03 / CONNECT</text><text x="339" y="48" font-family="Arial,sans-serif" font-size="14" fill="#d7e2ed">Realtime rooms</text>
+  </g>
+  <rect x="0" y="624" width="1200" height="6" fill="url(#line)"/>
+</svg>

@@ -1,0 +1,22 @@
+const MASTER_DRIVE_URL = "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb?usp=drive_link";
+
+export const materialsData = [
+  {id:"chfi-01",title:"Computer Forensics in Today's World",category:"Forensic Foundations",type:"PDF Guide",fileSize:"~15 MB",topics:["Legal Compliance","Chain of Custody","Digital Evidence Rules"],driveUrl:MASTER_DRIVE_URL,keywords:["CHFI v10","CHFI v11","digital evidence"],resourceCount:1},
+  {id:"chfi-02",title:"Computer Forensics Investigation Process",category:"Investigation Process",type:"Lab & Manual",fileSize:"~22 MB",topics:["First Responder Duties","Evidence Seizure","Forensic Lab Setup"],driveUrl:MASTER_DRIVE_URL,keywords:["CHFI","case management"],resourceCount:2},
+  {id:"chfi-03",title:"Hard Disks & File Systems",category:"Disk Forensics",type:"PDF Guide",fileSize:"~18 MB",topics:["FAT, NTFS, ext4","Master Boot Record (MBR)","GPT & Boot Sectors"],driveUrl:MASTER_DRIVE_URL,keywords:["CHFI v10","CHFI v11","NTFS"],resourceCount:2},
+  {id:"chfi-04",title:"Data Acquisition & Duplication",category:"Artifact Analysis",type:"Cheat Sheet",fileSize:"~12 MB",topics:["Bit-Stream Disk Images","FTK Imager","dd & dc3dd commands"],driveUrl:MASTER_DRIVE_URL,keywords:["FTK","imaging","CHFI"],resourceCount:2},
+  {id:"chfi-05",title:"Network & Cloud Forensics",category:"Advanced DFIR",type:"Reference",fileSize:"~28 MB",topics:["Wireshark PCAP triage","Log Analysis","AWS/Azure Cloud Trails"],driveUrl:MASTER_DRIVE_URL,keywords:["CHFI v11","Network","PCAP","DFIR"],resourceCount:2},
+  {id:"chfi-06",title:"Windows Forensic Artifacts",category:"Artifact Analysis",type:"Lab & Manual",fileSize:"~19 MB",topics:["Registry Hives","Event Logs","Prefetch & Amcache"],driveUrl:MASTER_DRIVE_URL,keywords:["Windows","DFIR","CHFI"],resourceCount:2},
+  {id:"chfi-07",title:"Linux Evidence Collection",category:"Investigation Process",type:"Lab & Manual",fileSize:"~14 MB",topics:["Volatile Data","Auth Logs","Filesystem Timestamps"],driveUrl:MASTER_DRIVE_URL,keywords:["Linux","first response"],resourceCount:1},
+  {id:"chfi-08",title:"Mobile Device Forensics",category:"Advanced DFIR",type:"PDF Guide",fileSize:"~24 MB",topics:["Acquisition Modes","App Artifacts","Evidence Handling"],driveUrl:MASTER_DRIVE_URL,keywords:["CHFI v10","mobile"],resourceCount:1},
+  {id:"chfi-09",title:"Memory Forensics Fundamentals",category:"Artifact Analysis",type:"Lab & Manual",fileSize:"~17 MB",topics:["RAM Acquisition","Process Triage","Volatility Workflows"],driveUrl:MASTER_DRIVE_URL,keywords:["Volatility","DFIR","memory"],resourceCount:2},
+  {id:"chfi-10",title:"Incident Response & Triage",category:"Advanced DFIR",type:"Playbook",fileSize:"~11 MB",topics:["Scope & Severity","Containment","Evidence Preservation"],driveUrl:MASTER_DRIVE_URL,keywords:["DFIR","incident response"],resourceCount:1},
+  {id:"chfi-11",title:"Email & Browser Artifacts",category:"Artifact Analysis",type:"Reference",fileSize:"~13 MB",topics:["Mail Headers","Browser Databases","Download History"],driveUrl:MASTER_DRIVE_URL,keywords:["browser","email","CHFI v11"],resourceCount:1},
+  {id:"chfi-12",title:"Forensic Reporting & Testimony",category:"Forensic Foundations",type:"PDF Guide",fileSize:"~10 MB",topics:["Repeatable Findings","Report Structure","Expert Witness Duties"],driveUrl:MASTER_DRIVE_URL,keywords:["legal","CHFI"],resourceCount:1},
+  {id:"chfi-13",title:"Timeline Analysis Workshop",category:"Artifact Analysis",type:"Workshop",fileSize:"~16 MB",topics:["Time Normalization","Event Correlation","Super Timeline Review"],driveUrl:MASTER_DRIVE_URL,keywords:["log analysis","DFIR"],resourceCount:2},
+  {id:"chfi-14",title:"Ransomware Investigation Notes",category:"Advanced DFIR",type:"Case Study",fileSize:"~20 MB",topics:["Initial Access","Host Triage","Recovery Evidence"],driveUrl:MASTER_DRIVE_URL,keywords:["incident response","CHFI v11"],resourceCount:1},
+  {id:"chfi-15",title:"Forensic Toolkit Quick Reference",category:"Disk Forensics",type:"Cheat Sheet",fileSize:"~8 MB",topics:["Autopsy","FTK Imager","Hash Verification"],driveUrl:MASTER_DRIVE_URL,keywords:["FTK","Autopsy","tools"],resourceCount:2},
+  {id:"chfi-16",title:"Cloud Audit Trail Investigation",category:"Advanced DFIR",type:"Lab & Manual",fileSize:"~21 MB",topics:["AWS CloudTrail","Azure Activity Logs","Identity Event Review"],driveUrl:MASTER_DRIVE_URL,keywords:["Network","cloud","CHFI v10","CHFI v11"],resourceCount:2}
+];
+
+export { MASTER_DRIVE_URL };

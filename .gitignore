@@ -1,7 +1,13 @@
 node_modules/
-data/
+data/*
+!data/
+data/*
+!data/materialsData.js
 .env
+!.env.example
 *.db
 *.db-shm
 *.db-wal
 .DS_Store
+public/app/
+.npm-cache/
