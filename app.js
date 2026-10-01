@@ -184,20 +184,26 @@
         apiError=new Error("API quiz registry unavailable.");
       }catch(error){ apiError=error; }
 
-      try{
-        const response=await fetch("content/legal-room-content.json",{cache:"no-store"});
-        if(!response.ok) throw new Error("Static quiz registry could not be loaded.");
-        const raw=await response.json();
-        const registry=Array.isArray(raw)?{rooms:raw}:raw;
-        if(!Array.isArray(registry?.rooms)||!registry.rooms.length) throw new Error("Static quiz registry is empty.");
-        legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
-        window.__roomRegistry=registry;
-        window.__quizDataSource="static";
-        return registry;
-      }catch(staticError){
-        const detail=apiError?.message||staticError?.message||"Unknown error";
-        throw new Error("DPDP quiz data could not be loaded. "+detail);
+      const staticSources=[
+        "content/legal-room-content.json",
+        "https://raw.githubusercontent.com/akash870547-hue/0x8Acure/main/content/legal-room-content.json"
+      ];
+      let staticError=null;
+      for(const source of staticSources){
+        try{
+          const response=await fetch(source,{cache:"no-store"});
+          if(!response.ok) throw new Error("HTTP "+response.status);
+          const raw=await response.json();
+          const registry=Array.isArray(raw)?{rooms:raw}:raw;
+          if(!Array.isArray(registry?.rooms)||!registry.rooms.length) throw new Error("empty registry");
+          legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
+          window.__roomRegistry=registry;
+          window.__quizDataSource=source;
+          return registry;
+        }catch(error){ staticError=error; }
       }
+      const detail=apiError?.message||staticError?.message||"Unknown error";
+      throw new Error("DPDP quiz data could not be loaded. "+detail);
     })().catch(error=>{roomRegistryRequest=null;throw error;});
     return roomRegistryRequest;
   }
