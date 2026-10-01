@@ -51,6 +51,7 @@
     else if (view === "quizRun" && roomId) { params.set("room", roomId); params.set("quiz", "1"); }
     else if (view === "sources") params.set("view", "sources");
     else if (view === "progress") params.set("view", "progress");
+    else if (view === "profile") params.set("view", "profile");
     const next = params.toString() ? (window.location.pathname + "?" + params.toString()) : window.location.pathname;
     const method = replace ? "replaceState" : "pushState";
     if (window.history && window.location.href !== new URL(next, window.location.href).href) {
@@ -81,7 +82,7 @@
         view = "path"; return;
       }
     }
-    if (["paths","quiz","sources","progress"].includes(urlView)) view = urlView;
+    if (["paths","quiz","sources","progress","profile"].includes(urlView)) view = urlView;
   }
 
   function navigate(nextView, ids = {}, replace = false) {
@@ -500,6 +501,23 @@
     }
   }
 
+  function profile() {
+    const auth = window.DPDP_AUTH || {};
+    const user = auth.user || auth.profile || null;
+    const email = user?.email || auth.email || "Not signed in";
+    const name = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.name || auth.name || (email !== "Not signed in" ? email.split("@")[0] : "Learner");
+    const initials = String(name).trim().split(/\\s+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase() || "0X";
+    const completed = completedRooms();
+    const total = Math.max(1, allRooms().length);
+    const pct = Math.min(100, Math.round(completed / total * 100));
+    appEl.innerHTML =
+      '<div class="section-head"><div><span class="badge cyan">MY PROFILE</span><h2 style="margin-top:12px">Profile</h2><p>Your account and learning snapshot.</p></div><button class="btn ghost" data-action="home">Dashboard</button></div>' +
+      '<section class="profile-grid"><div class="profile-card panel"><div class="profile-avatar">'+esc(initials)+'</div><div class="profile-main"><h3>'+esc(name)+'</h3><p>'+esc(email)+'</p><span class="profile-role">'+(auth.isAdmin ? 'Administrator' : 'Learner')+'</span></div></div>' +
+      '<div class="profile-card panel"><div class="profile-stat"><b>'+state.xp+'</b><span>XP earned</span></div><div class="profile-stat"><b>'+completed+'</b><span>Rooms completed</span></div><div class="profile-stat"><b>'+pct+'%</b><span>Overall progress</span></div><div class="profile-stat"><b>'+(state.streak||0)+'</b><span>Day streak</span></div></div></section>' +
+      '<section class="panel profile-progress"><div class="section-head compact"><div><h3>Learning progress</h3><p>Keep building your DPDP skills.</p></div><button class="btn ghost" data-action="progress">View progress</button></div><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div></section>' +
+      '<section class="panel profile-actions"><h3>Account</h3><p class="muted">Authentication, saved progress, certificates and account controls are available from your account menu.</p><div class="hero-actions"><button class="btn primary" data-action="auth-profile">Account settings</button><button class="btn ghost" data-action="certificates">Certificates</button></div></section>';
+  }
+
   function progress() {
     const total = Math.max(1, allRooms().length);
     const pct = Math.min(100, completedRooms() / total * 100);
@@ -527,6 +545,7 @@
     else if (view === "quizRun") renderQuiz();
     else if (view === "sources") sources();
     else if (view === "progress") progress();
+    else if (view === "profile") profile();
     else home();
   }
 
@@ -572,7 +591,7 @@
       else if (x === "quiz-room-retry") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; view="quizRun"; render(); }
       else if (x === "quiz-room-reset") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; renderQuiz(); }
       else if (x === "sources") { view = "sources"; render(); }
-      else if (x === "progress") { view = "progress"; render(); }
+      else if (x === "progress") { navigate("progress"); }\n      else if (x === "profile") { navigate("profile"); }\n      else if (x === "auth-profile") { document.getElementById("auth-nav")?.click(); }
       else if (x === "badges") { window.DPDP_BADGES?.page(); }
       else if (x === "certificates") { window.DPDP_CERTS?.page(); }
       else if (x === "theme") { state.theme = state.theme === "dark" ? "light" : "dark"; save(); render(); }
