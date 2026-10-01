@@ -4,6 +4,7 @@
 
 alter table public.profiles add column if not exists username text;
 alter table public.profiles add column if not exists account_status text not null default 'active';
+alter table public.profiles add column if not exists session_revoked_at timestamptz;
 alter table public.quiz_questions add column if not exists options jsonb not null default '[]'::jsonb;
 alter table public.quiz_questions add column if not exists explanation text not null default '';
 alter table public.quiz_questions add column if not exists category text not null default 'General';
@@ -196,3 +197,15 @@ create policy quiz_questions_admin_write on public.quiz_questions
 for all to authenticated
 using((select private.is_admin()))
 with check((select private.is_admin()));
+
+
+create or replace function public.admin_revoke_session(p_user_id uuid)
+returns boolean language plpgsql security definer set search_path=''
+as $$
+begin
+  if not(select private.is_admin()) then raise exception 'Admin role required'; end if;
+  update public.profiles set session_revoked_at=now(),updated_at=now() where id=p_user_id;
+  return found;
+end$$;
+revoke all on function public.admin_revoke_session(uuid) from public,anon;
+grant execute on function public.admin_revoke_session(uuid) to authenticated;
