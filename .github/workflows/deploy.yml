@@ -48,6 +48,7 @@ jobs:
           mkdir -p _site/content
           cp index.html styles.css app.js command-palette.js curriculum.js rooms.js act-reference.js rules-reference.js api-client.js supabase-config.js supabase-auth-v2.js supabase-sync.js supabase-recovery.js admin-ui.js certificate-ui.js badge-ui.js 404.html og-preview.png _site/
           cp content/sources.json content/learning-paths.json _site/content/
+          node scripts/build-pages-legal-registry.js _site/content/legal-room-registry.json
           cp -R public/app _site/app
           node -e 'require("fs").writeFileSync("_site/public-config.js", "window.DPDP_API_BASE = " + JSON.stringify(process.env.CYBER_API_BASE_URL || "") + ";")'
         env:

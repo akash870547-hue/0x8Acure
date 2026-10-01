@@ -204,20 +204,24 @@
     }
     return Array.isArray(q.why_wrong)?q.why_wrong.filter(Boolean).join(" "):"Review the cited provision and exact answer shape.";
   }
-  function rqQuestionControl(q,selected){
+  function rqQuestionControl(q,selected,feedback){
     if(q.type==="multi-select"){
       const chosen=new Set(Array.isArray(selected)?selected:[]);
-      return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<label class="option '+(chosen.has(i)?"selected":"")+'"><input type="checkbox" data-rq-multi="'+i+'" '+(chosen.has(i)?"checked":"")+'><span>'+esc(o)+'</span></label>').join("")+'</div><p class="muted">Select all that apply. Scoring: all-correct-or-none.</p>';
+      return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<label class="option '+(chosen.has(i)?"selected "+(feedback?(feedback.correct?"is-correct":"is-incorrect"):""):"")+'"><input type="checkbox" data-rq-multi="'+i+'" '+(chosen.has(i)?"checked":"")+' '+(feedback?"disabled":"")+'><span>'+esc(o)+'</span></label>').join("")+'</div><p class="muted">Select all that apply. Scoring: all-correct-or-none.</p>';
     }
     if(q.type==="order"){
       const value=Array.isArray(selected)?selected:Array.from({length:(q.options||[]).length},()=>null);
-      return '<div class="rq-order">'+value.map((v,pos)=>'<label class="rq-order-row"><b>'+(pos+1)+'.</b><select data-rq-order="'+pos+'"><option value="">Choose…</option>'+q.options.map((o,i)=>'<option value="'+i+'" '+(Number(v)===i?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></label>').join('')+'</div><p class="muted">Use every option exactly once. Grading is exact-order.</p>';
+      return '<div class="rq-order">'+value.map((v,pos)=>'<label class="rq-order-row"><b>'+(pos+1)+'.</b><select data-rq-order="'+pos+'" '+(feedback?"disabled":"")+'><option value="">Choose…</option>'+q.options.map((o,i)=>'<option value="'+i+'" '+(Number(v)===i?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></label>').join('')+'</div><p class="muted">Use every option exactly once. Grading is exact-order.</p>';
     }
     if(q.type==="match"){
       const value=Array.isArray(selected)?selected:[];
-      return '<div class="rq-match">'+q.pairs.map((pair,i)=>'<label class="rq-match-row"><b>'+esc(pair.left)+'</b><select data-rq-match="'+i+'"><option value="">Choose…</option>'+pair.right_options.map((o,j)=>'<option value="'+j+'" '+(Number(value[i])===j?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></label>').join('')+'</div><p class="muted">Every mapping must match exactly.</p>';
+      return '<div class="rq-match">'+q.pairs.map((pair,i)=>'<label class="rq-match-row"><b>'+esc(pair.left)+'</b><select data-rq-match="'+i+'" '+(feedback?"disabled":"")+'><option value="">Choose…</option>'+pair.right_options.map((o,j)=>'<option value="'+j+'" '+(Number(value[i])===j?'selected':'')+'>'+esc(o)+'</option>').join('')+'</select></label>').join('')+'</div><p class="muted">Every mapping must match exactly.</p>';
     }
-    return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-rq-option="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
+    return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>{
+      const picked=Number(selected)===i;
+      const result=picked&&feedback?(feedback.correct?"is-correct":"is-incorrect"):"";
+      return '<button type="button" class="option '+(picked?"selected ":"")+result+'" data-rq-option="'+i+'" aria-pressed="'+picked+'" '+(feedback?"disabled":"")+'>'+esc(o)+'</button>';
+    }).join("")+'</div>';
   }
   let roomRegistryRequest;
   async function loadRoomRegistry(){
@@ -283,6 +287,7 @@
       }catch(error){ /* continue to the legal-room registry fallbacks */ }
 
       const staticSources=[
+        "content/legal-room-registry.json",
         "content/legal-room-content.json",
         "https://raw.githubusercontent.com/akash870547-hue/0x8Acure/main/content/legal-room-content.json"
       ];
@@ -464,8 +469,8 @@
       '<p>Question '+(quizIndex+1)+' of '+quizTasks.length+' · Best '+Number(rs.bestScore||0)+'%</p></div>'+
       '<div class="hero-actions"><button class="btn ghost" data-action="quiz">Quiz Library</button><button class="btn ghost" data-action="room">Back to room</button></div></div>'+
       '<div class="room-progress"><div class="progress-track"><div class="progress-fill" style="width:'+Math.round((quizIndex+1)/quizTasks.length*100)+'%"></div></div><span>'+(quizIndex+1)+'/'+quizTasks.length+'</span></div>'+
-      '<div class="room-shell"><section class="room-learning"><div class="panel"><div class="kicker">'+esc(q.type||"QUESTION")+'</div><div class="question">'+esc(q.prompt||"")+'</div>'+
-      rqQuestionControl(q,selected)+(feedback?'<div class="feedback '+(feedback.correct?"success":"error")+'"><b>'+(feedback.correct?"Correct":"Incorrect")+'</b><br>'+esc(feedback.explanation||"")+(feedback.wrongReasons?'<br><br><b>Wrong-option reasons:</b><br>'+esc(feedback.wrongReasons):"")+'</div>':"")+
+      '<div class="room-shell quiz-shell"><section class="room-learning"><div class="panel quiz-question-card"><div class="kicker">'+esc(q.type||"QUESTION")+'</div><div class="question">'+esc(q.prompt||"")+'</div>'+
+      rqQuestionControl(q,selected,feedback)+(feedback?'<div class="feedback '+(feedback.correct?"success":"error")+'" role="status"><b>'+(feedback.correct?"Correct":"Incorrect")+'</b><br>'+esc(feedback.explanation||"")+(feedback.wrongReasons?'<br><br><b>Wrong-option reasons:</b><br>'+esc(feedback.wrongReasons):"")+'</div>':"")+
       '</div></section><aside class="challenge-panel"><div class="score-card"><b>Current score: '+quizScore().score+'%</b><span>Pass mark: 70% · Best: '+Number(rs.bestScore||0)+'%</span></div>'+
       (feedback?'<button class="btn primary" data-action="quiz-next-room">'+(quizIndex+1<quizTasks.length?"Next question":"Finish quiz")+'</button>':'<button class="btn primary" data-action="quizsubmit">Submit answer</button>')+
       '<button class="btn ghost" data-action="quiz-room-reset">Retry from start</button></aside></div>';
@@ -474,11 +479,11 @@
   function finishRoomQuiz(){
     const result=quizScore(); const title=(window.__quizRegistry?.rooms||[]).find(r=>r.id===activeTaskId)?.title||"Room Quiz";
     const passed=result.score>=70;
-    appEl.innerHTML='<section class="hero"><div class="hero-main"><div class="eyebrow">Quiz complete</div><h1>'+esc(title)+'</h1>'+
+    appEl.innerHTML='<section class="hero quiz-completion"><div class="hero-main"><div class="eyebrow">Quiz complete</div><h1>'+esc(title)+'</h1>'+
       '<p>'+result.correct+' of '+result.total+' correct · '+result.score+'%</p><div class="hero-actions">'+
       '<button class="btn primary" data-action="quiz-room-retry">Retry quiz</button><button class="btn ghost" data-action="quiz">Quiz library</button><button class="btn ghost" data-action="room">Back to room</button>'+
       (passed?'<button class="btn primary" data-action="complete">Complete room</button>':"")+
-      '</div></div><aside class="hero-side"><div class="stat"><b>'+result.score+'%</b><span>Current score</span></div><div class="stat"><b>'+result.best+'%</b><span>Best score</span></div><div class="stat"><b>'+result.correct+'/'+result.total+'</b><span>Correct</span></div></aside></section>';
+      '</div></div><aside class="hero-side"><div class="quiz-ring-card"><div class="quiz-score-ring" style="--score:'+result.score+'%" role="img" aria-label="Accuracy '+result.score+' percent"><span>'+result.score+'%</span></div><b>Accuracy</b></div><div class="stat"><b>'+result.best+'%</b><span>Best score</span></div><div class="stat"><b>'+result.correct+'/'+result.total+'</b><span>Correct answers</span></div></aside></section>';
   }
 
   async function quizStart(){ view="quiz"; return quiz(); }
