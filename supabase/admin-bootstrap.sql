@@ -12,7 +12,7 @@ with check (
   (select auth.uid()) = id
   and (
     role = 'learner'
-    or (role = 'admin' and lower(email) = 'admin@0x8acure.local')
+    or (role = 'admin' and lower(email) in ('admin@0x8acure.local','admin@0x8acure.in'))
   )
 );
 
