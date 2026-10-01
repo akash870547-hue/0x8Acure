@@ -11,3 +11,5 @@ data/*
 .DS_Store
 public/app/
 .npm-cache/
+
+knowledge/
