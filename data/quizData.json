@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "chfi-001",
+    "track": "CHFI v11",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 1, cycle 1: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "options": [
+      "capture volatile state before shutdown using an approved live-response procedure",
+      "power off immediately",
+      "modify the disk first",
+      "delete suspicious processes"
+    ],
+    "correctOption": 0,
+    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-002",
+    "track": "CHFI v11",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 2, cycle 1: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "options": [
+      "ignore it because it was unexpected",
+      "connect it to a personal laptop",
+      "rename the evidence",
+      "assign an evidence identifier and document discovery and custody"
+    ],
+    "correctOption": 3,
+    "explanation": "assign an evidence identifier and document discovery and custody",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-003",
+    "track": "CHFI v11",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 3, cycle 1: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "options": [
+      "edit the hash record",
+      "delete the source",
+      "stop analysis and investigate integrity before using the copy",
+      "assume the images are identical"
+    ],
+    "correctOption": 2,
+    "explanation": "stop analysis and investigate integrity before using the copy",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-004",
+    "track": "CHFI v11",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 4, cycle 1: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "options": [
+      "ignore metadata",
+      "examine $MFT and related filesystem attributes",
+      "format the volume",
+      "repair the original filesystem"
+    ],
+    "correctOption": 1,
+    "explanation": "examine $MFT and related filesystem attributes",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-005",
+    "track": "CHFI v11",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 5, cycle 1: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "options": [
+      "correlate Prefetch, Amcache, Registry and timeline evidence",
+      "treat one artifact as proof of intent",
+      "delete the artifacts",
+      "reinstall Windows"
+    ],
+    "correctOption": 0,
+    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-006",
+    "track": "CHFI v11",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 6, cycle 1: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "options": [
+      "run filesystem repair on the original",
+      "mount it read-write",
+      "skip documentation",
+      "use an error-aware forensic imager and retain acquisition logs"
+    ],
+    "correctOption": 3,
+    "explanation": "use an error-aware forensic imager and retain acquisition logs",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-007",
+    "track": "CHFI v11",
+    "moduleNumber": 7,
+    "type": "scenario",
+    "prompt": "Scenario 7, cycle 1: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "options": [
+      "assume all executable memory is benign",
+      "rename the process",
+      "use Volatility memory plugins and correlate process, DLL and network artifacts",
+      "terminate the process"
+    ],
+    "correctOption": 2,
+    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-008",
+    "track": "CHFI v11",
+    "moduleNumber": 8,
+    "type": "scenario",
+    "prompt": "Scenario 8, cycle 1: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "options": [
+      "ignore timestamps",
+      "review auth logs, SSH artifacts and timestamps",
+      "delete auth logs",
+      "reset every account before acquisition"
+    ],
+    "correctOption": 1,
+    "explanation": "review auth logs, SSH artifacts and timestamps",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-009",
+    "track": "CHFI v11",
+    "moduleNumber": 9,
+    "type": "scenario",
+    "prompt": "Scenario 9, cycle 1: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "options": [
+      "investigate possible tunneling or beaconing with endpoint correlation",
+      "declare it malicious from DNS alone",
+      "delete the PCAP",
+      "ignore DNS metadata"
+    ],
+    "correctOption": 0,
+    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-010",
+    "track": "CHFI v11",
+    "moduleNumber": 10,
+    "type": "scenario",
+    "prompt": "Scenario 10, cycle 1: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "options": [
+      "modify the live database",
+      "delete cache first",
+      "assume private mode removes all evidence",
+      "acquire the relevant browser SQLite databases and analyze a forensic copy"
+    ],
+    "correctOption": 3,
+    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-011",
+    "track": "CHFI v11",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 11, cycle 2: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "options": [
+      "modify the disk first",
+      "delete suspicious processes",
+      "capture volatile state before shutdown using an approved live-response procedure",
+      "power off immediately"
+    ],
+    "correctOption": 2,
+    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-012",
+    "track": "CHFI v11",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 12, cycle 2: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "options": [
+      "rename the evidence",
+      "assign an evidence identifier and document discovery and custody",
+      "ignore it because it was unexpected",
+      "connect it to a personal laptop"
+    ],
+    "correctOption": 1,
+    "explanation": "assign an evidence identifier and document discovery and custody",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-013",
+    "track": "CHFI v11",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 13, cycle 2: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "options": [
+      "stop analysis and investigate integrity before using the copy",
+      "assume the images are identical",
+      "edit the hash record",
+      "delete the source"
+    ],
+    "correctOption": 0,
+    "explanation": "stop analysis and investigate integrity before using the copy",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-014",
+    "track": "CHFI v11",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 14, cycle 2: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "options": [
+      "format the volume",
+      "repair the original filesystem",
+      "ignore metadata",
+      "examine $MFT and related filesystem attributes"
+    ],
+    "correctOption": 3,
+    "explanation": "examine $MFT and related filesystem attributes",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-015",
+    "track": "CHFI v11",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 15, cycle 2: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "options": [
+      "delete the artifacts",
+      "reinstall Windows",
+      "correlate Prefetch, Amcache, Registry and timeline evidence",
+      "treat one artifact as proof of intent"
+    ],
+    "correctOption": 2,
+    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-016",
+    "track": "CHFI v11",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 16, cycle 2: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "options": [
+      "skip documentation",
+      "use an error-aware forensic imager and retain acquisition logs",
+      "run filesystem repair on the original",
+      "mount it read-write"
+    ],
+    "correctOption": 1,
+    "explanation": "use an error-aware forensic imager and retain acquisition logs",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-017",
+    "track": "CHFI v11",
+    "moduleNumber": 7,
+    "type": "scenario",
+    "prompt": "Scenario 17, cycle 2: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "options": [
+      "use Volatility memory plugins and correlate process, DLL and network artifacts",
+      "terminate the process",
+      "assume all executable memory is benign",
+      "rename the process"
+    ],
+    "correctOption": 0,
+    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-018",
+    "track": "CHFI v11",
+    "moduleNumber": 8,
+    "type": "scenario",
+    "prompt": "Scenario 18, cycle 2: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "options": [
+      "delete auth logs",
+      "reset every account before acquisition",
+      "ignore timestamps",
+      "review auth logs, SSH artifacts and timestamps"
+    ],
+    "correctOption": 3,
+    "explanation": "review auth logs, SSH artifacts and timestamps",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-019",
+    "track": "CHFI v11",
+    "moduleNumber": 9,
+    "type": "scenario",
+    "prompt": "Scenario 19, cycle 2: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "options": [
+      "delete the PCAP",
+      "ignore DNS metadata",
+      "investigate possible tunneling or beaconing with endpoint correlation",
+      "declare it malicious from DNS alone"
+    ],
+    "correctOption": 2,
+    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-020",
+    "track": "CHFI v11",
+    "moduleNumber": 10,
+    "type": "scenario",
+    "prompt": "Scenario 20, cycle 2: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "options": [
+      "assume private mode removes all evidence",
+      "acquire the relevant browser SQLite databases and analyze a forensic copy",
+      "modify the live database",
+      "delete cache first"
+    ],
+    "correctOption": 1,
+    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-021",
+    "track": "CHFI v11",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 21, cycle 3: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "options": [
+      "capture volatile state before shutdown using an approved live-response procedure",
+      "power off immediately",
+      "modify the disk first",
+      "delete suspicious processes"
+    ],
+    "correctOption": 0,
+    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-022",
+    "track": "CHFI v11",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 22, cycle 3: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "options": [
+      "ignore it because it was unexpected",
+      "connect it to a personal laptop",
+      "rename the evidence",
+      "assign an evidence identifier and document discovery and custody"
+    ],
+    "correctOption": 3,
+    "explanation": "assign an evidence identifier and document discovery and custody",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-023",
+    "track": "CHFI v11",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 23, cycle 3: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "options": [
+      "edit the hash record",
+      "delete the source",
+      "stop analysis and investigate integrity before using the copy",
+      "assume the images are identical"
+    ],
+    "correctOption": 2,
+    "explanation": "stop analysis and investigate integrity before using the copy",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-024",
+    "track": "CHFI v11",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 24, cycle 3: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "options": [
+      "ignore metadata",
+      "examine $MFT and related filesystem attributes",
+      "format the volume",
+      "repair the original filesystem"
+    ],
+    "correctOption": 1,
+    "explanation": "examine $MFT and related filesystem attributes",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-025",
+    "track": "CHFI v11",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 25, cycle 3: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "options": [
+      "correlate Prefetch, Amcache, Registry and timeline evidence",
+      "treat one artifact as proof of intent",
+      "delete the artifacts",
+      "reinstall Windows"
+    ],
+    "correctOption": 0,
+    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-026",
+    "track": "CHFI v11",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 26, cycle 3: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "options": [
+      "run filesystem repair on the original",
+      "mount it read-write",
+      "skip documentation",
+      "use an error-aware forensic imager and retain acquisition logs"
+    ],
+    "correctOption": 3,
+    "explanation": "use an error-aware forensic imager and retain acquisition logs",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-027",
+    "track": "CHFI v11",
+    "moduleNumber": 7,
+    "type": "scenario",
+    "prompt": "Scenario 27, cycle 3: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "options": [
+      "assume all executable memory is benign",
+      "rename the process",
+      "use Volatility memory plugins and correlate process, DLL and network artifacts",
+      "terminate the process"
+    ],
+    "correctOption": 2,
+    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-028",
+    "track": "CHFI v11",
+    "moduleNumber": 8,
+    "type": "scenario",
+    "prompt": "Scenario 28, cycle 3: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "options": [
+      "ignore timestamps",
+      "review auth logs, SSH artifacts and timestamps",
+      "delete auth logs",
+      "reset every account before acquisition"
+    ],
+    "correctOption": 1,
+    "explanation": "review auth logs, SSH artifacts and timestamps",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-029",
+    "track": "CHFI v11",
+    "moduleNumber": 9,
+    "type": "scenario",
+    "prompt": "Scenario 29, cycle 3: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "options": [
+      "investigate possible tunneling or beaconing with endpoint correlation",
+      "declare it malicious from DNS alone",
+      "delete the PCAP",
+      "ignore DNS metadata"
+    ],
+    "correctOption": 0,
+    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-030",
+    "track": "CHFI v11",
+    "moduleNumber": 10,
+    "type": "scenario",
+    "prompt": "Scenario 30, cycle 3: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "options": [
+      "modify the live database",
+      "delete cache first",
+      "assume private mode removes all evidence",
+      "acquire the relevant browser SQLite databases and analyze a forensic copy"
+    ],
+    "correctOption": 3,
+    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-031",
+    "track": "CHFI v11",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 31, cycle 4: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "options": [
+      "modify the disk first",
+      "delete suspicious processes",
+      "capture volatile state before shutdown using an approved live-response procedure",
+      "power off immediately"
+    ],
+    "correctOption": 2,
+    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-032",
+    "track": "CHFI v11",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 32, cycle 4: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "options": [
+      "rename the evidence",
+      "assign an evidence identifier and document discovery and custody",
+      "ignore it because it was unexpected",
+      "connect it to a personal laptop"
+    ],
+    "correctOption": 1,
+    "explanation": "assign an evidence identifier and document discovery and custody",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-033",
+    "track": "CHFI v11",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 33, cycle 4: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "options": [
+      "stop analysis and investigate integrity before using the copy",
+      "assume the images are identical",
+      "edit the hash record",
+      "delete the source"
+    ],
+    "correctOption": 0,
+    "explanation": "stop analysis and investigate integrity before using the copy",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-034",
+    "track": "CHFI v11",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 34, cycle 4: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "options": [
+      "format the volume",
+      "repair the original filesystem",
+      "ignore metadata",
+      "examine $MFT and related filesystem attributes"
+    ],
+    "correctOption": 3,
+    "explanation": "examine $MFT and related filesystem attributes",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-035",
+    "track": "CHFI v11",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 35, cycle 4: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "options": [
+      "delete the artifacts",
+      "reinstall Windows",
+      "correlate Prefetch, Amcache, Registry and timeline evidence",
+      "treat one artifact as proof of intent"
+    ],
+    "correctOption": 2,
+    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-036",
+    "track": "CHFI v11",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 36, cycle 4: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "options": [
+      "skip documentation",
+      "use an error-aware forensic imager and retain acquisition logs",
+      "run filesystem repair on the original",
+      "mount it read-write"
+    ],
+    "correctOption": 1,
+    "explanation": "use an error-aware forensic imager and retain acquisition logs",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-037",
+    "track": "CHFI v11",
+    "moduleNumber": 7,
+    "type": "scenario",
+    "prompt": "Scenario 37, cycle 4: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "options": [
+      "use Volatility memory plugins and correlate process, DLL and network artifacts",
+      "terminate the process",
+      "assume all executable memory is benign",
+      "rename the process"
+    ],
+    "correctOption": 0,
+    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-038",
+    "track": "CHFI v11",
+    "moduleNumber": 8,
+    "type": "scenario",
+    "prompt": "Scenario 38, cycle 4: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "options": [
+      "delete auth logs",
+      "reset every account before acquisition",
+      "ignore timestamps",
+      "review auth logs, SSH artifacts and timestamps"
+    ],
+    "correctOption": 3,
+    "explanation": "review auth logs, SSH artifacts and timestamps",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-039",
+    "track": "CHFI v11",
+    "moduleNumber": 9,
+    "type": "scenario",
+    "prompt": "Scenario 39, cycle 4: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "options": [
+      "delete the PCAP",
+      "ignore DNS metadata",
+      "investigate possible tunneling or beaconing with endpoint correlation",
+      "declare it malicious from DNS alone"
+    ],
+    "correctOption": 2,
+    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-040",
+    "track": "CHFI v11",
+    "moduleNumber": 10,
+    "type": "scenario",
+    "prompt": "Scenario 40, cycle 4: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "options": [
+      "assume private mode removes all evidence",
+      "acquire the relevant browser SQLite databases and analyze a forensic copy",
+      "modify the live database",
+      "delete cache first"
+    ],
+    "correctOption": 1,
+    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-041",
+    "track": "CHFI v11",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 41, cycle 5: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "options": [
+      "capture volatile state before shutdown using an approved live-response procedure",
+      "power off immediately",
+      "modify the disk first",
+      "delete suspicious processes"
+    ],
+    "correctOption": 0,
+    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-042",
+    "track": "CHFI v11",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 42, cycle 5: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "options": [
+      "ignore it because it was unexpected",
+      "connect it to a personal laptop",
+      "rename the evidence",
+      "assign an evidence identifier and document discovery and custody"
+    ],
+    "correctOption": 3,
+    "explanation": "assign an evidence identifier and document discovery and custody",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-043",
+    "track": "CHFI v11",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 43, cycle 5: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "options": [
+      "edit the hash record",
+      "delete the source",
+      "stop analysis and investigate integrity before using the copy",
+      "assume the images are identical"
+    ],
+    "correctOption": 2,
+    "explanation": "stop analysis and investigate integrity before using the copy",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-044",
+    "track": "CHFI v11",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 44, cycle 5: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "options": [
+      "ignore metadata",
+      "examine $MFT and related filesystem attributes",
+      "format the volume",
+      "repair the original filesystem"
+    ],
+    "correctOption": 1,
+    "explanation": "examine $MFT and related filesystem attributes",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-045",
+    "track": "CHFI v11",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 45, cycle 5: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "options": [
+      "correlate Prefetch, Amcache, Registry and timeline evidence",
+      "treat one artifact as proof of intent",
+      "delete the artifacts",
+      "reinstall Windows"
+    ],
+    "correctOption": 0,
+    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-046",
+    "track": "CHFI v11",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 46, cycle 5: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "options": [
+      "run filesystem repair on the original",
+      "mount it read-write",
+      "skip documentation",
+      "use an error-aware forensic imager and retain acquisition logs"
+    ],
+    "correctOption": 3,
+    "explanation": "use an error-aware forensic imager and retain acquisition logs",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-047",
+    "track": "CHFI v11",
+    "moduleNumber": 7,
+    "type": "scenario",
+    "prompt": "Scenario 47, cycle 5: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "options": [
+      "assume all executable memory is benign",
+      "rename the process",
+      "use Volatility memory plugins and correlate process, DLL and network artifacts",
+      "terminate the process"
+    ],
+    "correctOption": 2,
+    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-048",
+    "track": "CHFI v11",
+    "moduleNumber": 8,
+    "type": "scenario",
+    "prompt": "Scenario 48, cycle 5: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "options": [
+      "ignore timestamps",
+      "review auth logs, SSH artifacts and timestamps",
+      "delete auth logs",
+      "reset every account before acquisition"
+    ],
+    "correctOption": 1,
+    "explanation": "review auth logs, SSH artifacts and timestamps",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "chfi-049",
+    "track": "CHFI v11",
+    "moduleNumber": 9,
+    "type": "scenario",
+    "prompt": "Scenario 49, cycle 5: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "options": [
+      "investigate possible tunneling or beaconing with endpoint correlation",
+      "declare it malicious from DNS alone",
+      "delete the PCAP",
+      "ignore DNS metadata"
+    ],
+    "correctOption": 0,
+    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "chfi-050",
+    "track": "CHFI v11",
+    "moduleNumber": 10,
+    "type": "scenario",
+    "prompt": "Scenario 50, cycle 5: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "options": [
+      "modify the live database",
+      "delete cache first",
+      "assume private mode removes all evidence",
+      "acquire the relevant browser SQLite databases and analyze a forensic copy"
+    ],
+    "correctOption": 3,
+    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-001",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 1, cycle 1: An investigator discovers a managed cloud database. What is the most defensible next action?",
+    "options": [
+      "document shared responsibility and harden customer-controlled configuration",
+      "assume the provider secures customer IAM",
+      "disable logging",
+      "make the database public"
+    ],
+    "correctOption": 0,
+    "explanation": "document shared responsibility and harden customer-controlled configuration",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-002",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 2, cycle 1: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
+    "options": [
+      "grant root access",
+      "trust every account",
+      "disable CloudTrail",
+      "narrow trusted principals and apply appropriate conditions"
+    ],
+    "correctOption": 3,
+    "explanation": "narrow trusted principals and apply appropriate conditions",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-003",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 3, cycle 1: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
+    "options": [
+      "disable the firewall",
+      "move SSH to HTTP",
+      "restrict ingress to approved sources and private administrative paths",
+      "open every port"
+    ],
+    "correctOption": 2,
+    "explanation": "restrict ingress to approved sources and private administrative paths",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-004",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 4, cycle 1: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
+    "options": [
+      "grant anonymous write",
+      "enable public-access prevention and correct resource/identity policies",
+      "publish the URL",
+      "disable encryption"
+    ],
+    "correctOption": 1,
+    "explanation": "enable public-access prevention and correct resource/identity policies",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-005",
+    "track": "Cloud Security",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 5, cycle 1: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
+    "options": [
+      "replace it with minimum required RBAC permissions",
+      "keep cluster-admin",
+      "disable RBAC",
+      "share the service account"
+    ],
+    "correctOption": 0,
+    "explanation": "replace it with minimum required RBAC permissions",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-006",
+    "track": "Cloud Security",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 6, cycle 1: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
+    "options": [
+      "fix randomly",
+      "delete the findings",
+      "disable CSPM",
+      "prioritize by exposure, exploitability, data sensitivity and business impact"
+    ],
+    "correctOption": 3,
+    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-007",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 7, cycle 1: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
+    "options": [
+      "put everything on public networks",
+      "remove inventory",
+      "separate trust boundaries and establish governance guardrails",
+      "share root credentials"
+    ],
+    "correctOption": 2,
+    "explanation": "separate trust boundaries and establish governance guardrails",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-008",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 8, cycle 1: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
+    "options": [
+      "use the root user",
+      "use OIDC or another short-lived workload identity mechanism",
+      "commit another key",
+      "share the key"
+    ],
+    "correctOption": 1,
+    "explanation": "use OIDC or another short-lived workload identity mechanism",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-009",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 9, cycle 1: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
+    "options": [
+      "allow only required destinations where practical and monitor outbound traffic",
+      "open more egress",
+      "disable flow logs",
+      "make the workload public"
+    ],
+    "correctOption": 0,
+    "explanation": "allow only required destinations where practical and monitor outbound traffic",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-010",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 10, cycle 1: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
+    "options": [
+      "grant decrypt to everyone",
+      "share key material",
+      "delete the key",
+      "scope authorization to required roles and data domains"
+    ],
+    "correctOption": 3,
+    "explanation": "scope authorization to required roles and data domains",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-011",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 11, cycle 2: An investigator discovers a managed cloud database. What is the most defensible next action?",
+    "options": [
+      "disable logging",
+      "make the database public",
+      "document shared responsibility and harden customer-controlled configuration",
+      "assume the provider secures customer IAM"
+    ],
+    "correctOption": 2,
+    "explanation": "document shared responsibility and harden customer-controlled configuration",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-012",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 12, cycle 2: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
+    "options": [
+      "disable CloudTrail",
+      "narrow trusted principals and apply appropriate conditions",
+      "grant root access",
+      "trust every account"
+    ],
+    "correctOption": 1,
+    "explanation": "narrow trusted principals and apply appropriate conditions",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-013",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 13, cycle 2: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
+    "options": [
+      "restrict ingress to approved sources and private administrative paths",
+      "open every port",
+      "disable the firewall",
+      "move SSH to HTTP"
+    ],
+    "correctOption": 0,
+    "explanation": "restrict ingress to approved sources and private administrative paths",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-014",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 14, cycle 2: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
+    "options": [
+      "publish the URL",
+      "disable encryption",
+      "grant anonymous write",
+      "enable public-access prevention and correct resource/identity policies"
+    ],
+    "correctOption": 3,
+    "explanation": "enable public-access prevention and correct resource/identity policies",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-015",
+    "track": "Cloud Security",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 15, cycle 2: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
+    "options": [
+      "disable RBAC",
+      "share the service account",
+      "replace it with minimum required RBAC permissions",
+      "keep cluster-admin"
+    ],
+    "correctOption": 2,
+    "explanation": "replace it with minimum required RBAC permissions",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-016",
+    "track": "Cloud Security",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 16, cycle 2: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
+    "options": [
+      "disable CSPM",
+      "prioritize by exposure, exploitability, data sensitivity and business impact",
+      "fix randomly",
+      "delete the findings"
+    ],
+    "correctOption": 1,
+    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-017",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 17, cycle 2: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
+    "options": [
+      "separate trust boundaries and establish governance guardrails",
+      "share root credentials",
+      "put everything on public networks",
+      "remove inventory"
+    ],
+    "correctOption": 0,
+    "explanation": "separate trust boundaries and establish governance guardrails",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-018",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 18, cycle 2: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
+    "options": [
+      "commit another key",
+      "share the key",
+      "use the root user",
+      "use OIDC or another short-lived workload identity mechanism"
+    ],
+    "correctOption": 3,
+    "explanation": "use OIDC or another short-lived workload identity mechanism",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-019",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 19, cycle 2: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
+    "options": [
+      "disable flow logs",
+      "make the workload public",
+      "allow only required destinations where practical and monitor outbound traffic",
+      "open more egress"
+    ],
+    "correctOption": 2,
+    "explanation": "allow only required destinations where practical and monitor outbound traffic",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-020",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 20, cycle 2: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
+    "options": [
+      "delete the key",
+      "scope authorization to required roles and data domains",
+      "grant decrypt to everyone",
+      "share key material"
+    ],
+    "correctOption": 1,
+    "explanation": "scope authorization to required roles and data domains",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-021",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 21, cycle 3: An investigator discovers a managed cloud database. What is the most defensible next action?",
+    "options": [
+      "document shared responsibility and harden customer-controlled configuration",
+      "assume the provider secures customer IAM",
+      "disable logging",
+      "make the database public"
+    ],
+    "correctOption": 0,
+    "explanation": "document shared responsibility and harden customer-controlled configuration",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-022",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 22, cycle 3: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
+    "options": [
+      "grant root access",
+      "trust every account",
+      "disable CloudTrail",
+      "narrow trusted principals and apply appropriate conditions"
+    ],
+    "correctOption": 3,
+    "explanation": "narrow trusted principals and apply appropriate conditions",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-023",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 23, cycle 3: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
+    "options": [
+      "disable the firewall",
+      "move SSH to HTTP",
+      "restrict ingress to approved sources and private administrative paths",
+      "open every port"
+    ],
+    "correctOption": 2,
+    "explanation": "restrict ingress to approved sources and private administrative paths",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-024",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 24, cycle 3: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
+    "options": [
+      "grant anonymous write",
+      "enable public-access prevention and correct resource/identity policies",
+      "publish the URL",
+      "disable encryption"
+    ],
+    "correctOption": 1,
+    "explanation": "enable public-access prevention and correct resource/identity policies",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-025",
+    "track": "Cloud Security",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 25, cycle 3: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
+    "options": [
+      "replace it with minimum required RBAC permissions",
+      "keep cluster-admin",
+      "disable RBAC",
+      "share the service account"
+    ],
+    "correctOption": 0,
+    "explanation": "replace it with minimum required RBAC permissions",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-026",
+    "track": "Cloud Security",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 26, cycle 3: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
+    "options": [
+      "fix randomly",
+      "delete the findings",
+      "disable CSPM",
+      "prioritize by exposure, exploitability, data sensitivity and business impact"
+    ],
+    "correctOption": 3,
+    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-027",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 27, cycle 3: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
+    "options": [
+      "put everything on public networks",
+      "remove inventory",
+      "separate trust boundaries and establish governance guardrails",
+      "share root credentials"
+    ],
+    "correctOption": 2,
+    "explanation": "separate trust boundaries and establish governance guardrails",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-028",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 28, cycle 3: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
+    "options": [
+      "use the root user",
+      "use OIDC or another short-lived workload identity mechanism",
+      "commit another key",
+      "share the key"
+    ],
+    "correctOption": 1,
+    "explanation": "use OIDC or another short-lived workload identity mechanism",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-029",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 29, cycle 3: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
+    "options": [
+      "allow only required destinations where practical and monitor outbound traffic",
+      "open more egress",
+      "disable flow logs",
+      "make the workload public"
+    ],
+    "correctOption": 0,
+    "explanation": "allow only required destinations where practical and monitor outbound traffic",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-030",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 30, cycle 3: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
+    "options": [
+      "grant decrypt to everyone",
+      "share key material",
+      "delete the key",
+      "scope authorization to required roles and data domains"
+    ],
+    "correctOption": 3,
+    "explanation": "scope authorization to required roles and data domains",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-031",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 31, cycle 4: An investigator discovers a managed cloud database. What is the most defensible next action?",
+    "options": [
+      "disable logging",
+      "make the database public",
+      "document shared responsibility and harden customer-controlled configuration",
+      "assume the provider secures customer IAM"
+    ],
+    "correctOption": 2,
+    "explanation": "document shared responsibility and harden customer-controlled configuration",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-032",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 32, cycle 4: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
+    "options": [
+      "disable CloudTrail",
+      "narrow trusted principals and apply appropriate conditions",
+      "grant root access",
+      "trust every account"
+    ],
+    "correctOption": 1,
+    "explanation": "narrow trusted principals and apply appropriate conditions",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-033",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 33, cycle 4: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
+    "options": [
+      "restrict ingress to approved sources and private administrative paths",
+      "open every port",
+      "disable the firewall",
+      "move SSH to HTTP"
+    ],
+    "correctOption": 0,
+    "explanation": "restrict ingress to approved sources and private administrative paths",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-034",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 34, cycle 4: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
+    "options": [
+      "publish the URL",
+      "disable encryption",
+      "grant anonymous write",
+      "enable public-access prevention and correct resource/identity policies"
+    ],
+    "correctOption": 3,
+    "explanation": "enable public-access prevention and correct resource/identity policies",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-035",
+    "track": "Cloud Security",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 35, cycle 4: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
+    "options": [
+      "disable RBAC",
+      "share the service account",
+      "replace it with minimum required RBAC permissions",
+      "keep cluster-admin"
+    ],
+    "correctOption": 2,
+    "explanation": "replace it with minimum required RBAC permissions",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-036",
+    "track": "Cloud Security",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 36, cycle 4: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
+    "options": [
+      "disable CSPM",
+      "prioritize by exposure, exploitability, data sensitivity and business impact",
+      "fix randomly",
+      "delete the findings"
+    ],
+    "correctOption": 1,
+    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-037",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 37, cycle 4: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
+    "options": [
+      "separate trust boundaries and establish governance guardrails",
+      "share root credentials",
+      "put everything on public networks",
+      "remove inventory"
+    ],
+    "correctOption": 0,
+    "explanation": "separate trust boundaries and establish governance guardrails",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-038",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 38, cycle 4: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
+    "options": [
+      "commit another key",
+      "share the key",
+      "use the root user",
+      "use OIDC or another short-lived workload identity mechanism"
+    ],
+    "correctOption": 3,
+    "explanation": "use OIDC or another short-lived workload identity mechanism",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-039",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 39, cycle 4: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
+    "options": [
+      "disable flow logs",
+      "make the workload public",
+      "allow only required destinations where practical and monitor outbound traffic",
+      "open more egress"
+    ],
+    "correctOption": 2,
+    "explanation": "allow only required destinations where practical and monitor outbound traffic",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-040",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 40, cycle 4: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
+    "options": [
+      "delete the key",
+      "scope authorization to required roles and data domains",
+      "grant decrypt to everyone",
+      "share key material"
+    ],
+    "correctOption": 1,
+    "explanation": "scope authorization to required roles and data domains",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-041",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 41, cycle 5: An investigator discovers a managed cloud database. What is the most defensible next action?",
+    "options": [
+      "document shared responsibility and harden customer-controlled configuration",
+      "assume the provider secures customer IAM",
+      "disable logging",
+      "make the database public"
+    ],
+    "correctOption": 0,
+    "explanation": "document shared responsibility and harden customer-controlled configuration",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-042",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 42, cycle 5: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
+    "options": [
+      "grant root access",
+      "trust every account",
+      "disable CloudTrail",
+      "narrow trusted principals and apply appropriate conditions"
+    ],
+    "correctOption": 3,
+    "explanation": "narrow trusted principals and apply appropriate conditions",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-043",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 43, cycle 5: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
+    "options": [
+      "disable the firewall",
+      "move SSH to HTTP",
+      "restrict ingress to approved sources and private administrative paths",
+      "open every port"
+    ],
+    "correctOption": 2,
+    "explanation": "restrict ingress to approved sources and private administrative paths",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-044",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 44, cycle 5: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
+    "options": [
+      "grant anonymous write",
+      "enable public-access prevention and correct resource/identity policies",
+      "publish the URL",
+      "disable encryption"
+    ],
+    "correctOption": 1,
+    "explanation": "enable public-access prevention and correct resource/identity policies",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-045",
+    "track": "Cloud Security",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 45, cycle 5: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
+    "options": [
+      "replace it with minimum required RBAC permissions",
+      "keep cluster-admin",
+      "disable RBAC",
+      "share the service account"
+    ],
+    "correctOption": 0,
+    "explanation": "replace it with minimum required RBAC permissions",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-046",
+    "track": "Cloud Security",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 46, cycle 5: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
+    "options": [
+      "fix randomly",
+      "delete the findings",
+      "disable CSPM",
+      "prioritize by exposure, exploitability, data sensitivity and business impact"
+    ],
+    "correctOption": 3,
+    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-047",
+    "track": "Cloud Security",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 47, cycle 5: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
+    "options": [
+      "put everything on public networks",
+      "remove inventory",
+      "separate trust boundaries and establish governance guardrails",
+      "share root credentials"
+    ],
+    "correctOption": 2,
+    "explanation": "separate trust boundaries and establish governance guardrails",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-048",
+    "track": "Cloud Security",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 48, cycle 5: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
+    "options": [
+      "use the root user",
+      "use OIDC or another short-lived workload identity mechanism",
+      "commit another key",
+      "share the key"
+    ],
+    "correctOption": 1,
+    "explanation": "use OIDC or another short-lived workload identity mechanism",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-049",
+    "track": "Cloud Security",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 49, cycle 5: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
+    "options": [
+      "allow only required destinations where practical and monitor outbound traffic",
+      "open more egress",
+      "disable flow logs",
+      "make the workload public"
+    ],
+    "correctOption": 0,
+    "explanation": "allow only required destinations where practical and monitor outbound traffic",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-050",
+    "track": "Cloud Security",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 50, cycle 5: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
+    "options": [
+      "grant decrypt to everyone",
+      "share key material",
+      "delete the key",
+      "scope authorization to required roles and data domains"
+    ],
+    "correctOption": 3,
+    "explanation": "scope authorization to required roles and data domains",
+    "difficulty": "Advanced"
+  }
+]

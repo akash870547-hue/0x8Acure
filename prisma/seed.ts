@@ -2,7 +2,12 @@ import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
 const prisma = new PrismaClient();
+const quizBank=JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)),"..","data","quizData.json"),"utf8"));
 const quizzes = [
   {
     slug: "web-security-basics", title: "Web Security Basics", category: "Web Pentest", difficulty: "Beginner",
@@ -48,6 +53,14 @@ async function main() {
     for(const [position,question] of quizQuestions.entries()){
       await prisma.question.upsert({where:{quizId_position:{quizId:saved.id,position}},update:{...question,options:question.options},create:{...question,options:question.options,quizId:saved.id,position}});
     }
+  }
+  if(quizBank.length!==100) throw new Error(`Expected 100 scenario questions, got ${quizBank.length}`);
+  const grouped=new Map<string,any[]>();
+  for(const question of quizBank){const key=question.track==="CHFI v11"?"chfi-v11-scenario-bank":"cloud-security-scenario-bank";if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(question);}
+  for(const [slug,questions] of grouped){
+    const track=questions[0].track;
+    const saved=await prisma.quiz.upsert({where:{slug},update:{title:track+" Scenario Examination Bank",description:"50 scenario-based examination questions.",category:track,difficulty:"Advanced",timeLimit:60,isActive:true},create:{slug,title:track+" Scenario Examination Bank",description:"50 scenario-based examination questions.",category:track,difficulty:"Advanced",timeLimit:60,isActive:true}});
+    for(const [position,question] of questions.entries()) await prisma.question.upsert({where:{quizId_position:{quizId:saved.id,position}},update:{prompt:question.prompt,options:question.options,correctOption:question.correctOption,explanation:question.explanation,category:track+" Module "+question.moduleNumber,difficulty:question.difficulty},create:{quizId:saved.id,position,prompt:question.prompt,options:question.options,correctOption:question.correctOption,explanation:question.explanation,category:track+" Module "+question.moduleNumber,difficulty:question.difficulty}});
   }
   for(const project of projects){
     await prisma.project.upsert({where:{slug:project.slug},update:{...project,published:true},create:{...project,published:true,createdById:admin.id}});
