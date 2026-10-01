@@ -190,7 +190,7 @@ def parse_pdf_text() -> str:
 
 def load_modules() -> list[dict]:
     raw = MODULES_FILE.read_text(encoding="utf-8")
-    match = re.search(r"const modulesData=(\[.*?\]);\s*export", raw, re.S)
+    match = re.search(r"const modulesData=(\[.*?\]);", raw, re.S)
     if not match:
         raise RuntimeError("Could not locate modulesData JSON array.")
     return json.loads(match.group(1))
