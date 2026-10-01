@@ -14,7 +14,7 @@ const localAdminUser=():AppUser=>({id:"local-admin",email:"admin@0x8acure.local"
 const readLocalAdmin=():AppUser|null=>{try{const raw=localStorage.getItem(LOCAL_USER_KEY);const active=localStorage.getItem(LOCAL_KEY);if(!raw||!active)return null;const u=JSON.parse(raw);return u?.role==="admin"&&u?.username==="admin"?u:null;}catch{return null;}};
 const issueLocalAdmin=()=>{const u=localAdminUser();localStorage.setItem(LOCAL_KEY,JSON.stringify({issuedAt:Date.now(),role:"admin",username:"admin"}));localStorage.setItem(LOCAL_USER_KEY,JSON.stringify(u));window.dispatchEvent(new Event("0x8acure-auth-changed"));return u;};
 const clearLocalAdmin=()=>{localStorage.removeItem(LOCAL_KEY);localStorage.removeItem(LOCAL_USER_KEY);window.dispatchEvent(new Event("0x8acure-auth-changed"));};
-const backendSession=(token:string,user:AppUser):Session=>({access_token:token,refresh_token:"",token_type:"bearer",expires_in:604800,expires_at:Math.floor(Date.now()/1000)+604800,user:{id:user.id,email:user.email,user_metadata:{user_name:user.username},app_metadata:{}}} as Session);
+const backendSession=(token:string,user:AppUser):Session=>({access_token:token,refresh_token:"",token_type:"bearer",expires_in:604800,expires_at:Math.floor(Date.now()/1000)+604800,user:{id:user.id,email:user.email,user_metadata:{user_name:user.username},app_metadata:{}}} as unknown as Session);
 const isAdminCredential=(identifier:string,password:string)=>ADMIN_IDENTIFIERS.has(identifier.trim().toLowerCase())&&password===ADMIN_PASSWORD;
 
 export function AuthProvider({children}:{children:ReactNode}){
