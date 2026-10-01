@@ -184,6 +184,50 @@
         apiError=new Error("API quiz registry unavailable.");
       }catch(error){ apiError=error; }
 
+      // GitHub Pages-safe fallback: the bundled task catalog is always available.
+      try{
+        const response=await fetch("content/tasks.json",{cache:"no-store"});
+        if(!response.ok) throw new Error("HTTP "+response.status);
+        const raw=await response.json();
+        const tasks=Array.isArray(raw?.tasks)?raw.tasks:[];
+        const roomMap=new Map();
+        for(const task of tasks){
+          const roomId=String(task.id||"").split("-t")[0];
+          if(!roomId) continue;
+          if(!roomMap.has(roomId)) roomMap.set(roomId,[]);
+          roomMap.get(roomId).push({
+            ...task,
+            type:task.type==="order-the-steps"?"order":task.type,
+            answer:task.correct_answer,
+            section_reference:task.citation?.reference||"",
+            why:task.explanation||""
+          });
+        }
+        const curriculumRooms=allRooms();
+        const rooms=curriculumRooms
+          .filter(room=>roomMap.has(room.id))
+          .map(room=>({
+            id:room.id,
+            title:room.title,
+            difficulty:room.difficulty||"beginner",
+            estimated_minutes:room.estimated_minutes||10,
+            sections_covered:room.sections_covered||[room.sections||""],
+            official_text_status:"UNVERIFIED",
+            tasks:[{
+              id:room.id+"-quiz",
+              title:"DPDP Quiz",
+              questions:roomMap.get(room.id)
+            }]
+          }));
+        if(rooms.length){
+          const registry={rooms};
+          legalStatusByRoom=Object.fromEntries(rooms.map(x=>[x.id,x.official_text_status]));
+          window.__roomRegistry=registry;
+          window.__quizDataSource="content/tasks.json";
+          return registry;
+        }
+      }catch(error){ staticError=error; }
+
       const staticSources=[
         "content/legal-room-content.json",
         "https://raw.githubusercontent.com/akash870547-hue/0x8Acure/main/content/legal-room-content.json"
