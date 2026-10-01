@@ -8,6 +8,7 @@
   const isAdmin=()=>String(profile?.role||"").toLowerCase()==="admin";
   const basePath=()=>location.hostname.endsWith("github.io")?"/0x8Acure":"";
   const route=p=>basePath()+p;
+  const backendBase=()=>window.DPDP_BACKEND_URL||"https://0x8acure-dpdp-ctf.onrender.com";
   const go=p=>{history.pushState({},document.title,route(p));handleRoute()};
   const loginIdentity=v=>{const x=String(v||"").trim();return x.toLowerCase()==="admin"?"admin@0x8acure.local":x.toLowerCase()};
 
@@ -73,7 +74,14 @@
         const loginValue=document.getElementById("auth-email").value,remember=document.getElementById("remember-me")?.checked!==false,password=document.getElementById("auth-password").value;
         localStorage.setItem("0x8acure-remember",remember?"1":"0");
         sb=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:remember?localStorage:sessionStorage}});window.DPDP_AUTH.client=sb;
-        const isBackendAdmin=loginValue.trim().toLowerCase()==="admin";\n        if(isBackendAdmin){\n          const br=await fetch(backendBase()+"/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:"admin@0x8acure.local",password})});\n          const bd=await br.json().catch(()=>({})); if(!br.ok) throw Error(bd.error||"Invalid credentials");\n          localStorage.setItem("0x8acure-admin-token",bd.token||""); localStorage.setItem("0x8acure-admin-user",JSON.stringify(bd.user||{}));\n          profile={id:bd.user?.id,name:bd.user?.name,email:bd.user?.email,username:"admin",role:"admin",account_status:"active"}; session={user:{id:bd.user?.id,email:bd.user?.email}}; window.DPDP_AUTH.isAdmin=true; window.DPDP_AUTH.role="admin"; updateNav(); location.href=route("/admin/dashboard"); return;\n        }\n        const candidates=[await resolveEmail(loginValue)];
+        const isBackendAdmin=loginValue.trim().toLowerCase()==="admin";
+if(isBackendAdmin){
+const br=await fetch(backendBase()+"/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:"admin@0x8acure.local",password})});
+const bd=await br.json().catch(()=>({})); if(!br.ok) throw Error(bd.error||"Invalid credentials");
+localStorage.setItem("0x8acure-admin-token",bd.token||""); localStorage.setItem("0x8acure-admin-user",JSON.stringify(bd.user||{}));
+profile={id:bd.user?.id,name:bd.user?.name,email:bd.user?.email,username:"admin",role:"admin",account_status:"active"}; session={user:{id:bd.user?.id,email:bd.user?.email}}; window.DPDP_AUTH.isAdmin=true; window.DPDP_AUTH.role="admin"; updateNav(); location.href=route("/admin/dashboard"); return;
+}
+const candidates=[await resolveEmail(loginValue)];
         let data=null,error=null;for(const email of candidates){const r=await sb.auth.signInWithPassword({email,password});if(!r.error){data=r.data;break}error=r.error}if(error)throw error;
         localStorage.setItem("0x8acure-session-start",String(Date.now()));
         await finish(data.user);location.href=route(isAdmin()?"/admin/dashboard":"/dashboard");
