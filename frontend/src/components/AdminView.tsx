@@ -78,17 +78,42 @@ function Certificate(){
  const [track,setTrack]=useState("CHFI v11");
  const [hash,setHash]=useState("");
  const [id]=useState("0x8A-CERT-"+new Date().getFullYear()+"-"+crypto.randomUUID().slice(0,8).toUpperCase());
- const svgRef=useRef<SVGSVGElement|null>(null);
+ const canvasRef=useRef<HTMLCanvasElement|null>(null);
  const name=users.find(u=>u.id===candidate)?.username||"Learner";
- async function generate(){setHash(await digest(id+"|"+name+"|"+track));}
- function svg(){if(!svgRef.current)return;download(new Blob([new XMLSerializer().serializeToString(svgRef.current)],{type:"image/svg+xml"}),id+".svg");}
- function png(){if(!svgRef.current)return;const source=new XMLSerializer().serializeToString(svgRef.current);const image=new Image();const url=URL.createObjectURL(new Blob([source],{type:"image/svg+xml"}));image.onload=()=>{const canvas=document.createElement("canvas");canvas.width=1600;canvas.height=1000;const ctx=canvas.getContext("2d");if(!ctx)return;ctx.fillStyle="#fff";ctx.fillRect(0,0,1600,1000);ctx.drawImage(image,0,0,1600,1000);canvas.toBlob(blob=>{if(blob)download(blob,id+".png");URL.revokeObjectURL(url)},"image/png")};image.src=url;}
+ const draw=()=>{
+  const canvas=canvasRef.current;
+  if(!canvas)return;
+  const ctx=canvas.getContext("2d");
+  if(!ctx)return;
+  const scale=window.devicePixelRatio||1;
+  const width=1600,height=1000;
+  canvas.width=width*scale;canvas.height=height*scale;
+  ctx.setTransform(scale,0,0,scale,0,0);
+  ctx.clearRect(0,0,width,height);
+  ctx.fillStyle="#ffffff";ctx.fillRect(0,0,width,height);
+  ctx.strokeStyle="#111827";ctx.lineWidth=5;ctx.strokeRect(35,35,1530,930);
+  ctx.fillStyle="#111827";ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.font="600 36px system-ui";ctx.fillText("0x8Acure",800,190);
+  ctx.font="700 50px system-ui";ctx.fillText("CERTIFICATE OF COMPLETION",800,285);
+  ctx.font="26px system-ui";ctx.fillText("Awarded to",800,400);
+  ctx.font="700 48px system-ui";ctx.fillText(name,800,480);
+  ctx.font="28px system-ui";ctx.fillText("Track: "+track,800,565);
+  ctx.font="20px ui-monospace, monospace";ctx.fillText("Certificate ID: "+id,800,650);
+  ctx.font="15px ui-monospace, monospace";ctx.fillText(hash||"Generate SHA-256 hash to verify",800,725);
+ };
+ useEffect(()=>{draw()},[name,track,hash,id]);
+ useEffect(()=>{const onResize=()=>draw();window.addEventListener("resize",onResize);return()=>window.removeEventListener("resize",onResize)},[name,track,hash,id]);
+ async function generate(){setHash(await digest(id+"|"+name+"|"+track))}
+ function png(){
+  const canvas=canvasRef.current;
+  if(!canvas)return;
+  canvas.toBlob(blob=>{if(blob)download(blob,id+".png")},"image/png");
+ }
  return <section className="panel"><div className="panel-title"><span>DYNAMIC CERTIFICATE GENERATOR</span><FileKey2 size={16}/></div>
   <div className="admin-columns"><div className="admin-form"><label>Candidate<select value={candidate} onChange={e=>setCandidate(e.target.value)}>{users.map(u=><option key={u.id} value={u.id}>{u.username}</option>)}</select></label><label>Track<select value={track} onChange={e=>setTrack(e.target.value)}><option>CHFI v11</option><option>Cloud Security</option></select></label><label>Certificate ID<input readOnly value={id}/></label><button className="btn primary" onClick={()=>void generate()}>Generate SHA-256</button>{hash&&<p className="form-message"><code style={{wordBreak:"break-all"}}>{hash}</code></p>}</div>
-   <div><svg ref={svgRef} viewBox="0 0 1600 1000" width="100%" aria-label="Certificate preview"><rect width="1600" height="1000" fill="white"/><rect x="35" y="35" width="1530" height="930" fill="none" stroke="black" strokeWidth="5"/><text x="800" y="190" textAnchor="middle" fontSize="36">0x8Acure</text><text x="800" y="285" textAnchor="middle" fontSize="50" fontWeight="700">CERTIFICATE OF COMPLETION</text><text x="800" y="400" textAnchor="middle" fontSize="26">Awarded to</text><text x="800" y="480" textAnchor="middle" fontSize="48" fontWeight="700">{name}</text><text x="800" y="565" textAnchor="middle" fontSize="28">Track: {track}</text><text x="800" y="650" textAnchor="middle" fontSize="20">Certificate ID: {id}</text><text x="800" y="725" textAnchor="middle" fontSize="15">{hash||"Generate SHA-256 hash to verify"}</text></svg><div className="admin-inline-actions"><button className="btn secondary" onClick={svg}><Download size={15}/>SVG</button><button className="btn primary" onClick={png}><Download size={15}/>PNG</button></div></div>
+   <div><canvas ref={canvasRef} className="certificate-canvas" width={1600} height={1000} aria-label="Certificate preview"/><div className="admin-inline-actions"><button className="btn primary" onClick={png}><Download size={15}/>PNG</button></div></div>
   </div></section>;
 }
-
 function Badges(){
  const [users,setUsers]=useState<AdminUser[]>(()=>read(USER_KEY,defaultUsers));
  const badges=read<Badge[]>(BADGE_KEY,defaultBadges);
