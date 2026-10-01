@@ -5,7 +5,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 1,
     "title": "Computer Forensics in Today's World",
-    "summary": "Foundations of digital evidence and defensible forensic workflow Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes digital evidence characteristics, order of volatility, forensic workstation design, case scoping and authorization, evidence integrity.",
+    "summary": "Foundations of digital evidence and defensible forensic workflow Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes digital evidence characteristics, order of volatility, forensic workstation design, case scoping and authorization, evidence integrity Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes digital evidence characteristics, order of volatility, forensic workstation design, case scoping and authorization, evidence integrity.",
     "detailedTopics": [
       "digital evidence characteristics",
       "order of volatility",
@@ -36,7 +36,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 2,
     "title": "Computer Forensics Investigation Process",
-    "summary": "End-to-end investigation lifecycle from first response to reporting Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes first responder procedure, scene documentation, live response, volatile collection, dead-box acquisition.",
+    "summary": "End-to-end investigation lifecycle from first response to reporting Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes first responder procedure, scene documentation, live response, volatile collection, dead-box acquisition Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes first responder procedure, scene documentation, live response, volatile collection, dead-box acquisition.",
     "detailedTopics": [
       "first responder procedure",
       "scene documentation",
@@ -69,7 +69,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 3,
     "title": "Understanding Hard Disks and File Systems",
-    "summary": "Evidence identification, preservation, integrity, custody and admissibility Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes evidence identifiers, custody transfers, evidence packaging, MD5/SHA-256 verification, authenticity.",
+    "summary": "Evidence identification, preservation, integrity, custody and admissibility Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes evidence identifiers, custody transfers, evidence packaging, MD5/SHA-256 verification, authenticity Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes evidence identifiers, custody transfers, evidence packaging, MD5/SHA-256 verification, authenticity.",
     "detailedTopics": [
       "evidence identifiers",
       "custody transfers",
@@ -106,7 +106,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 4,
     "title": "Data Acquisition and Duplication",
-    "summary": "Disk structures and filesystem artifacts used in forensic reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes MBR, GPT, protective MBR, FAT32, exFAT.",
+    "summary": "Disk structures and filesystem artifacts used in forensic reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes MBR, GPT, protective MBR, FAT32, exFAT Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes MBR, GPT, protective MBR, FAT32, exFAT.",
     "detailedTopics": [
       "MBR",
       "GPT",
@@ -146,7 +146,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 5,
     "title": "Defeating Anti-Forensics Techniques",
-    "summary": "Windows Registry and execution artifacts for activity reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes NTFS $MFT, $UsnJrnl, SYSTEM hive, SOFTWARE hive, SAM.",
+    "summary": "Windows Registry and execution artifacts for activity reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes NTFS $MFT, $UsnJrnl, SYSTEM hive, SOFTWARE hive, SAM Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes NTFS $MFT, $UsnJrnl, SYSTEM hive, SOFTWARE hive, SAM.",
     "detailedTopics": [
       "NTFS $MFT",
       "$UsnJrnl",
@@ -187,7 +187,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 6,
     "title": "Windows Forensics",
-    "summary": "Bit-stream acquisition, write blocking, image formats and verification Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes write blockers, RAW/DD, E01/Ex01, image segmentation, acquisition logs.",
+    "summary": "Bit-stream acquisition, write blocking, image formats and verification Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes write blockers, RAW/DD, E01/Ex01, image segmentation, acquisition logs Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes write blockers, RAW/DD, E01/Ex01, image segmentation, acquisition logs.",
     "detailedTopics": [
       "write blockers",
       "RAW/DD",
@@ -228,7 +228,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 7,
     "title": "Linux and Mac Forensics",
-    "summary": "RAM acquisition and Volatility analysis of processes, sockets and injected code Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes RAM acquisition, Volatility 3, windows.pslist, windows.pstree, windows.psscan.",
+    "summary": "RAM acquisition and Volatility analysis of processes, sockets and injected code Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes RAM acquisition, Volatility 3, windows.pslist, windows.pstree, windows.psscan Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes RAM acquisition, Volatility 3, windows.pslist, windows.pstree, windows.psscan.",
     "detailedTopics": [
       "RAM acquisition",
       "Volatility 3",
@@ -266,7 +266,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 8,
     "title": "Network Forensics",
-    "summary": "Linux logs, filesystem artifacts, authentication and persistence investigation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes /var/log/auth.log, journalctl, Bash/Zsh history, SSH authorized_keys, cron.",
+    "summary": "Linux logs, filesystem artifacts, authentication and persistence investigation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes /var/log/auth.log, journalctl, Bash/Zsh history, SSH authorized_keys, cron Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes /var/log/auth.log, journalctl, Bash/Zsh history, SSH authorized_keys, cron.",
     "detailedTopics": [
       "/var/log/auth.log",
       "journalctl",
@@ -307,7 +307,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 9,
     "title": "Malware Forensics",
-    "summary": "PCAP acquisition and protocol-level investigation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes PCAP/PCAPNG, Ethernet, ARP, IPv4/IPv6, TCP/UDP.",
+    "summary": "PCAP acquisition and protocol-level investigation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes PCAP/PCAPNG, Ethernet, ARP, IPv4/IPv6, TCP/UDP Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes PCAP/PCAPNG, Ethernet, ARP, IPv4/IPv6, TCP/UDP.",
     "detailedTopics": [
       "PCAP/PCAPNG",
       "Ethernet",
@@ -348,7 +348,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 10,
     "title": "Investigating Web Attacks",
-    "summary": "Browser databases and artifacts for reconstructing web activity Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Chromium History, Chromium Cookies, Login Data, cache, downloads.",
+    "summary": "Browser databases and artifacts for reconstructing web activity Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Chromium History, Chromium Cookies, Login Data, cache, downloads Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Chromium History, Chromium Cookies, Login Data, cache, downloads.",
     "detailedTopics": [
       "Chromium History",
       "Chromium Cookies",
@@ -386,7 +386,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 11,
     "title": "Dark Web Forensics",
-    "summary": "Email routing, authentication, attachment analysis and malware triage Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Received headers, Return-Path, Message-ID, SPF, DKIM.",
+    "summary": "Email routing, authentication, attachment analysis and malware triage Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Received headers, Return-Path, Message-ID, SPF, DKIM Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Received headers, Return-Path, Message-ID, SPF, DKIM.",
     "detailedTopics": [
       "Received headers",
       "Return-Path",
@@ -428,7 +428,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 12,
     "title": "Cloud Forensics",
-    "summary": "Android/iOS acquisition and application artifact reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Android ADB, Android SQLite, application data, iOS backups, application containers.",
+    "summary": "Android/iOS acquisition and application artifact reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Android ADB, Android SQLite, application data, iOS backups, application containers Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Android ADB, Android SQLite, application data, iOS backups, application containers.",
     "detailedTopics": [
       "Android ADB",
       "Android SQLite",
@@ -469,7 +469,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 13,
     "title": "Email and Social Media Forensics",
-    "summary": "Database audit trails and cloud control-plane evidence Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes database audit logs, transaction logs, AWS CloudTrail, CloudWatch, S3 versions.",
+    "summary": "Database audit trails and cloud control-plane evidence Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes database audit logs, transaction logs, AWS CloudTrail, CloudWatch, S3 versions Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes database audit logs, transaction logs, AWS CloudTrail, CloudWatch, S3 versions.",
     "detailedTopics": [
       "database audit logs",
       "transaction logs",
@@ -510,7 +510,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 14,
     "title": "Mobile Forensics",
-    "summary": "Advanced triage, threat hunting, ransomware investigation and cross-host correlation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes initial triage, initial access, persistence, privilege escalation, lateral movement.",
+    "summary": "Advanced triage, threat hunting, ransomware investigation and cross-host correlation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes initial triage, initial access, persistence, privilege escalation, lateral movement Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes initial triage, initial access, persistence, privilege escalation, lateral movement.",
     "detailedTopics": [
       "initial triage",
       "initial access",
@@ -551,7 +551,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 15,
     "title": "IoT Forensics",
-    "summary": "Professional reporting, exhibits, limitations and defensible testimony Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes report structure, scope, methodology, evidence inventory, hash verification.",
+    "summary": "Professional reporting, exhibits, limitations and defensible testimony Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes report structure, scope, methodology, evidence inventory, hash verification Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes report structure, scope, methodology, evidence inventory, hash verification.",
     "detailedTopics": [
       "report structure",
       "scope",
@@ -590,7 +590,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 1,
     "title": "Cloud Architecture and Shared Responsibility",
-    "summary": "Cloud service models, trust boundaries and account architecture Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes IaaS/PaaS/SaaS, shared responsibility, control plane, data plane, management plane.",
+    "summary": "Cloud service models, trust boundaries and account architecture Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes IaaS/PaaS/SaaS, shared responsibility, control plane, data plane, management plane Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes IaaS/PaaS/SaaS, shared responsibility, control plane, data plane, management plane.",
     "detailedTopics": [
       "IaaS/PaaS/SaaS",
       "shared responsibility",
@@ -625,7 +625,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 2,
     "title": "Cloud IAM and Identity Federation",
-    "summary": "Least privilege, AssumeRole, federation and cloud privilege escalation Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes IAM users/groups/roles, identity policies, resource policies, explicit deny, STS AssumeRole.",
+    "summary": "Least privilege, AssumeRole, federation and cloud privilege escalation Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes IAM users/groups/roles, identity policies, resource policies, explicit deny, STS AssumeRole Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes IAM users/groups/roles, identity policies, resource policies, explicit deny, STS AssumeRole.",
     "detailedTopics": [
       "IAM users/groups/roles",
       "identity policies",
@@ -661,7 +661,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 3,
     "title": "Cloud Network Security",
-    "summary": "VPC/VNet segmentation, routing, filtering, WAF and private connectivity Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes VPC/VNet, public/private subnets, route tables, internet gateways, NAT.",
+    "summary": "VPC/VNet segmentation, routing, filtering, WAF and private connectivity Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes VPC/VNet, public/private subnets, route tables, internet gateways, NAT Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes VPC/VNet, public/private subnets, route tables, internet gateways, NAT.",
     "detailedTopics": [
       "VPC/VNet",
       "public/private subnets",
@@ -699,7 +699,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 4,
     "title": "Cloud Data Protection and Key Management",
-    "summary": "Encryption, KMS, secrets, storage controls and key lifecycle Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes encryption at rest, encryption in transit, TLS, envelope encryption, DEK/KEK.",
+    "summary": "Encryption, KMS, secrets, storage controls and key lifecycle Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes encryption at rest, encryption in transit, TLS, envelope encryption, DEK/KEK Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes encryption at rest, encryption in transit, TLS, envelope encryption, DEK/KEK.",
     "detailedTopics": [
       "encryption at rest",
       "encryption in transit",
@@ -739,7 +739,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 5,
     "title": "Cloud Workload, Container and Kubernetes Security",
-    "summary": "Container supply-chain security, Kubernetes RBAC/networking and serverless identity Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes image layers, minimal bases, image signing, SBOM, Trivy.",
+    "summary": "Container supply-chain security, Kubernetes RBAC/networking and serverless identity Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes image layers, minimal bases, image signing, SBOM, Trivy Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes image layers, minimal bases, image signing, SBOM, Trivy.",
     "detailedTopics": [
       "image layers",
       "minimal bases",
@@ -781,7 +781,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 6,
     "title": "Cloud Detection, Incident Response and Forensics",
-    "summary": "Continuous posture, entitlement analysis, CIS controls and automated remediation Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes CSPM, CIEM, CIS Benchmarks, Prowler, ScoutSuite.",
+    "summary": "Continuous posture, entitlement analysis, CIS controls and automated remediation Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes CSPM, CIEM, CIS Benchmarks, Prowler, ScoutSuite Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes CSPM, CIEM, CIS Benchmarks, Prowler, ScoutSuite.",
     "detailedTopics": [
       "CSPM",
       "CIEM",
