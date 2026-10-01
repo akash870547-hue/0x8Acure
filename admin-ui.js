@@ -1,6 +1,6 @@
 (() => {
   const S={data:null,tab:"telemetry",timer:null};
-  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\\"":"&quot;","'":"&#039;"}[c]));
+  const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;");
   const sb=()=>window.DPDP_AUTH?.client;
   const base=()=>location.hostname.endsWith("github.io")?"/0x8Acure":"";
   const toast=m=>{const e=document.getElementById("toast");if(e){e.textContent=m;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2200)}};
