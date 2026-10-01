@@ -72,6 +72,7 @@
       }else{
         const email=await resolveEmail(document.getElementById("auth-email").value),remember=document.getElementById("remember-me")?.checked!==false;
         localStorage.setItem("0x8acure-remember",remember?"1":"0");
+        sb=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:remember?localStorage:sessionStorage}});window.DPDP_AUTH.client=sb;
         const {data,error}=await sb.auth.signInWithPassword({email,password:document.getElementById("auth-password").value});if(error)throw error;
         await finish(data.user);go(isAdmin()?"/admin/dashboard":"/dashboard");
       }
