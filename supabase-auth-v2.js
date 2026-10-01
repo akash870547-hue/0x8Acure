@@ -18,7 +18,7 @@
   const sha256Hex=async value=>{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(value));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")};
   const localAdminToken=()=>localStorage.getItem("0x8acure-local-admin-session")||sessionStorage.getItem("0x8acure-local-admin-session")||"";
   const issueLocalAdminSession=(remember=true)=>{
-    const h=v=>btoa(unescape(encodeURIComponent(v))).replace(/=+$/,"").replace(/\\+/g,"-").replace(/\\//g,"_");
+    const h=v=>btoa(unescape(encodeURIComponent(v))).replace(/=+$/,"").replace(/\+/g,"-").replace(/\//g,"_");
     const now=Math.floor(Date.now()/1000),payload={sub:"local-admin",username:"admin",email:"admin@0x8acure.local",role:"admin",status:"authenticated",iat:now,exp:now+86400};
     const token=h(JSON.stringify({alg:"HS256",typ:"JWT"}))+"."+h(JSON.stringify(payload))+"."+h(crypto.getRandomValues(new Uint8Array(24)).join(","));
     const store=remember?localStorage:sessionStorage;store.setItem("0x8acure-local-admin-session",token);
