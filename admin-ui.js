@@ -34,8 +34,8 @@
     shell("System Telemetry","Live administrative visibility into learning activity.",
       "<div class='admin-grid'>"+m.map(x=>"<div class='admin-metric'><b>"+esc(x[0])+"</b><span>"+x[1]+"</span></div>").join("")+"</div>"+
       "<div class='admin-card'><h3>Real-Time User Activity</h3><p>IP addresses are shown only when recorded by a trusted backend. Browser-only events show Not captured.</p><div class='admin-table-wrap'><table class='admin-table'><thead><tr><th>User</th><th>IP Address</th><th>Action</th><th>Timestamp</th><th>Status</th><th>Quick Action</th></tr></thead><tbody>"+
-      (rows.length?rows.map(x=>"<tr><td>"+esc(userName(x.user_id))+"</td><td>"+esc(mask(x.ip_address))+"</td><td>"+esc(x.action)+"</td><td>"+esc(fmt(x.created_at))+"</td><td><span class='admin-status "+(x.status==="success"?"ok":"bad")+"'>"+esc(x.status)+"</span></td><td><button class='btn ghost' data-ban='"+esc(x.user_id||"")+"'>Ban User</button></td></tr>").join(""):"<tr><td colspan='6'>No activity recorded.</td></tr>")+"</tbody></table></div></div>");
-    document.querySelectorAll("[data-ban]").forEach(b=>b.onclick=()=>updateUser(b.dataset.ban,null,"banned"));
+      (rows.length?rows.map(x=>"<tr><td>"+esc(userName(x.user_id))+"</td><td>"+esc(mask(x.ip_address))+"</td><td>"+esc(x.action)+"</td><td>"+esc(fmt(x.created_at))+"</td><td><span class='admin-status "+(x.status==="success"?"ok":"bad")+"'>"+esc(x.status)+"</span></td><td><button class='btn ghost' data-rs='"+esc(x.user_id||"")+"'>Revoke Session</button> <button class='btn ghost' data-ban='"+esc(x.user_id||"")+"'>Ban User</button></td></tr>").join(""):"<tr><td colspan='6'>No activity recorded.</td></tr>")+"</tbody></table></div></div>");
+    document.querySelectorAll("[data-rs]").forEach(b=>b.onclick=async()=>{if(!confirm("Revoke this user session?"))return;const r=await sb().rpc("admin_revoke_session",{p_user_id:b.dataset.rs});if(r.error)toast(r.error.message);else toast("Session marked for revocation.");});document.querySelectorAll("[data-ban]").forEach(b=>b.onclick=()=>updateUser(b.dataset.ban,null,"banned"));
   }
 
   function certCanvas(c){
