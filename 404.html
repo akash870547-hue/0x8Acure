@@ -3,7 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.write("<base href=\""+(location.hostname.endsWith("github.io")?"/0x8Acure/":"/")+"\">");</script>
+<script>document.write("<base href=\""+(location.hostname.endsWith("github.io")?"/0x8Acure/":"/")+"\">");</script><script>
+(function(){
+  var p=location.pathname;
+  var isApp=p.indexOf("/app")!==-1 || /\/admin\/dashboard$/.test(p) || /\/login$/.test(p);
+  if(!isApp)return;
+  var base=location.hostname.endsWith("github.io")?"/0x8Acure/app/":"/app/";
+  var target=base+"?route="+encodeURIComponent(p+location.search+location.hash);
+  location.replace(target);
+})();
+</script>
 <title>0x8Acure | DPDP Learning Platform</title>
 <meta name="description" content="Official-source-first learning platform for India's Digital Personal Data Protection Act, 2023 and DPDP Rules, 2025.">
 <meta name="theme-color" content="#080d13">
