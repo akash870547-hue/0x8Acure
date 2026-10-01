@@ -188,3 +188,11 @@ values
 ('chfi','CHFI Digital Forensics Drive',''),
 ('cloud','Cloud Security Engineering Drive','')
 on conflict(slug) do nothing;
+
+
+grant select,insert,update,delete on public.quiz_questions to authenticated;
+drop policy if exists quiz_questions_admin_write on public.quiz_questions;
+create policy quiz_questions_admin_write on public.quiz_questions
+for all to authenticated
+using((select private.is_admin()))
+with check((select private.is_admin()));
