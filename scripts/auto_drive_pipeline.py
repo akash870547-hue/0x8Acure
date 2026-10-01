@@ -12,6 +12,7 @@ import json
 import random
 import re
 import subprocess
+import signal
 from pathlib import Path
 
 DRIVE_FOLDER_URL = "https://drive.google.com/drive/folders/1Pj3FZyAQTeaZVF8i5jvwTRBJCLhtvZiw?usp=drive_link"
@@ -150,12 +151,19 @@ def download_drive_materials() -> bool:
     try:
         import gdown
         print("[+] Fetching Google Drive materials...")
-        gdown.download_folder(
-            id=DRIVE_FOLDER_ID,
-            output=str(DOWNLOAD_DIR),
-            quiet=False,
-            use_cookies=False,
-        )
+        def timeout_handler(signum, frame):
+            raise TimeoutError("Google Drive download exceeded 90 seconds")
+        signal.signal(signal.SIGALRM, timeout_handler)
+        signal.alarm(90)
+        try:
+            gdown.download_folder(
+                id=DRIVE_FOLDER_ID,
+                output=str(DOWNLOAD_DIR),
+                quiet=False,
+                use_cookies=False,
+            )
+        finally:
+            signal.alarm(0)
     except Exception as exc:
         print(f"[!] Drive download unavailable: {exc}")
     pdfs = list(DOWNLOAD_DIR.rglob("*.pdf"))
