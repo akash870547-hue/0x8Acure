@@ -1,6 +1,7 @@
 import express from "express";
 import { rateLimit } from "express-rate-limit";
 import { createClient } from "@supabase/supabase-js";
+import jwt from "jsonwebtoken";
 import { z } from "zod";
 import { getPrisma } from "../lib/prisma.js";
 
@@ -53,21 +54,31 @@ export function createFeatureApi(){
     const token=req.headers.authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
     if(!token) return res.status(401).json({error:"Sign in to continue."});
     try{
-      const {data,error}=await supabaseAdmin().auth.getUser(token);
-      if(error||!data.user?.id||!data.user.email) return res.status(401).json({error:"Your session is invalid or expired."});
-      const prisma=getPrisma(),email=data.user.email.toLowerCase();
-      let user=await prisma.user.findUnique({where:{email}});
+      let identity=null;
+      try{
+        const payload=jwt.verify(token,process.env.JWT_SECRET);
+        if(payload?.sub&&payload?.email) identity={id:String(payload.sub),email:String(payload.email).toLowerCase(),role:payload.role==="admin"?"admin":"user",username:String(payload.username||"")};
+      }catch{}
+      if(!identity&&process.env.SUPABASE_URL&&process.env.SUPABASE_SERVICE_ROLE_KEY){
+        const {data,error}=await supabaseAdmin().auth.getUser(token);
+        if(!error&&data.user?.id&&data.user.email) identity={id:data.user.id,email:data.user.email.toLowerCase(),role:"user",username:String(data.user.user_metadata?.user_name||data.user.user_metadata?.preferred_username||"")};
+      }
+      if(!identity) return res.status(401).json({error:"Your session is invalid or expired."});
+      const prisma=getPrisma();
+      let user=await prisma.user.findUnique({where:{email:identity.email}});
       if(user){
-        if(user.id!==data.user.id) user=await prisma.user.update({where:{email},data:{id:data.user.id,avatarUrl:data.user.user_metadata?.avatar_url||user.avatarUrl}});
+        const data={avatarUrl:user.avatarUrl};
+        if(identity.role==="admin"&&user.role!=="admin") data.role="admin";
+        user=await prisma.user.update({where:{email:identity.email},data});
       }else{
-        const raw=String(data.user.user_metadata?.user_name||data.user.user_metadata?.preferred_username||email.split("@")[0]).toLowerCase();
+        const raw=(identity.username||identity.email.split("@")[0]).toLowerCase();
         const base=raw.replace(/[^a-z0-9._-]/g,"").slice(0,24)||"learner";
-        const username=`${base}-${data.user.id.slice(0,6)}`;
-        user=await prisma.user.create({data:{id:data.user.id,email,username,avatarUrl:data.user.user_metadata?.avatar_url||null,role:"user"}});
+        const username=base+"-"+identity.id.slice(-6);
+        user=await prisma.user.create({data:{id:identity.id,email:identity.email,username,avatarUrl:null,role:identity.role}});
       }
       req.user={id:user.id,email:user.email,username:user.username,role:user.role,xp:user.xp};
       next();
-    }catch(error){if(error.message?.includes("not configured"))return res.status(503).json({error:"Authentication service is not configured."});sendError(res,error);}
+    }catch(error){sendError(res,error);}
   };
   const admin=(req,res,next)=>req.user?.role==="admin"?next():res.status(403).json({error:"Admin access required."});
 
