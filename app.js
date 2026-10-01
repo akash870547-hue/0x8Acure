@@ -226,7 +226,7 @@
           window.__quizDataSource="content/tasks.json";
           return registry;
         }
-      }catch(error){ staticError=error; }
+      }catch(error){ /* continue to the legal-room registry fallbacks */ }
 
       const staticSources=[
         "content/legal-room-content.json",
