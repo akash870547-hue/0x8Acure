@@ -40,6 +40,59 @@
   const draftBadge = id => legalStatusByRoom[id] === "VERIFIED_WORD_FOR_WORD" ? "" : '<span class="badge amber">Draft, under verification</span>';
 
   const allRooms = () => DPDP_CURRICULUM.flatMap(p => (p.modules || []).flatMap(m => m.rooms || []));
+
+  function syncBrowserUrl(replace = false) {
+    const params = new URLSearchParams();
+    if (view === "paths") params.set("view", "paths");
+    else if (view === "path" && pathId) { params.set("path", pathId); }
+    else if (view === "module" && pathId && moduleId) { params.set("path", pathId); params.set("module", moduleId); }
+    else if (view === "room" && roomId) { params.set("room", roomId); }
+    else if (view === "quiz" ) params.set("view", "quiz");
+    else if (view === "quizRun" && roomId) { params.set("room", roomId); params.set("quiz", "1"); }
+    else if (view === "sources") params.set("view", "sources");
+    else if (view === "progress") params.set("view", "progress");
+    const next = params.toString() ? (window.location.pathname + "?" + params.toString()) : window.location.pathname;
+    const method = replace ? "replaceState" : "pushState";
+    if (window.history && window.location.href !== new URL(next, window.location.href).href) {
+      window.history[method]({view, pathId, moduleId, roomId}, "", next);
+    }
+  }
+
+  function restoreFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const urlRoom = params.get("room");
+    const urlPath = params.get("path");
+    const urlModule = params.get("module");
+    const urlView = params.get("view");
+    if (urlRoom) {
+      for (const p of DPDP_CURRICULUM) {
+        const m = (p.modules || []).find(x => (x.rooms || []).some(r => r.id === urlRoom));
+        if (m) { pathId = p.id; moduleId = m.id; roomId = urlRoom; view = params.get("quiz") === "1" ? "room" : "room"; return; }
+      }
+    }
+    if (urlPath) {
+      const p = DPDP_CURRICULUM.find(x => x.id === urlPath);
+      if (p) {
+        pathId = p.id;
+        if (urlModule) {
+          const m = p.modules?.find(x => x.id === urlModule);
+          if (m) { moduleId = m.id; view = "module"; return; }
+        }
+        view = "path"; return;
+      }
+    }
+    if (["paths","quiz","sources","progress"].includes(urlView)) view = urlView;
+  }
+
+  function navigate(nextView, ids = {}, replace = false) {
+    view = nextView;
+    if ("pathId" in ids) pathId = ids.pathId;
+    if ("moduleId" in ids) moduleId = ids.moduleId;
+    if ("roomId" in ids) roomId = ids.roomId;
+    syncBrowserUrl(replace);
+    render();
+  }
+
   const completedRooms = () => Object.keys(state.completed).length;
   // Paths, modules and rooms are always accessible. Login only persists progress.
   const pathUnlocked = () => true;
@@ -512,7 +565,7 @@
       }
       else if (x === "leaderboard") leaderboard();
       else if (x === "leaderboard-enable") { localStorage.setItem("0x8acure-leaderboard-optin","yes"); leaderboard(); }
-      else if (x === "quiz") { view="quiz"; render(); }
+      else if (x === "quiz") { navigate("quiz", {pathId:null,moduleId:null,roomId:null}); }
       else if (x === "room-quiz") startRoomQuiz(roomId);
       else if (x === "quizsubmit") quizSubmit();
       else if (x === "quiz-next-room") { quizIndex++; quizFeedback=null; renderQuiz(); }
@@ -635,24 +688,24 @@
       else if(target.value==="certificates") window.DPDP_CERTS?.page();
       else if(target.value==="leaderboard") leaderboard();
       else if(target.value==="account") document.getElementById("auth-nav")?.click();
-      else if(["home","paths","quiz","sources","progress"].includes(target.value)){view=target.value;render();}
+      else if(["home","paths","quiz","sources","progress"].includes(target.value)){navigate(target.value, {pathId:null,moduleId:null,roomId:null});}
       else return false;
       return true;
     }
     if(target.type==="path"){
       const p=DPDP_CURRICULUM.find(x=>x.id===target.id);
       if(!p) return false;
-      pathId=p.id;moduleId=null;roomId=null;view="path";render();return true;
+      navigate("path",{pathId:p.id,moduleId:null,roomId:null});return true;
     }
     if(target.type==="module"){
       const p=DPDP_CURRICULUM.find(x=>x.id===target.pathId),m=p?.modules?.find(x=>x.id===target.id);
       if(!p||!m) return false;
-      pathId=p.id;moduleId=m.id;roomId=null;view="module";render();return true;
+      navigate("module",{pathId:p.id,moduleId:m.id,roomId:null});return true;
     }
     if(target.type==="room"){
       for(const p of DPDP_CURRICULUM){
         const m=(p.modules||[]).find(x=>(x.rooms||[]).some(r=>r.id===target.id));
-        if(m){pathId=p.id;moduleId=m.id;roomId=target.id;view="room";render();return true;}
+        if(m){navigate("room",{pathId:p.id,moduleId:m.id,roomId:target.id});return true;}
       }
     }
     return false;
