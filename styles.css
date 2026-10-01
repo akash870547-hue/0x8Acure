@@ -854,3 +854,16 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
     min-width:0;
   }
 }
+
+
+/* Compact dashboard headline */
+.dashboard-head h1{
+  font-size:clamp(32px,4.2vw,48px);
+  line-height:1.08;
+  letter-spacing:-.035em;
+}
+@media(max-width:760px){
+  .dashboard-head h1{
+    font-size:clamp(30px,8vw,40px);
+  }
+}
