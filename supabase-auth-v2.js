@@ -8,7 +8,7 @@
   const isAdmin=()=>String(profile?.role||"").toLowerCase()==="admin";
   const basePath=()=>location.hostname.endsWith("github.io")?"/0x8Acure":"";
   const route=p=>basePath()+p;
-  const backendBase=()=>window.DPDP_BACKEND_URL||"https://0x8acure-dpdp-ctf.onrender.com";
+  const backendBase=()=>window.DPDP_BACKEND_URL||"https://zerox8acure-dpdp-ctf.onrender.com";
   const backendToken=()=>localStorage.getItem("0x8acure-admin-token")||"";
   const go=p=>{history.pushState({},document.title,route(p));handleRoute()};
   const loginIdentity=v=>{const x=String(v||"").trim();return x.toLowerCase()==="admin"?"admin@0x8acure.local":x.toLowerCase()};
