@@ -150,7 +150,7 @@
 
   async function finishUser(user, suppliedName="", mergeGuest=false) {
     if(!user) return;
-    if(!user.email_confirmed_at && user.app_metadata?.provider !== "google") {
+    if(!user.email_confirmed_at) {
       toast("Please verify your email before using the account.");
       return;
     }
