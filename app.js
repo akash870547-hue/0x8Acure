@@ -166,15 +166,39 @@
     return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-rq-option="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
   }
   let roomRegistryRequest;
-  function loadRoomRegistry(){
-    if(!roomRegistryRequest) roomRegistryRequest=fetch(window.DPDP_API_URL?window.DPDP_API_URL("/api/legal-rooms"):"/api/legal-rooms").then(response=>{
-      if(!response.ok) throw new Error("Room content could not be loaded.");
-      return response.json();
-    }).then(registry=>{
-      legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
-      window.__roomRegistry=registry;
-      return registry;
-    }).catch(error=>{roomRegistryRequest=null;throw error;});
+  async function loadRoomRegistry(){
+    if(roomRegistryRequest) return roomRegistryRequest;
+    roomRegistryRequest=(async()=>{
+      let apiError=null;
+      try{
+        const apiPath=window.DPDP_API_URL?window.DPDP_API_URL("/api/legal-rooms"):"/api/legal-rooms";
+        const response=await fetch(apiPath,{cache:"no-store"});
+        if(response.ok){
+          const registry=await response.json();
+          if(Array.isArray(registry?.rooms)&&registry.rooms.length){
+            legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
+            window.__roomRegistry=registry;
+            return registry;
+          }
+        }
+        apiError=new Error("API quiz registry unavailable.");
+      }catch(error){ apiError=error; }
+
+      try{
+        const response=await fetch("content/legal-room-content.json",{cache:"no-store"});
+        if(!response.ok) throw new Error("Static quiz registry could not be loaded.");
+        const raw=await response.json();
+        const registry=Array.isArray(raw)?{rooms:raw}:raw;
+        if(!Array.isArray(registry?.rooms)||!registry.rooms.length) throw new Error("Static quiz registry is empty.");
+        legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
+        window.__roomRegistry=registry;
+        window.__quizDataSource="static";
+        return registry;
+      }catch(staticError){
+        const detail=apiError?.message||staticError?.message||"Unknown error";
+        throw new Error("DPDP quiz data could not be loaded. "+detail);
+      }
+    })().catch(error=>{roomRegistryRequest=null;throw error;});
     return roomRegistryRequest;
   }
 
@@ -306,9 +330,20 @@
     const key=String(quizIndex),rs=quizAnswerStore(),answer=rs.answers?.[key];
     if(answer===undefined){toastMsg("Choose an answer first.");return;}
     try{
-      const feedback=await DPDP_API.request("/api/legal-quizzes/"+encodeURIComponent(activeTaskId)+"/answer",{
-        method:"POST",body:JSON.stringify({index:quizIndex,answer})
-      });
+      let feedback;
+      try{
+        feedback=await DPDP_API.request("/api/legal-quizzes/"+encodeURIComponent(activeTaskId)+"/answer",{
+          method:"POST",body:JSON.stringify({index:quizIndex,answer})
+        });
+      }catch(apiError){
+        const q=quizTasks[quizIndex];
+        const correct=rqGrade(q,answer);
+        feedback={
+          correct,
+          explanation:q.explanation||q.why||"Review the cited provision and exact answer.",
+          wrongReasons:correct?"":rqWrongReasons(q,answer,false)
+        };
+      }
       rs.results[key]=!!feedback.correct;
       rs.feedback[key]=feedback;
       save();
