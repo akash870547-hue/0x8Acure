@@ -242,7 +242,7 @@ app.get("/api/leaderboard",(req,res)=>{
 
 app.get("/api/admin/console",auth,role("admin"),(req,res)=>{ 
   const users=db.prepare("SELECT u.id,u.email,u.name,u.organization,u.role,u.created_at,u.last_login_at,COALESCE(SUM(CASE WHEN p.completed=1 THEN p.xp ELSE 0 END),0) xp,COUNT(CASE WHEN p.completed=1 THEN 1 END) completed_rooms FROM users u LEFT JOIN progress p ON p.user_id=u.id GROUP BY u.id ORDER BY u.created_at DESC").all();
-  const activity=db.prepare("SELECT id,user_id,action,status,metadata_json,created_at FROM audit_log ORDER BY created_at DESC LIMIT 200").all();
+  const activity=db.prepare("SELECT id,actor_user_id,action,target_type,target_id,metadata_json,created_at FROM audit_log ORDER BY created_at DESC LIMIT 200").all();
   const attempts=db.prepare("SELECT id,user_id,room_id,challenge_index,correct,xp_awarded,created_at FROM challenge_attempts ORDER BY created_at DESC LIMIT 500").all();
   const certificates=db.prepare("SELECT c.*,u.name,u.email FROM certificates c JOIN users u ON u.id=c.user_id ORDER BY c.issued_at DESC").all();
   res.json({users,activity:activity.map(x=>({...x,metadata:x.metadata_json?JSON.parse(x.metadata_json):{}})),room_attempts:attempts,certificates,badges:[],badge_catalog:[],drive_links:[],quiz_questions:[],room_progress:[]});
