@@ -5,31 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>0x8Acure | DPDP Learning Platform</title>
 <meta name="description" content="Official-source-first learning platform for India's Digital Personal Data Protection Act, 2023 and DPDP Rules, 2025.">
+<meta name="theme-color" content="#080d13">
+<link rel="canonical" href="https://akash870547-hue.github.io/0x8Acure/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="0x8Acure">
+<meta property="og:title" content="0x8Acure | DPDP Learning Platform">
+<meta property="og:description" content="Learn India's DPDP Act and Rules through official-source rooms, practical scenarios, and cited quizzes.">
+<meta property="og:url" content="https://akash870547-hue.github.io/0x8Acure/">
+<meta property="og:image" content="https://akash870547-hue.github.io/0x8Acure/og-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="0x8Acure cyber-themed DPDP learning platform preview">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="0x8Acure | DPDP Learning Platform">
+<meta name="twitter:description" content="Learn India's DPDP Act and Rules through official-source rooms, practical scenarios, and cited quizzes.">
+<meta name="twitter:image" content="https://akash870547-hue.github.io/0x8Acure/og-preview.png">
+<meta name="twitter:image:alt" content="0x8Acure cyber-themed DPDP learning platform preview">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="bg-grid"></div>
+<a class="skip-link" href="#app">Skip to main content</a>
+<div class="bg-grid" aria-hidden="true"></div>
 <header class="topbar"><div class="container nav">
-<button class="brand" data-action="home" aria-label="Go to dashboard"><span class="brand-mark">0x8A</span><span>DPDP Academy</span></button>
-<nav class="nav-links" aria-label="Primary">
-<button data-action="home">Home</button><button data-action="paths">Learn</button><button data-action="quiz">Quiz</button><button data-action="sources">Sources</button><button data-action="progress">Progress</button>
-</nav><div class="nav-actions"><button class="icon-button" data-action="theme" aria-label="Toggle theme">☾</button></div>
+<button class="brand brand-logo" data-action="home" aria-label="0x8Acure home"><span class="brand-script">0x8Acure</span></button>
+<nav class="nav-links" aria-label="Primary navigation">
+<button data-action="home">Dashboard</button><button data-action="paths">Learn</button><button data-action="quiz">Practice</button><button data-action="sources">Resources</button><button data-action="progress">Progress</button><button data-action="profile">My Profile</button>
+</nav><div class="nav-actions"><a class="cyber-link" href="app/"><span>Other</span><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M6 14 14 6M8 6h6v6"></path></svg></a><button id="command-palette-trigger" class="palette-trigger" type="button" aria-label="Search and navigate, Control or Command plus K"><svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.5"></circle><path d="m13 13 4 4"></path></svg><span class="palette-trigger-label">Search</span><kbd>Ctrl K</kbd></button><button id="auth-nav" class="auth-button" type="button" aria-label="Sign in">Sign in</button><button class="icon-button theme-toggle" data-action="theme" aria-label="Toggle theme"><svg class="theme-icon moon-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 15.2A8.7 8.7 0 0 1 8.8 3.5 9 9 0 1 0 20.5 15.2Z"></path></svg><svg class="theme-icon sun-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg></button></div>
 </div></header>
-<main id="app" class="container app-shell"></main>
+<main id="app" class="container app-shell" tabindex="-1"></main>
+<footer id="academy-footer" class="site-footer container">Educational use. Not legal advice. Refer to the official gazette.</footer>
+<dialog id="command-palette" class="command-palette" aria-labelledby="command-palette-title" aria-describedby="command-palette-help">
+  <div class="palette-head">
+    <h2 id="command-palette-title" class="visually-hidden">Search and navigate 0x8Acure</h2>
+    <label class="visually-hidden" for="command-palette-input">Search sections, learning paths, and rooms</label>
+    <svg class="palette-search-icon" aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.5"></circle><path d="m13 13 4 4"></path></svg>
+    <input id="command-palette-input" type="search" role="combobox" aria-autocomplete="list" aria-controls="command-palette-results" aria-expanded="true" aria-describedby="command-palette-help" autocomplete="off" placeholder="Search sections, paths, and rooms…">
+    <button id="command-palette-close" class="palette-close" type="button" aria-label="Close search">Esc</button>
+  </div>
+  <p id="command-palette-help" class="visually-hidden">Type to search. Use the up and down arrow keys to choose a result and Enter to open it. Press Escape to close.</p>
+  <div id="command-palette-status" class="visually-hidden" role="status" aria-live="polite"></div>
+  <div id="command-palette-results" class="palette-results" role="listbox" aria-label="Search results"></div>
+  <div class="palette-hints" aria-hidden="true"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>Enter</kbd> open</span><span><kbd>Esc</kbd> close</span></div>
+</dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script src="act-reference.js"></script>
-<script src="rules-reference.js"></script>
-<script src="rooms.js"></script>
-<script src="curriculum.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-<script src="api-client.js"></script>
-<script src="app.js"></script>
-<script src="supabase-auth-v2.js"></script>
-<script src="supabase-sync.js"></script>
-<script src="supabase-recovery.js"></script>
-<script src="certificate-ui.js"></script>
+<script defer src="act-reference.js"></script>
+<script defer src="rules-reference.js"></script>
+<script defer src="rooms.js"></script>
+<script defer src="curriculum.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="supabase-config.js"></script>
+<script defer src="public-config.js"></script>
+<script defer src="api-client.js"></script>
+<script defer src="app.js"></script>
+<script defer src="command-palette.js"></script>
+<script defer src="supabase-auth-v2.js"></script>
+<script defer src="supabase-sync.js"></script>
+<script defer src="supabase-recovery.js"></script>
+<script defer src="admin-ui.js"></script>
+<script defer src="certificate-ui.js"></script>
 </body></html>
