@@ -44,9 +44,18 @@
     [["TRACK",c.certificate_type||"-"],["SCORE",(c.score_percent??0)+"%"],["ISSUED",c.completion_date||today()]].forEach((v,i)=>{const xx=92+i*365;x.fillStyle="#0d1826";x.fillRect(xx,465,330,105);x.strokeStyle="#29425d";x.strokeRect(xx,465,330,105);x.fillStyle="#718096";x.font="700 14px JetBrains Mono,monospace";x.fillText(v[0],xx+18,495);x.fillStyle="#e7edf6";x.font="700 23px Inter,sans-serif";x.fillText(String(v[1]),xx+18,535)});
     x.beginPath();x.arc(1360,700,90,0,Math.PI*2);x.strokeStyle="#00ff9d";x.lineWidth=3;x.stroke();x.fillStyle="#00ff9d";x.font="800 22px JetBrains Mono,monospace";x.textAlign="center";x.fillText("0x8A",1360,708);x.textAlign="left";x.fillStyle="#8fa1b5";x.font="16px Inter,sans-serif";x.fillText("Digital signature: __________________",92,690);x.fillText("Verification ID: "+String(c.certificate_id||"PENDING"),92,735);x.fillText("Educational credential. Not government endorsed or accredited.",92,780);return n;
   }
+  async function addQr(canvas,c){
+    try{
+      if(!window.QRCode)await new Promise((ok,no)=>{const z=document.createElement("script");z.src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/lib/browser.min.js";z.onload=ok;z.onerror=no;document.head.appendChild(z)});
+      const data=await window.QRCode.toDataURL(location.origin+base()+"/verify/"+encodeURIComponent(c.certificate_id),{width:180,margin:1,errorCorrectionLevel:"H"});
+      const img=new Image();await new Promise((ok,no)=>{img.onload=ok;img.onerror=no;img.src=data});
+      canvas.getContext("2d").drawImage(img,1280,100,210,210);
+      return canvas;
+    }catch{return canvas}
+  }
   async function showCert(c){
     const preview=document.getElementById("cert-preview");if(!preview)return;preview.innerHTML="<div class='cert-canvas-wrap'></div><div class='admin-toolbar'><button class='btn primary' id='cert-png'>Download PNG</button><button class='btn ghost' id='cert-pdf'>Download PDF</button><button class='btn ghost' id='cert-copy'>Copy Verification URL</button></div>";
-    const can=certCanvas(c);preview.querySelector(".cert-canvas-wrap").appendChild(can);
+    const can=await addQr(certCanvas(c),c);preview.querySelector(".cert-canvas-wrap").appendChild(can);
     document.getElementById("cert-png").onclick=()=>can.toBlob(b=>download("0x8acure-"+c.certificate_id+".png",b),"image/png");
     document.getElementById("cert-pdf").onclick=async()=>{try{if(!window.jspdf)await new Promise((ok,no)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js";s.onload=ok;s.onerror=no;document.head.appendChild(s)});const d=new window.jspdf.jsPDF({orientation:"landscape",unit:"mm",format:"a4"});d.addImage(can.toDataURL("image/png"),"PNG",0,0,297,210);d.save("0x8acure-"+c.certificate_id+".pdf")}catch(e){toast("PDF export failed: "+e.message)}};
     const url=location.origin+base()+"/verify/"+encodeURIComponent(c.certificate_id);document.getElementById("cert-copy").onclick=()=>navigator.clipboard?.writeText(url).then(()=>toast("Verification URL copied."));
