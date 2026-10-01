@@ -224,14 +224,18 @@
     }
   }
 
-  function submitRoomAnswer(index){
-    const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId); if(!legal)return;
-    const q=legal.tasks.flatMap(t=>t.questions||[])[Number(index)],rs=roomQuizMeta(legal).rs,raw=rs.answers[String(index)];
+  function quizSubmit(){
+    const q=quizTasks[quizIndex];
+    if(!q)return;
+    const rs=quizAnswerStore(),key=String(quizIndex),raw=rs.answers?.[key];
     if(raw===undefined){toastMsg("Choose an answer first");return;}
-    const ok=rqGrade(q,raw); rs.results[String(index)]=ok; rs.feedback||(rs.feedback={});
-    rs.feedback[String(index)]={correct:ok,explanation:q.why||"Review the cited provision.",wrongReasons:rqWrongReasons(q,raw,ok)};
-    const total=legal.tasks.reduce((n,t)=>n+(t.questions||[]).length,0),correct=Object.values(rs.results).filter(Boolean).length,score=total?Math.round(correct/total*100):0;
-    rs.bestScore=Math.max(Number(rs.bestScore||0),score); save(); render();
+    const correct=rqGrade(q,raw);
+    rs.results[key]=correct;
+    rs.feedback||(rs.feedback={});
+    rs.feedback[key]={correct,explanation:q.why||"Review the cited provision.",wrongReasons:rqWrongReasons(q,raw,correct)};
+    rs.bestScore=Math.max(Number(rs.bestScore||0),quizScore().score);
+    save();
+    renderQuiz();
   }
   async function leaderboard() {
     if(localStorage.getItem("0x8acure-leaderboard-optin")!=="yes"){
