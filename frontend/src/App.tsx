@@ -21,6 +21,7 @@ function Shell(){
   const [tab,setTab]=useState<Tab>(()=>routePath==="/admin/dashboard"?"admin":routePath.endsWith("/quiz")?"quiz":routePath.endsWith("/materials")?"materials":"overview"),[theme,setTheme]=useState<"dark"|"light">(()=>localStorage.getItem("0x8acure-theme")==="light"?"light":"dark"),[palette,setPalette]=useState(false),[xp,setXp]=useState(user?.xp||0);
   useEffect(()=>{document.documentElement.dataset.theme=theme;localStorage.setItem("0x8acure-theme",theme);},[theme]);
   useEffect(()=>{if(user)setXp(user.xp);},[user]);
+  useEffect(()=>{if(routePath.endsWith("/login"))openAuth();},[routePath,openAuth]);
   useEffect(()=>{const onKey=(event:KeyboardEvent)=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="k"){event.preventDefault();setPalette(true);}if(event.key==="Escape")setPalette(false);};window.addEventListener("keydown",onKey);return()=>window.removeEventListener("keydown",onKey);},[]);
   const visibleTabs=useMemo(()=>user?.role==="admin"?[...tabs,{id:"admin" as Tab,label:"Admin",icon:Shield}]:tabs,[user]);
   const go=(next:Tab)=>{setTab(next);setPalette(false);if(next==="admin")window.history.pushState({},"","/admin/dashboard");else if(window.location.pathname==="/admin/dashboard")window.history.pushState({},"","/app/");window.scrollTo({top:0,behavior:"smooth"});};
