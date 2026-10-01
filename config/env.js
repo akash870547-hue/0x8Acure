@@ -24,7 +24,6 @@ if(env.NODE_ENV==="production"){
   const missing=[];
   if(!env.JWT_SECRET||env.JWT_SECRET.length<32||/replace|change-this/i.test(env.JWT_SECRET)) missing.push("JWT_SECRET (a unique random secret of 32+ characters)");
   if(!env.DATABASE_URL) missing.push("DATABASE_URL");
-  if(!env.SUPABASE_URL||!env.SUPABASE_SERVICE_ROLE_KEY||/replace|your-project/i.test(env.SUPABASE_SERVICE_ROLE_KEY||"")) missing.push("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY");
   if(!env.CORS_ORIGINS?.trim()) missing.push("CORS_ORIGINS");
   else if(env.CORS_ORIGINS.split(",").some(origin=>!origin.trim().startsWith("https://"))) missing.push("CORS_ORIGINS (HTTPS origins only in production)");
   if(missing.length) throw new Error(`Missing production configuration: ${missing.join(", ")}`);

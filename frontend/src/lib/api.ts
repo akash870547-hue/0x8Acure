@@ -3,7 +3,7 @@ export class ApiError extends Error {
   constructor(message:string,status:number){super(message);this.name="ApiError";this.status=status;}
 }
 export async function api<T>(url:string,options:RequestInit={},token?:string):Promise<T>{
-  const apiBase=(import.meta.env.VITE_API_BASE_URL||"").replace(/\/$/,"");
+  const apiBase=(import.meta.env.VITE_API_BASE_URL||"https://zerox8acure-dpdp-ctf.onrender.com").replace(/\/$/,"");
   const headers=new Headers(options.headers);
   if(options.body&&!headers.has("Content-Type")) headers.set("Content-Type","application/json");
   if(token) headers.set("Authorization",`Bearer ${token}`);
