@@ -86,7 +86,6 @@
           <button class="btn primary" type="submit">${mode==="signup"?"Create account":"Sign in"}</button>
         </form>
         <div class="auth-row">
-          <button class="btn ghost" id="google-auth" type="button">Continue with Google</button>
           ${mode==="login"?'<button class="btn ghost" id="reset-auth" type="button">Forgot password?</button>':""}
           <button class="btn ghost" id="switch-auth" type="button">${mode==="signup"?"I already have an account":"Create an account"}</button>
         </div>
@@ -95,7 +94,6 @@
     document.body.appendChild(modal);
     document.getElementById("auth-close").onclick = closeAuth;
     document.getElementById("switch-auth").onclick = () => openAuth(mode==="signup"?"login":"signup");
-    document.getElementById("google-auth").onclick = googleLogin;
     const reset = document.getElementById("reset-auth");
     if (reset) reset.onclick = resetPassword;
     const privacy = document.getElementById("privacy-link");
@@ -139,15 +137,6 @@
     } catch(e) { errEl.textContent=e.message || "Authentication failed."; }
   }
 
-  async function googleLogin() {
-    try {
-      const {error}=await client.auth.signInWithOAuth({
-        provider:"google",
-        options:{redirectTo:location.href}
-      });
-      if(error) throw error;
-    } catch(e) { const el=document.getElementById("auth-error"); if(el) el.textContent=e.message; else toast(e.message); }
-  }
 
   async function resetPassword() {
     const email=document.getElementById("auth-email")?.value.trim().toLowerCase();
