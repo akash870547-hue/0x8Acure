@@ -729,3 +729,32 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
   .room-shell:has(.challenge-panel) .question{font-size:18px;line-height:1.5}
   .room-shell:has(.challenge-panel) .challenge-panel{padding:18px}
 }
+
+
+/* Exact original 0x8Acure handwritten logo */
+.brand-logo{
+  min-width:max-content;
+  padding:0;
+  border:0;
+  background:transparent;
+}
+.brand-logo:hover{
+  background:transparent;
+  border-color:transparent;
+}
+.brand-script{
+  font-family:'Dancing Script',cursive;
+  font-size:31px;
+  font-weight:700;
+  line-height:1;
+  color:#00ff18;
+  letter-spacing:.01em;
+  text-shadow:0 0 10px rgba(0,255,24,.18);
+}
+.brand-logo:hover .brand-script{
+  filter:brightness(1.08);
+  text-shadow:0 0 14px rgba(0,255,24,.28);
+}
+@media(max-width:700px){
+  .brand-script{font-size:27px}
+}
