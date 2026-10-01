@@ -209,3 +209,23 @@ begin
 end$$;
 revoke all on function public.admin_revoke_session(uuid) from public,anon;
 grant execute on function public.admin_revoke_session(uuid) to authenticated;
+
+
+create or replace function public.admin_award_badge(p_user_id uuid,p_badge_id text)
+returns boolean language plpgsql security definer set search_path=''
+as $$
+declare reward integer;
+begin
+  if not(select private.is_admin()) then raise exception 'Admin role required'; end if;
+  select xp_reward into reward from public.badge_catalog where badge_id=p_badge_id;
+  if reward is null then raise exception 'Badge not found'; end if;
+  insert into public.admin_badge_awards(user_id,badge_id,awarded_by)
+  values(p_user_id,p_badge_id,(select auth.uid()))
+  on conflict(user_id,badge_id) do nothing;
+  if found then
+    update public.profiles set xp=xp+reward,updated_at=now() where id=p_user_id;
+  end if;
+  return found;
+end$$;
+revoke all on function public.admin_award_badge(uuid,text) from public,anon;
+grant execute on function public.admin_award_badge(uuid,text) to authenticated;
