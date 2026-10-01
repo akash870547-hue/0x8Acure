@@ -263,7 +263,7 @@ def make_question(qid: int, track: str, module: dict, topic: str, tool: str, com
 def generate_quiz(modules: list[dict]) -> list[dict]:
     questions = []
     qid = 1
-    rng = random.Random(0x8ACURE)
+    rng = random.Random(0x8AC0DE)
     for track, target in [("CHFI v11", 50), ("Cloud Security Engineering", 50)]:
         track_modules = [m for m in modules if m["track"] == track]
         candidates = []
