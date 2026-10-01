@@ -68,13 +68,13 @@
         const username=document.getElementById("auth-username").value.trim().toLowerCase(),email=document.getElementById("auth-email").value.trim().toLowerCase(),password=document.getElementById("auth-password").value,confirm=document.getElementById("auth-confirm").value;
         if(password!==confirm)throw Error("Passwords do not match.");if(!/^[a-z0-9._-]{3,40}$/.test(username))throw Error("Username must be 3-40 characters: letters, numbers, dot, underscore or hyphen.");
         const consentAt=new Date().toISOString();const {data,error}=await sb.auth.signUp({email,password,options:{data:{username,name:username,consent_at:consentAt,privacy_version:"2026-09-30"},emailRedirectTo:route("/login")}});if(error)throw error;
-        if(data.session){await finish(data.user,username,consentAt);go(isAdmin()?"/admin/dashboard":"/dashboard")}else{location.hash="";renderLoginPage();document.getElementById("auth-error").innerHTML='<span class="auth-success">Account created. Verify your email, then log in.</span>'}
+        if(data.session){await finish(data.user,username,consentAt);location.href=route(isAdmin()?"/admin/dashboard":"/dashboard")}else{location.hash="";renderLoginPage();document.getElementById("auth-error").innerHTML='<span class="auth-success">Account created. Verify your email, then log in.</span>'}
       }else{
         const email=await resolveEmail(document.getElementById("auth-email").value),remember=document.getElementById("remember-me")?.checked!==false;
         localStorage.setItem("0x8acure-remember",remember?"1":"0");
         sb=window.supabase.createClient(cfg.url,cfg.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:remember?localStorage:sessionStorage}});window.DPDP_AUTH.client=sb;
         const {data,error}=await sb.auth.signInWithPassword({email,password:document.getElementById("auth-password").value});if(error)throw error;
-        await finish(data.user);go(isAdmin()?"/admin/dashboard":"/dashboard");
+        await finish(data.user);location.href=route(isAdmin()?"/admin/dashboard":"/dashboard");
       }
     }catch(x){er.textContent=x.message||"Authentication failed."}
   }
