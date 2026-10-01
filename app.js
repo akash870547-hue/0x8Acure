@@ -591,7 +591,9 @@
       else if (x === "quiz-room-retry") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; view="quizRun"; render(); }
       else if (x === "quiz-room-reset") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; renderQuiz(); }
       else if (x === "sources") { view = "sources"; render(); }
-      else if (x === "progress") { navigate("progress"); }\n      else if (x === "profile") { navigate("profile"); }\n      else if (x === "auth-profile") { document.getElementById("auth-nav")?.click(); }
+      else if (x === "progress") { navigate("progress"); }
+      else if (x === "profile") { navigate("profile"); }
+      else if (x === "auth-profile") { document.getElementById("auth-nav")?.click(); }
       else if (x === "badges") { window.DPDP_BADGES?.page(); }
       else if (x === "certificates") { window.DPDP_CERTS?.page(); }
       else if (x === "theme") { state.theme = state.theme === "dark" ? "light" : "dark"; save(); render(); }
