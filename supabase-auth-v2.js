@@ -2,7 +2,7 @@
   const cfg=window.SUPABASE_CONFIG||{};
   const LS="dpdp-platform-v4", GUEST="0x8acure-guest-progress";
   let sb=null, session=null, profile=null, initialized=false;
-  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\\"":"&quot;","'":"&#039;"}[c]));
+  const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;");
   const toast=m=>{const e=document.getElementById("toast");if(!e)return;e.textContent=m;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),2400)};
   const configured=!!(cfg.url&&cfg.anonKey&&window.supabase);
   const isAdmin=()=>String(profile?.role||"").toLowerCase()==="admin";
