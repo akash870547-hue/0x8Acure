@@ -2,1601 +2,1601 @@
   {
     "id": "chfi-001",
     "track": "CHFI v11",
-    "moduleNumber": 1,
+    "moduleNumber": 13,
     "type": "scenario",
-    "prompt": "Scenario 1, cycle 1: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "prompt": "Scenario 1, cycle 1: During a Email and Social Media Forensics investigation, analysts need to validate GuardDuty. Which action is the most defensible next step?",
     "options": [
-      "capture volatile state before shutdown using an approved live-response procedure",
-      "power off immediately",
-      "modify the disk first",
-      "delete suspicious processes"
+      "modify or delete the original evidence before analysis",
+      "use AWS CloudTrail to examine GuardDuty while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 0,
-    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use AWS CloudTrail for GuardDuty, preserve the original evidence, and document the collection/analysis step. A useful command is: aws sts get-caller-identity",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-002",
     "track": "CHFI v11",
-    "moduleNumber": 2,
+    "moduleNumber": 11,
     "type": "scenario",
-    "prompt": "Scenario 2, cycle 1: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "prompt": "Scenario 2, cycle 1: During a Dark Web Forensics investigation, analysts need to validate Return-Path. Which action is the most defensible next step?",
     "options": [
-      "ignore it because it was unexpected",
-      "connect it to a personal laptop",
-      "rename the evidence",
-      "assign an evidence identifier and document discovery and custody"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Ghidra to examine Return-Path while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 3,
-    "explanation": "assign an evidence identifier and document discovery and custody",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Ghidra for Return-Path, preserve the original evidence, and document the collection/analysis step. A useful command is: olevba suspicious.docm",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-003",
     "track": "CHFI v11",
-    "moduleNumber": 3,
+    "moduleNumber": 11,
     "type": "scenario",
-    "prompt": "Scenario 3, cycle 1: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "prompt": "Scenario 3, cycle 1: During a Dark Web Forensics investigation, analysts need to validate Office macros. Which action is the most defensible next step?",
     "options": [
-      "edit the hash record",
-      "delete the source",
-      "stop analysis and investigate integrity before using the copy",
-      "assume the images are identical"
+      "disable logging so the investigation does not generate more artifacts",
+      "use Ghidra to examine Office macros while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 2,
-    "explanation": "stop analysis and investigate integrity before using the copy",
-    "difficulty": "Advanced"
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use Ghidra for Office macros, preserve the original evidence, and document the collection/analysis step. A useful command is: olevba suspicious.docm",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-004",
     "track": "CHFI v11",
-    "moduleNumber": 4,
+    "moduleNumber": 1,
     "type": "scenario",
-    "prompt": "Scenario 4, cycle 1: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "prompt": "Scenario 4, cycle 1: During a Computer Forensics in Today's World investigation, analysts need to validate digital evidence characteristics. Which action is the most defensible next step?",
     "options": [
-      "ignore metadata",
-      "examine $MFT and related filesystem attributes",
-      "format the volume",
-      "repair the original filesystem"
+      "use Autopsy to examine digital evidence characteristics while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 1,
-    "explanation": "examine $MFT and related filesystem attributes",
-    "difficulty": "Advanced"
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Autopsy for digital evidence characteristics, preserve the original evidence, and document the collection/analysis step. A useful command is: sha256sum evidence.img",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-005",
     "track": "CHFI v11",
-    "moduleNumber": 5,
+    "moduleNumber": 3,
     "type": "scenario",
-    "prompt": "Scenario 5, cycle 1: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "prompt": "Scenario 5, cycle 1: During a Understanding Hard Disks and File Systems investigation, analysts need to validate authenticity. Which action is the most defensible next step?",
     "options": [
-      "correlate Prefetch, Amcache, Registry and timeline evidence",
-      "treat one artifact as proof of intent",
-      "delete the artifacts",
-      "reinstall Windows"
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use Autopsy to examine authenticity while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 0,
-    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Autopsy for authenticity, preserve the original evidence, and document the collection/analysis step. A useful command is: sha256sum -c hashes.txt",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-006",
     "track": "CHFI v11",
-    "moduleNumber": 6,
+    "moduleNumber": 9,
     "type": "scenario",
-    "prompt": "Scenario 6, cycle 1: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "prompt": "Scenario 6, cycle 1: During a Malware Forensics investigation, analysts need to validate DNS. Which action is the most defensible next step?",
     "options": [
-      "run filesystem repair on the original",
-      "mount it read-write",
-      "skip documentation",
-      "use an error-aware forensic imager and retain acquisition logs"
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "use Zeek to examine DNS while preserving the original evidence and recording the result"
     ],
     "correctOption": 3,
-    "explanation": "use an error-aware forensic imager and retain acquisition logs",
-    "difficulty": "Advanced"
+    "explanation": "The defensible approach is to use Zeek for DNS, preserve the original evidence, and document the collection/analysis step. A useful command is: zeek -r capture.pcap",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-007",
     "track": "CHFI v11",
-    "moduleNumber": 7,
+    "moduleNumber": 5,
     "type": "scenario",
-    "prompt": "Scenario 7, cycle 1: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "prompt": "Scenario 7, cycle 1: During a Defeating Anti-Forensics Techniques investigation, analysts need to validate NTFS $MFT. Which action is the most defensible next step?",
     "options": [
-      "assume all executable memory is benign",
-      "rename the process",
-      "use Volatility memory plugins and correlate process, DLL and network artifacts",
-      "terminate the process"
+      "modify or delete the original evidence before analysis",
+      "use RECmd to examine NTFS $MFT while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 2,
-    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
-    "difficulty": "Advanced"
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use RECmd for NTFS $MFT, preserve the original evidence, and document the collection/analysis step. A useful command is: RECmd.exe -f NTUSER.DAT",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-008",
     "track": "CHFI v11",
-    "moduleNumber": 8,
+    "moduleNumber": 5,
     "type": "scenario",
-    "prompt": "Scenario 8, cycle 1: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "prompt": "Scenario 8, cycle 1: During a Defeating Anti-Forensics Techniques investigation, analysts need to validate SYSTEM hive. Which action is the most defensible next step?",
     "options": [
-      "ignore timestamps",
-      "review auth logs, SSH artifacts and timestamps",
-      "delete auth logs",
-      "reset every account before acquisition"
+      "use JLECmd to examine SYSTEM hive while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 1,
-    "explanation": "review auth logs, SSH artifacts and timestamps",
-    "difficulty": "Advanced"
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use JLECmd for SYSTEM hive, preserve the original evidence, and document the collection/analysis step. A useful command is: sha256sum evidence.dd",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-009",
     "track": "CHFI v11",
-    "moduleNumber": 9,
+    "moduleNumber": 12,
     "type": "scenario",
-    "prompt": "Scenario 9, cycle 1: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "prompt": "Scenario 9, cycle 1: During a Cloud Forensics investigation, analysts need to validate application containers. Which action is the most defensible next step?",
     "options": [
-      "investigate possible tunneling or beaconing with endpoint correlation",
-      "declare it malicious from DNS alone",
-      "delete the PCAP",
-      "ignore DNS metadata"
+      "use Oxygen Forensic Detective to examine application containers while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
     ],
     "correctOption": 0,
-    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "explanation": "The defensible approach is to use Oxygen Forensic Detective for application containers, preserve the original evidence, and document the collection/analysis step. A useful command is: adb shell pm list packages",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-010",
     "track": "CHFI v11",
-    "moduleNumber": 10,
+    "moduleNumber": 7,
     "type": "scenario",
-    "prompt": "Scenario 10, cycle 1: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "prompt": "Scenario 10, cycle 1: During a Linux and Mac Forensics investigation, analysts need to validate windows.netscan. Which action is the most defensible next step?",
     "options": [
-      "modify the live database",
-      "delete cache first",
-      "assume private mode removes all evidence",
-      "acquire the relevant browser SQLite databases and analyze a forensic copy"
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "use Autopsy to examine windows.netscan while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 3,
-    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Autopsy for windows.netscan, preserve the original evidence, and document the collection/analysis step. A useful command is: last -ai",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-011",
     "track": "CHFI v11",
-    "moduleNumber": 1,
+    "moduleNumber": 4,
     "type": "scenario",
-    "prompt": "Scenario 11, cycle 2: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "prompt": "Scenario 11, cycle 1: During a Data Acquisition and Duplication investigation, analysts need to validate protective MBR. Which action is the most defensible next step?",
     "options": [
-      "modify the disk first",
-      "delete suspicious processes",
-      "capture volatile state before shutdown using an approved live-response procedure",
-      "power off immediately"
+      "disable logging so the investigation does not generate more artifacts",
+      "use FTK Imager to examine protective MBR while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 2,
-    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
-    "difficulty": "Advanced"
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use FTK Imager for protective MBR, preserve the original evidence, and document the collection/analysis step. A useful command is: istat image.dd 128",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-012",
     "track": "CHFI v11",
-    "moduleNumber": 2,
+    "moduleNumber": 7,
     "type": "scenario",
-    "prompt": "Scenario 12, cycle 2: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "prompt": "Scenario 12, cycle 1: During a Linux and Mac Forensics investigation, analysts need to validate windows.malfind. Which action is the most defensible next step?",
     "options": [
-      "rename the evidence",
-      "assign an evidence identifier and document discovery and custody",
-      "ignore it because it was unexpected",
-      "connect it to a personal laptop"
+      "use Volatility 3 to examine windows.malfind while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 1,
-    "explanation": "assign an evidence identifier and document discovery and custody",
-    "difficulty": "Advanced"
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Volatility 3 for windows.malfind, preserve the original evidence, and document the collection/analysis step. A useful command is: python vol.py -f memory.raw windows.info",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-013",
     "track": "CHFI v11",
-    "moduleNumber": 3,
+    "moduleNumber": 11,
     "type": "scenario",
-    "prompt": "Scenario 13, cycle 2: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "prompt": "Scenario 13, cycle 1: During a Dark Web Forensics investigation, analysts need to validate Message-ID. Which action is the most defensible next step?",
     "options": [
-      "stop analysis and investigate integrity before using the copy",
-      "assume the images are identical",
-      "edit the hash record",
-      "delete the source"
+      "disable logging so the investigation does not generate more artifacts",
+      "use Detect It Easy to examine Message-ID while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 0,
-    "explanation": "stop analysis and investigate integrity before using the copy",
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use Detect It Easy for Message-ID, preserve the original evidence, and document the collection/analysis step. A useful command is: exiftool suspicious.exe",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-014",
     "track": "CHFI v11",
-    "moduleNumber": 4,
+    "moduleNumber": 3,
     "type": "scenario",
-    "prompt": "Scenario 14, cycle 2: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "prompt": "Scenario 14, cycle 1: During a Understanding Hard Disks and File Systems investigation, analysts need to validate MD5/SHA-256 verification. Which action is the most defensible next step?",
     "options": [
-      "format the volume",
-      "repair the original filesystem",
-      "ignore metadata",
-      "examine $MFT and related filesystem attributes"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use FTK Imager to examine MD5/SHA-256 verification while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 3,
-    "explanation": "examine $MFT and related filesystem attributes",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use FTK Imager for MD5/SHA-256 verification, preserve the original evidence, and document the collection/analysis step. A useful command is: hashdeep -c sha256 evidence.dd",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-015",
     "track": "CHFI v11",
-    "moduleNumber": 5,
+    "moduleNumber": 7,
     "type": "scenario",
-    "prompt": "Scenario 15, cycle 2: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "prompt": "Scenario 15, cycle 1: During a Linux and Mac Forensics investigation, analysts need to validate Volatility 3. Which action is the most defensible next step?",
     "options": [
-      "delete the artifacts",
-      "reinstall Windows",
-      "correlate Prefetch, Amcache, Registry and timeline evidence",
-      "treat one artifact as proof of intent"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use WinPmem to examine Volatility 3 while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
     ],
     "correctOption": 2,
-    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
-    "difficulty": "Advanced"
+    "explanation": "The defensible approach is to use WinPmem for Volatility 3, preserve the original evidence, and document the collection/analysis step. A useful command is: python vol.py -f memory.raw windows.pslist",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-016",
     "track": "CHFI v11",
-    "moduleNumber": 6,
+    "moduleNumber": 7,
     "type": "scenario",
-    "prompt": "Scenario 16, cycle 2: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "prompt": "Scenario 16, cycle 2: During a Linux and Mac Forensics investigation, analysts need to validate windows.pstree. Which action is the most defensible next step?",
     "options": [
-      "skip documentation",
-      "use an error-aware forensic imager and retain acquisition logs",
-      "run filesystem repair on the original",
-      "mount it read-write"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use MemProcFS to examine windows.pstree while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 1,
-    "explanation": "use an error-aware forensic imager and retain acquisition logs",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use MemProcFS for windows.pstree, preserve the original evidence, and document the collection/analysis step. A useful command is: python vol.py -f memory.raw windows.malfind",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-017",
     "track": "CHFI v11",
-    "moduleNumber": 7,
+    "moduleNumber": 8,
     "type": "scenario",
-    "prompt": "Scenario 17, cycle 2: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "prompt": "Scenario 17, cycle 2: During a Network Forensics investigation, analysts need to validate /var/log/auth.log. Which action is the most defensible next step?",
     "options": [
-      "use Volatility memory plugins and correlate process, DLL and network artifacts",
-      "terminate the process",
-      "assume all executable memory is benign",
-      "rename the process"
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Plaso to examine /var/log/auth.log while preserving the original evidence and recording the result"
     ],
-    "correctOption": 0,
-    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Plaso for /var/log/auth.log, preserve the original evidence, and document the collection/analysis step. A useful command is: last -ai",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-018",
     "track": "CHFI v11",
-    "moduleNumber": 8,
+    "moduleNumber": 14,
     "type": "scenario",
-    "prompt": "Scenario 18, cycle 2: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "prompt": "Scenario 18, cycle 2: During a Mobile Forensics investigation, analysts need to validate privilege escalation. Which action is the most defensible next step?",
     "options": [
-      "delete auth logs",
-      "reset every account before acquisition",
-      "ignore timestamps",
-      "review auth logs, SSH artifacts and timestamps"
+      "disable logging so the investigation does not generate more artifacts",
+      "use Zeek to examine privilege escalation while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 3,
-    "explanation": "review auth logs, SSH artifacts and timestamps",
-    "difficulty": "Advanced"
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use Zeek for privilege escalation, preserve the original evidence, and document the collection/analysis step. A useful command is: adb shell getprop",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-019",
     "track": "CHFI v11",
-    "moduleNumber": 9,
+    "moduleNumber": 6,
     "type": "scenario",
-    "prompt": "Scenario 19, cycle 2: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "prompt": "Scenario 19, cycle 2: During a Windows Forensics investigation, analysts need to validate write blockers. Which action is the most defensible next step?",
     "options": [
-      "delete the PCAP",
-      "ignore DNS metadata",
-      "investigate possible tunneling or beaconing with endpoint correlation",
-      "declare it malicious from DNS alone"
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use ewfverify to examine write blockers while preserving the original evidence and recording the result"
     ],
-    "correctOption": 2,
-    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
-    "difficulty": "Advanced"
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use ewfverify for write blockers, preserve the original evidence, and document the collection/analysis step. A useful command is: MFTECmd.exe -f $MFT --csv output",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-020",
     "track": "CHFI v11",
-    "moduleNumber": 10,
+    "moduleNumber": 11,
     "type": "scenario",
-    "prompt": "Scenario 20, cycle 2: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "prompt": "Scenario 20, cycle 2: During a Dark Web Forensics investigation, analysts need to validate SPF. Which action is the most defensible next step?",
     "options": [
-      "assume private mode removes all evidence",
-      "acquire the relevant browser SQLite databases and analyze a forensic copy",
-      "modify the live database",
-      "delete cache first"
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "use PEStudio to examine SPF while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 1,
-    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use PEStudio for SPF, preserve the original evidence, and document the collection/analysis step. A useful command is: sha256sum acquired_artifact",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-021",
     "track": "CHFI v11",
-    "moduleNumber": 1,
+    "moduleNumber": 4,
     "type": "scenario",
-    "prompt": "Scenario 21, cycle 3: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "prompt": "Scenario 21, cycle 2: During a Data Acquisition and Duplication investigation, analysts need to validate exFAT. Which action is the most defensible next step?",
     "options": [
-      "capture volatile state before shutdown using an approved live-response procedure",
-      "power off immediately",
-      "modify the disk first",
-      "delete suspicious processes"
+      "modify or delete the original evidence before analysis",
+      "use TestDisk to examine exFAT while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 0,
-    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use TestDisk for exFAT, preserve the original evidence, and document the collection/analysis step. A useful command is: fsstat image.dd",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-022",
     "track": "CHFI v11",
-    "moduleNumber": 2,
+    "moduleNumber": 3,
     "type": "scenario",
-    "prompt": "Scenario 22, cycle 3: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "prompt": "Scenario 22, cycle 2: During a Understanding Hard Disks and File Systems investigation, analysts need to validate repeatability. Which action is the most defensible next step?",
     "options": [
-      "ignore it because it was unexpected",
-      "connect it to a personal laptop",
-      "rename the evidence",
-      "assign an evidence identifier and document discovery and custody"
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use Sleuth Kit to examine repeatability while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 3,
-    "explanation": "assign an evidence identifier and document discovery and custody",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Sleuth Kit for repeatability, preserve the original evidence, and document the collection/analysis step. A useful command is: fls -r image.dd",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-023",
     "track": "CHFI v11",
-    "moduleNumber": 3,
+    "moduleNumber": 10,
     "type": "scenario",
-    "prompt": "Scenario 23, cycle 3: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "prompt": "Scenario 23, cycle 2: During a Investigating Web Attacks investigation, analysts need to validate Chromium History. Which action is the most defensible next step?",
     "options": [
-      "edit the hash record",
-      "delete the source",
-      "stop analysis and investigate integrity before using the copy",
-      "assume the images are identical"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use Hindsight to examine Chromium History while preserving the original evidence and recording the result"
     ],
-    "correctOption": 2,
-    "explanation": "stop analysis and investigate integrity before using the copy",
-    "difficulty": "Advanced"
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Hindsight for Chromium History, preserve the original evidence, and document the collection/analysis step. A useful command is: sqlite3 History '.tables'",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-024",
     "track": "CHFI v11",
-    "moduleNumber": 4,
+    "moduleNumber": 14,
     "type": "scenario",
-    "prompt": "Scenario 24, cycle 3: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "prompt": "Scenario 24, cycle 2: During a Mobile Forensics investigation, analysts need to validate persistence. Which action is the most defensible next step?",
     "options": [
-      "ignore metadata",
-      "examine $MFT and related filesystem attributes",
-      "format the volume",
-      "repair the original filesystem"
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use Volatility 3 to examine persistence while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 1,
-    "explanation": "examine $MFT and related filesystem attributes",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Volatility 3 for persistence, preserve the original evidence, and document the collection/analysis step. A useful command is: adb devices",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-025",
     "track": "CHFI v11",
-    "moduleNumber": 5,
+    "moduleNumber": 10,
     "type": "scenario",
-    "prompt": "Scenario 25, cycle 3: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "prompt": "Scenario 25, cycle 2: During a Investigating Web Attacks investigation, analysts need to validate Chromium Cookies. Which action is the most defensible next step?",
     "options": [
-      "correlate Prefetch, Amcache, Registry and timeline evidence",
-      "treat one artifact as proof of intent",
-      "delete the artifacts",
-      "reinstall Windows"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Autopsy to examine Chromium Cookies while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 0,
-    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Autopsy for Chromium Cookies, preserve the original evidence, and document the collection/analysis step. A useful command is: sqlite3 History 'SELECT url,title,last_visit_time FROM urls;'",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-026",
     "track": "CHFI v11",
-    "moduleNumber": 6,
+    "moduleNumber": 12,
     "type": "scenario",
-    "prompt": "Scenario 26, cycle 3: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "prompt": "Scenario 26, cycle 2: During a Cloud Forensics investigation, analysts need to validate SMS. Which action is the most defensible next step?",
     "options": [
-      "run filesystem repair on the original",
-      "mount it read-write",
-      "skip documentation",
-      "use an error-aware forensic imager and retain acquisition logs"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use ADB to examine SMS while preserving the original evidence and recording the result"
     ],
     "correctOption": 3,
-    "explanation": "use an error-aware forensic imager and retain acquisition logs",
-    "difficulty": "Advanced"
+    "explanation": "The defensible approach is to use ADB for SMS, preserve the original evidence, and document the collection/analysis step. A useful command is: adb pull /sdcard/ ./sdcard/",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-027",
     "track": "CHFI v11",
-    "moduleNumber": 7,
+    "moduleNumber": 9,
     "type": "scenario",
-    "prompt": "Scenario 27, cycle 3: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "prompt": "Scenario 27, cycle 2: During a Malware Forensics investigation, analysts need to validate ARP. Which action is the most defensible next step?",
     "options": [
-      "assume all executable memory is benign",
-      "rename the process",
-      "use Volatility memory plugins and correlate process, DLL and network artifacts",
-      "terminate the process"
+      "disable logging so the investigation does not generate more artifacts",
+      "use Wireshark to examine ARP while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 2,
-    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
-    "difficulty": "Advanced"
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use Wireshark for ARP, preserve the original evidence, and document the collection/analysis step. A useful command is: tcpdump -i eth0 -nn -w capture.pcap",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-028",
     "track": "CHFI v11",
-    "moduleNumber": 8,
+    "moduleNumber": 11,
     "type": "scenario",
-    "prompt": "Scenario 28, cycle 3: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "prompt": "Scenario 28, cycle 2: During a Dark Web Forensics investigation, analysts need to validate MIME. Which action is the most defensible next step?",
     "options": [
-      "ignore timestamps",
-      "review auth logs, SSH artifacts and timestamps",
-      "delete auth logs",
-      "reset every account before acquisition"
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use CAPE to examine MIME while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 1,
-    "explanation": "review auth logs, SSH artifacts and timestamps",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use CAPE for MIME, preserve the original evidence, and document the collection/analysis step. A useful command is: yara malware.yar suspicious.exe",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-029",
     "track": "CHFI v11",
-    "moduleNumber": 9,
+    "moduleNumber": 10,
     "type": "scenario",
-    "prompt": "Scenario 29, cycle 3: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "prompt": "Scenario 29, cycle 2: During a Investigating Web Attacks investigation, analysts need to validate downloads. Which action is the most defensible next step?",
     "options": [
-      "investigate possible tunneling or beaconing with endpoint correlation",
-      "declare it malicious from DNS alone",
-      "delete the PCAP",
-      "ignore DNS metadata"
+      "modify or delete the original evidence before analysis",
+      "use KAPE to examine downloads while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 0,
-    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use KAPE for downloads, preserve the original evidence, and document the collection/analysis step. A useful command is: grep -R 'POST' web.log",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-030",
     "track": "CHFI v11",
-    "moduleNumber": 10,
+    "moduleNumber": 3,
     "type": "scenario",
-    "prompt": "Scenario 30, cycle 3: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "prompt": "Scenario 30, cycle 2: During a Understanding Hard Disks and File Systems investigation, analysts need to validate custody transfers. Which action is the most defensible next step?",
     "options": [
-      "modify the live database",
-      "delete cache first",
-      "assume private mode removes all evidence",
-      "acquire the relevant browser SQLite databases and analyze a forensic copy"
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use MFTECmd to examine custody transfers while preserving the original evidence and recording the result"
     ],
     "correctOption": 3,
-    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
-    "difficulty": "Advanced"
+    "explanation": "The defensible approach is to use MFTECmd for custody transfers, preserve the original evidence, and document the collection/analysis step. A useful command is: fsstat image.dd",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-031",
     "track": "CHFI v11",
-    "moduleNumber": 1,
+    "moduleNumber": 2,
     "type": "scenario",
-    "prompt": "Scenario 31, cycle 4: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "prompt": "Scenario 31, cycle 3: During a Computer Forensics Investigation Process investigation, analysts need to validate examination and analysis. Which action is the most defensible next step?",
     "options": [
-      "modify the disk first",
-      "delete suspicious processes",
-      "capture volatile state before shutdown using an approved live-response procedure",
-      "power off immediately"
+      "use KAPE to examine examination and analysis while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 2,
-    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use KAPE for examination and analysis, preserve the original evidence, and document the collection/analysis step. A useful command is: psort.py -o l2tcsv -w timeline.csv case.plaso",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-032",
     "track": "CHFI v11",
-    "moduleNumber": 2,
+    "moduleNumber": 6,
     "type": "scenario",
-    "prompt": "Scenario 32, cycle 4: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "prompt": "Scenario 32, cycle 3: During a Windows Forensics investigation, analysts need to validate source hashing. Which action is the most defensible next step?",
     "options": [
-      "rename the evidence",
-      "assign an evidence identifier and document discovery and custody",
-      "ignore it because it was unexpected",
-      "connect it to a personal laptop"
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use ewfacquire to examine source hashing while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 1,
-    "explanation": "assign an evidence identifier and document discovery and custody",
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use ewfacquire for source hashing, preserve the original evidence, and document the collection/analysis step. A useful command is: ddrescue -d /dev/sdb image.dd mapfile.log",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-033",
     "track": "CHFI v11",
-    "moduleNumber": 3,
+    "moduleNumber": 14,
     "type": "scenario",
-    "prompt": "Scenario 33, cycle 4: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "prompt": "Scenario 33, cycle 3: During a Mobile Forensics investigation, analysts need to validate initial access. Which action is the most defensible next step?",
     "options": [
-      "stop analysis and investigate integrity before using the copy",
-      "assume the images are identical",
-      "edit the hash record",
-      "delete the source"
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use Chainsaw to examine initial access while preserving the original evidence and recording the result"
     ],
-    "correctOption": 0,
-    "explanation": "stop analysis and investigate integrity before using the copy",
-    "difficulty": "Intermediate"
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Chainsaw for initial access, preserve the original evidence, and document the collection/analysis step. A useful command is: yara -r rules/ ./evidence/",
+    "difficulty": "Advanced"
   },
   {
     "id": "chfi-034",
     "track": "CHFI v11",
-    "moduleNumber": 4,
+    "moduleNumber": 13,
     "type": "scenario",
-    "prompt": "Scenario 34, cycle 4: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "prompt": "Scenario 34, cycle 3: During a Email and Social Media Forensics investigation, analysts need to validate Azure Activity Log. Which action is the most defensible next step?",
     "options": [
-      "format the volume",
-      "repair the original filesystem",
-      "ignore metadata",
-      "examine $MFT and related filesystem attributes"
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS CLI to examine Azure Activity Log while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 3,
-    "explanation": "examine $MFT and related filesystem attributes",
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use AWS CLI for Azure Activity Log, preserve the original evidence, and document the collection/analysis step. A useful command is: aws cloudtrail lookup-events --max-results 50",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-035",
     "track": "CHFI v11",
-    "moduleNumber": 5,
+    "moduleNumber": 2,
     "type": "scenario",
-    "prompt": "Scenario 35, cycle 4: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "prompt": "Scenario 35, cycle 3: During a Computer Forensics Investigation Process investigation, analysts need to validate live response. Which action is the most defensible next step?",
     "options": [
-      "delete the artifacts",
-      "reinstall Windows",
-      "correlate Prefetch, Amcache, Registry and timeline evidence",
-      "treat one artifact as proof of intent"
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use Magnet RAM Capture to examine live response while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts"
     ],
     "correctOption": 2,
-    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
+    "explanation": "The defensible approach is to use Magnet RAM Capture for live response, preserve the original evidence, and document the collection/analysis step. A useful command is: psort.py -o l2tcsv -w timeline.csv case.plaso",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-036",
     "track": "CHFI v11",
-    "moduleNumber": 6,
+    "moduleNumber": 3,
     "type": "scenario",
-    "prompt": "Scenario 36, cycle 4: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "prompt": "Scenario 36, cycle 3: During a Understanding Hard Disks and File Systems investigation, analysts need to validate reproducibility. Which action is the most defensible next step?",
     "options": [
-      "skip documentation",
-      "use an error-aware forensic imager and retain acquisition logs",
-      "run filesystem repair on the original",
-      "mount it read-write"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use MFTECmd to examine reproducibility while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 1,
-    "explanation": "use an error-aware forensic imager and retain acquisition logs",
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use MFTECmd for reproducibility, preserve the original evidence, and document the collection/analysis step. A useful command is: fsstat image.dd",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-037",
     "track": "CHFI v11",
-    "moduleNumber": 7,
+    "moduleNumber": 10,
     "type": "scenario",
-    "prompt": "Scenario 37, cycle 4: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "prompt": "Scenario 37, cycle 3: During a Investigating Web Attacks investigation, analysts need to validate cache. Which action is the most defensible next step?",
     "options": [
-      "use Volatility memory plugins and correlate process, DLL and network artifacts",
-      "terminate the process",
-      "assume all executable memory is benign",
-      "rename the process"
+      "use DB Browser for SQLite to examine cache while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
     ],
     "correctOption": 0,
-    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
-    "difficulty": "Intermediate"
+    "explanation": "The defensible approach is to use DB Browser for SQLite for cache, preserve the original evidence, and document the collection/analysis step. A useful command is: tshark -r capture.pcap -Y 'http.request'",
+    "difficulty": "Advanced"
   },
   {
     "id": "chfi-038",
     "track": "CHFI v11",
-    "moduleNumber": 8,
+    "moduleNumber": 12,
     "type": "scenario",
-    "prompt": "Scenario 38, cycle 4: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "prompt": "Scenario 38, cycle 3: During a Cloud Forensics investigation, analysts need to validate application data. Which action is the most defensible next step?",
     "options": [
-      "delete auth logs",
-      "reset every account before acquisition",
-      "ignore timestamps",
-      "review auth logs, SSH artifacts and timestamps"
+      "use Cellebrite UFED to examine application data while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 3,
-    "explanation": "review auth logs, SSH artifacts and timestamps",
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Cellebrite UFED for application data, preserve the original evidence, and document the collection/analysis step. A useful command is: adb devices",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-039",
     "track": "CHFI v11",
-    "moduleNumber": 9,
+    "moduleNumber": 14,
     "type": "scenario",
-    "prompt": "Scenario 39, cycle 4: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "prompt": "Scenario 39, cycle 3: During a Mobile Forensics investigation, analysts need to validate exfiltration. Which action is the most defensible next step?",
     "options": [
-      "delete the PCAP",
-      "ignore DNS metadata",
-      "investigate possible tunneling or beaconing with endpoint correlation",
-      "declare it malicious from DNS alone"
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use Hayabusa to examine exfiltration while preserving the original evidence and recording the result"
     ],
-    "correctOption": 2,
-    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Hayabusa for exfiltration, preserve the original evidence, and document the collection/analysis step. A useful command is: velociraptor query 'SELECT * FROM info()'",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-040",
     "track": "CHFI v11",
-    "moduleNumber": 10,
+    "moduleNumber": 9,
     "type": "scenario",
-    "prompt": "Scenario 40, cycle 4: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
+    "prompt": "Scenario 40, cycle 3: During a Malware Forensics investigation, analysts need to validate TLS metadata. Which action is the most defensible next step?",
     "options": [
-      "assume private mode removes all evidence",
-      "acquire the relevant browser SQLite databases and analyze a forensic copy",
-      "modify the live database",
-      "delete cache first"
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "use NetworkMiner to examine TLS metadata while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 1,
-    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use NetworkMiner for TLS metadata, preserve the original evidence, and document the collection/analysis step. A useful command is: strings -a suspicious.exe",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-041",
     "track": "CHFI v11",
-    "moduleNumber": 1,
+    "moduleNumber": 8,
     "type": "scenario",
-    "prompt": "Scenario 41, cycle 5: An investigator discovers volatile RAM evidence. What is the most defensible next action?",
+    "prompt": "Scenario 41, cycle 3: During a Network Forensics investigation, analysts need to validate SUID/SGID. Which action is the most defensible next step?",
     "options": [
-      "capture volatile state before shutdown using an approved live-response procedure",
-      "power off immediately",
-      "modify the disk first",
-      "delete suspicious processes"
+      "disable logging so the investigation does not generate more artifacts",
+      "use journalctl to examine SUID/SGID while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 0,
-    "explanation": "capture volatile state before shutdown using an approved live-response procedure",
-    "difficulty": "Intermediate"
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use journalctl for SUID/SGID, preserve the original evidence, and document the collection/analysis step. A useful command is: systemctl list-timers",
+    "difficulty": "Advanced"
   },
   {
     "id": "chfi-042",
     "track": "CHFI v11",
-    "moduleNumber": 2,
+    "moduleNumber": 4,
     "type": "scenario",
-    "prompt": "Scenario 42, cycle 5: The security team is reviewing a newly discovered evidence device. What is the most defensible next action?",
+    "prompt": "Scenario 42, cycle 3: During a Data Acquisition and Duplication investigation, analysts need to validate NTFS $MFT. Which action is the most defensible next step?",
     "options": [
-      "ignore it because it was unexpected",
-      "connect it to a personal laptop",
-      "rename the evidence",
-      "assign an evidence identifier and document discovery and custody"
+      "treat a single artifact as conclusive without corroboration",
+      "use Guymager to examine NTFS $MFT while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 3,
-    "explanation": "assign an evidence identifier and document discovery and custody",
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use Guymager for NTFS $MFT, preserve the original evidence, and document the collection/analysis step. A useful command is: dc3dd if=/dev/sdb of=evidence.dd hash=sha256",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-043",
     "track": "CHFI v11",
-    "moduleNumber": 3,
+    "moduleNumber": 8,
     "type": "scenario",
-    "prompt": "Scenario 43, cycle 5: During an incident, analysts find a forensic image hash mismatch. What is the most defensible next action?",
+    "prompt": "Scenario 43, cycle 3: During a Network Forensics investigation, analysts need to validate systemd services. Which action is the most defensible next step?",
     "options": [
-      "edit the hash record",
-      "delete the source",
-      "stop analysis and investigate integrity before using the copy",
-      "assume the images are identical"
+      "modify or delete the original evidence before analysis",
+      "use Plaso to examine systemd services while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 2,
-    "explanation": "stop analysis and investigate integrity before using the copy",
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use Plaso for systemd services, preserve the original evidence, and document the collection/analysis step. A useful command is: last -ai",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-044",
     "track": "CHFI v11",
-    "moduleNumber": 4,
+    "moduleNumber": 9,
     "type": "scenario",
-    "prompt": "Scenario 44, cycle 5: A scheduled audit identifies an NTFS deleted-file investigation. What is the most defensible next action?",
+    "prompt": "Scenario 44, cycle 3: During a Malware Forensics investigation, analysts need to validate HTTP. Which action is the most defensible next step?",
     "options": [
-      "ignore metadata",
-      "examine $MFT and related filesystem attributes",
-      "format the volume",
-      "repair the original filesystem"
+      "treat a single artifact as conclusive without corroboration",
+      "use Suricata to examine HTTP while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis"
     ],
     "correctOption": 1,
-    "explanation": "examine $MFT and related filesystem attributes",
+    "explanation": "The defensible approach is to use Suricata for HTTP, preserve the original evidence, and document the collection/analysis step. A useful command is: yara malware.yar suspicious.exe",
     "difficulty": "Advanced"
   },
   {
     "id": "chfi-045",
     "track": "CHFI v11",
-    "moduleNumber": 5,
+    "moduleNumber": 12,
     "type": "scenario",
-    "prompt": "Scenario 45, cycle 5: While triaging a live case, the team encounters Windows execution artifacts. What is the most defensible next action?",
+    "prompt": "Scenario 45, cycle 3: During a Cloud Forensics investigation, analysts need to validate Android SQLite. Which action is the most defensible next step?",
     "options": [
-      "correlate Prefetch, Amcache, Registry and timeline evidence",
-      "treat one artifact as proof of intent",
-      "delete the artifacts",
-      "reinstall Windows"
+      "treat a single artifact as conclusive without corroboration",
+      "use iLEAPP to examine Android SQLite while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 0,
-    "explanation": "correlate Prefetch, Amcache, Registry and timeline evidence",
-    "difficulty": "Intermediate"
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use iLEAPP for Android SQLite, preserve the original evidence, and document the collection/analysis step. A useful command is: aws s3api list-object-versions --bucket BUCKET",
+    "difficulty": "Advanced"
   },
   {
     "id": "chfi-046",
     "track": "CHFI v11",
-    "moduleNumber": 6,
+    "moduleNumber": 15,
     "type": "scenario",
-    "prompt": "Scenario 46, cycle 5: An investigator discovers a disk with unreadable sectors. What is the most defensible next action?",
+    "prompt": "Scenario 46, cycle 4: During a IoT Forensics investigation, analysts need to validate limitations. Which action is the most defensible next step?",
     "options": [
-      "run filesystem repair on the original",
-      "mount it read-write",
-      "skip documentation",
-      "use an error-aware forensic imager and retain acquisition logs"
+      "use Wireshark to examine limitations while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 3,
-    "explanation": "use an error-aware forensic imager and retain acquisition logs",
-    "difficulty": "Advanced"
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Wireshark for limitations, preserve the original evidence, and document the collection/analysis step. A useful command is: sha256sum firmware.bin",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-047",
     "track": "CHFI v11",
-    "moduleNumber": 7,
+    "moduleNumber": 13,
     "type": "scenario",
-    "prompt": "Scenario 47, cycle 5: The security team is reviewing suspicious executable memory. What is the most defensible next action?",
+    "prompt": "Scenario 47, cycle 4: During a Email and Social Media Forensics investigation, analysts need to validate AWS CloudTrail. Which action is the most defensible next step?",
     "options": [
-      "assume all executable memory is benign",
-      "rename the process",
-      "use Volatility memory plugins and correlate process, DLL and network artifacts",
-      "terminate the process"
+      "use AWS GuardDuty to examine AWS CloudTrail while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 2,
-    "explanation": "use Volatility memory plugins and correlate process, DLL and network artifacts",
-    "difficulty": "Advanced"
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use AWS GuardDuty for AWS CloudTrail, preserve the original evidence, and document the collection/analysis step. A useful command is: aws s3api list-object-versions --bucket BUCKET",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-048",
     "track": "CHFI v11",
-    "moduleNumber": 8,
+    "moduleNumber": 11,
     "type": "scenario",
-    "prompt": "Scenario 48, cycle 5: During an incident, analysts find suspicious Linux authentication activity. What is the most defensible next action?",
+    "prompt": "Scenario 48, cycle 4: During a Dark Web Forensics investigation, analysts need to validate Received headers. Which action is the most defensible next step?",
     "options": [
-      "ignore timestamps",
-      "review auth logs, SSH artifacts and timestamps",
-      "delete auth logs",
-      "reset every account before acquisition"
+      "use CAPE to examine Received headers while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 1,
-    "explanation": "review auth logs, SSH artifacts and timestamps",
-    "difficulty": "Advanced"
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use CAPE for Received headers, preserve the original evidence, and document the collection/analysis step. A useful command is: yara malware.yar suspicious.exe",
+    "difficulty": "Intermediate"
   },
   {
     "id": "chfi-049",
     "track": "CHFI v11",
-    "moduleNumber": 9,
+    "moduleNumber": 5,
     "type": "scenario",
-    "prompt": "Scenario 49, cycle 5: A scheduled audit identifies unusual repeated DNS traffic. What is the most defensible next action?",
+    "prompt": "Scenario 49, cycle 4: During a Defeating Anti-Forensics Techniques investigation, analysts need to validate SOFTWARE hive. Which action is the most defensible next step?",
     "options": [
-      "investigate possible tunneling or beaconing with endpoint correlation",
-      "declare it malicious from DNS alone",
-      "delete the PCAP",
-      "ignore DNS metadata"
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use SrumECmd to examine SOFTWARE hive while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 0,
-    "explanation": "investigate possible tunneling or beaconing with endpoint correlation",
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use SrumECmd for SOFTWARE hive, preserve the original evidence, and document the collection/analysis step. A useful command is: istat image.dd 128",
     "difficulty": "Intermediate"
   },
   {
     "id": "chfi-050",
     "track": "CHFI v11",
-    "moduleNumber": 10,
-    "type": "scenario",
-    "prompt": "Scenario 50, cycle 5: While triaging a live case, the team encounters browser history evidence. What is the most defensible next action?",
-    "options": [
-      "modify the live database",
-      "delete cache first",
-      "assume private mode removes all evidence",
-      "acquire the relevant browser SQLite databases and analyze a forensic copy"
-    ],
-    "correctOption": 3,
-    "explanation": "acquire the relevant browser SQLite databases and analyze a forensic copy",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-001",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 1, cycle 1: An investigator discovers a managed cloud database. What is the most defensible next action?",
-    "options": [
-      "document shared responsibility and harden customer-controlled configuration",
-      "assume the provider secures customer IAM",
-      "disable logging",
-      "make the database public"
-    ],
-    "correctOption": 0,
-    "explanation": "document shared responsibility and harden customer-controlled configuration",
-    "difficulty": "Intermediate"
-  },
-  {
-    "id": "cloud-002",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 2, cycle 1: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
-    "options": [
-      "grant root access",
-      "trust every account",
-      "disable CloudTrail",
-      "narrow trusted principals and apply appropriate conditions"
-    ],
-    "correctOption": 3,
-    "explanation": "narrow trusted principals and apply appropriate conditions",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-003",
-    "track": "Cloud Security",
     "moduleNumber": 3,
     "type": "scenario",
-    "prompt": "Scenario 3, cycle 1: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
+    "prompt": "Scenario 50, cycle 4: During a Understanding Hard Disks and File Systems investigation, analysts need to validate evidence packaging. Which action is the most defensible next step?",
     "options": [
-      "disable the firewall",
-      "move SSH to HTTP",
-      "restrict ingress to approved sources and private administrative paths",
-      "open every port"
-    ],
-    "correctOption": 2,
-    "explanation": "restrict ingress to approved sources and private administrative paths",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-004",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
-    "type": "scenario",
-    "prompt": "Scenario 4, cycle 1: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
-    "options": [
-      "grant anonymous write",
-      "enable public-access prevention and correct resource/identity policies",
-      "publish the URL",
-      "disable encryption"
+      "modify or delete the original evidence before analysis",
+      "use Hashdeep to examine evidence packaging while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
     ],
     "correctOption": 1,
-    "explanation": "enable public-access prevention and correct resource/identity policies",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-005",
-    "track": "Cloud Security",
-    "moduleNumber": 5,
-    "type": "scenario",
-    "prompt": "Scenario 5, cycle 1: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
-    "options": [
-      "replace it with minimum required RBAC permissions",
-      "keep cluster-admin",
-      "disable RBAC",
-      "share the service account"
-    ],
-    "correctOption": 0,
-    "explanation": "replace it with minimum required RBAC permissions",
+    "explanation": "The defensible approach is to use Hashdeep for evidence packaging, preserve the original evidence, and document the collection/analysis step. A useful command is: sha256sum evidence.dd",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-006",
-    "track": "Cloud Security",
+    "id": "cloud-051",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 51, cycle 1: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate data plane. Which action is the most defensible next step?",
+    "options": [
+      "use Azure Policy to examine data plane while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Azure Policy for data plane, preserve the original evidence, and document the collection/analysis step. A useful command is: az management-group list",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-052",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 6,
     "type": "scenario",
-    "prompt": "Scenario 6, cycle 1: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
+    "prompt": "Scenario 52, cycle 1: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate Prowler. Which action is the most defensible next step?",
     "options": [
-      "fix randomly",
-      "delete the findings",
-      "disable CSPM",
-      "prioritize by exposure, exploitability, data sensitivity and business impact"
-    ],
-    "correctOption": 3,
-    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-007",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 7, cycle 1: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
-    "options": [
-      "put everything on public networks",
-      "remove inventory",
-      "separate trust boundaries and establish governance guardrails",
-      "share root credentials"
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use ScoutSuite to examine Prowler while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
     ],
     "correctOption": 2,
-    "explanation": "separate trust boundaries and establish governance guardrails",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-008",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 8, cycle 1: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
-    "options": [
-      "use the root user",
-      "use OIDC or another short-lived workload identity mechanism",
-      "commit another key",
-      "share the key"
-    ],
-    "correctOption": 1,
-    "explanation": "use OIDC or another short-lived workload identity mechanism",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-009",
-    "track": "Cloud Security",
-    "moduleNumber": 3,
-    "type": "scenario",
-    "prompt": "Scenario 9, cycle 1: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
-    "options": [
-      "allow only required destinations where practical and monitor outbound traffic",
-      "open more egress",
-      "disable flow logs",
-      "make the workload public"
-    ],
-    "correctOption": 0,
-    "explanation": "allow only required destinations where practical and monitor outbound traffic",
+    "explanation": "The defensible approach is to use ScoutSuite for Prowler, preserve the original evidence, and document the collection/analysis step. A useful command is: prowler aws --compliance cis_5.0_aws",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-010",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
-    "type": "scenario",
-    "prompt": "Scenario 10, cycle 1: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
-    "options": [
-      "grant decrypt to everyone",
-      "share key material",
-      "delete the key",
-      "scope authorization to required roles and data domains"
-    ],
-    "correctOption": 3,
-    "explanation": "scope authorization to required roles and data domains",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-011",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 11, cycle 2: An investigator discovers a managed cloud database. What is the most defensible next action?",
-    "options": [
-      "disable logging",
-      "make the database public",
-      "document shared responsibility and harden customer-controlled configuration",
-      "assume the provider secures customer IAM"
-    ],
-    "correctOption": 2,
-    "explanation": "document shared responsibility and harden customer-controlled configuration",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-012",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 12, cycle 2: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
-    "options": [
-      "disable CloudTrail",
-      "narrow trusted principals and apply appropriate conditions",
-      "grant root access",
-      "trust every account"
-    ],
-    "correctOption": 1,
-    "explanation": "narrow trusted principals and apply appropriate conditions",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-013",
-    "track": "Cloud Security",
-    "moduleNumber": 3,
-    "type": "scenario",
-    "prompt": "Scenario 13, cycle 2: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
-    "options": [
-      "restrict ingress to approved sources and private administrative paths",
-      "open every port",
-      "disable the firewall",
-      "move SSH to HTTP"
-    ],
-    "correctOption": 0,
-    "explanation": "restrict ingress to approved sources and private administrative paths",
-    "difficulty": "Intermediate"
-  },
-  {
-    "id": "cloud-014",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
-    "type": "scenario",
-    "prompt": "Scenario 14, cycle 2: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
-    "options": [
-      "publish the URL",
-      "disable encryption",
-      "grant anonymous write",
-      "enable public-access prevention and correct resource/identity policies"
-    ],
-    "correctOption": 3,
-    "explanation": "enable public-access prevention and correct resource/identity policies",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-015",
-    "track": "Cloud Security",
-    "moduleNumber": 5,
-    "type": "scenario",
-    "prompt": "Scenario 15, cycle 2: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
-    "options": [
-      "disable RBAC",
-      "share the service account",
-      "replace it with minimum required RBAC permissions",
-      "keep cluster-admin"
-    ],
-    "correctOption": 2,
-    "explanation": "replace it with minimum required RBAC permissions",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-016",
-    "track": "Cloud Security",
+    "id": "cloud-053",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 6,
     "type": "scenario",
-    "prompt": "Scenario 16, cycle 2: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
+    "prompt": "Scenario 53, cycle 1: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate Azure Policy. Which action is the most defensible next step?",
     "options": [
-      "disable CSPM",
-      "prioritize by exposure, exploitability, data sensitivity and business impact",
-      "fix randomly",
-      "delete the findings"
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use IAM Access Analyzer to examine Azure Policy while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
     ],
-    "correctOption": 1,
-    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-017",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 17, cycle 2: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
-    "options": [
-      "separate trust boundaries and establish governance guardrails",
-      "share root credentials",
-      "put everything on public networks",
-      "remove inventory"
-    ],
-    "correctOption": 0,
-    "explanation": "separate trust boundaries and establish governance guardrails",
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use IAM Access Analyzer for Azure Policy, preserve the original evidence, and document the collection/analysis step. A useful command is: az policy assignment list",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-018",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 18, cycle 2: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
-    "options": [
-      "commit another key",
-      "share the key",
-      "use the root user",
-      "use OIDC or another short-lived workload identity mechanism"
-    ],
-    "correctOption": 3,
-    "explanation": "use OIDC or another short-lived workload identity mechanism",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-019",
-    "track": "Cloud Security",
-    "moduleNumber": 3,
-    "type": "scenario",
-    "prompt": "Scenario 19, cycle 2: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
-    "options": [
-      "disable flow logs",
-      "make the workload public",
-      "allow only required destinations where practical and monitor outbound traffic",
-      "open more egress"
-    ],
-    "correctOption": 2,
-    "explanation": "allow only required destinations where practical and monitor outbound traffic",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-020",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
-    "type": "scenario",
-    "prompt": "Scenario 20, cycle 2: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
-    "options": [
-      "delete the key",
-      "scope authorization to required roles and data domains",
-      "grant decrypt to everyone",
-      "share key material"
-    ],
-    "correctOption": 1,
-    "explanation": "scope authorization to required roles and data domains",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-021",
-    "track": "Cloud Security",
+    "id": "cloud-054",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 1,
     "type": "scenario",
-    "prompt": "Scenario 21, cycle 3: An investigator discovers a managed cloud database. What is the most defensible next action?",
+    "prompt": "Scenario 54, cycle 1: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate control plane. Which action is the most defensible next step?",
     "options": [
-      "document shared responsibility and harden customer-controlled configuration",
-      "assume the provider secures customer IAM",
-      "disable logging",
-      "make the database public"
+      "disable logging so the investigation does not generate more artifacts",
+      "use Azure Management Groups to examine control plane while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
     ],
-    "correctOption": 0,
-    "explanation": "document shared responsibility and harden customer-controlled configuration",
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use Azure Management Groups for control plane, preserve the original evidence, and document the collection/analysis step. A useful command is: az account show",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-022",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 22, cycle 3: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
-    "options": [
-      "grant root access",
-      "trust every account",
-      "disable CloudTrail",
-      "narrow trusted principals and apply appropriate conditions"
-    ],
-    "correctOption": 3,
-    "explanation": "narrow trusted principals and apply appropriate conditions",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-023",
-    "track": "Cloud Security",
+    "id": "cloud-055",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 3,
     "type": "scenario",
-    "prompt": "Scenario 23, cycle 3: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
+    "prompt": "Scenario 55, cycle 1: During a Cloud Network Security investigation, analysts need to validate NAT. Which action is the most defensible next step?",
     "options": [
-      "disable the firewall",
-      "move SSH to HTTP",
-      "restrict ingress to approved sources and private administrative paths",
-      "open every port"
-    ],
-    "correctOption": 2,
-    "explanation": "restrict ingress to approved sources and private administrative paths",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-024",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
-    "type": "scenario",
-    "prompt": "Scenario 24, cycle 3: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
-    "options": [
-      "grant anonymous write",
-      "enable public-access prevention and correct resource/identity policies",
-      "publish the URL",
-      "disable encryption"
+      "treat a single artifact as conclusive without corroboration",
+      "use AWS Shield to examine NAT while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts"
     ],
     "correctOption": 1,
-    "explanation": "enable public-access prevention and correct resource/identity policies",
-    "difficulty": "Advanced"
+    "explanation": "The defensible approach is to use AWS Shield for NAT, preserve the original evidence, and document the collection/analysis step. A useful command is: aws ec2 describe-route-tables",
+    "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-025",
-    "track": "Cloud Security",
+    "id": "cloud-056",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 56, cycle 1: During a Cloud Data Protection and Key Management investigation, analysts need to validate TLS. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS S3 to examine TLS while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use AWS S3 for TLS, preserve the original evidence, and document the collection/analysis step. A useful command is: aws kms list-grants --key-id KEY_ID",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-057",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 5,
     "type": "scenario",
-    "prompt": "Scenario 25, cycle 3: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
+    "prompt": "Scenario 57, cycle 2: During a Cloud Workload, Container and Kubernetes Security investigation, analysts need to validate minimal bases. Which action is the most defensible next step?",
     "options": [
-      "replace it with minimum required RBAC permissions",
-      "keep cluster-admin",
-      "disable RBAC",
-      "share the service account"
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Syft to examine minimal bases while preserving the original evidence and recording the result"
     ],
-    "correctOption": 0,
-    "explanation": "replace it with minimum required RBAC permissions",
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Syft for minimal bases, preserve the original evidence, and document the collection/analysis step. A useful command is: syft IMAGE -o spdx-json",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-026",
-    "track": "Cloud Security",
+    "id": "cloud-058",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 6,
     "type": "scenario",
-    "prompt": "Scenario 26, cycle 3: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
+    "prompt": "Scenario 58, cycle 2: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate AWS Config. Which action is the most defensible next step?",
     "options": [
-      "fix randomly",
-      "delete the findings",
-      "disable CSPM",
-      "prioritize by exposure, exploitability, data sensitivity and business impact"
-    ],
-    "correctOption": 3,
-    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-027",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 27, cycle 3: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
-    "options": [
-      "put everything on public networks",
-      "remove inventory",
-      "separate trust boundaries and establish governance guardrails",
-      "share root credentials"
-    ],
-    "correctOption": 2,
-    "explanation": "separate trust boundaries and establish governance guardrails",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-028",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 28, cycle 3: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
-    "options": [
-      "use the root user",
-      "use OIDC or another short-lived workload identity mechanism",
-      "commit another key",
-      "share the key"
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS Config to examine AWS Config while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
     ],
     "correctOption": 1,
-    "explanation": "use OIDC or another short-lived workload identity mechanism",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-029",
-    "track": "Cloud Security",
-    "moduleNumber": 3,
-    "type": "scenario",
-    "prompt": "Scenario 29, cycle 3: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
-    "options": [
-      "allow only required destinations where practical and monitor outbound traffic",
-      "open more egress",
-      "disable flow logs",
-      "make the workload public"
-    ],
-    "correctOption": 0,
-    "explanation": "allow only required destinations where practical and monitor outbound traffic",
+    "explanation": "The defensible approach is to use AWS Config for AWS Config, preserve the original evidence, and document the collection/analysis step. A useful command is: aws securityhub get-findings",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-030",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
-    "type": "scenario",
-    "prompt": "Scenario 30, cycle 3: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
-    "options": [
-      "grant decrypt to everyone",
-      "share key material",
-      "delete the key",
-      "scope authorization to required roles and data domains"
-    ],
-    "correctOption": 3,
-    "explanation": "scope authorization to required roles and data domains",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-031",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 31, cycle 4: An investigator discovers a managed cloud database. What is the most defensible next action?",
-    "options": [
-      "disable logging",
-      "make the database public",
-      "document shared responsibility and harden customer-controlled configuration",
-      "assume the provider secures customer IAM"
-    ],
-    "correctOption": 2,
-    "explanation": "document shared responsibility and harden customer-controlled configuration",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-032",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 32, cycle 4: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
-    "options": [
-      "disable CloudTrail",
-      "narrow trusted principals and apply appropriate conditions",
-      "grant root access",
-      "trust every account"
-    ],
-    "correctOption": 1,
-    "explanation": "narrow trusted principals and apply appropriate conditions",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-033",
-    "track": "Cloud Security",
-    "moduleNumber": 3,
-    "type": "scenario",
-    "prompt": "Scenario 33, cycle 4: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
-    "options": [
-      "restrict ingress to approved sources and private administrative paths",
-      "open every port",
-      "disable the firewall",
-      "move SSH to HTTP"
-    ],
-    "correctOption": 0,
-    "explanation": "restrict ingress to approved sources and private administrative paths",
-    "difficulty": "Intermediate"
-  },
-  {
-    "id": "cloud-034",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
-    "type": "scenario",
-    "prompt": "Scenario 34, cycle 4: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
-    "options": [
-      "publish the URL",
-      "disable encryption",
-      "grant anonymous write",
-      "enable public-access prevention and correct resource/identity policies"
-    ],
-    "correctOption": 3,
-    "explanation": "enable public-access prevention and correct resource/identity policies",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-035",
-    "track": "Cloud Security",
+    "id": "cloud-059",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 5,
     "type": "scenario",
-    "prompt": "Scenario 35, cycle 4: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
+    "prompt": "Scenario 59, cycle 2: During a Cloud Workload, Container and Kubernetes Security investigation, analysts need to validate Trivy. Which action is the most defensible next step?",
     "options": [
-      "disable RBAC",
-      "share the service account",
-      "replace it with minimum required RBAC permissions",
-      "keep cluster-admin"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Docker to examine Trivy while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
     ],
     "correctOption": 2,
-    "explanation": "replace it with minimum required RBAC permissions",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-036",
-    "track": "Cloud Security",
-    "moduleNumber": 6,
-    "type": "scenario",
-    "prompt": "Scenario 36, cycle 4: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
-    "options": [
-      "disable CSPM",
-      "prioritize by exposure, exploitability, data sensitivity and business impact",
-      "fix randomly",
-      "delete the findings"
-    ],
-    "correctOption": 1,
-    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-037",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 37, cycle 4: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
-    "options": [
-      "separate trust boundaries and establish governance guardrails",
-      "share root credentials",
-      "put everything on public networks",
-      "remove inventory"
-    ],
-    "correctOption": 0,
-    "explanation": "separate trust boundaries and establish governance guardrails",
+    "explanation": "The defensible approach is to use Docker for Trivy, preserve the original evidence, and document the collection/analysis step. A useful command is: docker image inspect IMAGE",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-038",
-    "track": "Cloud Security",
+    "id": "cloud-060",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 2,
     "type": "scenario",
-    "prompt": "Scenario 38, cycle 4: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
+    "prompt": "Scenario 60, cycle 2: During a Cloud IAM and Identity Federation investigation, analysts need to validate explicit deny. Which action is the most defensible next step?",
     "options": [
-      "commit another key",
-      "share the key",
-      "use the root user",
-      "use OIDC or another short-lived workload identity mechanism"
-    ],
-    "correctOption": 3,
-    "explanation": "use OIDC or another short-lived workload identity mechanism",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-039",
-    "track": "Cloud Security",
-    "moduleNumber": 3,
-    "type": "scenario",
-    "prompt": "Scenario 39, cycle 4: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
-    "options": [
-      "disable flow logs",
-      "make the workload public",
-      "allow only required destinations where practical and monitor outbound traffic",
-      "open more egress"
-    ],
-    "correctOption": 2,
-    "explanation": "allow only required destinations where practical and monitor outbound traffic",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-040",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
-    "type": "scenario",
-    "prompt": "Scenario 40, cycle 4: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
-    "options": [
-      "delete the key",
-      "scope authorization to required roles and data domains",
-      "grant decrypt to everyone",
-      "share key material"
-    ],
-    "correctOption": 1,
-    "explanation": "scope authorization to required roles and data domains",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-041",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 41, cycle 5: An investigator discovers a managed cloud database. What is the most defensible next action?",
-    "options": [
-      "document shared responsibility and harden customer-controlled configuration",
-      "assume the provider secures customer IAM",
-      "disable logging",
-      "make the database public"
+      "use Pacu to examine explicit deny while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
     ],
     "correctOption": 0,
-    "explanation": "document shared responsibility and harden customer-controlled configuration",
+    "explanation": "The defensible approach is to use Pacu for explicit deny, preserve the original evidence, and document the collection/analysis step. A useful command is: az role assignment list",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-042",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 42, cycle 5: The security team is reviewing a broad AssumeRole trust policy. What is the most defensible next action?",
-    "options": [
-      "grant root access",
-      "trust every account",
-      "disable CloudTrail",
-      "narrow trusted principals and apply appropriate conditions"
-    ],
-    "correctOption": 3,
-    "explanation": "narrow trusted principals and apply appropriate conditions",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-043",
-    "track": "Cloud Security",
-    "moduleNumber": 3,
-    "type": "scenario",
-    "prompt": "Scenario 43, cycle 5: During an incident, analysts find an internet-exposed management port. What is the most defensible next action?",
-    "options": [
-      "disable the firewall",
-      "move SSH to HTTP",
-      "restrict ingress to approved sources and private administrative paths",
-      "open every port"
-    ],
-    "correctOption": 2,
-    "explanation": "restrict ingress to approved sources and private administrative paths",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-044",
-    "track": "Cloud Security",
+    "id": "cloud-061",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 4,
     "type": "scenario",
-    "prompt": "Scenario 44, cycle 5: A scheduled audit identifies a public sensitive storage bucket. What is the most defensible next action?",
+    "prompt": "Scenario 61, cycle 2: During a Cloud Data Protection and Key Management investigation, analysts need to validate DEK/KEK. Which action is the most defensible next step?",
     "options": [
-      "grant anonymous write",
-      "enable public-access prevention and correct resource/identity policies",
-      "publish the URL",
-      "disable encryption"
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use Azure Storage to examine DEK/KEK while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts"
     ],
-    "correctOption": 1,
-    "explanation": "enable public-access prevention and correct resource/identity policies",
-    "difficulty": "Advanced"
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Azure Storage for DEK/KEK, preserve the original evidence, and document the collection/analysis step. A useful command is: aws s3api get-public-access-block --bucket BUCKET",
+    "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-045",
-    "track": "Cloud Security",
+    "id": "cloud-062",
+    "track": "Cloud Security Engineering",
     "moduleNumber": 5,
     "type": "scenario",
-    "prompt": "Scenario 45, cycle 5: While triaging a live case, the team encounters a Kubernetes workload with cluster-admin. What is the most defensible next action?",
+    "prompt": "Scenario 62, cycle 2: During a Cloud Workload, Container and Kubernetes Security investigation, analysts need to validate image signing. Which action is the most defensible next step?",
     "options": [
-      "replace it with minimum required RBAC permissions",
-      "keep cluster-admin",
-      "disable RBAC",
-      "share the service account"
-    ],
-    "correctOption": 0,
-    "explanation": "replace it with minimum required RBAC permissions",
-    "difficulty": "Intermediate"
-  },
-  {
-    "id": "cloud-046",
-    "track": "Cloud Security",
-    "moduleNumber": 6,
-    "type": "scenario",
-    "prompt": "Scenario 46, cycle 5: An investigator discovers thousands of CSPM findings. What is the most defensible next action?",
-    "options": [
-      "fix randomly",
-      "delete the findings",
-      "disable CSPM",
-      "prioritize by exposure, exploitability, data sensitivity and business impact"
-    ],
-    "correctOption": 3,
-    "explanation": "prioritize by exposure, exploitability, data sensitivity and business impact",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-047",
-    "track": "Cloud Security",
-    "moduleNumber": 1,
-    "type": "scenario",
-    "prompt": "Scenario 47, cycle 5: The security team is reviewing a flat cloud account hosting production and development. What is the most defensible next action?",
-    "options": [
-      "put everything on public networks",
-      "remove inventory",
-      "separate trust boundaries and establish governance guardrails",
-      "share root credentials"
-    ],
-    "correctOption": 2,
-    "explanation": "separate trust boundaries and establish governance guardrails",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-048",
-    "track": "Cloud Security",
-    "moduleNumber": 2,
-    "type": "scenario",
-    "prompt": "Scenario 48, cycle 5: During an incident, analysts find long-lived CI credentials. What is the most defensible next action?",
-    "options": [
-      "use the root user",
-      "use OIDC or another short-lived workload identity mechanism",
-      "commit another key",
-      "share the key"
+      "treat a single artifact as conclusive without corroboration",
+      "use kubectl to examine image signing while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis"
     ],
     "correctOption": 1,
-    "explanation": "use OIDC or another short-lived workload identity mechanism",
-    "difficulty": "Advanced"
-  },
-  {
-    "id": "cloud-049",
-    "track": "Cloud Security",
-    "moduleNumber": 3,
-    "type": "scenario",
-    "prompt": "Scenario 49, cycle 5: A scheduled audit identifies unrestricted cloud egress. What is the most defensible next action?",
-    "options": [
-      "allow only required destinations where practical and monitor outbound traffic",
-      "open more egress",
-      "disable flow logs",
-      "make the workload public"
-    ],
-    "correctOption": 0,
-    "explanation": "allow only required destinations where practical and monitor outbound traffic",
+    "explanation": "The defensible approach is to use kubectl for image signing, preserve the original evidence, and document the collection/analysis step. A useful command is: kubectl auth can-i --list",
     "difficulty": "Intermediate"
   },
   {
-    "id": "cloud-050",
-    "track": "Cloud Security",
-    "moduleNumber": 4,
+    "id": "cloud-063",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 2,
     "type": "scenario",
-    "prompt": "Scenario 50, cycle 5: While triaging a live case, the team encounters a broad KMS decrypt grant. What is the most defensible next action?",
+    "prompt": "Scenario 63, cycle 3: During a Cloud IAM and Identity Federation investigation, analysts need to validate session policies. Which action is the most defensible next step?",
     "options": [
-      "grant decrypt to everyone",
-      "share key material",
-      "delete the key",
-      "scope authorization to required roles and data domains"
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use AWS Access Analyzer to examine session policies while preserving the original evidence and recording the result"
     ],
     "correctOption": 3,
-    "explanation": "scope authorization to required roles and data domains",
+    "explanation": "The defensible approach is to use AWS Access Analyzer for session policies, preserve the original evidence, and document the collection/analysis step. A useful command is: aws iam simulate-principal-policy --policy-source-arn ARN --action-names s3:GetObject",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-064",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 64, cycle 3: During a Cloud Workload, Container and Kubernetes Security investigation, analysts need to validate rootless containers. Which action is the most defensible next step?",
+    "options": [
+      "use Syft to examine rootless containers while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Syft for rootless containers, preserve the original evidence, and document the collection/analysis step. A useful command is: syft IMAGE -o spdx-json",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-065",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 65, cycle 3: During a Cloud Network Security investigation, analysts need to validate public/private subnets. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Azure Firewall to examine public/private subnets while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Azure Firewall for public/private subnets, preserve the original evidence, and document the collection/analysis step. A useful command is: az network vnet list",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-066",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 66, cycle 3: During a Cloud IAM and Identity Federation investigation, analysts need to validate OIDC. Which action is the most defensible next step?",
+    "options": [
+      "use CloudTrail to examine OIDC while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use CloudTrail for OIDC, preserve the original evidence, and document the collection/analysis step. A useful command is: az role assignment list",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-067",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 67, cycle 3: During a Cloud IAM and Identity Federation investigation, analysts need to validate ExternalId. Which action is the most defensible next step?",
+    "options": [
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "use AWS STS to examine ExternalId while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use AWS STS for ExternalId, preserve the original evidence, and document the collection/analysis step. A useful command is: aws iam get-role --role-name ROLE",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-068",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 68, cycle 3: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate landing zones. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS Organizations to examine landing zones while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use AWS Organizations for landing zones, preserve the original evidence, and document the collection/analysis step. A useful command is: aws organizations describe-organization",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-069",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 69, cycle 4: During a Cloud IAM and Identity Federation investigation, analysts need to validate identity policies. Which action is the most defensible next step?",
+    "options": [
+      "disable logging so the investigation does not generate more artifacts",
+      "use CloudTrail to examine identity policies while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use CloudTrail for identity policies, preserve the original evidence, and document the collection/analysis step. A useful command is: aws iam get-role --role-name ROLE",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-070",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 70, cycle 4: During a Cloud Data Protection and Key Management investigation, analysts need to validate key policies. Which action is the most defensible next step?",
+    "options": [
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS KMS to examine key policies while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use AWS KMS for key policies, preserve the original evidence, and document the collection/analysis step. A useful command is: aws kms list-keys",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-071",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 71, cycle 4: During a Cloud Network Security investigation, analysts need to validate route tables. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "use AWS VPC to examine route tables while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use AWS VPC for route tables, preserve the original evidence, and document the collection/analysis step. A useful command is: aws ec2 describe-vpcs",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-072",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 72, cycle 4: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate CIS Benchmarks. Which action is the most defensible next step?",
+    "options": [
+      "use Prowler to examine CIS Benchmarks while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Prowler for CIS Benchmarks, preserve the original evidence, and document the collection/analysis step. A useful command is: prowler aws",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-073",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 73, cycle 4: During a Cloud IAM and Identity Federation investigation, analysts need to validate STS AssumeRole. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "use AWS IAM to examine STS AssumeRole while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use AWS IAM for STS AssumeRole, preserve the original evidence, and document the collection/analysis step. A useful command is: aws sts get-caller-identity",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-074",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 74, cycle 4: During a Cloud Workload, Container and Kubernetes Security investigation, analysts need to validate Grype. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Trivy to examine Grype while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Trivy for Grype, preserve the original evidence, and document the collection/analysis step. A useful command is: trivy image IMAGE",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-075",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 75, cycle 5: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate resource hierarchy. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS Control Tower to examine resource hierarchy while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use AWS Control Tower for resource hierarchy, preserve the original evidence, and document the collection/analysis step. A useful command is: az account show",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-076",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 76, cycle 5: During a Cloud Data Protection and Key Management investigation, analysts need to validate encryption at rest. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "use AWS KMS to examine encryption at rest while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use AWS KMS for encryption at rest, preserve the original evidence, and document the collection/analysis step. A useful command is: aws kms list-keys",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-077",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 77, cycle 5: During a Cloud IAM and Identity Federation investigation, analysts need to validate IAM users/groups/roles. Which action is the most defensible next step?",
+    "options": [
+      "use AWS Access Analyzer to examine IAM users/groups/roles while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use AWS Access Analyzer for IAM users/groups/roles, preserve the original evidence, and document the collection/analysis step. A useful command is: aws sts get-caller-identity",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-078",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 78, cycle 5: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate IaaS/PaaS/SaaS. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "use AWS Organizations to examine IaaS/PaaS/SaaS while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use AWS Organizations for IaaS/PaaS/SaaS, preserve the original evidence, and document the collection/analysis step. A useful command is: aws sts get-caller-identity",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-079",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 79, cycle 5: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate shared responsibility. Which action is the most defensible next step?",
+    "options": [
+      "use AWS Control Tower to examine shared responsibility while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use AWS Control Tower for shared responsibility, preserve the original evidence, and document the collection/analysis step. A useful command is: aws organizations describe-organization",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-080",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 2,
+    "type": "scenario",
+    "prompt": "Scenario 80, cycle 5: During a Cloud IAM and Identity Federation investigation, analysts need to validate resource policies. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use PMapper to examine resource policies while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use PMapper for resource policies, preserve the original evidence, and document the collection/analysis step. A useful command is: aws iam simulate-principal-policy --policy-source-arn ARN --action-names s3:GetObject",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-081",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 81, cycle 6: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate multi-account design. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Cloud Custodian to examine multi-account design while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Cloud Custodian for multi-account design, preserve the original evidence, and document the collection/analysis step. A useful command is: aws sts get-caller-identity",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-082",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 82, cycle 6: During a Cloud Data Protection and Key Management investigation, analysts need to validate KMS grants. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS Secrets Manager to examine KMS grants while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use AWS Secrets Manager for KMS grants, preserve the original evidence, and document the collection/analysis step. A useful command is: aws kms describe-key --key-id KEY_ID",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-083",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 83, cycle 6: During a Cloud Data Protection and Key Management investigation, analysts need to validate encryption in transit. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS Secrets Manager to examine encryption in transit while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use AWS Secrets Manager for encryption in transit, preserve the original evidence, and document the collection/analysis step. A useful command is: aws kms describe-key --key-id KEY_ID",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-084",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 84, cycle 6: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate CIEM. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "use IAM Access Analyzer to examine CIEM while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use IAM Access Analyzer for CIEM, preserve the original evidence, and document the collection/analysis step. A useful command is: az policy assignment list",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-085",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 85, cycle 6: During a Cloud Network Security investigation, analysts need to validate internet gateways. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS WAF to examine internet gateways while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use AWS WAF for internet gateways, preserve the original evidence, and document the collection/analysis step. A useful command is: aws ec2 describe-subnets",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-086",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 86, cycle 6: During a Cloud Data Protection and Key Management investigation, analysts need to validate AWS KMS. Which action is the most defensible next step?",
+    "options": [
+      "use TruffleHog to examine AWS KMS while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use TruffleHog for AWS KMS, preserve the original evidence, and document the collection/analysis step. A useful command is: az keyvault list",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-087",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 4,
+    "type": "scenario",
+    "prompt": "Scenario 87, cycle 7: During a Cloud Data Protection and Key Management investigation, analysts need to validate envelope encryption. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Azure Key Vault to examine envelope encryption while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Azure Key Vault for envelope encryption, preserve the original evidence, and document the collection/analysis step. A useful command is: aws secretsmanager list-secrets",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-088",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 88, cycle 7: During a Cloud Workload, Container and Kubernetes Security investigation, analysts need to validate Dockerfile hardening. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use Grype to examine Dockerfile hardening while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use Grype for Dockerfile hardening, preserve the original evidence, and document the collection/analysis step. A useful command is: grype IMAGE",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-089",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 89, cycle 7: During a Cloud Network Security investigation, analysts need to validate NACLs. Which action is the most defensible next step?",
+    "options": [
+      "use Azure VNet to examine NACLs while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Azure VNet for NACLs, preserve the original evidence, and document the collection/analysis step. A useful command is: aws ec2 describe-flow-logs",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-090",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 90, cycle 7: During a Cloud Network Security investigation, analysts need to validate VPC/VNet. Which action is the most defensible next step?",
+    "options": [
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use Azure VNet to examine VPC/VNet while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Azure VNet for VPC/VNet, preserve the original evidence, and document the collection/analysis step. A useful command is: aws ec2 describe-flow-logs",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-091",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 91, cycle 7: During a Cloud Workload, Container and Kubernetes Security investigation, analysts need to validate SBOM. Which action is the most defensible next step?",
+    "options": [
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use Falco to examine SBOM while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Falco for SBOM, preserve the original evidence, and document the collection/analysis step. A useful command is: kubectl get rolebindings -A",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-092",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 92, cycle 7: During a Cloud Network Security investigation, analysts need to validate security groups. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "use VPC Flow Logs to examine security groups while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use VPC Flow Logs for security groups, preserve the original evidence, and document the collection/analysis step. A useful command is: aws ec2 describe-security-groups",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-093",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 93, cycle 8: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate management plane. Which action is the most defensible next step?",
+    "options": [
+      "use Terraform to examine management plane while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Terraform for management plane, preserve the original evidence, and document the collection/analysis step. A useful command is: terraform plan",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-094",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 5,
+    "type": "scenario",
+    "prompt": "Scenario 94, cycle 8: During a Cloud Workload, Container and Kubernetes Security investigation, analysts need to validate image layers. Which action is the most defensible next step?",
+    "options": [
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration",
+      "use Grype to examine image layers while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Grype for image layers, preserve the original evidence, and document the collection/analysis step. A useful command is: grype IMAGE",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-095",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 95, cycle 8: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate ScoutSuite. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "use CloudSploit to examine ScoutSuite while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 2,
+    "explanation": "The defensible approach is to use CloudSploit for ScoutSuite, preserve the original evidence, and document the collection/analysis step. A useful command is: scout aws",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-096",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 3,
+    "type": "scenario",
+    "prompt": "Scenario 96, cycle 8: During a Cloud Network Security investigation, analysts need to validate Transit Gateway. Which action is the most defensible next step?",
+    "options": [
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis",
+      "use Azure Firewall to examine Transit Gateway while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use Azure Firewall for Transit Gateway, preserve the original evidence, and document the collection/analysis step. A useful command is: az network vnet list",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-097",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 97, cycle 8: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate CSPM. Which action is the most defensible next step?",
+    "options": [
+      "treat a single artifact as conclusive without corroboration",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "use AWS Security Hub to examine CSPM while preserving the original evidence and recording the result"
+    ],
+    "correctOption": 3,
+    "explanation": "The defensible approach is to use AWS Security Hub for CSPM, preserve the original evidence, and document the collection/analysis step. A useful command is: aws iam generate-service-last-accessed-details --arn ARN",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-098",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 98, cycle 8: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate Security Hub. Which action is the most defensible next step?",
+    "options": [
+      "disable logging so the investigation does not generate more artifacts",
+      "use AWS Security Hub to examine Security Hub while preserving the original evidence and recording the result",
+      "treat a single artifact as conclusive without corroboration",
+      "modify or delete the original evidence before analysis"
+    ],
+    "correctOption": 1,
+    "explanation": "The defensible approach is to use AWS Security Hub for Security Hub, preserve the original evidence, and document the collection/analysis step. A useful command is: aws iam generate-service-last-accessed-details --arn ARN",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": "cloud-099",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 1,
+    "type": "scenario",
+    "prompt": "Scenario 99, cycle 9: During a Cloud Architecture and Shared Responsibility investigation, analysts need to validate data plane. Which action is the most defensible next step?",
+    "options": [
+      "use Azure Policy to examine data plane while preserving the original evidence and recording the result",
+      "disable logging so the investigation does not generate more artifacts",
+      "modify or delete the original evidence before analysis",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use Azure Policy for data plane, preserve the original evidence, and document the collection/analysis step. A useful command is: az management-group list",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": "cloud-100",
+    "track": "Cloud Security Engineering",
+    "moduleNumber": 6,
+    "type": "scenario",
+    "prompt": "Scenario 100, cycle 9: During a Cloud Detection, Incident Response and Forensics investigation, analysts need to validate Prowler. Which action is the most defensible next step?",
+    "options": [
+      "use ScoutSuite to examine Prowler while preserving the original evidence and recording the result",
+      "modify or delete the original evidence before analysis",
+      "disable logging so the investigation does not generate more artifacts",
+      "treat a single artifact as conclusive without corroboration"
+    ],
+    "correctOption": 0,
+    "explanation": "The defensible approach is to use ScoutSuite for Prowler, preserve the original evidence, and document the collection/analysis step. A useful command is: prowler aws --compliance cis_5.0_aws",
     "difficulty": "Advanced"
   }
 ]

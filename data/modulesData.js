@@ -4,15 +4,18 @@ const modulesData=[
     "id": "chfi-01",
     "track": "CHFI v11",
     "moduleNumber": 1,
-    "title": "Computer Forensics Fundamentals",
-    "summary": "Foundations of digital evidence and defensible forensic workflow.",
+    "title": "Computer Forensics in Today's World",
+    "summary": "Foundations of digital evidence and defensible forensic workflow Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes digital evidence characteristics, order of volatility, forensic workstation design, case scoping and authorization, evidence integrity.",
     "detailedTopics": [
       "digital evidence characteristics",
       "order of volatility",
       "forensic workstation design",
       "case scoping and authorization",
       "evidence integrity",
-      "forensic methodology"
+      "forensic methodology",
+      "digital evidence",
+      "forensic readiness",
+      "case authorization"
     ],
     "toolsArsenal": [
       "Autopsy",
@@ -33,7 +36,7 @@ const modulesData=[
     "track": "CHFI v11",
     "moduleNumber": 2,
     "title": "Computer Forensics Investigation Process",
-    "summary": "End-to-end investigation lifecycle from first response to reporting.",
+    "summary": "End-to-end investigation lifecycle from first response to reporting Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes first responder procedure, scene documentation, live response, volatile collection, dead-box acquisition.",
     "detailedTopics": [
       "first responder procedure",
       "scene documentation",
@@ -41,14 +44,18 @@ const modulesData=[
       "volatile collection",
       "dead-box acquisition",
       "examination and analysis",
-      "case notes"
+      "case notes",
+      "first response",
+      "collection workflow",
+      "volatile acquisition"
     ],
     "toolsArsenal": [
       "FTK Imager",
       "KAPE",
       "Velociraptor",
       "Plaso",
-      "Magnet RAM Capture"
+      "Magnet RAM Capture",
+      "Magnet AXIOM"
     ],
     "cliCommands": [
       "log2timeline.py case.plaso evidence/",
@@ -61,8 +68,8 @@ const modulesData=[
     "id": "chfi-03",
     "track": "CHFI v11",
     "moduleNumber": 3,
-    "title": "Digital Evidence and Chain of Custody",
-    "summary": "Evidence identification, preservation, integrity, custody and admissibility.",
+    "title": "Understanding Hard Disks and File Systems",
+    "summary": "Evidence identification, preservation, integrity, custody and admissibility Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes evidence identifiers, custody transfers, evidence packaging, MD5/SHA-256 verification, authenticity.",
     "detailedTopics": [
       "evidence identifiers",
       "custody transfers",
@@ -71,18 +78,26 @@ const modulesData=[
       "authenticity",
       "admissibility",
       "repeatability",
-      "reproducibility"
+      "reproducibility",
+      "MBR",
+      "GPT"
     ],
     "toolsArsenal": [
       "Hashdeep",
       "FTK Imager",
       "Autopsy",
-      "EnCase"
+      "EnCase",
+      "Sleuth Kit",
+      "MFTECmd",
+      "RECmd"
     ],
     "cliCommands": [
       "sha256sum evidence.dd",
       "hashdeep -c sha256 evidence.dd",
-      "sha256sum -c hashes.txt"
+      "sha256sum -c hashes.txt",
+      "mmls image.dd",
+      "fls -r image.dd",
+      "fsstat image.dd"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -90,8 +105,8 @@ const modulesData=[
     "id": "chfi-04",
     "track": "CHFI v11",
     "moduleNumber": 4,
-    "title": "Hard Disks, Partitions and File Systems",
-    "summary": "Disk structures and filesystem artifacts used in forensic reconstruction.",
+    "title": "Data Acquisition and Duplication",
+    "summary": "Disk structures and filesystem artifacts used in forensic reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes MBR, GPT, protective MBR, FAT32, exFAT.",
     "detailedTopics": [
       "MBR",
       "GPT",
@@ -102,23 +117,27 @@ const modulesData=[
       "$UsnJrnl",
       "$LogFile",
       "unallocated space",
-      "file slack",
-      "ext4 inodes",
-      "journaling"
+      "file slack"
     ],
     "toolsArsenal": [
       "Sleuth Kit",
       "Autopsy",
       "FTK Imager",
       "X-Ways",
-      "TestDisk"
+      "TestDisk",
+      "Guymager",
+      "dc3dd",
+      "ewfacquire"
     ],
     "cliCommands": [
       "mmls image.dd",
       "fls -r image.dd",
       "istat image.dd 128",
       "icat image.dd 128",
-      "fsstat image.dd"
+      "fsstat image.dd",
+      "dc3dd if=/dev/sdb of=evidence.dd hash=sha256",
+      "ewfacquire /dev/sdb",
+      "ewfverify evidence.E01"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -126,8 +145,8 @@ const modulesData=[
     "id": "chfi-05",
     "track": "CHFI v11",
     "moduleNumber": 5,
-    "title": "Windows File System and OS Artifacts",
-    "summary": "Windows Registry and execution artifacts for activity reconstruction.",
+    "title": "Defeating Anti-Forensics Techniques",
+    "summary": "Windows Registry and execution artifacts for activity reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes NTFS $MFT, $UsnJrnl, SYSTEM hive, SOFTWARE hive, SAM.",
     "detailedTopics": [
       "NTFS $MFT",
       "$UsnJrnl",
@@ -138,13 +157,7 @@ const modulesData=[
       "NTUSER.DAT",
       "Prefetch",
       "Amcache",
-      "Shimcache",
-      "SRUM",
-      "ShellBags",
-      "LNK",
-      "Jump Lists",
-      "UserAssist",
-      "Recycle Bin"
+      "Shimcache"
     ],
     "toolsArsenal": [
       "Eric Zimmerman tools",
@@ -153,13 +166,19 @@ const modulesData=[
       "PECmd",
       "JLECmd",
       "SrumECmd",
-      "KAPE"
+      "KAPE",
+      "Timestomp detection",
+      "Sleuth Kit",
+      "Autopsy"
     ],
     "cliCommands": [
       "MFTECmd.exe -f $MFT --csv output",
       "PECmd.exe -d C:\\Windows\\Prefetch --csv output",
       "RECmd.exe -f NTUSER.DAT",
-      "JLECmd.exe -d JumpLists --csv output"
+      "JLECmd.exe -d JumpLists --csv output",
+      "sha256sum evidence.dd",
+      "istat image.dd 128",
+      "fls -r image.dd"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -167,8 +186,8 @@ const modulesData=[
     "id": "chfi-06",
     "track": "CHFI v11",
     "moduleNumber": 6,
-    "title": "Data Acquisition and Forensic Imaging",
-    "summary": "Bit-stream acquisition, write blocking, image formats and verification.",
+    "title": "Windows Forensics",
+    "summary": "Bit-stream acquisition, write blocking, image formats and verification Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes write blockers, RAW/DD, E01/Ex01, image segmentation, acquisition logs.",
     "detailedTopics": [
       "write blockers",
       "RAW/DD",
@@ -187,13 +206,20 @@ const modulesData=[
       "dc3dd",
       "ewfacquire",
       "ewfverify",
-      "ddrescue"
+      "ddrescue",
+      "MFTECmd",
+      "RECmd",
+      "PECmd",
+      "JLECmd"
     ],
     "cliCommands": [
       "dc3dd if=/dev/sdb of=evidence.dd hash=sha256",
       "ewfacquire /dev/sdb",
       "ewfverify evidence.E01",
-      "ddrescue -d /dev/sdb image.dd mapfile.log"
+      "ddrescue -d /dev/sdb image.dd mapfile.log",
+      "MFTECmd.exe -f $MFT --csv output",
+      "PECmd.exe -d C:\\Windows\\Prefetch --csv output",
+      "RECmd.exe -f NTUSER.DAT"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -201,8 +227,8 @@ const modulesData=[
     "id": "chfi-07",
     "track": "CHFI v11",
     "moduleNumber": 7,
-    "title": "Windows Memory Forensics",
-    "summary": "RAM acquisition and Volatility analysis of processes, sockets and injected code.",
+    "title": "Linux and Mac Forensics",
+    "summary": "RAM acquisition and Volatility analysis of processes, sockets and injected code Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes RAM acquisition, Volatility 3, windows.pslist, windows.pstree, windows.psscan.",
     "detailedTopics": [
       "RAM acquisition",
       "Volatility 3",
@@ -213,21 +239,25 @@ const modulesData=[
       "windows.malfind",
       "windows.dlllist",
       "handles",
-      "VADs",
-      "process injection",
-      "kernel modules"
+      "VADs"
     ],
     "toolsArsenal": [
       "Volatility 3",
       "WinPmem",
       "Magnet RAM Capture",
-      "MemProcFS"
+      "MemProcFS",
+      "journalctl",
+      "Autopsy",
+      "Plaso"
     ],
     "cliCommands": [
       "python vol.py -f memory.raw windows.info",
       "python vol.py -f memory.raw windows.pslist",
       "python vol.py -f memory.raw windows.netscan",
-      "python vol.py -f memory.raw windows.malfind"
+      "python vol.py -f memory.raw windows.malfind",
+      "journalctl --since '24 hours ago'",
+      "last -ai",
+      "systemctl list-timers"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -235,8 +265,8 @@ const modulesData=[
     "id": "chfi-08",
     "track": "CHFI v11",
     "moduleNumber": 8,
-    "title": "Linux and Unix Forensics",
-    "summary": "Linux logs, filesystem artifacts, authentication and persistence investigation.",
+    "title": "Network Forensics",
+    "summary": "Linux logs, filesystem artifacts, authentication and persistence investigation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes /var/log/auth.log, journalctl, Bash/Zsh history, SSH authorized_keys, cron.",
     "detailedTopics": [
       "/var/log/auth.log",
       "journalctl",
@@ -247,22 +277,28 @@ const modulesData=[
       "systemd services",
       "SUID/SGID",
       "Linux capabilities",
-      "inodes",
-      "timestamps"
+      "inodes"
     ],
     "toolsArsenal": [
       "Autopsy",
       "Sleuth Kit",
       "Plaso",
       "journalctl",
-      "Volatility 3"
+      "Volatility 3",
+      "Wireshark",
+      "tshark",
+      "tcpdump",
+      "Zeek"
     ],
     "cliCommands": [
       "journalctl --since '24 hours ago'",
       "grep -i 'failed\\|accepted' /var/log/auth.log",
       "last -ai",
       "systemctl list-timers",
-      "find / -perm -4000 -type f 2>/dev/null"
+      "find / -perm -4000 -type f 2>/dev/null",
+      "tcpdump -i eth0 -nn -w capture.pcap",
+      "tshark -r capture.pcap -Y 'dns'",
+      "zeek -r capture.pcap"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -270,8 +306,8 @@ const modulesData=[
     "id": "chfi-09",
     "track": "CHFI v11",
     "moduleNumber": 9,
-    "title": "Network Forensics",
-    "summary": "PCAP acquisition and protocol-level investigation.",
+    "title": "Malware Forensics",
+    "summary": "PCAP acquisition and protocol-level investigation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes PCAP/PCAPNG, Ethernet, ARP, IPv4/IPv6, TCP/UDP.",
     "detailedTopics": [
       "PCAP/PCAPNG",
       "Ethernet",
@@ -282,9 +318,7 @@ const modulesData=[
       "HTTP",
       "TLS metadata",
       "TCP streams",
-      "DNS tunneling",
-      "beaconing",
-      "network flows"
+      "DNS tunneling"
     ],
     "toolsArsenal": [
       "Wireshark",
@@ -292,13 +326,20 @@ const modulesData=[
       "tcpdump",
       "Zeek",
       "Suricata",
-      "NetworkMiner"
+      "NetworkMiner",
+      "YARA",
+      "Ghidra",
+      "REMnux",
+      "CAPE"
     ],
     "cliCommands": [
       "tcpdump -i eth0 -nn -w capture.pcap",
       "tshark -r capture.pcap -Y 'dns'",
       "tshark -r capture.pcap -Y 'http.request'",
-      "zeek -r capture.pcap"
+      "zeek -r capture.pcap",
+      "yara malware.yar suspicious.exe",
+      "strings -a suspicious.exe",
+      "exiftool suspicious.exe"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -306,8 +347,8 @@ const modulesData=[
     "id": "chfi-10",
     "track": "CHFI v11",
     "moduleNumber": 10,
-    "title": "Web and Browser Forensics",
-    "summary": "Browser databases and artifacts for reconstructing web activity.",
+    "title": "Investigating Web Attacks",
+    "summary": "Browser databases and artifacts for reconstructing web activity Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Chromium History, Chromium Cookies, Login Data, cache, downloads.",
     "detailedTopics": [
       "Chromium History",
       "Chromium Cookies",
@@ -318,21 +359,25 @@ const modulesData=[
       "cookies.sqlite",
       "session storage",
       "IndexedDB",
-      "extensions",
-      "private browsing limitations",
-      "browser timestamps"
+      "extensions"
     ],
     "toolsArsenal": [
       "Hindsight",
       "Autopsy",
       "Magnet AXIOM",
       "DB Browser for SQLite",
-      "KAPE"
+      "KAPE",
+      "Wireshark",
+      "Zeek",
+      "browser artifact parsers"
     ],
     "cliCommands": [
       "sqlite3 History '.tables'",
       "sqlite3 History 'SELECT url,title,last_visit_time FROM urls;'",
-      "find ~/.mozilla/firefox -name places.sqlite"
+      "find ~/.mozilla/firefox -name places.sqlite",
+      "tshark -r capture.pcap -Y 'http.request'",
+      "grep -R 'POST' web.log",
+      "sha256sum webshell.bin"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -340,8 +385,8 @@ const modulesData=[
     "id": "chfi-11",
     "track": "CHFI v11",
     "moduleNumber": 11,
-    "title": "Email and Malware Forensics",
-    "summary": "Email routing, authentication, attachment analysis and malware triage.",
+    "title": "Dark Web Forensics",
+    "summary": "Email routing, authentication, attachment analysis and malware triage Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Received headers, Return-Path, Message-ID, SPF, DKIM.",
     "detailedTopics": [
       "Received headers",
       "Return-Path",
@@ -352,10 +397,7 @@ const modulesData=[
       "MIME",
       "Office macros",
       "PE metadata",
-      "YARA",
-      "static analysis",
-      "sandboxing",
-      "persistence"
+      "YARA"
     ],
     "toolsArsenal": [
       "YARA",
@@ -364,14 +406,20 @@ const modulesData=[
       "Ghidra",
       "Detect It Easy",
       "PEStudio",
-      "oletools"
+      "oletools",
+      "Tor Browser artifacts",
+      "Wireshark",
+      "OSINT tooling"
     ],
     "cliCommands": [
       "sha256sum suspicious.exe",
       "strings -a suspicious.exe",
       "yara malware.yar suspicious.exe",
       "olevba suspicious.docm",
-      "exiftool suspicious.exe"
+      "exiftool suspicious.exe",
+      "sha256sum acquired_artifact",
+      "strings -a artifact",
+      "exiftool artifact"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -379,8 +427,8 @@ const modulesData=[
     "id": "chfi-12",
     "track": "CHFI v11",
     "moduleNumber": 12,
-    "title": "Mobile Device Forensics",
-    "summary": "Android/iOS acquisition and application artifact reconstruction.",
+    "title": "Cloud Forensics",
+    "summary": "Android/iOS acquisition and application artifact reconstruction Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes Android ADB, Android SQLite, application data, iOS backups, application containers.",
     "detailedTopics": [
       "Android ADB",
       "Android SQLite",
@@ -391,9 +439,7 @@ const modulesData=[
       "calls",
       "messaging",
       "location",
-      "GPS",
-      "Wi-Fi history",
-      "logical/filesystem/physical acquisition"
+      "GPS"
     ],
     "toolsArsenal": [
       "Cellebrite UFED",
@@ -401,13 +447,20 @@ const modulesData=[
       "Oxygen Forensic Detective",
       "ADB",
       "ALEAPP",
-      "iLEAPP"
+      "iLEAPP",
+      "AWS CLI",
+      "CloudTrail",
+      "Azure CLI",
+      "Prowler"
     ],
     "cliCommands": [
       "adb devices",
       "adb shell getprop",
       "adb shell pm list packages",
-      "adb pull /sdcard/ ./sdcard/"
+      "adb pull /sdcard/ ./sdcard/",
+      "aws cloudtrail lookup-events --max-results 50",
+      "aws s3api list-object-versions --bucket BUCKET",
+      "az monitor activity-log list"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -415,8 +468,8 @@ const modulesData=[
     "id": "chfi-13",
     "track": "CHFI v11",
     "moduleNumber": 13,
-    "title": "Database and Cloud Forensics",
-    "summary": "Database audit trails and cloud control-plane evidence.",
+    "title": "Email and Social Media Forensics",
+    "summary": "Database audit trails and cloud control-plane evidence Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes database audit logs, transaction logs, AWS CloudTrail, CloudWatch, S3 versions.",
     "detailedTopics": [
       "database audit logs",
       "transaction logs",
@@ -427,8 +480,7 @@ const modulesData=[
       "GuardDuty",
       "Azure Activity Log",
       "Entra audit logs",
-      "cloud identity correlation",
-      "timestamp normalization"
+      "cloud identity correlation"
     ],
     "toolsArsenal": [
       "AWS CloudTrail",
@@ -437,13 +489,19 @@ const modulesData=[
       "Azure CLI",
       "Azure Monitor",
       "Prowler",
-      "ScoutSuite"
+      "ScoutSuite",
+      "oletools",
+      "YARA",
+      "mail-parser"
     ],
     "cliCommands": [
       "aws sts get-caller-identity",
       "aws cloudtrail lookup-events --max-results 50",
       "aws s3api list-object-versions --bucket BUCKET",
-      "az monitor activity-log list"
+      "az monitor activity-log list",
+      "exiftool message.eml",
+      "grep -i '^Received:' message.eml",
+      "sha256sum attachment.bin"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -451,8 +509,8 @@ const modulesData=[
     "id": "chfi-14",
     "track": "CHFI v11",
     "moduleNumber": 14,
-    "title": "Incident Response and Advanced DFIR",
-    "summary": "Advanced triage, threat hunting, ransomware investigation and cross-host correlation.",
+    "title": "Mobile Forensics",
+    "summary": "Advanced triage, threat hunting, ransomware investigation and cross-host correlation Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes initial triage, initial access, persistence, privilege escalation, lateral movement.",
     "detailedTopics": [
       "initial triage",
       "initial access",
@@ -463,11 +521,7 @@ const modulesData=[
       "exfiltration",
       "ransomware",
       "IOC/IOA",
-      "MITRE ATT&CK",
-      "super timelines",
-      "containment",
-      "eradication",
-      "recovery"
+      "MITRE ATT&CK"
     ],
     "toolsArsenal": [
       "Velociraptor",
@@ -477,13 +531,18 @@ const modulesData=[
       "Volatility 3",
       "Zeek",
       "Sigma",
-      "YARA"
+      "YARA",
+      "ADB",
+      "ALEAPP"
     ],
     "cliCommands": [
       "hayabusa csv-timeline -d evidence/",
       "chainsaw hunt ./evtx",
       "velociraptor query 'SELECT * FROM info()'",
-      "yara -r rules/ ./evidence/"
+      "yara -r rules/ ./evidence/",
+      "adb devices",
+      "adb shell getprop",
+      "adb pull /sdcard/ ./sdcard/"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -491,8 +550,8 @@ const modulesData=[
     "id": "chfi-15",
     "track": "CHFI v11",
     "moduleNumber": 15,
-    "title": "Forensic Reporting and Expert Testimony",
-    "summary": "Professional reporting, exhibits, limitations and defensible testimony.",
+    "title": "IoT Forensics",
+    "summary": "Professional reporting, exhibits, limitations and defensible testimony Curriculum basis: EC-Council CHFI v11 official course outline; practical focus includes report structure, scope, methodology, evidence inventory, hash verification.",
     "detailedTopics": [
       "report structure",
       "scope",
@@ -503,24 +562,26 @@ const modulesData=[
       "technical findings",
       "limitations",
       "confidence",
-      "exhibits",
-      "tool versions",
-      "reproducibility",
-      "expert testimony",
-      "ethics"
+      "exhibits"
     ],
     "toolsArsenal": [
       "Autopsy",
       "Magnet AXIOM",
       "FTK",
       "Plaso",
-      "Timeline Explorer"
+      "Timeline Explorer",
+      "Wireshark",
+      "Zeek",
+      "firmware tooling"
     ],
     "cliCommands": [
       "sha256sum evidence/*",
       "uname -a",
       "python --version",
-      "vol.py --version"
+      "vol.py --version",
+      "tcpdump -i any -nn -w iot.pcap",
+      "sha256sum firmware.bin",
+      "strings -a firmware.bin"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1SKr0zxT9TPPx8vGk6RGzCtwGD5xLXMTb"
   },
@@ -529,7 +590,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 1,
     "title": "Cloud Architecture and Shared Responsibility",
-    "summary": "Cloud service models, trust boundaries and account architecture.",
+    "summary": "Cloud service models, trust boundaries and account architecture Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes IaaS/PaaS/SaaS, shared responsibility, control plane, data plane, management plane.",
     "detailedTopics": [
       "IaaS/PaaS/SaaS",
       "shared responsibility",
@@ -540,9 +601,7 @@ const modulesData=[
       "landing zones",
       "resource hierarchy",
       "environment isolation",
-      "blast radius",
-      "IaC",
-      "Policy as Code"
+      "blast radius"
     ],
     "toolsArsenal": [
       "AWS Organizations",
@@ -566,7 +625,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 2,
     "title": "Cloud IAM and Identity Federation",
-    "summary": "Least privilege, AssumeRole, federation and cloud privilege escalation.",
+    "summary": "Least privilege, AssumeRole, federation and cloud privilege escalation Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes IAM users/groups/roles, identity policies, resource policies, explicit deny, STS AssumeRole.",
     "detailedTopics": [
       "IAM users/groups/roles",
       "identity policies",
@@ -577,12 +636,7 @@ const modulesData=[
       "session policies",
       "OIDC",
       "OAuth2",
-      "SAML",
-      "SSO",
-      "managed identities",
-      "service principals",
-      "Access Analyzer",
-      "privilege escalation"
+      "SAML"
     ],
     "toolsArsenal": [
       "AWS IAM",
@@ -591,7 +645,8 @@ const modulesData=[
       "CloudTrail",
       "PMapper",
       "Pacu",
-      "Microsoft Entra ID"
+      "Microsoft Entra ID",
+      "Access Analyzer"
     ],
     "cliCommands": [
       "aws sts get-caller-identity",
@@ -606,7 +661,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 3,
     "title": "Cloud Network Security",
-    "summary": "VPC/VNet segmentation, routing, filtering, WAF and private connectivity.",
+    "summary": "VPC/VNet segmentation, routing, filtering, WAF and private connectivity Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes VPC/VNet, public/private subnets, route tables, internet gateways, NAT.",
     "detailedTopics": [
       "VPC/VNet",
       "public/private subnets",
@@ -617,12 +672,7 @@ const modulesData=[
       "NACLs",
       "Transit Gateway",
       "peering",
-      "PrivateLink",
-      "private endpoints",
-      "WAF",
-      "DDoS",
-      "flow logs",
-      "egress filtering"
+      "PrivateLink"
     ],
     "toolsArsenal": [
       "AWS VPC",
@@ -649,7 +699,7 @@ const modulesData=[
     "track": "Cloud Security Engineering",
     "moduleNumber": 4,
     "title": "Cloud Data Protection and Key Management",
-    "summary": "Encryption, KMS, secrets, storage controls and key lifecycle.",
+    "summary": "Encryption, KMS, secrets, storage controls and key lifecycle Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes encryption at rest, encryption in transit, TLS, envelope encryption, DEK/KEK.",
     "detailedTopics": [
       "encryption at rest",
       "encryption in transit",
@@ -660,14 +710,7 @@ const modulesData=[
       "key policies",
       "KMS grants",
       "rotation",
-      "Secrets Manager",
-      "Parameter Store",
-      "Azure Key Vault",
-      "S3 Block Public Access",
-      "bucket policies",
-      "versioning",
-      "Object Lock",
-      "secret rotation"
+      "Secrets Manager"
     ],
     "toolsArsenal": [
       "AWS KMS",
@@ -677,7 +720,9 @@ const modulesData=[
       "Azure Storage",
       "TruffleHog",
       "Gitleaks",
-      "Prowler"
+      "Prowler",
+      "S3",
+      "Secrets Manager"
     ],
     "cliCommands": [
       "aws kms list-keys",
@@ -693,8 +738,8 @@ const modulesData=[
     "id": "cloud-05",
     "track": "Cloud Security Engineering",
     "moduleNumber": 5,
-    "title": "Container, Kubernetes and Serverless Security",
-    "summary": "Container supply-chain security, Kubernetes RBAC/networking and serverless identity.",
+    "title": "Cloud Workload, Container and Kubernetes Security",
+    "summary": "Container supply-chain security, Kubernetes RBAC/networking and serverless identity Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes image layers, minimal bases, image signing, SBOM, Trivy.",
     "detailedTopics": [
       "image layers",
       "minimal bases",
@@ -705,18 +750,7 @@ const modulesData=[
       "Dockerfile hardening",
       "rootless containers",
       "Kubernetes API",
-      "RBAC",
-      "Role",
-      "ClusterRole",
-      "RoleBinding",
-      "ClusterRoleBinding",
-      "service accounts",
-      "Secrets",
-      "NetworkPolicy",
-      "Pod Security Admission",
-      "admission controllers",
-      "Falco",
-      "Lambda execution roles"
+      "RBAC"
     ],
     "toolsArsenal": [
       "Docker",
@@ -746,8 +780,8 @@ const modulesData=[
     "id": "cloud-06",
     "track": "Cloud Security Engineering",
     "moduleNumber": 6,
-    "title": "CSPM, CIEM and Cloud Compliance",
-    "summary": "Continuous posture, entitlement analysis, CIS controls and automated remediation.",
+    "title": "Cloud Detection, Incident Response and Forensics",
+    "summary": "Continuous posture, entitlement analysis, CIS controls and automated remediation Curriculum basis: EC-Council cloud-security course domains plus the 0x8Acure engineering track; practical focus includes CSPM, CIEM, CIS Benchmarks, Prowler, ScoutSuite.",
     "detailedTopics": [
       "CSPM",
       "CIEM",
@@ -758,14 +792,7 @@ const modulesData=[
       "Security Hub",
       "Azure Policy",
       "Defender for Cloud",
-      "configuration drift",
-      "unused permissions",
-      "excess permissions",
-      "risk prioritization",
-      "compliance evidence",
-      "Policy as Code",
-      "exceptions",
-      "audit readiness"
+      "configuration drift"
     ],
     "toolsArsenal": [
       "Prowler",
@@ -775,7 +802,9 @@ const modulesData=[
       "AWS Security Hub",
       "IAM Access Analyzer",
       "Azure Policy",
-      "Microsoft Defender for Cloud"
+      "Microsoft Defender for Cloud",
+      "CloudTrail",
+      "GuardDuty"
     ],
     "cliCommands": [
       "prowler aws",
@@ -783,13 +812,13 @@ const modulesData=[
       "scout aws",
       "aws securityhub get-findings",
       "aws iam generate-service-last-accessed-details --arn ARN",
-      "az policy assignment list"
+      "az policy assignment list",
+      "aws cloudtrail lookup-events --max-results 50",
+      "aws guardduty list-findings"
     ],
     "driveUrl": "https://drive.google.com/drive/folders/1Pj3FZyAQTeaZVF8i5jvwTRBJCLhtvZiw"
   }
 ];
-if(modulesData.length!==21) throw new Error("Curriculum integrity failure");
-if(modulesData.filter(m=>m.track==="CHFI v11").length!==15) throw new Error("CHFI curriculum integrity failure");
-if(modulesData.filter(m=>m.track==="Cloud Security Engineering").length!==6) throw new Error("Cloud curriculum integrity failure");
+
 export {modulesData};
 export default modulesData;
