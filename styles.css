@@ -541,3 +541,99 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
 @media(prefers-reduced-motion:reduce){.skip-link{transition:none}}
 
 .cyber-link{font-size:12px;color:var(--accent);white-space:nowrap}.cyber-link:hover{color:var(--cyan)}
+
+/* Refined interface icons */
+.icon-button,
+.palette-trigger,
+.cyber-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.icon-button{
+  width:40px;
+  height:40px;
+  padding:0;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--surface);
+  color:var(--muted);
+  transition:transform .18s ease,border-color .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease;
+}
+.icon-button:hover{
+  color:var(--text);
+  border-color:color-mix(in srgb,var(--cyan) 42%,var(--line));
+  background:var(--surface-2);
+  transform:translateY(-1px);
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+.icon-button:active{transform:translateY(0) scale(.97)}
+.icon-button:focus-visible,
+.palette-trigger:focus-visible,
+.cyber-link:focus-visible{
+  outline:2px solid var(--cyan);
+  outline-offset:3px;
+}
+.theme-icon{
+  width:18px;
+  height:18px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.sun-icon{display:none}
+[data-theme="light"] .moon-icon{display:none}
+[data-theme="light"] .sun-icon{display:block}
+.cyber-link{
+  min-height:40px;
+  padding:0 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  color:var(--muted);
+  text-decoration:none;
+  background:var(--surface);
+  transition:all .18s ease;
+}
+.cyber-link svg{
+  width:15px;
+  height:15px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.cyber-link:hover{
+  color:var(--text);
+  border-color:color-mix(in srgb,var(--cyan) 42%,var(--line));
+  background:var(--surface-2);
+  transform:translateY(-1px);
+}
+.palette-trigger{
+  min-height:40px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--surface);
+  color:var(--muted);
+  padding:0 10px 0 11px;
+  transition:all .18s ease;
+}
+.palette-trigger:hover{
+  color:var(--text);
+  border-color:color-mix(in srgb,var(--cyan) 42%,var(--line));
+  background:var(--surface-2);
+}
+.palette-trigger svg{
+  width:17px;
+  height:17px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+}
+.palette-trigger kbd{
+  margin-left:2px;
+}
