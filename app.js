@@ -276,6 +276,10 @@
             difficulty:room.difficulty||"beginner",
             estimated_minutes:room.estimated_minutes||10,
             sections_covered:room.sections_covered||[room.sections||""],
+            learning_objectives:room.learning_objectives||room.objectives||[],
+            summary:Array.isArray(room.body)?room.body.join("\n\n"):(room.summary||""),
+            cheat_sheet:room.cheat_sheet||[],
+            source_pages:room.source_pages||[],
             official_text_status:"UNVERIFIED",
             tasks:[{
               id:room.id+"-quiz",
