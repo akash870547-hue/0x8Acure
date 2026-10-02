@@ -582,10 +582,10 @@
         const issues=(c.legal_issues||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
         const penalties=(c.penalty_analysis||[]).map(p=>"<tr><td>"+esc(p[0])+"</td><td>"+esc(p[1])+"</td><td>"+esc(p[2])+"</td><td>"+esc(p[3])+"</td></tr>").join("");
         const rem=(c.remediation||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
-        const controls=(c.technical_controls||[]).map(x=>"<span class=\\"badge\\">"+esc(x)+"</span>").join(" ");
-        return "<article class=\\"panel case-study-card\\"><div class=\\"card-top\\"><span class=\\"badge cyan\\">"+esc(c.sector)+"</span><span class=\\"badge\\">Synthetic</span></div><h2>"+esc(c.title)+"</h2><h3>Scenario Background & Facts</h3><p>"+esc(c.scenario_background)+"</p><ul>"+facts+"</ul><h3>Violations / Legal Issues</h3><ul>"+issues+"</ul><h3>Regulatory Penalty Analysis</h3><div class=\\"table-wrap\\"><table class=\\"score-table\\"><thead><tr><th>Schedule</th><th>Trigger</th><th>Ceiling</th><th>Analysis</th></tr></thead><tbody>"+penalties+"</tbody></table></div><h3>Remediation Plan</h3><ul>"+rem+"</ul><h3>Security Safeguards</h3><div class=\\"term-list\\">"+controls+"</div></article>";
+        const controls=(c.technical_controls||[]).map(x=>"<span class=\"badge\">"+esc(x)+"</span>").join(" ");
+        return "<article class=\"panel case-study-card\"><div class=\"card-top\"><span class=\"badge cyan\">"+esc(c.sector)+"</span><span class=\"badge\">Synthetic</span></div><h2>"+esc(c.title)+"</h2><h3>Scenario Background & Facts</h3><p>"+esc(c.scenario_background)+"</p><ul>"+facts+"</ul><h3>Violations / Legal Issues</h3><ul>"+issues+"</ul><h3>Regulatory Penalty Analysis</h3><div class=\"table-wrap\"><table class=\"score-table\"><thead><tr><th>Schedule</th><th>Trigger</th><th>Ceiling</th><th>Analysis</th></tr></thead><tbody>"+penalties+"</tbody></table></div><h3>Remediation Plan</h3><ul>"+rem+"</ul><h3>Security Safeguards</h3><div class=\"term-list\">"+controls+"</div></article>";
       }).join("");
-    }catch(error){document.getElementById("case-study-list").innerHTML="<div class=\\"notice\\">Case studies could not be loaded: "+esc(error.message)+"</div>";}
+    }catch(error){document.getElementById("case-study-list").innerHTML="<div class=\"notice\">Case studies could not be loaded: "+esc(error.message)+"</div>";}
   }
 
   function profile() {
