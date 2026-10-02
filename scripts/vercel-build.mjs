@@ -19,6 +19,7 @@ const staticFiles = [
   "act-reference.js",
   "rules-reference.js",
   "api-client.js",
+  "public-config.js",
   "supabase-config.js",
   "supabase-auth-v2.js",
   "supabase-sync.js",
