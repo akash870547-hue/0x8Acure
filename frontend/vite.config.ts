@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   root: "frontend",
   plugins: [react(), tailwindcss()],
-  base: process.env.GITHUB_ACTIONS === "true" ? "/0x8Acure/app/" : "/app/",
+  base: process.env.GITHUB_ACTIONS === "true" ? "/0x8Acure/app/" : process.env.NODE_ENV === "production" ? "/app/" : "/",
   build: { outDir: "../public/app", emptyOutDir: true },
   server: {
     port: 5173,
