@@ -1,9 +1,13 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "public/app",
+  "buildCommand": "npm run build:vercel",
+  "outputDirectory": "public",
   "installCommand": "npm ci",
   "framework": null,
   "rewrites": [
+    {
+      "source": "/app/:path*",
+      "destination": "/app/index.html"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
