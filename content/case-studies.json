@@ -1,0 +1,181 @@
+{
+  "version": "2026.10",
+  "last_verified": "2026-10-02",
+  "legal_status_note": "Synthetic training cases. Penalty figures are statutory ceilings, not predictions or automatic penalties. Confirm commencement and current Gazette text before legal use.",
+  "cases": [
+    {
+      "id": "healthcare-breach",
+      "title": "Healthcare Patient Data Breach",
+      "sector": "Healthcare",
+      "scenario_background": "A digital clinic stores patient profiles, prescriptions and appointment records in cloud infrastructure. A compromised privileged credential exports a large dataset. MFA is absent for the affected account and central access logs are incomplete.",
+      "facts": [
+        "Patient records were accessible through a privileged account.",
+        "MFA was absent for the affected account.",
+        "Central monitoring did not capture all database access.",
+        "A processor supported the cloud environment under contract.",
+        "The organisation must establish the incident timeline before deciding statutory notifications."
+      ],
+      "legal_issues": [
+        "Section 8(1): Data Fiduciary responsibility for processing undertaken by it or on its behalf.",
+        "Section 8(5): reasonable security safeguards.",
+        "Section 8(6): breach intimation.",
+        "Rule 6: notified security safeguard categories, subject to commencement."
+      ],
+      "penalty_analysis": [
+        [
+          "1",
+          "Section 8(5) security safeguards",
+          "Up to ₹250 crore",
+          "Potentially relevant only if the statutory contravention is established and the provision is operative; not an automatic fine."
+        ],
+        [
+          "2",
+          "Section 8(6) breach intimation",
+          "Up to ₹200 crore",
+          "Separate analysis if required intimation is not made in the prescribed manner/timing once applicable."
+        ]
+      ],
+      "remediation": [
+        "Contain the compromised credential and preserve forensic evidence.",
+        "Enable strong authentication and privileged-access controls.",
+        "Centralise access logging and monitor anomalous exports.",
+        "Review processor security obligations and assurance.",
+        "Run a documented breach assessment and notification workflow.",
+        "Test restoration and incident-response playbooks."
+      ],
+      "technical_controls": [
+        "MFA/strong authentication",
+        "RBAC/PAM",
+        "Database audit logging",
+        "Encryption/tokenisation as appropriate",
+        "SIEM bulk-export alerts",
+        "Immutable incident evidence",
+        "Backup/recovery testing"
+      ]
+    },
+    {
+      "id": "ecommerce-withdrawal",
+      "title": "E-commerce Consent Withdrawal",
+      "sector": "E-commerce",
+      "scenario_background": "An online marketplace collects an email address and phone number for account creation and separately asks for marketing consent. A customer withdraws marketing consent, but a CRM integration continues promotional messages for several weeks.",
+      "facts": [
+        "Account and marketing purposes were separated.",
+        "Withdrawal was available in account settings.",
+        "The CRM retained a stale marketing-consent state.",
+        "The organisation did not test withdrawal propagation end to end."
+      ],
+      "legal_issues": [
+        "Sections 5-6: notice and consent lifecycle.",
+        "Section 8: Data Fiduciary accountability and processor governance.",
+        "Rule 3: detailed notice requirements, subject to commencement.",
+        "Rule 14: operational rights mechanisms, subject to commencement."
+      ],
+      "penalty_analysis": [
+        [
+          "7",
+          "Potential other applicable Act/Rules breach",
+          "Up to ₹50 crore",
+          "Requires identification of the exact contravention and commencement status; not a penalty prediction."
+        ]
+      ],
+      "remediation": [
+        "Create purpose-specific consent identifiers.",
+        "Propagate withdrawal events to CRM and marketing processors.",
+        "Add suppression checks before every campaign send.",
+        "Retain versioned consent and withdrawal evidence.",
+        "Test withdrawal across every downstream system."
+      ],
+      "technical_controls": [
+        "Consent ledger",
+        "Event-driven withdrawal propagation",
+        "Marketing suppression list",
+        "Purpose-based access controls",
+        "Automated integration tests",
+        "Audit trail"
+      ]
+    },
+    {
+      "id": "fintech-cross-border",
+      "title": "Fintech Cross-border Processing Review",
+      "sector": "Fintech",
+      "scenario_background": "A fintech uses an Indian production database but permits an overseas support team to access customer profiles. Backups also replicate to a foreign region. Procurement recorded the vendor but not remote-access or backup destinations.",
+      "facts": [
+        "Primary production storage is in India.",
+        "Overseas support personnel can access customer records.",
+        "Backups replicate to a foreign region.",
+        "The transfer register omits subprocessors.",
+        "Sector-specific regulatory obligations may also apply."
+      ],
+      "legal_issues": [
+        "Section 16: transfers outside India and Central Government restrictions.",
+        "Rule 15: transfer framework, subject to commencement.",
+        "Section 8: Data Fiduciary responsibility and security safeguards."
+      ],
+      "penalty_analysis": [
+        [
+          "7",
+          "Potential other applicable Act/Rules breach",
+          "Up to ₹50 crore",
+          "Do not infer a penalty merely from an overseas destination; establish the operative restriction and facts first."
+        ]
+      ],
+      "remediation": [
+        "Inventory remote access and backup destinations.",
+        "Map processors and subprocessors.",
+        "Apply least privilege and just-in-time support access.",
+        "Review applicable transfer restrictions and sector rules.",
+        "Update contracts and the transfer register.",
+        "Reassess architecture after vendor changes."
+      ],
+      "technical_controls": [
+        "Privileged remote access gateway",
+        "JIT access",
+        "Region-restricted backups",
+        "DLP monitoring",
+        "Vendor inventory",
+        "Transfer register"
+      ]
+    },
+    {
+      "id": "edtech-children",
+      "title": "EdTech Children's Data Profiling",
+      "sector": "EdTech",
+      "scenario_background": "An education platform identifies users under 18 and stores learning behaviour. A marketing SDK profiles activity for targeted advertising, while the product team has not implemented the applicable verifiable-consent workflow or documented an exemption analysis.",
+      "facts": [
+        "The service is directed at students and collects learning activity.",
+        "The platform can identify users below 18.",
+        "A marketing SDK receives behavioural events.",
+        "Guardian verification design is incomplete.",
+        "No documented exemption decision exists."
+      ],
+      "legal_issues": [
+        "Section 9: additional obligations relating to children's personal data.",
+        "Rules 10-12: verifiable consent and specified exemptions, subject to commencement.",
+        "Section 8: security and processor accountability."
+      ],
+      "penalty_analysis": [
+        [
+          "3",
+          "Section 9 children's-data obligations",
+          "Up to ₹200 crore",
+          "A ceiling only. Establish the precise contravention, applicability, commencement and evidence before any enforcement conclusion."
+        ]
+      ],
+      "remediation": [
+        "Disable inappropriate child profiling/advertising paths pending legal review.",
+        "Implement the applicable verifiable-consent workflow.",
+        "Review marketing SDK data flows and processor terms.",
+        "Document any qualifying exemption and its conditions.",
+        "Restrict access and retain verification evidence."
+      ],
+      "technical_controls": [
+        "Age/eligibility signal",
+        "Guardian verification workflow",
+        "SDK allowlist",
+        "Event-level purpose tags",
+        "Child-data access controls",
+        "Consent evidence store"
+      ]
+    }
+  ]
+}
