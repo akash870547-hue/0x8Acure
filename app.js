@@ -348,44 +348,58 @@
     return roomRegistryRequest;
   }
 
+  function roomQuizMeta(legal){
+    state.roomQuiz||(state.roomQuiz={});
+    state.roomQuiz[legal.id]||(state.roomQuiz[legal.id]={answers:{},results:{},feedback:{},bestScore:0});
+    return {rs:state.roomQuiz[legal.id],questions:(legal.tasks||[]).flatMap(t=>t.questions||[])};
+  }
+
+  function roomInlineTaskHtml(q,index,rs){
+    const selected=rs.answers?.[String(index)];
+    const result=rs.results?.[String(index)];
+    const feedback=rs.feedback?.[String(index)];
+    const options=(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-room-option="'+index+'" data-room-value="'+i+'">'+esc(o)+'</button>').join("");
+    const hint=(q.hints||[]).map((h,i)=>'<li><b>Hint '+(i+1)+':</b> '+esc(h.text||h)+'</li>').join("");
+    const resultHtml=feedback?'<div class="explain '+(result?"":"wrong")+'"><b>'+(result?"Correct":"Review")+'</b><br>'+esc(feedback.explanation||"Review the cited provision.")+(feedback.wrongReasons?'<br>'+esc(feedback.wrongReasons):"")+'</div>':"";
+    return '<article class="panel room-task-card">'+
+      '<div class="card-top"><span class="badge">'+String(index+1).padStart(2,"0")+'</span><span class="badge">'+esc(q.type||"task")+'</span></div>'+
+      '<h3>'+esc(q.prompt)+'</h3>'+
+      '<div class="challenge-options">'+options+'</div>'+
+      (hint?'<details class="task-details"><summary>Need a hint?</summary><ul class="task-copy">'+hint+'</ul></details>':"")+
+      '<div class="hero-actions"><button type="button" class="btn primary" data-room-submit="'+index+'">Submit answer</button></div>'+
+      resultHtml+
+      '<p class="muted">Source: '+esc(q.citation?.reference||"See cited room provision")+'</p>'+
+      '</article>';
+  }
+
   function roomContentHtml(legal){
     const status=legal.official_text_status==="VERIFIED_WORD_FOR_WORD"?"VERIFIED":"Draft, under verification";
+    const {rs}=roomQuizMeta(legal);
+    const questions=(legal.tasks||[]).flatMap(t=>t.questions||[]);
     const tasks=(legal.tasks||[]).map((t,i)=>{
-      const official=(t.official_text||[]).map(x=>'<div class="official-text"><pre>'+esc(x)+'</pre></div>').join("");
-      const terms=(t.key_terms||[]).map(term=>{
-        if(Array.isArray(term)) return '<span class="term-chip"><b>'+esc(term[0])+'</b><small>'+esc(term.slice(1).join(" · "))+'</small></span>';
-        return '<span class="term-chip"><b>'+esc(term)+'</b></span>';
-      }).join("");
-      const mistakes=(t.common_mistakes||[]).map(item=>{
-        if(Array.isArray(item)&&item.length>=4) return '<div class="myth-card"><b>'+esc(item[0])+'</b><span>'+esc(item[1])+'</span><b>'+esc(item[2])+'</b><span>'+esc(item[3])+'</span></div>';
-        return '<div class="myth-card"><b>NOTE</b><span>'+esc(Array.isArray(item)?item.join(" · "):item)+'</span></div>';
-      }).join("");
-      return '<details class="task-details" '+(i===0?"open":"")+'><summary>'+esc(t.title||("TASK "+(i+1)))+'</summary>'+
-        '<div class="task-copy">'+official+
-        (t.simple_words?'<div class="notice"><b>In simple words:</b><br>'+esc(t.simple_words)+'</div>':"")+
-        (terms?'<h3>Key terms</h3><div class="term-list">'+terms+'</div>':"")+
-        (t.real_world_example?'<h3>Real-world example</h3><p>'+esc(t.real_world_example)+'</p>':"")+
-        (t.student_angle?'<h3>Student angle</h3><p>'+esc(t.student_angle)+'</p>':"")+
-        (mistakes?'<h3>Myths / facts</h3>'+mistakes:"")+
-        '</div></details>';
+      const official=(t.questions||[]).length?'<p>'+esc(t.description||"Complete the interactive tasks below.")+'</p>':"";
+      return '<details class="task-details" open><summary>'+esc(t.title||("TASK SET "+(i+1)))+'</summary><div class="task-copy">'+official+'</div></details>';
     }).join("");
+    const walkthrough=(legal.walkthrough||[]).map((s,i)=>'<article class="panel"><div class="card-top"><span class="badge">'+String(i+1).padStart(2,"0")+'</span></div><h3>'+esc(s.title)+'</h3><p>'+esc(s.body)+'</p></article>').join("");
+    const caseStudy=legal.case_study||{};
+    const facts=(caseStudy.facts||[]).map(x=>'<li>'+esc(x)+'</li>').join("");
+    const steps=(caseStudy.investigation_steps||[]).map(x=>'<li>'+esc(x)+'</li>').join("");
+    const cheat=(legal.cheat_sheet||[]).map(x=>'<li>'+esc(x)+'</li>').join("");
+    const penalty=legal.penalty_context||{};
     return '<div class="room-heading"><div><div class="kicker">ROOM</div><h1>'+esc(legal.title)+'</h1>'+
       '<div class="room-stats"><span>'+esc(legal.difficulty)+'</span><span>'+esc(legal.estimated_minutes)+' min</span><span>'+status+'</span></div></div>'+
-      '<div class="hero-actions"><button class="btn ghost" data-action="module">Back</button><button class="btn primary" data-action="room-quiz">Take Quiz</button></div></div>'+
-      (status!=="VERIFIED"?'<div class="notice warning"><b>Draft, under verification</b><br>This room remains open while its official text is verified.</div>':"")+
+      '<div class="hero-actions"><button class="btn ghost" data-action="module">Back</button><button class="btn primary" data-action="room-quiz">Take Full Quiz</button></div></div>'+
       '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+((legal.learning_objectives||[]).map(x=>'<li>'+esc(x)+'</li>').join(""))+'</ul>'+
-      '<p><b>Sections:</b> '+esc((legal.sections_covered||[]).join(", "))+'</p>'+
-      (legal.source_pages!==undefined?'<p><b>Source page(s):</b> '+esc(Array.isArray(legal.source_pages)?legal.source_pages.join(", "):legal.source_pages)+'</p>':"")+
-      '</div><div class="room-shell room-content-shell"><section class="room-learning">'+
-      '<details class="task-details" open><summary>LEARNING CONTENT</summary><div class="task-copy">'+tasks+
-      '<details class="task-details"><summary>SUMMARY / CHEAT-SHEET</summary><div class="task-copy">'+
-      (legal.summary?'<p>'+esc(legal.summary)+'</p>':"")+
-      '<ul>'+((legal.cheat_sheet||[]).map(x=>'<li>'+esc(x)+'</li>').join(""))+'</ul></div></details>'+
-      '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy"><p>'+esc(legal.final_challenge?.scenario||"")+'</p>'+
-      (legal.final_challenge?.flag?'<code>'+esc(legal.final_challenge.flag)+'</code>':"")+
-      '</div></details></div></details></section>'+
-      '<aside class="challenge-panel"><div class="score-card"><b>Learning room</b><span>Study the room here. Quizzes are separate.</span></div>'+
-      '<button class="btn primary" data-action="room-quiz">Start room quiz</button><button class="btn ghost" data-action="module">Back to module</button></aside></div>';
+      '<p><b>Sections:</b> '+esc((legal.sections_covered||[]).join(", "))+'</p><p><b>Sources:</b> '+esc((legal.source_ids||[]).join(", "))+'</p></div>'+
+      '<section class="room-learning"><div class="section-head"><div><h2>Walkthrough</h2><p>Follow the legal anchor → facts → control → evidence workflow.</p></div></div><div class="grid">'+walkthrough+'</div>'+
+      '<details class="task-details" open><summary>CASE STUDY</summary><div class="task-copy"><h3>'+esc(caseStudy.title||"Applied case study")+'</h3><p>'+esc(caseStudy.scenario||"")+'</p><h4>Facts</h4><ul>'+facts+'</ul><h4>Investigation</h4><ol>'+steps+'</ol><p><b>Expected outcome:</b> '+esc(caseStudy.expected_outcome||"")+'</p></div></details>'+
+      '<details class="task-details" open><summary>INTERACTIVE TASKS · '+questions.length+'</summary><div class="task-copy">'+tasks+'</div></details>'+
+      '<div class="grid room-task-grid">'+questions.map((q,i)=>roomInlineTaskHtml(q,i,rs)).join("")+'</div>'+
+      '<details class="task-details"><summary>SUMMARY / CHEAT-SHEET</summary><div class="task-copy"><p>'+esc(legal.summary||"")+'</p><ul>'+cheat+'</ul></div></details>'+
+      '<details class="task-details"><summary>PENALTY / ENFORCEMENT CONTEXT</summary><div class="task-copy"><p><b>'+esc(penalty.relevance||"")+'</b></p><p>'+esc(penalty.guidance||"")+'</p></div></details>'+
+      '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy"><p>'+esc(legal.final_challenge?.scenario||"")+'</p><code>'+esc(legal.final_challenge?.flag||"")+'</code></div></details></section>'+
+      '<aside class="challenge-panel"><div class="score-card"><b>Room progress</b><span>'+Object.values(rs.results||{}).filter(Boolean).length+' / '+questions.length+' correct submissions</span></div>'+
+      '<button class="btn primary" data-action="room-quiz">Start full room quiz</button><button class="btn ghost" data-action="module">Back to module</button></aside></div>';
   }
 
   async function roomView(){
@@ -671,6 +685,20 @@
 
     const qr=e.target.closest("[data-quiz-room]");
     if(qr){ startRoomQuiz(qr.dataset.quizRoom); return; }
+
+    const roomOption=e.target.closest("[data-room-option]");
+    if(roomOption && view==="room"){
+      const legal=(window.__roomRegistry?.rooms||[]).find(x=>x.id===roomId);
+      if(legal){
+        const rs=roomQuizMeta(legal).rs;
+        rs.answers[String(roomOption.dataset.roomOption)]=Number(roomOption.dataset.roomValue);
+        save(); render();
+      }
+      return;
+    }
+
+    const roomSubmit=e.target.closest("[data-room-submit]");
+    if(roomSubmit && view==="room"){ submitRoomAnswer(Number(roomSubmit.dataset.roomSubmit)); return; }
 
     const rq=e.target.closest("[data-rq-option]");
     if(rq && view==="quizRun"){ const rs=quizAnswerStore(); rs.answers[String(quizIndex)]=Number(rq.dataset.rqOption); save(); renderQuiz(); return; }
