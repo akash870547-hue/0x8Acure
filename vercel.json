@@ -1,15 +1,16 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build:vercel",
   "outputDirectory": "public",
   "installCommand": "npm ci",
   "framework": null,
   "rewrites": [
     {
-      "source": "/app/:path*",
+      "source": "/app/((?!.*\\.[a-zA-Z0-9]+$).*)",
       "destination": "/app/index.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!content(?:/|$)|.*\\.[a-zA-Z0-9]+$).*)",
       "destination": "/index.html"
     }
   ]
