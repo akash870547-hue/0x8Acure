@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "public/app",
+  "installCommand": "npm ci",
+  "framework": null,
+  "rewrites": [
+    { "source": "/app", "destination": "/app/" },
+    { "source": "/app/:path*", "destination": "/app/index.html" },
+    { "source": "/admin/dashboard", "destination": "/app/index.html" },
+    { "source": "/login", "destination": "/app/index.html" }
+  ]
+}
