@@ -220,6 +220,18 @@
     return '<div class="challenge-options">'+(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-rq-option="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
   }
   let roomRegistryRequest;
+
+  async function fetchJson(url, label){
+    const response=await fetch(url,{cache:"no-store"});
+    if(!response.ok) throw new Error(label+" HTTP "+response.status);
+    try{
+      return await response.json();
+    }catch(error){
+      console.error("[DPDP] JSON parse failed:", label, error);
+      throw new Error(label+" returned invalid JSON");
+    }
+  }
+
   async function loadRoomRegistry(){
     if(roomRegistryRequest) return roomRegistryRequest;
     roomRegistryRequest=(async()=>{
@@ -240,9 +252,7 @@
 
       // GitHub Pages-safe fallback: the bundled task catalog is always available.
       try{
-        const response=await fetch("content/tasks.json",{cache:"no-store"});
-        if(!response.ok) throw new Error("HTTP "+response.status);
-        const raw=await response.json();
+        const raw=await fetchJson("./content/tasks.json","content/tasks.json");
         const tasks=Array.isArray(raw?.tasks)?raw.tasks:[];
         const roomMap=new Map();
         for(const task of tasks){
@@ -280,27 +290,33 @@
           window.__quizDataSource="content/tasks.json";
           return registry;
         }
-      }catch(error){ /* continue to the legal-room registry fallbacks */ }
+      }catch(error){
+        console.error("[DPDP] tasks.json fallback failed:", error);
+      }
 
       const staticSources=[
-        "content/legal-room-content.json",
+        "./content/legal-room-content.json",
         "https://raw.githubusercontent.com/akash870547-hue/0x8Acure/main/content/legal-room-content.json"
       ];
       let staticError=null;
       for(const source of staticSources){
         try{
-          const response=await fetch(source,{cache:"no-store"});
-          if(!response.ok) throw new Error("HTTP "+response.status);
-          const raw=await response.json();
+          const raw=source.startsWith("./")
+            ? await fetchJson(source,"legal-room-content.json")
+            : await fetchJson(source,"remote legal-room-content.json");
           const registry=Array.isArray(raw)?{rooms:raw}:raw;
           if(!Array.isArray(registry?.rooms)||!registry.rooms.length) throw new Error("empty registry");
           legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
           window.__roomRegistry=registry;
           window.__quizDataSource=source;
           return registry;
-        }catch(error){ staticError=error; }
+        }catch(error){
+          console.error("[DPDP] legal-room-content fallback failed:", source, error);
+          staticError=error;
+        }
       }
       const detail=apiError?.message||staticError?.message||"Unknown error";
+      console.error("[DPDP] room registry load failed:", {apiError, staticError});
       throw new Error("DPDP quiz data could not be loaded. "+detail);
     })().catch(error=>{roomRegistryRequest=null;throw error;});
     return roomRegistryRequest;
@@ -486,9 +502,7 @@
   async function sources() {
     appEl.innerHTML = '<div class="section-head"><div><h2>Official Sources</h2><p>Government sources used by the platform. Last verified: 2026-09-30.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="panel"><div class="notice">Not legal advice. Educational use only.</div><div id="source-list" class="grid room-grid" style="margin-top:16px">Loading source registry...</div></div>';
     try {
-      const r = await fetch("content/sources.json", {cache:"no-store"});
-      if (!r.ok) throw new Error("Source registry could not be loaded.");
-      const registry = await r.json();
+      const registry = await fetchJson("./content/sources.json","sources.json");
       document.getElementById("source-list").innerHTML = (registry.sources || []).map(s =>
         '<a class="room-card" target="_blank" rel="noopener" href="' + esc(s.url) + '">' +
         '<span class="badge cyan">' + esc(s.document_type) + '</span>' +
