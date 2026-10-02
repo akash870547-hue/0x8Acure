@@ -222,8 +222,12 @@
   let roomRegistryRequest;
 
   async function fetchJson(url, label){
-    const response=await fetch(url,{cache:"no-store"});
+    const response=await fetch(url,{cache:"no-store",headers:{Accept:"application/json"}});
+    const contentType=response.headers.get("content-type")||"";
     if(!response.ok) throw new Error(label+" HTTP "+response.status);
+    if(!contentType.toLowerCase().includes("json")){
+      throw new Error(label+" returned non-JSON content ("+(contentType||"unknown content-type")+")");
+    }
     try{
       return await response.json();
     }catch(error){
@@ -232,22 +236,28 @@
     }
   }
 
+  async function fetchRegistryJson(url,label){
+    return fetchJson(url,label);
+  }
+
   async function loadRoomRegistry(){
     if(roomRegistryRequest) return roomRegistryRequest;
     roomRegistryRequest=(async()=>{
       let apiError=null;
       try{
         const apiPath=window.DPDP_API_URL?window.DPDP_API_URL("/api/legal-rooms"):"/api/legal-rooms";
-        const response=await fetch(apiPath,{cache:"no-store"});
-        if(response.ok){
-          const registry=await response.json();
+        try{
+          const registry=await fetchRegistryJson(apiPath,"/api/legal-rooms");
           if(Array.isArray(registry?.rooms)&&registry.rooms.length){
             legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
             window.__roomRegistry=registry;
             return registry;
           }
+          throw new Error("API returned an empty room registry.");
+        }catch(error){
+          apiError=error;
+          console.warn("[DPDP] API room registry unavailable, using static fallback:", error.message);
         }
-        apiError=new Error("API quiz registry unavailable.");
       }catch(error){ apiError=error; }
 
       // GitHub Pages-safe fallback: the bundled task catalog is always available.
@@ -318,6 +328,18 @@
           console.error("[DPDP] legal-room-content fallback failed:", source, error);
           staticError=error;
         }
+      }
+      try{
+        const fallback=typeof window.DPDP_BUILD_ROOM_FALLBACK==="function" ? window.DPDP_BUILD_ROOM_FALLBACK() : null;
+        if(Array.isArray(fallback?.rooms)&&fallback.rooms.length){
+          legalStatusByRoom=Object.fromEntries(fallback.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
+          window.__roomRegistry=fallback;
+          window.__quizDataSource="embedded-room-fallback";
+          console.warn("[DPDP] Using embedded in-memory room fallback:", fallback.rooms.length, "rooms");
+          return fallback;
+        }
+      }catch(error){
+        console.error("[DPDP] Embedded room fallback failed:", error);
       }
       const detail=apiError?.message||staticError?.message||"Unknown error";
       console.error("[DPDP] room registry load failed:", {apiError, staticError});
