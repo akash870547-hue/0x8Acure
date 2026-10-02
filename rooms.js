@@ -121,6 +121,37 @@ window.DPDP_CURRICULUM = [
   }
 ];
 
+/* Emergency in-memory room registry. Built from the bundled curriculum, so it works without API/content fetches. */
+window.DPDP_BUILD_ROOM_FALLBACK = function(){
+  const curriculum = Array.isArray(window.DPDP_CURRICULUM) ? window.DPDP_CURRICULUM : [];
+  const rooms = curriculum.flatMap(path => (path.modules || []).flatMap(module => (module.rooms || []).map(room => ({
+    id: room.id,
+    title: room.title || room.id,
+    difficulty: room.difficulty || "beginner",
+    estimated_minutes: room.estimated_minutes || 10,
+    sections_covered: room.sections_covered || [room.sections || ""],
+    learning_objectives: room.learning_objectives || room.objectives || [],
+    summary: room.summary || ("Study " + (room.title || room.id) + " and apply the cited DPDP requirements."),
+    cheat_sheet: room.cheat_sheet || [],
+    source_pages: room.source_pages || [],
+    official_text_status: "UNVERIFIED",
+    tasks: [{
+      id: room.id + "-baseline",
+      title: "Baseline room task",
+      questions: [{
+        id: room.id + "-baseline-q1",
+        type: "mcq",
+        prompt: "What should you use to verify the requirements in this room?",
+        options: ["The cited official Act/Rules provision", "An unverified blog", "A social-media post", "An unrelated standard"],
+        correct_answer: 0,
+        answer: 0,
+        explanation: "Use the cited official Act/Rules provision as the primary source for this learning room.",
+        section_reference: room.sections || ""
+      }]
+    }]
+  }))));
+  return {rooms};
+};
 window.DPDP_SOURCE = {
   act:"https://www.meity.gov.in/static/uploads/2024/02/Digital-Personal-Data-Protection-Act-2023.pdf",
   rules:"https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa?pageTitle=Digital-Personal-Data-Protection-Rules-2025",
