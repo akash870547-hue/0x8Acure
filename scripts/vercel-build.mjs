@@ -1,4 +1,5 @@
-import { cp, mkdir, rm, readdir } from "node:fs/promises";
+import { mkdir, rm, readdir } from "node:fs/promises";
+import { cpSync } from "node:fs";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -64,7 +65,9 @@ if (!existsSync(contentSource)) {
 }
 
 await rm(contentTarget, { recursive: true, force: true });
-await cp(contentSource, contentTarget, { recursive: true, force: true });
+cpSync(contentSource, contentTarget, { recursive: true });
+const copiedAtRoot = await listFiles(contentTarget);
+for (const file of copiedAtRoot) console.log("[Vercel] copied content/" + file + " -> public/content/" + file);
 
 const sourceFiles = await listFiles(contentSource);
 const copiedFiles = await listFiles(contentTarget);
