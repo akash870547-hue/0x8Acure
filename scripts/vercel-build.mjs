@@ -57,7 +57,8 @@ for (const file of staticFiles) {
     throw new Error(`Required DPDP static file is missing: ${file}`);
   }
 
-  await cp(source, target, { recursive: true, force: true });
+  cpSync(source, target, { recursive: true, force: true });
+  console.log("[Vercel] copied static/" + file + " -> public/" + file);
 }
 
 if (!existsSync(contentSource)) {
