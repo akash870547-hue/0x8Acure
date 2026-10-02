@@ -398,7 +398,7 @@
     const context=richTextHtml(legal.industry_context||"");
     const architecture=(legal.compliance_architecture||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
     const checklist=(legal.implementation_guidelines||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
-    const exercises=(legal.practice_exercises||[]).map(x=>"<article class="mini-question"><b>"+esc(x.id||"Exercise")+"</b><p>"+esc(x.prompt||"")+"</p><small>Evidence: "+esc(x.expected_evidence||"")+"</small></article>").join("");
+    const exercises=(legal.practice_exercises||[]).map(x=>'<article class="mini-question"><b>'+esc(x.id||"Exercise")+'</b><p>'+esc(x.prompt||"")+'</p><small>Evidence: '+esc(x.expected_evidence||"")+'</small></article>').join("");
     const schedule=(penalty.schedule_matrix||[]).map(x=>"<tr><td>"+esc(x[0])+"</td><td>"+esc(x[1])+"</td><td>"+esc(x[2])+"</td></tr>").join("");
     return '<div class="room-heading"><div><div class="kicker">ROOM</div><h1>'+esc(legal.title)+'</h1>'+
       '<div class="room-stats"><span>'+esc(legal.difficulty)+'</span><span>'+esc(legal.estimated_minutes)+' min</span><span>'+status+'</span></div></div>'+
