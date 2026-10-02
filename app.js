@@ -52,6 +52,7 @@
     else if (view === "sources") params.set("view", "sources");
     else if (view === "progress") params.set("view", "progress");
     else if (view === "profile") params.set("view", "profile");
+    else if (view === "cases") params.set("view", "cases");
     const next = params.toString() ? (window.location.pathname + "?" + params.toString()) : window.location.pathname;
     const method = replace ? "replaceState" : "pushState";
     if (window.history && window.location.href !== new URL(next, window.location.href).href) {
@@ -82,7 +83,7 @@
         view = "path"; return;
       }
     }
-    if (["paths","quiz","sources","progress","profile"].includes(urlView)) view = urlView;
+    if (["paths","quiz","sources","progress","profile","cases"].includes(urlView)) view = urlView;
   }
 
   function navigate(nextView, ids = {}, replace = false) {
@@ -555,6 +556,21 @@
     }
   }
 
+  async function casesView(){
+    appEl.innerHTML='<div class="section-head"><div><span class="badge violet">CASE STUDIES</span><h2 style="margin-top:12px">DPDP Compliance Case Studies</h2><p>Synthetic industry scenarios for legal analysis, control design and evidence practice.</p></div><button class="btn ghost" data-action="home">Home</button></div><div class="panel"><div class="notice">Training scenarios only. Penalty entries are statutory ceilings, not predictions.</div></div><div id="case-study-list" class="grid" style="margin-top:16px"><div class="panel">Loading case studies…</div></div>';
+    try{
+      const registry=await fetchJson("./content/case-studies.json","case-studies.json");
+      document.getElementById("case-study-list").innerHTML=(registry.cases||[]).map(c=>{
+        const facts=(c.facts||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
+        const issues=(c.legal_issues||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
+        const penalties=(c.penalty_analysis||[]).map(p=>"<tr><td>"+esc(p[0])+"</td><td>"+esc(p[1])+"</td><td>"+esc(p[2])+"</td><td>"+esc(p[3])+"</td></tr>").join("");
+        const rem=(c.remediation||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
+        const controls=(c.technical_controls||[]).map(x=>"<span class=\\"badge\\">"+esc(x)+"</span>").join(" ");
+        return "<article class=\\"panel case-study-card\\"><div class=\\"card-top\\"><span class=\\"badge cyan\\">"+esc(c.sector)+"</span><span class=\\"badge\\">Synthetic</span></div><h2>"+esc(c.title)+"</h2><h3>Scenario Background & Facts</h3><p>"+esc(c.scenario_background)+"</p><ul>"+facts+"</ul><h3>Violations / Legal Issues</h3><ul>"+issues+"</ul><h3>Regulatory Penalty Analysis</h3><div class=\\"table-wrap\\"><table class=\\"score-table\\"><thead><tr><th>Schedule</th><th>Trigger</th><th>Ceiling</th><th>Analysis</th></tr></thead><tbody>"+penalties+"</tbody></table></div><h3>Remediation Plan</h3><ul>"+rem+"</ul><h3>Security Safeguards</h3><div class=\\"term-list\\">"+controls+"</div></article>";
+      }).join("");
+    }catch(error){document.getElementById("case-study-list").innerHTML="<div class=\\"notice\\">Case studies could not be loaded: "+esc(error.message)+"</div>";}
+  }
+
   function profile() {
     const auth = window.DPDP_AUTH || {};
     const user = auth.user || auth.profile || null;
@@ -600,6 +616,7 @@
     else if (view === "sources") sources();
     else if (view === "progress") progress();
     else if (view === "profile") profile();
+    else if (view === "cases") casesView();
     else home();
   }
 
@@ -645,6 +662,7 @@
       else if (x === "quiz-room-retry") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; view="quizRun"; render(); }
       else if (x === "quiz-room-reset") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; renderQuiz(); }
       else if (x === "sources") { view = "sources"; render(); }
+      else if (x === "cases") { navigate("cases", {pathId:null,moduleId:null,roomId:null}); }
       else if (x === "progress") { navigate("progress"); }
       else if (x === "profile") { navigate("profile"); }
       else if (x === "auth-profile") { document.getElementById("auth-nav")?.click(); }
@@ -777,7 +795,7 @@
       else if(target.value==="certificates") window.DPDP_CERTS?.page();
       else if(target.value==="leaderboard") leaderboard();
       else if(target.value==="account") document.getElementById("auth-nav")?.click();
-      else if(["home","paths","quiz","sources","progress"].includes(target.value)){navigate(target.value, {pathId:null,moduleId:null,roomId:null});}
+      else if(["home","paths","quiz","sources","progress","cases"].includes(target.value)){navigate(target.value, {pathId:null,moduleId:null,roomId:null});}
       else return false;
       return true;
     }
