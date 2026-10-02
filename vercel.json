@@ -11,11 +11,15 @@
       "destination": "/content/:path*"
     },
     {
-      "source": "/app/:path*",
-      "destination": "/app/:path*"
+      "source": "/app/assets/:match*",
+      "destination": "/app/assets/:match*"
     },
     {
       "source": "/app",
+      "destination": "/app/index.html"
+    },
+    {
+      "source": "/app/(.*)",
       "destination": "/app/index.html"
     },
     {
