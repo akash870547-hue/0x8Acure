@@ -373,6 +373,13 @@
       '</article>';
   }
 
+  function richTextHtml(value){
+    return String(value||"").split(/\n\s*\n/).map(block=>{
+      const safe=esc(block).replace(/^### (.+)$/gm,"<h4>$1</h4>").replace(/^## (.+)$/gm,"<h3>$1</h3>").replace(/^# (.+)$/gm,"<h2>$1</h2>");
+      return "<div class=\"rich-paragraph\">"+safe.replace(/\n/g,"<br>")+"</div>";
+    }).join("");
+  }
+
   function roomContentHtml(legal){
     const status=legal.official_text_status==="VERIFIED_WORD_FOR_WORD"?"VERIFIED":"Draft, under verification";
     const {rs}=roomQuizMeta(legal);
@@ -387,17 +394,27 @@
     const steps=(caseStudy.investigation_steps||[]).map(x=>'<li>'+esc(x)+'</li>').join("");
     const cheat=(legal.cheat_sheet||[]).map(x=>'<li>'+esc(x)+'</li>').join("");
     const penalty=legal.penalty_context||{};
+    const theory=richTextHtml(legal.statutory_theory||"");
+    const context=richTextHtml(legal.industry_context||"");
+    const architecture=(legal.compliance_architecture||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
+    const checklist=(legal.implementation_guidelines||[]).map(x=>"<li>"+esc(x)+"</li>").join("");
+    const exercises=(legal.practice_exercises||[]).map(x=>"<article class="mini-question"><b>"+esc(x.id||"Exercise")+"</b><p>"+esc(x.prompt||"")+"</p><small>Evidence: "+esc(x.expected_evidence||"")+"</small></article>").join("");
+    const schedule=(penalty.schedule_matrix||[]).map(x=>"<tr><td>"+esc(x[0])+"</td><td>"+esc(x[1])+"</td><td>"+esc(x[2])+"</td></tr>").join("");
     return '<div class="room-heading"><div><div class="kicker">ROOM</div><h1>'+esc(legal.title)+'</h1>'+
       '<div class="room-stats"><span>'+esc(legal.difficulty)+'</span><span>'+esc(legal.estimated_minutes)+' min</span><span>'+status+'</span></div></div>'+
       '<div class="hero-actions"><button class="btn ghost" data-action="module">Back</button><button class="btn primary" data-action="room-quiz">Take Full Quiz</button></div></div>'+
       '<div class="panel room-objectives"><div class="kicker">LEARNING OBJECTIVES</div><ul>'+((legal.learning_objectives||[]).map(x=>'<li>'+esc(x)+'</li>').join(""))+'</ul>'+
       '<p><b>Sections:</b> '+esc((legal.sections_covered||[]).join(", "))+'</p><p><b>Sources:</b> '+esc((legal.source_ids||[]).join(", "))+'</p></div>'+
-      '<section class="room-learning"><div class="section-head"><div><h2>Walkthrough</h2><p>Follow the legal anchor → facts → control → evidence workflow.</p></div></div><div class="grid">'+walkthrough+'</div>'+
+      '<section class="room-learning"><section class="panel theory-panel"><div class="section-head"><div><span class="badge cyan">STUDY MATERIAL</span><h2>Statutory Theory & Legal Provisions</h2><p>Read the material before attempting the assessment.</p></div></div><div class="rich-content">'+theory+'</div></section>'+
+      '<section class="panel theory-panel"><div class="section-head"><div><span class="badge violet">INDUSTRY CONTEXT</span><h2>Practical Compliance Architecture</h2></div></div><div class="rich-content">'+context+'</div><ul>'+architecture+'</ul></section>'+
+      '<section class="panel theory-panel"><div class="section-head"><div><span class="badge amber">IMPLEMENTATION</span><h2>Guidelines & Checklist</h2></div></div><ul class="implementation-list">'+checklist+'</ul></section>'+
+      '<div class="section-head"><div><h2>Walkthrough</h2><p>Legal anchor → facts → control → evidence.</p></div></div><div class="grid">'+walkthrough+'</div>'+
       '<details class="task-details" open><summary>CASE STUDY</summary><div class="task-copy"><h3>'+esc(caseStudy.title||"Applied case study")+'</h3><p>'+esc(caseStudy.scenario||"")+'</p><h4>Facts</h4><ul>'+facts+'</ul><h4>Investigation</h4><ol>'+steps+'</ol><p><b>Expected outcome:</b> '+esc(caseStudy.expected_outcome||"")+'</p></div></details>'+
+      '<section class="panel theory-panel"><div class="section-head"><div><span class="badge">PRACTICE</span><h2>Practice Questions & Exercises</h2><p>Assessment comes after the reading material.</p></div></div>'+exercises+'</section>'+
       '<details class="task-details" open><summary>INTERACTIVE TASKS · '+questions.length+'</summary><div class="task-copy">'+tasks+'</div></details>'+
       '<div class="grid room-task-grid">'+questions.map((q,i)=>roomInlineTaskHtml(q,i,rs)).join("")+'</div>'+
       '<details class="task-details"><summary>SUMMARY / CHEAT-SHEET</summary><div class="task-copy"><p>'+esc(legal.summary||"")+'</p><ul>'+cheat+'</ul></div></details>'+
-      '<details class="task-details"><summary>PENALTY / ENFORCEMENT CONTEXT</summary><div class="task-copy"><p><b>'+esc(penalty.relevance||"")+'</b></p><p>'+esc(penalty.guidance||"")+'</p></div></details>'+
+      '<details class="task-details"><summary>PENALTY / ENFORCEMENT CONTEXT</summary><div class="task-copy"><p><b>'+esc(penalty.relevance||"")+'</b></p><p>'+esc(penalty.guidance||"")+'</p>'+(schedule?'<div class="table-wrap"><table class="score-table"><thead><tr><th>#</th><th>Contravention</th><th>Maximum</th></tr></thead><tbody>'+schedule+'</tbody></table></div>':"")+'</div></details>'+
       '<details class="task-details"><summary>FINAL CHALLENGE</summary><div class="task-copy"><p>'+esc(legal.final_challenge?.scenario||"")+'</p><code>'+esc(legal.final_challenge?.flag||"")+'</code></div></details></section>'+
       '<aside class="challenge-panel"><div class="score-card"><b>Room progress</b><span>'+Object.values(rs.results||{}).filter(Boolean).length+' / '+questions.length+' correct submissions</span></div>'+
       '<button class="btn primary" data-action="room-quiz">Start full room quiz</button><button class="btn ghost" data-action="module">Back to module</button></aside></div>';
@@ -782,7 +799,7 @@
   }
 
   if(!document.getElementById("room-content-inline-style")){
-    const s=document.createElement("style");s.id="room-content-inline-style";s.textContent=".official-text{margin:14px 0;border:1px solid rgba(34,211,238,.35);border-left:4px solid var(--cyan);border-radius:12px;background:rgba(3,10,18,.72);overflow:hidden}.official-label{padding:9px 12px;font:700 11px/1.2 \"JetBrains Mono\",monospace;letter-spacing:.08em;color:var(--cyan);background:rgba(34,211,238,.07)}.official-text pre{margin:0;padding:16px;white-space:pre-wrap;font:500 12px/1.75 \"JetBrains Mono\",monospace;color:var(--text);overflow:auto}.room-objectives{margin:14px 0}.room-objectives ul{margin:10px 0 0 20px}.room-objectives li{margin:6px 0}.term-list{display:flex;gap:9px;flex-wrap:wrap}.term-chip{display:inline-flex;flex-direction:column;gap:4px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);min-width:150px}.term-chip b{font-size:12px}.term-chip small{color:var(--muted);line-height:1.45}.myth-card{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);margin:8px 0}.myth-card b{color:var(--cyan);font-size:11px;text-transform:uppercase}.myth-card span{font-size:13px;line-height:1.5}.mini-question{padding:14px;border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--panel2)}.mini-question p{margin:8px 0;line-height:1.5}.mini-question ol{margin:8px 0 0 22px}.mini-question li{margin:4px 0}@media(max-width:700px){.official-text pre{font-size:11px}.term-chip{min-width:100%}.myth-card{grid-template-columns:1fr}.room-stats{flex-wrap:wrap}}";document.head.appendChild(s);
+    const s=document.createElement("style");s.id="room-content-inline-style";s.textContent=".official-text{margin:14px 0;border:1px solid rgba(34,211,238,.35);border-left:4px solid var(--cyan);border-radius:12px;background:rgba(3,10,18,.72);overflow:hidden}.official-label{padding:9px 12px;font:700 11px/1.2 \"JetBrains Mono\",monospace;letter-spacing:.08em;color:var(--cyan);background:rgba(34,211,238,.07)}.official-text pre{margin:0;padding:16px;white-space:pre-wrap;font:500 12px/1.75 \"JetBrains Mono\",monospace;color:var(--text);overflow:auto}.room-objectives{margin:14px 0}.room-objectives ul{margin:10px 0 0 20px}.room-objectives li{margin:6px 0}.term-list{display:flex;gap:9px;flex-wrap:wrap}.term-chip{display:inline-flex;flex-direction:column;gap:4px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);min-width:150px}.term-chip b{font-size:12px}.term-chip small{color:var(--muted);line-height:1.45}.myth-card{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);margin:8px 0}.myth-card b{color:var(--cyan);font-size:11px;text-transform:uppercase}.myth-card span{font-size:13px;line-height:1.5}.mini-question{padding:14px;border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--panel2)}.mini-question p{margin:8px 0;line-height:1.5}.mini-question ol{margin:8px 0 0 22px}.mini-question li{margin:4px 0}@media(max-width:700px){.official-text pre{font-size:11px}.term-chip{min-width:100%}.myth-card{grid-template-columns:1fr}.room-stats{flex-wrap:wrap}.theory-panel{margin-top:16px}.rich-content{line-height:1.72}.rich-paragraph{margin:0 0 12px}.implementation-list li{margin:7px 0}.case-study-card h3{margin:20px 0 8px}.case-study-card li{margin:6px 0}.case-study-card table{width:100%;border-collapse:collapse}.case-study-card th,.case-study-card td{padding:9px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}.table-wrap{overflow:auto}@media(max-width:700px){.case-study-card th,.case-study-card td{font-size:11px}}}";document.head.appendChild(s);
   }
   if(!document.querySelector('script[src="badge-ui.js"]')){const s=document.createElement('script');s.src='badge-ui.js';document.body.appendChild(s);}
   window.DPDP_NAVIGATE = target => {
