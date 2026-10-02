@@ -1,4 +1,4 @@
-import { cp, mkdir, rm } from "node:fs/promises";
+import { cp, mkdir, rm, readdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -30,6 +30,17 @@ const staticFiles = [
   "og-preview.png"
 ];
 
+async function listFiles(dir) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const absolute = path.join(dir, entry.name);
+    if (entry.isDirectory()) files.push(...await listFiles(absolute));
+    else files.push(path.relative(dir, absolute).split(path.sep).join("/"));
+  }
+  return files.sort();
+}
+
 await mkdir(publicDir, { recursive: true });
 
 if (!existsSync(appDir)) {
@@ -44,7 +55,7 @@ for (const file of staticFiles) {
     throw new Error(`Required DPDP static file is missing: ${file}`);
   }
 
-  await cp(source, target, { recursive: true });
+  await cp(source, target, { recursive: true, force: true });
 }
 
 if (!existsSync(contentSource)) {
@@ -52,8 +63,23 @@ if (!existsSync(contentSource)) {
 }
 
 await rm(contentTarget, { recursive: true, force: true });
-await cp(contentSource, contentTarget, { recursive: true });
+await cp(contentSource, contentTarget, { recursive: true, force: true });
+
+const sourceFiles = await listFiles(contentSource);
+const copiedFiles = await listFiles(contentTarget);
+
+if (sourceFiles.length !== copiedFiles.length || sourceFiles.some((file, index) => file !== copiedFiles[index])) {
+  throw new Error(
+    `Content copy verification failed. Source files: ${sourceFiles.length}, copied files: ${copiedFiles.length}`
+  );
+}
+
+const jsonFiles = sourceFiles.filter(file => file.toLowerCase().endsWith(".json"));
+const missingJson = jsonFiles.filter(file => !copiedFiles.includes(file));
+if (missingJson.length) {
+  throw new Error(`Content JSON copy verification failed. Missing: ${missingJson.join(", ")}`);
+}
 
 console.log(
-  `Vercel dual-frontend assembly complete. Preserved ${appDir} and copied the DPDP static frontend plus content/ into ${publicDir}.`
+  `Vercel dual-frontend assembly complete. Copied ${sourceFiles.length} content files, including ${jsonFiles.length} JSON files, into public/content/.`
 );
