@@ -45,6 +45,13 @@ async function listFiles(dir) {
 
 await mkdir(publicDir, { recursive: true });
 
+const appIndex = path.join(appDir, "index.html");
+if (!existsSync(appIndex)) throw new Error("Vercel build did not produce public/app/index.html.");
+const appFiles = await listFiles(appDir);
+const appAssetFiles = appFiles.filter(file => file.startsWith("assets/"));
+if (!appAssetFiles.length) throw new Error("Vercel build did not produce public/app/assets/* chunks.");
+console.log(`[Vercel] verified Cyber Lab bundle: ${appFiles.length} files, ${appAssetFiles.length} asset chunks.`);
+
 if (!existsSync(appDir)) {
   throw new Error("Expected Vite output at public/app, but it was not found. Run npm run build first.");
 }
@@ -80,6 +87,9 @@ if (sourceFiles.length !== copiedFiles.length || sourceFiles.some((file, index) 
 }
 
 const jsonFiles = sourceFiles.filter(file => file.toLowerCase().endsWith(".json"));
+const requiredContent = ["legal-room-content.json","tasks.json","case-studies.json"];
+const missingRequired = requiredContent.filter(file => !copiedFiles.includes(file));
+if (missingRequired.length) throw new Error(`Required content JSON missing from public/content: ${missingRequired.join(", ")}`);
 const missingJson = jsonFiles.filter(file => !copiedFiles.includes(file));
 if (missingJson.length) {
   throw new Error(`Content JSON copy verification failed. Missing: ${missingJson.join(", ")}`);
