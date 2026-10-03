@@ -158,6 +158,10 @@ window.DPDP_SOURCE = {
   actPage:"https://www.meity.gov.in/digital-personal-data-protection-act-2023",
   note:"https://www.meity.gov.in/writereaddata/files/Explanatory-Note-DPDP-Rules-2025.pdf"
 };
+window.DPDP_ROOM_CONTENT_FILES = Object.freeze({
+  registry:"./content/legal-room-content.json",
+  tasks:"./content/tasks.json"
+});
 
 
 /* Three paths -> modules -> rooms/labs, with the full legal reference distributed across the three paths. */

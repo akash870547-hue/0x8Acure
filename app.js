@@ -66,10 +66,14 @@
     const urlPath = params.get("path");
     const urlModule = params.get("module");
     const urlView = params.get("view");
+    view = "home";
+    pathId = null;
+    moduleId = null;
+    roomId = null;
     if (urlRoom) {
       for (const p of DPDP_CURRICULUM) {
         const m = (p.modules || []).find(x => (x.rooms || []).some(r => r.id === urlRoom));
-        if (m) { pathId = p.id; moduleId = m.id; roomId = urlRoom; view = params.get("quiz") === "1" ? "room" : "room"; return; }
+        if (m) { pathId = p.id; moduleId = m.id; roomId = urlRoom; view = "room"; return; }
       }
     }
     if (urlPath) {
@@ -237,114 +241,103 @@
     }
   }
 
-  async function fetchRegistryJson(url,label){
-    return fetchJson(url,label);
-  }
-
   async function loadRoomRegistry(){
     if(roomRegistryRequest) return roomRegistryRequest;
     roomRegistryRequest=(async()=>{
-      let apiError=null;
-      try{
-        const apiPath=window.DPDP_API_URL?window.DPDP_API_URL("/api/legal-rooms"):"/api/legal-rooms";
-        try{
-          const registry=await fetchRegistryJson(apiPath,"/api/legal-rooms");
-          if(Array.isArray(registry?.rooms)&&registry.rooms.length){
-            legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
-            window.__roomRegistry=registry;
-            return registry;
-          }
-          throw new Error("API returned an empty room registry.");
-        }catch(error){
-          apiError=error;
-          console.warn("[DPDP] API room registry unavailable, using static fallback:", error.message);
+      const validateRegistry=(raw,label)=>{
+        const rooms=Array.isArray(raw)?raw:raw?.rooms;
+        if(!Array.isArray(rooms)||!rooms.length) throw new Error(label+" must contain a non-empty rooms array.");
+        const invalid=rooms.filter(room=>!room||typeof room.id!=="string"||!room.id||typeof room.title!=="string");
+        if(invalid.length) throw new Error(label+" contains "+invalid.length+" room entries without valid IDs and titles.");
+        const ids=new Set();
+        for(const room of rooms){
+          if(ids.has(room.id)) throw new Error(label+" contains duplicate room ID "+room.id+".");
+          ids.add(room.id);
         }
-      }catch(error){ apiError=error; }
+        return {...(Array.isArray(raw)?{}:raw),rooms};
+      };
+      const contentFiles=window.DPDP_ROOM_CONTENT_FILES||{
+        registry:"./content/legal-room-content.json",
+        tasks:"./content/tasks.json"
+      };
+      const [legalResult,tasksResult]=await Promise.allSettled([
+        fetchJson(contentFiles.registry,"content/legal-room-content.json"),
+        fetchJson(contentFiles.tasks,"content/tasks.json")
+      ]);
 
-      // GitHub Pages-safe fallback: the bundled task catalog is always available.
-      try{
-        const raw=await fetchJson("./content/tasks.json","content/tasks.json");
-        const tasks=Array.isArray(raw?.tasks)?raw.tasks:[];
-        const roomMap=new Map();
-        for(const task of tasks){
-          const roomId=String(task.id||"").split("-t")[0];
-          if(!roomId) continue;
-          if(!roomMap.has(roomId)) roomMap.set(roomId,[]);
-          roomMap.get(roomId).push({
-            ...task,
-            type:task.type==="order-the-steps"?"order":task.type,
-            answer:task.correct_answer,
-            section_reference:task.citation?.reference||"",
-            why:task.explanation||""
+      let taskEntries=[];
+      if(tasksResult.status==="fulfilled"){
+        if(!Array.isArray(tasksResult.value?.tasks)){
+          console.error("[DPDP] tasks.json schema error: expected a tasks array.");
+          taskEntries=[];
+        }else{
+          const validTasks=tasksResult.value.tasks.filter(task=>task&&typeof task.id==="string"&&task.id&&typeof task.prompt==="string");
+          if(validTasks.length!==tasksResult.value.tasks.length) console.error("[DPDP] tasks.json schema error: skipped entries without valid IDs and prompts.");
+          taskEntries=validTasks;
+        }
+      }else{
+        console.error("[DPDP] Could not load content/tasks.json; using questions embedded in legal rooms.",tasksResult.reason);
+      }
+
+      let rawRegistry;
+      if(legalResult.status==="fulfilled"){
+        rawRegistry=legalResult.value;
+      }else{
+        console.error("[DPDP] Could not load content/legal-room-content.json; trying the published source fallback.",legalResult.reason);
+        rawRegistry=await fetchJson(
+          "https://raw.githubusercontent.com/akash870547-hue/0x8Acure/main/content/legal-room-content.json",
+          "published legal-room-content.json"
+        );
+      }
+      const registry=validateRegistry(rawRegistry,"legal-room-content.json");
+      const roomIds=registry.rooms.map(room=>room.id);
+      const questionsByRoom=new Map();
+      for(const task of taskEntries){
+        const roomId=roomIds.filter(id=>task.id.startsWith(id+"-t")).sort((a,b)=>b.length-a.length)[0];
+        if(!roomId) continue;
+        if(!questionsByRoom.has(roomId)) questionsByRoom.set(roomId,[]);
+        questionsByRoom.get(roomId).push(task);
+      }
+
+      registry.rooms=registry.rooms.map(room=>{
+        const catalog=new Map((questionsByRoom.get(room.id)||[]).map(task=>[task.id,task]));
+        const taskGroups=Array.isArray(room.tasks)?room.tasks:[];
+        const embeddedIds=new Set();
+        const normalizedGroups=taskGroups.map(group=>{
+          const questions=Array.isArray(group?.questions)?group.questions:[];
+          const normalized=questions.map(question=>{
+            if(!question||typeof question.id!=="string") return question;
+            embeddedIds.add(question.id);
+            const catalogQuestion=catalog.get(question.id)||{};
+            const merged={...catalogQuestion,...question};
+            merged.type=merged.type==="order-the-steps"?"order":merged.type;
+            merged.answer=merged.answer??merged.correct_answer??catalogQuestion.correct_answer;
+            merged.correct_answer=merged.correct_answer??merged.answer;
+            merged.section_reference=merged.section_reference||merged.citation?.reference||catalogQuestion.citation?.reference||"";
+            merged.why=merged.why||merged.explanation||catalogQuestion.explanation||"";
+            return merged;
           });
+          return {...group,questions:normalized};
+        });
+        const additional=(questionsByRoom.get(room.id)||[]).filter(task=>!embeddedIds.has(task.id)).map(task=>({
+          ...task,
+          type:task.type==="order-the-steps"?"order":task.type,
+          answer:task.correct_answer,
+          section_reference:task.citation?.reference||"",
+          why:task.explanation||""
+        }));
+        if(additional.length){
+          if(normalizedGroups.length) normalizedGroups[0].questions.push(...additional);
+          else normalizedGroups.push({id:room.id+"-tasks",title:"Practical Tasks",questions:additional});
         }
-        const curriculumRooms=allRooms();
-        const rooms=curriculumRooms
-          .filter(room=>roomMap.has(room.id))
-          .map(room=>({
-            id:room.id,
-            title:room.title,
-            difficulty:room.difficulty||"beginner",
-            estimated_minutes:room.estimated_minutes||10,
-            sections_covered:room.sections_covered||[room.sections||""],
-            learning_objectives:room.learning_objectives||room.objectives||[],
-            summary:Array.isArray(room.body)?room.body.join("\n\n"):(room.summary||""),
-            cheat_sheet:room.cheat_sheet||[],
-            source_pages:room.source_pages||[],
-            official_text_status:"UNVERIFIED",
-            tasks:[{
-              id:room.id+"-quiz",
-              title:"DPDP Quiz",
-              questions:roomMap.get(room.id)
-            }]
-          }));
-        if(rooms.length){
-          const registry={rooms};
-          legalStatusByRoom=Object.fromEntries(rooms.map(x=>[x.id,x.official_text_status]));
-          window.__roomRegistry=registry;
-          window.__quizDataSource="content/tasks.json";
-          return registry;
-        }
-      }catch(error){
-        console.error("[DPDP] tasks.json fallback failed:", error);
-      }
+        return {...room,tasks:normalizedGroups};
+      });
 
-      const staticSources=[
-        "./content/legal-room-content.json",
-        "https://raw.githubusercontent.com/akash870547-hue/0x8Acure/main/content/legal-room-content.json"
-      ];
-      let staticError=null;
-      for(const source of staticSources){
-        try{
-          const raw=source.startsWith("./")
-            ? await fetchJson(source,"legal-room-content.json")
-            : await fetchJson(source,"remote legal-room-content.json");
-          const registry=Array.isArray(raw)?{rooms:raw}:raw;
-          if(!Array.isArray(registry?.rooms)||!registry.rooms.length) throw new Error("empty registry");
-          legalStatusByRoom=Object.fromEntries(registry.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
-          window.__roomRegistry=registry;
-          window.__quizDataSource=source;
-          return registry;
-        }catch(error){
-          console.error("[DPDP] legal-room-content fallback failed:", source, error);
-          staticError=error;
-        }
-      }
-      try{
-        const fallback=typeof window.DPDP_BUILD_ROOM_FALLBACK==="function" ? window.DPDP_BUILD_ROOM_FALLBACK() : null;
-        if(Array.isArray(fallback?.rooms)&&fallback.rooms.length){
-          legalStatusByRoom=Object.fromEntries(fallback.rooms.map(x=>[x.id,x.official_text_status||"UNVERIFIED"]));
-          window.__roomRegistry=fallback;
-          window.__quizDataSource="embedded-room-fallback";
-          console.warn("[DPDP] Using embedded in-memory room fallback:", fallback.rooms.length, "rooms");
-          return fallback;
-        }
-      }catch(error){
-        console.error("[DPDP] Embedded room fallback failed:", error);
-      }
-      const detail=apiError?.message||staticError?.message||"Unknown error";
-      console.error("[DPDP] room registry load failed:", {apiError, staticError});
-      throw new Error("DPDP quiz data could not be loaded. "+detail);
+      legalStatusByRoom=Object.fromEntries(registry.rooms.map(room=>[room.id,room.official_text_status||"UNVERIFIED"]));
+      window.__roomRegistry=registry;
+      window.__quizDataSource=contentFiles.registry;
+      console.info("[DPDP] Loaded legal room registry:",registry.rooms.length,"rooms;",taskEntries.length,"task catalog entries.");
+      return registry;
     })().catch(error=>{roomRegistryRequest=null;throw error;});
     return roomRegistryRequest;
   }
@@ -423,12 +416,16 @@
   async function roomView(){
     const p=path(),m=mod(),r=room();
     if(!p||!m||!r){view="paths";return render();}
+    const requestedRoomId=r.id;
     try{
       const reg=await loadRoomRegistry();
-      const legal=(reg.rooms||[]).find(x=>x.id===r.id);
-      if(!legal) throw new Error("Room content unavailable.");
+      const legal=(reg.rooms||[]).find(x=>x.id===requestedRoomId);
+      if(!legal) throw new Error("Room content unavailable for "+requestedRoomId+".");
+      if(view!=="room"||roomId!==requestedRoomId) return;
       appEl.innerHTML=roomContentHtml(legal);
     }catch(e){
+      console.error("[DPDP] Room rendering failed:",requestedRoomId,e);
+      if(view!=="room"||roomId!==requestedRoomId) return;
       appEl.innerHTML='<div class="notice"><b>Room unavailable.</b><br>'+esc(e.message)+'</div>';
     }
   }
@@ -624,7 +621,7 @@
       if(window.__roomRegistry) moduleView();
       else {
         appEl.innerHTML='<section class="panel" role="status">Loading room details…</section>';
-        loadRoomRegistry().then(()=>{if(view==="module") moduleView();}).catch(()=>{if(view==="module") moduleView();});
+        loadRoomRegistry().then(()=>{if(view==="module") moduleView();}).catch(error=>{console.error("[DPDP] Module registry loading failed:",error);if(view==="module") moduleView();});
       }
     }
     else if (view === "room") roomView();
@@ -641,11 +638,11 @@
     const action = e.target.closest("[data-action]");
     if (action) {
       const x = action.dataset.action;
-      if (x === "home") { view = "home"; render(); }
-      else if (x === "paths") { view = "paths"; render(); }
-      else if (x === "path") { view = "path"; render(); }
-      else if (x === "module") { view = "module"; render(); }
-      else if (x === "room") { view = "room"; render(); }
+      if (x === "home") { navigate("home",{pathId:null,moduleId:null,roomId:null}); }
+      else if (x === "paths") { navigate("paths",{pathId:null,moduleId:null,roomId:null}); }
+      else if (x === "path") { navigate("path"); }
+      else if (x === "module") { navigate("module"); }
+      else if (x === "room") { navigate("room"); }
       else if (x === "complete") {
         const r = room();
         if (!r) return;
@@ -678,7 +675,7 @@
       else if (x === "quiz-next-room") { quizIndex++; quizFeedback=null; renderQuiz(); }
       else if (x === "quiz-room-retry") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; view="quizRun"; render(); }
       else if (x === "quiz-room-reset") { const old=quizAnswerStore(); state.roomQuiz[activeTaskId]={answers:{},results:{},feedback:{},bestScore:Number(old.bestScore||0),index:0}; quizIndex=0; quizFeedback=null; renderQuiz(); }
-      else if (x === "sources") { view = "sources"; render(); }
+      else if (x === "sources") { navigate("sources",{pathId:null,moduleId:null,roomId:null}); }
       else if (x === "cases") { navigate("cases", {pathId:null,moduleId:null,roomId:null}); }
       else if (x === "progress") { navigate("progress"); }
       else if (x === "profile") { navigate("profile"); }
@@ -690,32 +687,19 @@
 
     const p = e.target.closest("[data-path]");
     if (p) {
-      const idx = DPDP_CURRICULUM.findIndex(x => x.id === p.dataset.path);
-      pathId = p.dataset.path;
-      moduleId = null;
-      roomId = null;
-      view = "path";
-      render();
+      navigate("path",{pathId:p.dataset.path,moduleId:null,roomId:null});
     }
 
     const m = e.target.closest("[data-module]");
     if (m) {
-      moduleId = m.dataset.module;
-      roomId = null;
-      view = "module";
-      render();
+      navigate("module",{moduleId:m.dataset.module,roomId:null});
     }
 
     const r = e.target.closest("[data-room]");
     if (r) {
       const currentPath = path();
-      const ordered = currentPath ? (currentPath.modules || []).flatMap(m => m.rooms || []) : [];
-      const roomIndex = ordered.findIndex(x => x.id === r.dataset.room);
-      roomId = r.dataset.room;
-      const roomModule = (currentPath?.modules || []).find(m => (m.rooms || []).some(x => x.id === roomId));
-      moduleId = roomModule?.id || null;
-      view = "room";
-      render();
+      const targetModule = (currentPath?.modules || []).find(m => (m.rooms || []).some(x => x.id === r.dataset.room));
+      navigate("room",{roomId:r.dataset.room,moduleId:targetModule?.id||null});
     }
 
     const qr=e.target.closest("[data-quiz-room]");
@@ -834,5 +818,10 @@
     }
     return false;
   };
+  window.addEventListener("popstate",()=>{
+    restoreFromUrl();
+    render();
+  });
+  restoreFromUrl();
   render();
 })();
