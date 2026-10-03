@@ -4,6 +4,10 @@ import {
   Clock3, Database, FileArchive, FileSearch, Fingerprint, Network, Search, ShieldAlert,
   ShieldCheck, Upload, X,
 } from "lucide-react";
+import { History, Save } from "lucide-react";
+import { useEffect } from "react";
+import { useSupabaseSession } from "../../auth/SupabaseSession";
+import { supabaseClient } from "../../lib/supabaseClient";
 import {
   analyzeRecords, createReport, extractNetwork, extractProcesses, md5, parseEvidenceText,
   sampleCases, type AnalysisResult, type ArtifactCategory, type ForensicEvent, type Severity,
@@ -11,6 +15,7 @@ import {
 
 type Panel = "timeline" | "memory" | "network" | "evidence";
 type ReportFormat = "json" | "markdown";
+type SavedCase = { id: string; case_name: string; evidence_hash: string | null; timeline_data: AnalysisResult; ioc_findings: unknown[]; report_markdown: string | null; updated_at: string };
 
 const categories: ArtifactCategory[] = ["Event Log", "Process", "Network", "File System", "USB", "Web", "Prefetch", "Shimcache", "LNK", "Shellbags", "Browser History", "Memory"];
 const blankResult: AnalysisResult = { events: [], processes: [], network: [], evidence: [] };
@@ -31,6 +36,7 @@ function getIocs(events: ForensicEvent[]): string[] {
 }
 
 export function ForensicsEngine() {
+  const { session, user } = useSupabaseSession();
   const [result, setResult] = useState<AnalysisResult>(blankResult);
   const [activeCase, setActiveCase] = useState("");
   const [panel, setPanel] = useState<Panel>("timeline");
@@ -44,8 +50,28 @@ export function ForensicsEngine() {
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
+  const [savedCases, setSavedCases] = useState<SavedCase[]>([]);
+  const [selectedSavedCase, setSelectedSavedCase] = useState("");
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const loadSavedCases = async () => {
+    if (!supabaseClient || !user) { setSavedCases([]); return; }
+    const { data, error: loadError } = await supabaseClient.from("forensic_cases")
+      .select("id,case_name,evidence_hash,timeline_data,ioc_findings,report_markdown,updated_at")
+      .eq("user_id", user.id).order("updated_at", { ascending: false }).limit(20);
+    if (loadError) throw loadError;
+    setSavedCases((data || []) as SavedCase[]);
+  };
+
+  useEffect(() => {
+    let alive = true;
+    if (!user) { setSavedCases([]); setSelectedSavedCase(""); return; }
+    void loadSavedCases().catch((cause: unknown) => {
+      if (alive) setError(cause instanceof Error ? cause.message : "Could not load saved forensic cases.");
+    });
+    return () => { alive = false; };
+  }, [user?.id]);
 
   const filteredEvents = useMemo(() => result.events
     .filter(event => !search || `${event.title} ${event.details} ${event.source} ${event.iocs.join(" ")}`.toLowerCase().includes(search.toLowerCase()))
@@ -154,6 +180,55 @@ export function ForensicsEngine() {
     setStatus(`Exported forensic case report as ${reportFormat.toUpperCase()}.`);
   };
 
+  const saveCase = async () => {
+    if (!supabaseClient || !session?.user) {
+      setError("Sign in with Supabase before saving a forensic case.");
+      document.querySelector<HTMLElement>(".ap-auth-trigger")?.click();
+      return;
+    }
+    setBusy(true); setError(""); setStatus("");
+    try {
+      const report = createReport(result, activeCase || "Unlabeled case", "markdown");
+      const evidenceHash = result.evidence.length
+        ? Array.from(new Uint8Array(await crypto.subtle.digest(
+          "SHA-256",
+          new TextEncoder().encode(result.evidence.map(item => item.sha256).sort().join(":"))
+        )), byte => byte.toString(16).padStart(2, "0")).join("")
+        : null;
+      const existing = savedCases.find(item => item.case_name === (activeCase || "Unlabeled case"));
+      const payload = {
+        user_id: session.user.id,
+        case_name: activeCase || "Unlabeled case",
+        evidence_hash: evidenceHash,
+        timeline_data: result,
+        ioc_findings: indicators,
+        report_markdown: report,
+        updated_at: new Date().toISOString()
+      };
+      const query = existing
+        ? supabaseClient.from("forensic_cases").update(payload).eq("id", existing.id).eq("user_id", session.user.id)
+        : supabaseClient.from("forensic_cases").insert(payload);
+      const { error: saveError } = await query;
+      if (saveError) throw saveError;
+      await loadSavedCases();
+      setStatus(`Saved forensic case "${payload.case_name}" to your Supabase account.`);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not save this forensic case.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const openSavedCase = (caseId: string) => {
+    setSelectedSavedCase(caseId);
+    const saved = savedCases.find(item => item.id === caseId);
+    if (!saved) return;
+    setActiveCase(saved.case_name);
+    setResult(saved.timeline_data);
+    setStatus(`Loaded saved forensic case "${saved.case_name}". Evidence file bytes are not stored in the cloud.`);
+    setError("");
+  };
+
   const clearFilters = () => {
     setSearch("");
     setCategoryFilter("");
@@ -176,6 +251,8 @@ export function ForensicsEngine() {
         <select className="forensic-format" value={reportFormat} onChange={event => setReportFormat(event.target.value as ReportFormat)} aria-label="Report format">
           <option value="json">JSON report</option><option value="markdown">Markdown report</option>
         </select>
+        <button className="btn secondary report-button" type="button" disabled={busy} onClick={() => void saveCase()}><Save size={15}/>Save case</button>
+        <label className="forensic-format ap-forensic-history"><History size={14}/><select aria-label="Load saved forensic case" value={selectedSavedCase} onChange={event => openSavedCase(event.target.value)}><option value="">{user ? "Saved cases" : "Sign in for cases"}</option>{savedCases.map(item => <option key={item.id} value={item.id}>{item.case_name} · {new Date(item.updated_at).toLocaleDateString()}</option>)}</select></label>
         <button className="btn primary report-button" onClick={exportReport}><ArrowDownToLine size={16}/>Export Forensic Case Report</button>
       </div>
     </div>

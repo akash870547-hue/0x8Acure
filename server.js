@@ -13,6 +13,7 @@ import fs from "node:fs";
 import { createFeatureApi } from "./services/feature-api.js";
 import { createAssetMonitorApi } from "./services/asset-monitor/api.js";
 import { startAssetMonitorWorker } from "./services/asset-monitor/worker.js";
+import { handleRazorpayRequest } from "./services/payments/razorpay.js";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PORT || 8080);
@@ -77,6 +78,8 @@ app.use("/api/auth/login",authLimiter);
 app.use("/api/auth/register",authLimiter);
 app.use("/api",createFeatureApi());
 app.use("/api/asset-monitor",createAssetMonitorApi());
+app.all("/api/create-order",handleRazorpayRequest);
+app.all("/api/verify-payment",handleRazorpayRequest);
 app.use("/app",express.static(path.join(root,"public","app"),{index:false,maxAge:"1y",immutable:true,setHeaders(res,filePath){if(path.basename(filePath)==="index.html")res.setHeader("Cache-Control","no-cache");}}));
 app.get(/^\/app(?:\/.*)?$/, (req,res)=>res.sendFile(path.join(root,"public","app","index.html")));
 const privateAsset=(req,res,next)=>{

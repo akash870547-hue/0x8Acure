@@ -12,8 +12,8 @@ const contentSource = path.join(root, "content");
 const contentTarget = path.join(publicDir, "content");
 const vercelConfig = JSON.parse(await readFile(path.join(root, "vercel.json"), "utf8"));
 const spaRewrite = vercelConfig.rewrites?.find(rule => rule.destination === "/index.html");
-if (!spaRewrite || !String(spaRewrite.source).includes("(?!app/|content/")) {
-  throw new Error("Vercel SPA rewrite must exclude /content/* so content is served as static assets.");
+if (!spaRewrite || !String(spaRewrite.source).includes("(?!api/|app/|content/")) {
+  throw new Error("Vercel SPA rewrite must exclude /api/*, /app/* and /content/* so they reach their handlers and assets.");
 }
 
 const staticFiles = [

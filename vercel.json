@@ -7,6 +7,14 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/api/create-order",
+      "destination": "/api/razorpay?action=create-order"
+    },
+    {
+      "source": "/api/verify-payment",
+      "destination": "/api/razorpay?action=verify-payment"
+    },
+    {
       "source": "/app",
       "destination": "/app/index.html"
     },
@@ -19,7 +27,7 @@
       "destination": "/app/index.html"
     },
     {
-      "source": "/((?!app/|content/|.*\\..*).*)",
+      "source": "/((?!api/|app/|content/|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]

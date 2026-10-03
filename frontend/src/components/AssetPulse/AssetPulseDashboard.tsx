@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { Activity, ArrowDownToLine, Bot, Check, Clock3, Globe2, LoaderCircle, Pause, Play, Plus, Search, ShieldCheck, Trash2, X } from "lucide-react";
 import { supabase } from "../../lib/supabase";
+import { useSupabaseSession } from "../../auth/SupabaseSession";
 import "./asset-pulse.css";
 
 type MonitorStatus = "active" | "paused";
@@ -12,10 +13,7 @@ type Destination = { id: string; channel_type: "telegram" | "discord"; destinati
 type Dashboard = { domains: Domain[]; subscription: Subscription; destinations: Destination[] };
 type LinkToken = { token: string; botUrl: string; expiresAt: string };
 type Filter = "all" | "new" | "active";
-type RazorpayOptions = { key: string; subscription_id: string; name: string; description: string; handler: (response: { razorpay_subscription_id: string; razorpay_payment_id: string; razorpay_signature: string }) => void; modal: { ondismiss: () => void }; theme: { color: string } };
-declare global { interface Window { Razorpay?: new (options: RazorpayOptions) => { open: () => void } } }
-
-const apiBase = (import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? "" : "https://zerox8acure-dpdp-ctf.onrender.com")).replace(/\/$/, "");
+const apiBase = (import.meta.env.VITE_API_BASE_URL || "https://zerox8acure-dpdp-ctf.onrender.com").replace(/\/$/, "");
 
 async function request<T>(path: string, token: string, options: RequestInit = {}): Promise<T> {
   const headers = new Headers(options.headers);
@@ -42,11 +40,9 @@ function downloadFile(name: string, content: string, type: string) {
 }
 
 export function AssetPulseDashboard() {
-  const [sessionToken, setSessionToken] = useState<string | null>(null);
-  const [authReady, setAuthReady] = useState(false);
-  const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { session, user } = useSupabaseSession();
+  const sessionToken = session?.access_token || null;
+  const authReady = true;
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [assets, setAssets] = useState<Asset[]>([]);
   const [selectedDomain, setSelectedDomain] = useState("");
@@ -71,22 +67,6 @@ export function AssetPulseDashboard() {
     if (!domainId) { setAssets([]); return; }
     const result = await request<{ assets: Asset[] }>(`/assets?domainId=${encodeURIComponent(domainId)}`, token);
     setAssets(result.assets);
-  }, []);
-
-  useEffect(() => {
-    let alive = true;
-    if (!supabase) { setAuthReady(true); return; }
-    void supabase.auth.getSession().then(({ data, error: sessionError }) => {
-      if (!alive) return;
-      if (sessionError) setError(sessionError.message);
-      setSessionToken(data.session?.access_token || null);
-      setAuthReady(true);
-    });
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSessionToken(session?.access_token || null);
-      if (!session) { setDashboard(null); setAssets([]); }
-    });
-    return () => { alive = false; data.subscription.unsubscribe(); };
   }, []);
 
   useEffect(() => {
@@ -118,20 +98,6 @@ export function AssetPulseDashboard() {
     try { await action(); }
     catch (cause) { setError(cause instanceof Error ? cause.message : "The request could not be completed."); }
     finally { setBusy(false); }
-  }
-
-  async function authenticate(event: FormEvent) {
-    event.preventDefault();
-    const client = supabase;
-    if (!client) return;
-    await withBusy(async () => {
-      const result = authMode === "signin"
-        ? await client.auth.signInWithPassword({ email: email.trim(), password })
-        : await client.auth.signUp({ email: email.trim(), password });
-      if (result.error) throw result.error;
-      if (authMode === "signup" && !result.data.session) setNotice("Account created. Confirm your email, then sign in to connect AssetPulse.");
-      else if (result.data.session) setSessionToken(result.data.session.access_token);
-    });
   }
 
   async function addDomain(event: FormEvent) {
@@ -195,7 +161,16 @@ export function AssetPulseDashboard() {
         key: keyId, subscription_id: subscriptionId, name: "AssetPulse", description: "Pro plan · ₹499/month",
         theme: { color: "#58f2bd" },
         modal: { ondismiss: () => setNotice("Checkout closed before payment was completed.") },
-        handler: (response) => {
+        handler: (callback) => {
+          if (!callback.razorpay_subscription_id || !callback.razorpay_payment_id || !callback.razorpay_signature) {
+            setError("Razorpay returned incomplete subscription verification details.");
+            return;
+          }
+          const response = {
+            razorpay_subscription_id: callback.razorpay_subscription_id,
+            razorpay_payment_id: callback.razorpay_payment_id,
+            razorpay_signature: callback.razorpay_signature
+          };
           void withBusy(async () => {
             await request("/subscriptions/verify", sessionToken, { method: "POST", body: JSON.stringify(response) });
             await refreshDashboard(sessionToken);
@@ -215,13 +190,8 @@ export function AssetPulseDashboard() {
       <div><span className="ap-kicker"><Activity size={14}/> EXTERNAL ATTACK SURFACE MONITORING</span><h1>AssetPulse</h1><p>Track your exposed subdomains through Certificate Transparency and DNS—without port scans or intrusive probes.</p></div>
       <span className="ap-status-chip"><i/> PASSIVE DISCOVERY</span>
     </header>
-    <section className="ap-panel ap-auth-panel"><div className="ap-panel-title"><ShieldCheck size={18}/><h2>Supabase sign in</h2></div><p>AssetPulse stores monitoring data under your authenticated Supabase account.</p>
-      <form className="ap-auth-form" onSubmit={authenticate}>
-        <label>Email<input type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)}/></label>
-        <label>Password<input type="password" autoComplete={authMode === "signin" ? "current-password" : "new-password"} minLength={8} required value={password} onChange={(event) => setPassword(event.target.value)}/></label>
-        <button className="ap-button primary" disabled={busy}>{busy && <LoaderCircle className="ap-spin" size={16}/>} {authMode === "signin" ? "Sign in" : "Create account"}</button>
-      </form>
-      <button className="ap-link-button" onClick={() => setAuthMode(authMode === "signin" ? "signup" : "signin")}>{authMode === "signin" ? "New to AssetPulse? Create a Supabase account" : "Already have an account? Sign in"}</button>
+    <section className="ap-panel ap-auth-panel"><div className="ap-panel-title"><ShieldCheck size={18}/><h2>Supabase sign in</h2></div><p>AssetPulse stores monitoring data under your authenticated Supabase account. Use the account button in the workspace header to sign in or create an account.</p>
+      <button className="ap-button primary" type="button" onClick={() => document.querySelector<HTMLElement>(".ap-auth-trigger")?.click()}>Open account sign in</button>
     </section>
     <Feedback error={error} notice={notice}/>
   </main>;
@@ -234,6 +204,7 @@ export function AssetPulseDashboard() {
       <span className="ap-status-chip"><i/> MONITORING READY</span>
     </header>
     <Feedback error={error} notice={notice}/>
+    <p className="ap-session-user">Signed in as {user?.email}</p>
     <section className="ap-metrics">
       <div className="ap-metric"><span>MONITORED DOMAINS</span><strong>{dashboard?.domains.length || 0}<small> / {domainLimit}</small></strong></div>
       <div className="ap-metric"><span>DISCOVERED ASSETS</span><strong>{assets.length}</strong></div>

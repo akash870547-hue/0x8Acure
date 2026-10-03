@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  Activity, AlertTriangle, ArrowUpRight, BadgeCheck, Download, FileText, Gauge,
-  Shield, ShieldAlert, Sparkles,
+  Activity, AlertTriangle, ArrowUpRight, BadgeCheck, Check, CreditCard, Download, FileText, Gauge,
+  History, LoaderCircle, Save, Shield, ShieldAlert, Sparkles,
 } from "lucide-react";
+import { useSupabaseSession } from "../../auth/SupabaseSession";
+import { supabaseClient } from "../../lib/supabaseClient";
+import { startCheckout, type ServiceType } from "../../services/paymentService";
 
 type Tier = "Startup / MSME" | "Regular Data Fiduciary" | "Significant Data Fiduciary";
 type Scale = "<1,000" | "10,000" | "100,000" | "1,000,000+";
@@ -35,6 +38,7 @@ const vectorPoints: Record<Vector, number> = {
 };
 
 type Scenario = { tier: Tier; data: DataKind[]; scale: Scale; principalCount: number; vector: Vector; controls: Control[]; contained: boolean };
+type SavedAssessment = { id: string; organization_tier: Tier; affected_count: number; risk_score: number; calculated_penalty_min: number; calculated_penalty_max: number; created_at: string; executive_memo: string | null };
 
 const initialScenario: Scenario = { tier: "Startup / MSME", data: [], scale: "<1,000", principalCount: 500, vector: "Exposed S3 / Cloud Storage", controls: [], contained: false };
 
@@ -101,9 +105,34 @@ function RiskBar({ label, value, tone }: { label: string; value: number; tone: "
 }
 
 export function BreachEstimator() {
+  const { session, user } = useSupabaseSession();
   const [scenario, setScenario] = useState<Scenario>(initialScenario);
   const [memoOpen, setMemoOpen] = useState(false);
   const [memo, setMemo] = useState("");
+  const [savedAssessments, setSavedAssessments] = useState<SavedAssessment[]>([]);
+  const [selectedHistory, setSelectedHistory] = useState<SavedAssessment | null>(null);
+  const [assessmentBusy, setAssessmentBusy] = useState(false);
+  const [paymentBusy, setPaymentBusy] = useState(false);
+  const [serviceNotice, setServiceNotice] = useState("");
+  const [serviceError, setServiceError] = useState("");
+
+  const loadSavedAssessments = async () => {
+    if (!supabaseClient || !user) { setSavedAssessments([]); return; }
+    const { data, error } = await supabaseClient.from("breach_assessments")
+      .select("id,organization_tier,affected_count,risk_score,calculated_penalty_min,calculated_penalty_max,created_at,executive_memo")
+      .eq("user_id", user.id).order("created_at", { ascending: false }).limit(20);
+    if (error) throw error;
+    setSavedAssessments(data || []);
+  };
+  useEffect(() => {
+    let active = true;
+    if (!user) { setSavedAssessments([]); return; }
+    void loadSavedAssessments().catch((error: unknown) => {
+      if (active) setServiceError(error instanceof Error ? error.message : "Could not load saved assessment history.");
+    });
+    return () => { active = false; };
+  }, [user?.id]);
+
   useEffect(() => {
     if (!memoOpen) return;
     const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setMemoOpen(false); };
@@ -130,14 +159,65 @@ export function BreachEstimator() {
     const lower = Math.max(0.05, Math.round(upper * (score >= 75 ? 0.2 : 0.08) * 20) / 20);
     const band = `${formatCr(lower)} – ${formatCr(upper)}`;
     const label = mitigatedScore >= 75 ? "CRITICAL" : mitigatedScore >= 50 ? "HIGH" : mitigatedScore >= 25 ? "ELEVATED" : "GUARDED";
-    return { score, mitigatedScore, children, credit, risk, band, label };
+    return { score, mitigatedScore, children, credit, risk, band, label, lowerPenaltyCr: lower, upperPenaltyCr: upper };
   }, [scenario]);
 
   const update = <K extends keyof Scenario>(key: K, value: Scenario[K]) => setScenario(previous => ({ ...previous, [key]: value }));
   const toggle = <T extends string>(list: T[], value: T): T[] => list.includes(value) ? list.filter(item => item !== value) : [...list, value];
+  const createMemo = () => makeMemo(scenario, assessment.score, assessment.mitigatedScore, assessment.band, assessment.children, assessment.risk, assessment.credit);
+  const saveAssessment = async (executiveMemo?: string) => {
+    if (!supabaseClient || !session?.user) {
+      setServiceError("Sign in with Supabase before saving an assessment.");
+      document.querySelector<HTMLElement>(".ap-auth-trigger")?.click();
+      return;
+    }
+    setAssessmentBusy(true); setServiceError(""); setServiceNotice("");
+    try {
+      const { error } = await supabaseClient.from("breach_assessments").insert({
+        user_id: session.user.id,
+        organization_tier: scenario.tier,
+        affected_count: scenario.principalCount,
+        data_types: scenario.data,
+        calculated_penalty_min: Math.round(assessment.lowerPenaltyCr * 10_000_000),
+        calculated_penalty_max: Math.round(assessment.upperPenaltyCr * 10_000_000),
+        risk_score: assessment.mitigatedScore,
+        scenario_data: scenario,
+        executive_memo: executiveMemo || null
+      });
+      if (error) throw error;
+      await loadSavedAssessments();
+      setServiceNotice(executiveMemo ? "Assessment and executive memo saved to your Supabase account." : "Assessment saved to your Supabase account.");
+    } catch (error) {
+      setServiceError(error instanceof Error ? error.message : "Could not save this assessment.");
+    } finally {
+      setAssessmentBusy(false);
+    }
+  };
   const generateMemo = () => {
-    setMemo(makeMemo(scenario, assessment.score, assessment.mitigatedScore, assessment.band, assessment.children, assessment.risk, assessment.credit));
+    const generated = createMemo();
+    setMemo(generated);
     setMemoOpen(true);
+    void saveAssessment(generated);
+  };
+  const checkout = async (serviceType: ServiceType) => {
+    if (!session) {
+      setServiceError("Sign in with Supabase before starting checkout.");
+      document.querySelector<HTMLElement>(".ap-auth-trigger")?.click();
+      return;
+    }
+    setPaymentBusy(true); setServiceError(""); setServiceNotice("");
+    try {
+      await startCheckout(session, serviceType, ({ service_type }) => {
+        setPaymentBusy(false);
+        setServiceNotice(service_type === "pro_dpdp_pack" ? "Payment verified. Your Pro DPDPA Pack is unlocked." : "Payment verified. Your Instant Audit Report is unlocked.");
+      }, () => setPaymentBusy(false), (message) => {
+        setPaymentBusy(false);
+        setServiceError(message);
+      });
+    } catch (error) {
+      setPaymentBusy(false);
+      setServiceError(error instanceof Error ? error.message : "Could not start Razorpay checkout.");
+    }
   };
   const downloadMemo = () => {
     const url = URL.createObjectURL(new Blob([memo], { type: "text/markdown;charset=utf-8" }));
@@ -154,6 +234,8 @@ export function BreachEstimator() {
       <span className="breach-live"><Activity size={14}/> LOCAL SCENARIO MODEL</span>
     </div>
     <div className="breach-disclaimer" role="note"><AlertTriangle size={17}/><span><strong>Planning estimate only.</strong> This educational heuristic is not legal advice, a regulator assessment, or a prediction of a penalty. Statutory ceilings are maximums for specified contraventions, not automatic fines; obtain qualified counsel and verify current rules and reporting applicability.</span></div>
+    {serviceError && <div className="ap-feedback error" role="alert">{serviceError}</div>}
+    {serviceNotice && <div className="ap-feedback notice" role="status"><Check size={15}/>{serviceNotice}</div>}
 
     <div className="demo-strip" aria-label="Load a sample scenario"><span>LOAD SCENARIO</span>{demos.map(demo => <button key={demo.label} type="button" className="btn secondary demo-button" onClick={() => setScenario(demo.values)}><Sparkles size={14}/>{demo.label}</button>)}</div>
 
@@ -209,10 +291,20 @@ export function BreachEstimator() {
         </section>
 
         <button className="btn primary memo-cta" type="button" onClick={generateMemo}><FileText size={17}/>Generate Board-Ready Compliance Memo</button>
+        <button className="btn secondary memo-cta" type="button" disabled={assessmentBusy} onClick={() => void saveAssessment()}>{assessmentBusy ? <LoaderCircle className="ap-spin" size={16}/> : <Save size={16}/>}Save Assessment</button>
+        <section className="breach-panel ap-saved-history"><div className="breach-panel-title compact"><span className="timeline-icon"><History size={16}/></span><div><h2>Saved Assessments</h2><p>{user ? "Private history in your Supabase account." : "Sign in to save and view assessment history."}</p></div></div>
+          {user && <button type="button" className="ap-button secondary" onClick={() => void loadSavedAssessments().catch((error: unknown) => setServiceError(error instanceof Error ? error.message : "Could not refresh history."))}>Refresh history</button>}
+          {savedAssessments.length ? <div className="ap-history-list">{savedAssessments.map((item) => <button type="button" key={item.id} className={`ap-history-item${selectedHistory?.id === item.id ? " active" : ""}`} onClick={() => setSelectedHistory(item)}><strong>{item.organization_tier}</strong><span>{new Date(item.created_at).toLocaleDateString()} · {item.affected_count.toLocaleString()} people · Risk {item.risk_score}</span></button>)}</div> : <p className="muted-note">No saved assessments yet.</p>}
+        </section>
+        <div className="ap-audit-checkout">
+          <button className="btn secondary" type="button" disabled={paymentBusy} onClick={() => void checkout("instant_audit_report")}><CreditCard size={16}/>{paymentBusy ? "Opening checkout…" : "Unlock Instant Audit Report · ₹299"}</button>
+          <button className="btn primary" type="button" disabled={paymentBusy} onClick={() => void checkout("pro_dpdp_pack")}><CreditCard size={16}/>{paymentBusy ? "Opening checkout…" : "Buy Pro DPDPA Pack · ₹999"}</button>
+        </div>
         <a className="audit-cta" href="mailto:?subject=DPDPA%20%26%20VAPT%20Security%20Audit"><span><b>Book a Formal DPDPA & VAPT Security Audit</b><small>Opens an email draft to share with your DPDPA/VAPT security advisor.</small></span><ArrowUpRight size={18}/></a>
       </aside>
     </div>
 
+    {selectedHistory && createPortal(<div className="memo-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setSelectedHistory(null); }}><section className="memo-dialog" role="dialog" aria-modal="true" aria-labelledby="history-title"><div className="memo-head"><div><span className="eyebrow">SAVED ASSESSMENT · {new Date(selectedHistory.created_at).toLocaleString()}</span><h2 id="history-title">{selectedHistory.organization_tier} · Risk {selectedHistory.risk_score}/100</h2></div><button type="button" className="icon-button" onClick={() => setSelectedHistory(null)} aria-label="Close saved assessment">×</button></div><p>{selectedHistory.affected_count.toLocaleString()} affected people · ₹{(Number(selectedHistory.calculated_penalty_min) / 10_000_000).toFixed(2)}–₹{(Number(selectedHistory.calculated_penalty_max) / 10_000_000).toFixed(2)} Cr</p>{selectedHistory.executive_memo ? <textarea aria-label="Saved executive memo" readOnly value={selectedHistory.executive_memo}/> : <p>This assessment was saved without an executive memo.</p>}</section></div>, document.body)}
     {memoOpen && createPortal(<div className="memo-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setMemoOpen(false); }}><section className="memo-dialog" role="dialog" aria-modal="true" aria-labelledby="memo-title"><div className="memo-head"><div><span className="eyebrow">EXECUTIVE BRIEF · MARKDOWN</span><h2 id="memo-title">Board-Ready Compliance Memo</h2></div><button type="button" className="icon-button" onClick={() => setMemoOpen(false)} aria-label="Close memo">×</button></div><textarea aria-label="Generated compliance memo" readOnly value={memo}/><div className="memo-actions"><button type="button" className="btn secondary" onClick={downloadMemo}><Download size={15}/>Download Markdown</button><button type="button" className="btn primary" onClick={() => window.print()}>Print / Save as PDF</button></div></section></div>, document.body)}
   </section>;
 }

@@ -1,5 +1,6 @@
 import { Component, lazy, Suspense, useEffect, useState, type ErrorInfo, type ReactNode } from "react";
 import { Activity, ArrowUpRight, Calculator, Fingerprint, Globe2, ShieldCheck } from "lucide-react";
+import { SupabaseAuthControls } from "./auth/SupabaseSession";
 
 const ForensicsEngine = lazy(() => import("./components/ForensicsEngine/ForensicsEngine").then(module => ({ default: module.ForensicsEngine })));
 const AppComplianceScanner = lazy(() => import("./components/AppComplianceScanner").then(module => ({ default: module.AppComplianceScanner })));
@@ -81,6 +82,7 @@ function App() {
           onClick={() => navigate(id)}
         ><Icon size={16}/>{label}</button>)}
       </nav>
+      <SupabaseAuthControls/>
       <a className="academy-link" href="/" target="_self"><ArrowUpRight size={15}/> Back to DPDP Academy</a>
     </header>
     <div className="app-layout cyber-layout">
