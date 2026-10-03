@@ -87,14 +87,15 @@ const rightsWorkflow = [
 ];
 
 const penaltyMatrix = [
-  { reference: "Act Schedule, entry 1; Section 8(5)", contravention: "Failure to take reasonable security safeguards to prevent personal data breach", maximum_inr_crore: 250 },
-  { reference: "Act Schedule, entry 2; Section 8(6)", contravention: "Failure to give intimation of a personal data breach to the Board or affected Data Principals", maximum_inr_crore: 200 },
-  { reference: "Act Schedule, entry 3; Section 9", contravention: "Failure to fulfil additional obligations relating to children's personal data", maximum_inr_crore: 200 },
-  { reference: "Act Schedule, entry 4; Section 10", contravention: "Failure by a Significant Data Fiduciary to fulfil additional obligations", maximum_inr_crore: 150 },
-  { reference: "Act Schedule, entry 5", contravention: "Breach of a term of a voluntary undertaking accepted by the Board", maximum_inr_crore: 50 },
-  { reference: "Act Schedule, entry 6", contravention: "Any other provision of the Act or Rules", maximum_inr_crore: 50 }
+  { reference: "Act Schedule, entry 1; Section 8(5)", contravention: "Failure to take reasonable security safeguards to prevent personal data breach", maximum_amount: "₹250 crore", maximum_inr_crore: 250 },
+  { reference: "Act Schedule, entry 2; Section 8(6)", contravention: "Failure to give intimation of a personal data breach to the Board or affected Data Principals", maximum_amount: "₹200 crore", maximum_inr_crore: 200 },
+  { reference: "Act Schedule, entry 3; Section 9", contravention: "Failure to fulfil additional obligations relating to children's personal data", maximum_amount: "₹200 crore", maximum_inr_crore: 200 },
+  { reference: "Act Schedule, entry 4; Section 10", contravention: "Failure by a Significant Data Fiduciary to fulfil additional obligations", maximum_amount: "₹150 crore", maximum_inr_crore: 150 },
+  { reference: "Act Schedule, entry 5; Section 15", contravention: "Breach of duties by a Data Principal", maximum_amount: "₹10,000", maximum_inr: 10000 },
+  { reference: "Act Schedule, entry 6; Section 32", contravention: "Breach of a term of a voluntary undertaking accepted by the Board", maximum_amount: "Up to the applicable penalty for the underlying contravention" },
+  { reference: "Act Schedule, entry 7", contravention: "Any other provision of the Act or Rules", maximum_amount: "₹50 crore", maximum_inr_crore: 50 }
 ];
-const enforcementNote = "These are statutory maxima, not preset or automatic fines. Section 33 requires the Board to consider the factors specified there. Section 28(10) permits the Board to impose costs it deems fit for a frivolous or vexatious complaint; the Act's Schedule does not prescribe a fixed ₹10,000 amount.";
+const enforcementNote = "These are statutory maxima, not preset or automatic fines. Section 33 requires the Board to consider the factors specified there. The Act Schedule's ₹10,000 ceiling concerns a Data Principal's breach of duties under Section 15, not a frivolous complaint. Section 28(10) separately permits the Board to impose costs it deems fit for a frivolous or vexatious complaint; it does not set a fixed ₹10,000 amount.";
 
 const strategies = [
   {
@@ -177,7 +178,7 @@ const defaultStrategy = {
   failure: "Approving on the basis of a generic policy, an assumption, or a vendor assurance without mapping the actual processing.",
   explanation: "Apply the cited provision to the facts and distinguish statutory text, Rules, implementation guidance and assumptions."
 };
-const questionTypes = ["scenario", "mcq", "scenario", "spot-the-violation", "mcq", "scenario"];
+const questionTypes = ["scenario", "mcq", "scenario-section", "flag", "multi-select", "true_false"];
 const additionalActSectionsByRoom = {
   "rule-01": [1, 40, 41, 43],
   "rule-02": [2],
@@ -248,8 +249,8 @@ function buildQuestions(room) {
     `For ${room.title}, which evidence best demonstrates implementation of ${legalAnchor}?`,
     `Which statement is the most accurate application of ${reference} to this scenario?`,
     `The team proposes the following action for ${room.title}. Which control should the reviewer challenge?`,
-    `What is the most defensible next step when facts relevant to ${reference} remain incomplete?`,
-    `How should the team explain enforcement exposure relating to ${reference}?`
+    `Select both defensible next steps when facts relevant to ${reference} remain incomplete.`,
+    "True or false: A statutory maximum penalty is automatic once an incident is reported."
   ];
   const correct = [
     strategy.action,
@@ -257,7 +258,7 @@ function buildQuestions(room) {
     strategy.explanation,
     strategy.failure,
     "Record confirmed facts and assumptions separately, preserve evidence, assign an owner and escalate unresolved legal questions before concluding.",
-    "Identify the exact contravention and applicable commencement, then describe the statutory maximum as a ceiling rather than an automatic or predicted penalty."
+    "False. Identify the exact contravention and applicable commencement; a statutory maximum is a ceiling, not an automatic penalty."
   ];
   const distractors = [
     wrong,
@@ -267,27 +268,49 @@ function buildQuestions(room) {
     ["Assume the most favourable interpretation and omit the open question.", "Rely on an unverified summary without checking the cited source.", "Treat missing evidence as proof that no processing took place."],
     ["Use the highest number as the amount automatically due.", "Ignore the relevant contravention and commencement date.", "Quote a fixed ₹10,000 complaint penalty as a Schedule item."]
   ];
-  const correctPositions = [1, 2, 3, 0, 2, 1];
+  const correctPositions = [1, 2, 3, 0];
   const hints = [
     `Read ${reference} in the notified text and check the provision's commencement.`,
     `Separate the statutory obligation from the control, evidence and unresolved assumptions.`
   ];
 
   return stems.map((prompt, index) => {
-    const position = correctPositions[index];
-    const options = [...distractors[index]];
-    options.splice(position, 0, correct[index]);
-    const whyWrong = options.map((_, optionIndex) => optionIndex === position
+    let options;
+    let answer;
+    if(index===4){
+      options=[
+        "Record confirmed facts, assumptions, evidence and an accountable owner.",
+        "Assume the most favourable interpretation and omit the unresolved issue.",
+        "Escalate unresolved legal questions before treating the activity as compliant.",
+        "Rely on an unverified summary without checking the cited source."
+      ];
+      answer=[0,2];
+    }else if(index===5){
+      options=["True","False"];
+      answer=1;
+    }else{
+      const position=correctPositions[index];
+      options=[...distractors[index]];
+      options.splice(position,0,correct[index]);
+      answer=position;
+    }
+    const correctIndexes=new Set(Array.isArray(answer)?answer:[answer]);
+    const whyWrong = options.map((_, optionIndex) => correctIndexes.has(optionIndex)
       ? "Correct: this response applies the cited provision to the stated facts and identifies a verifiable control or decision."
       : `Incorrect: this option ${index === 5 ? "overstates, misstates or fails to establish the applicable statutory consequence" : "does not establish the provision-specific control and evidence required"}.`);
+    const explanation=index===5
+      ? `False. ${enforcementNote} Citation: ${reference}.`
+      : Array.isArray(answer)
+        ? `${options.filter((_,optionIndex)=>correctIndexes.has(optionIndex)).join(" ")} ${strategy.explanation} Citation: ${reference}.`
+        : `${correct[index]} ${strategy.explanation} Citation: ${reference}.`;
     return {
       id: `${room.id}-t${index + 1}`,
       type: questionTypes[index],
       prompt,
       options,
-      correct_answer: position,
-      answer: position,
-      explanation: `${correct[index]} ${strategy.explanation} Citation: ${reference}.`,
+      correct_answer: answer,
+      answer,
+      explanation,
       citation: { reference, source_id },
       section_reference: reference,
       hints: hints.map(text => ({ text, cost: 0 })),
@@ -295,7 +318,7 @@ function buildQuestions(room) {
       difficulty: room.difficulty || "intermediate",
       room_context: `Room ${room.id}: ${legalAnchor}.`,
       evidence_required: [strategy.evidence, "Dated owner decision and source/commencement record."],
-      why: `${correct[index]} ${strategy.explanation}`,
+      why: explanation,
       why_wrong: whyWrong
     };
   });

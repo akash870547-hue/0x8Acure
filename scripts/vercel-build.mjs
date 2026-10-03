@@ -1,6 +1,7 @@
-import { mkdir, rm, readdir } from "node:fs/promises";
+import { mkdir, rm, readdir, readFile } from "node:fs/promises";
 import { cpSync } from "node:fs";
 import { existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -9,6 +10,11 @@ const publicDir = path.join(root, "public");
 const appDir = path.join(publicDir, "app");
 const contentSource = path.join(root, "content");
 const contentTarget = path.join(publicDir, "content");
+const vercelConfig = JSON.parse(await readFile(path.join(root, "vercel.json"), "utf8"));
+const spaRewrite = vercelConfig.rewrites?.find(rule => rule.destination === "/index.html");
+if (!spaRewrite || !String(spaRewrite.source).includes("(?!app/|content/")) {
+  throw new Error("Vercel SPA rewrite must exclude /content/* so content is served as static assets.");
+}
 
 const staticFiles = [
   "index.html",
@@ -90,6 +96,16 @@ if (sourceFiles.length !== copiedFiles.length || sourceFiles.some((file, index) 
   );
 }
 
+for (const file of sourceFiles) {
+  const [source, copied] = await Promise.all([
+    readFile(path.join(contentSource, file)),
+    readFile(path.join(contentTarget, file))
+  ]);
+  const sourceHash = createHash("sha256").update(source).digest("hex");
+  const copiedHash = createHash("sha256").update(copied).digest("hex");
+  if (sourceHash !== copiedHash) throw new Error(`Content copy checksum mismatch: ${file}`);
+}
+
 const jsonFiles = sourceFiles.filter(file => file.toLowerCase().endsWith(".json"));
 const requiredContent = ["legal-room-content.json","tasks.json","case-studies.json"];
 const missingRequired = requiredContent.filter(file => !copiedFiles.includes(file));
@@ -99,6 +115,15 @@ if (missingJson.length) {
   throw new Error(`Content JSON copy verification failed. Missing: ${missingJson.join(", ")}`);
 }
 
+for (const file of jsonFiles) JSON.parse(await readFile(path.join(contentTarget, file), "utf8"));
+const legalRooms = JSON.parse(await readFile(path.join(contentTarget, "legal-room-content.json"), "utf8"));
+const taskBank = JSON.parse(await readFile(path.join(contentTarget, "tasks.json"), "utf8"));
+const caseStudies = JSON.parse(await readFile(path.join(contentTarget, "case-studies.json"), "utf8"));
+if (legalRooms.rooms?.length !== 67 || taskBank.tasks?.length !== 402 ||
+  !Array.isArray(caseStudies.cases) || caseStudies.cases.length < 6) {
+  throw new Error("Built content does not meet the required 67 rooms, 402 tasks and six case studies.");
+}
+
 console.log(
-  `Vercel dual-frontend assembly complete. Copied ${sourceFiles.length} content files, including ${jsonFiles.length} JSON files, into public/content/.`
+  `Vercel dual-frontend assembly complete. Copied and SHA-256 verified ${sourceFiles.length} content files (${jsonFiles.length} JSON files) into public/content/.`
 );

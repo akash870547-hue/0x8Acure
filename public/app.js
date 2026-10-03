@@ -293,6 +293,7 @@
       const validateRegistry=(raw,label)=>{
         const rooms=Array.isArray(raw)?raw:raw?.rooms;
         if(!Array.isArray(rooms)||!rooms.length) throw new Error(label+" must contain a non-empty rooms array.");
+        if(rooms.length!==67) throw new Error(label+" must contain all 67 legal rooms; found "+rooms.length+".");
         const invalid=rooms.filter(room=>!room||typeof room.id!=="string"||!room.id||typeof room.title!=="string");
         if(invalid.length) throw new Error(label+" contains "+invalid.length+" room entries without valid IDs and titles.");
         const ids=new Set();
@@ -301,7 +302,12 @@
           ids.add(room.id);
           const questions=(room.tasks||[]).flatMap(group=>Array.isArray(group?.questions)?group.questions:[]);
           if(!questions.length) throw new Error(label+" room "+room.id+" has no assessment questions.");
-          if(questions.some(question=>!question||typeof question.id!=="string"||typeof question.prompt!=="string")){
+          if(questions.some(question=>!question||typeof question.id!=="string"||typeof question.prompt!=="string"||
+            !Array.isArray(question.options)||question.options.length<2||
+            !(question.type==="multi-select"
+              ? Array.isArray(question.correct_answer)&&question.correct_answer.length>0&&question.correct_answer.every(index=>Number.isInteger(index)&&index>=0&&index<question.options.length)
+              : Number.isInteger(question.correct_answer)&&question.correct_answer>=0&&question.correct_answer<question.options.length)||
+            typeof question.explanation!=="string"||!question.citation?.reference)){
             throw new Error(label+" room "+room.id+" contains an invalid assessment question.");
           }
         }
@@ -313,7 +319,9 @@
         for(const task of raw.tasks){
           if(!task||typeof task.id!=="string"||!task.id||typeof task.prompt!=="string"||
             !Array.isArray(task.options)||task.options.length<2||
-            !Number.isInteger(task.correct_answer)||task.correct_answer<0||task.correct_answer>=task.options.length||
+            !(task.type==="multi-select"
+              ? Array.isArray(task.correct_answer)&&task.correct_answer.length>0&&task.correct_answer.every(index=>Number.isInteger(index)&&index>=0&&index<task.options.length)
+              : Number.isInteger(task.correct_answer)&&task.correct_answer>=0&&task.correct_answer<task.options.length)||
             typeof task.explanation!=="string"){
             throw new Error(label+" contains an invalid task or answer.");
           }
@@ -423,7 +431,9 @@
     const selected=rs.answers?.[String(index)];
     const result=rs.results?.[String(index)];
     const feedback=rs.feedback?.[String(index)];
-    const options=(q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-room-option="'+index+'" data-room-value="'+i+'">'+esc(o)+'</button>').join("");
+    const options=q.type==="multi-select"
+      ? (q.options||[]).map((o,i)=>'<label class="option '+((Array.isArray(selected)&&selected.includes(i))?"selected":"")+'" data-room-multi="'+index+'" data-room-value="'+i+'"><input type="checkbox" '+((Array.isArray(selected)&&selected.includes(i))?"checked":"")+'><span>'+esc(o)+'</span></label>').join("")
+      : (q.options||[]).map((o,i)=>'<button type="button" class="option '+(Number(selected)===i?"selected":"")+'" data-room-option="'+index+'" data-room-value="'+i+'">'+esc(o)+'</button>').join("");
     const hint=(q.hints||[]).map((h,i)=>'<li><b>Hint '+(i+1)+':</b> '+esc(h.text||h)+'</li>').join("");
     const resultHtml=feedback?'<div class="explain '+(result?"":"wrong")+'"><b>'+(result?"Correct":"Review")+'</b><br>'+esc(feedback.explanation||"Review the cited provision.")+(feedback.wrongReasons?'<br>'+esc(feedback.wrongReasons):"")+'</div>':"";
     return '<article class="panel room-task-card">'+
@@ -468,7 +478,7 @@
     const rights=(legal.data_principal_workflow||catalog.data_principal_workflow||[]).map(item=>'<article class="mini-question"><b>'+esc(item.right)+' · '+esc(item.provision)+'</b><p>'+esc(item.action)+'</p></article>').join("");
     const safeguards=(legal.operational_safeguards?.measures||catalog.rule_6_safeguards||[]).map(item=>'<article class="mini-question"><b>'+esc(item.id)+' · '+esc(item.requirement)+'</b><p><b>Implementation example:</b> '+esc(item.implementation)+'</p></article>').join("");
     const guidance=(legal.operational_safeguards?.additional_guidance||[]).map(item=>'<li>'+esc(item)+'</li>').join("");
-    const penalties=(legal.penalty_matrix||catalog.act_penalty_schedule||[]).map(item=>'<tr><td>'+esc(item.reference)+'</td><td>'+esc(item.contravention)+'</td><td>Up to ₹'+esc(item.maximum_inr_crore)+' crore</td></tr>').join("");
+    const penalties=(legal.penalty_matrix||catalog.act_penalty_schedule||[]).map(item=>'<tr><td>'+esc(item.reference)+'</td><td>'+esc(item.contravention)+'</td><td>'+esc(item.maximum_amount||("Up to ₹"+item.maximum_inr_crore+" crore"))+'</td></tr>').join("");
     const progress=Object.values(rs.results||{});
     const completed=progress.length;
     const correct=progress.filter(Boolean).length;
@@ -505,7 +515,7 @@
   }
 
   function submitRoomAnswer(index){
-    const legal=(window.__roomRegistry.rooms||[]).find(x=>x.id===roomId); if(!legal)return;
+    const legal=(window.__roomRegistry?.rooms||[]).find(x=>x.id===roomId); if(!legal)return;
     const q=legal.tasks.flatMap(t=>t.questions||[])[Number(index)],rs=roomQuizMeta(legal).rs,raw=rs.answers[String(index)];
     if(raw===undefined){toastMsg("Choose an answer first");return;}
     const ok=rqGrade(q,raw); rs.results[String(index)]=ok; rs.feedback||(rs.feedback={});
@@ -585,6 +595,7 @@
           method:"POST",body:JSON.stringify({index:quizIndex,answer})
         });
       }catch(apiError){
+        console.warn("[DPDP] Quiz API unavailable; grading this assessment locally.",apiError);
         const q=quizTasks[quizIndex];
         const correct=rqGrade(q,answer);
         feedback={
@@ -595,6 +606,8 @@
       }
       rs.results[key]=!!feedback.correct;
       rs.feedback[key]=feedback;
+      const correctCount=Object.values(rs.results||{}).filter(Boolean).length;
+      rs.bestScore=Math.max(Number(rs.bestScore||0),Math.round(correctCount/quizTasks.length*100));
       save();
       renderQuiz();
     }catch(error){toastMsg(error.message||"Could not check this answer.");}
@@ -803,7 +816,6 @@
     const qr=e.target.closest("[data-quiz-room]");
     if(qr){ startRoomQuiz(qr.dataset.quizRoom); return; }
 
-    const roomOption=e.target.closest("[data-room-option]");
     const roomTabButton=e.target.closest("[data-room-tab]");
     if(roomTabButton&&view==="room"){
       const nextTab=roomTabButton.dataset.roomTab;
@@ -813,6 +825,21 @@
       }
       return;
     }
+    const roomMulti=e.target.closest("[data-room-multi]");
+    if(roomMulti&&view==="room"){
+      const legal=(window.__roomRegistry?.rooms||[]).find(x=>x.id===roomId);
+      if(legal){
+        const rs=roomQuizMeta(legal).rs;
+        const key=String(roomMulti.dataset.roomMulti);
+        const selected=new Set(Array.isArray(rs.answers[key])?rs.answers[key]:[]);
+        const value=Number(roomMulti.dataset.roomValue);
+        if(selected.has(value)) selected.delete(value); else selected.add(value);
+        rs.answers[key]=[...selected].sort((a,b)=>a-b);
+        save();render();
+      }
+      return;
+    }
+    const roomOption=e.target.closest("[data-room-option]");
     if(roomOption && view==="room"){
       const legal=(window.__roomRegistry?.rooms||[]).find(x=>x.id===roomId);
       if(legal){

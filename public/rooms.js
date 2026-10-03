@@ -135,6 +135,42 @@ window.DPDP_BUILD_ROOM_FALLBACK = function(){
     cheat_sheet: room.cheat_sheet || [],
     source_pages: room.source_pages || [],
     official_text_status: "UNVERIFIED",
+    statutory_theory: "Consult the complete official Act/Rules text for " + (room.sections || "the room's cited provisions") + ". This minimal offline fallback is a learning aid, not a substitute for the notified Gazette text.",
+    case_study: {
+      title: "Offline review scenario",
+      scenario: "A team proposes personal-data processing but cannot yet show its purpose, data flow, roles or control evidence.",
+      facts: ["Confirm the processing facts and source before deciding."],
+      investigation_steps: ["Identify purpose and actors.", "Check the cited provision and commencement.", "Record the control owner and evidence."],
+      expected_outcome: "A source-linked decision with unresolved questions clearly recorded."
+    },
+    operational_safeguards: {
+      legal_anchor: "Rule 6 (check phased commencement)",
+      status: "Offline baseline guidance only; load the full room registry for complete measures.",
+      measures: [
+        {id:"rule-6(a)",requirement:"Protect personal data using suitable safeguards including encryption, obfuscation, masking or virtual tokens.",implementation:"Use encryption in transit and at rest where appropriate and protect keys separately."},
+        {id:"rule-6(b)",requirement:"Control access to computer resources used by the Data Fiduciary or processor.",implementation:"Apply unique identities, least privilege and access reviews."},
+        {id:"rule-6(c)",requirement:"Use logs, monitoring and review to detect unauthorised access.",implementation:"Centralise access logs and investigate anomalous events."},
+        {id:"rule-6(d)",requirement:"Use reasonable measures for continued processing if confidentiality, integrity or availability is compromised.",implementation:"Test backups, restoration and incident response."},
+        {id:"rule-6(e)",requirement:"Retain relevant personal data, traffic data and other logs for at least one year unless another law requires otherwise.",implementation:"Protect relevant logs and document lawful retention."},
+        {id:"rule-6(f)",requirement:"Include appropriate security provisions in processor contracts.",implementation:"Set security, incident, retention, audit and deletion terms."}
+      ],
+      additional_guidance: []
+    },
+    data_principal_workflow: [
+      {right:"Access",provision:"Section 11",action:"Authenticate the requester, locate relevant records and preserve response evidence."},
+      {right:"Correction and erasure",provision:"Section 12",action:"Verify the request, check lawful retention and record any processor action."},
+      {right:"Grievance",provision:"Section 13; Rule 14",action:"Provide an effective channel; Rule 14 sets a response period no longer than 90 days when operative."},
+      {right:"Appeal",provision:"Section 29; Rule 22",action:"Appeals from Board orders lie to TDSAT within 60 days, subject to applicable commencement and procedure."}
+    ],
+    penalty_matrix: [
+      {reference:"Act Schedule, entry 1; Section 8(5)",contravention:"Failure to take reasonable security safeguards",maximum_amount:"₹250 crore"},
+      {reference:"Act Schedule, entry 2; Section 8(6)",contravention:"Failure to give breach intimation",maximum_amount:"₹200 crore"},
+      {reference:"Act Schedule, entry 3; Section 9",contravention:"Failure to fulfil child-data obligations",maximum_amount:"₹200 crore"},
+      {reference:"Act Schedule, entry 4; Section 10",contravention:"Failure to fulfil SDF obligations",maximum_amount:"₹150 crore"},
+      {reference:"Act Schedule, entry 5; Section 15",contravention:"Breach of Data Principal duties",maximum_amount:"₹10,000"},
+      {reference:"Act Schedule, entry 7",contravention:"Any other provision of the Act or Rules",maximum_amount:"₹50 crore"}
+    ],
+    penalty_accuracy_note: "Statutory ceilings are not automatic penalties. Section 28(10) does not prescribe a fixed ₹10,000 cost for frivolous or vexatious complaints.",
     tasks: [{
       id: room.id + "-baseline",
       title: "Baseline room task",
@@ -146,7 +182,11 @@ window.DPDP_BUILD_ROOM_FALLBACK = function(){
         correct_answer: 0,
         answer: 0,
         explanation: "Use the cited official Act/Rules provision as the primary source for this learning room.",
-        section_reference: room.sections || ""
+        section_reference: room.sections || "",
+        citation: {reference:room.sections || "Digital Personal Data Protection Act, 2023",source_id:"act-2023"},
+        hints: [{text:"Check the cited provision in the official Gazette text."},{text:"Separate the statutory requirement from assumptions."}],
+        why: "Use the cited official Act/Rules provision as the primary source for this learning room.",
+        why_wrong: ["Correct: this uses the primary source.", "This is not an authoritative legal source.", "This is not an authoritative legal source.", "This does not establish the statutory requirement."]
       }]
     }]
   }))));

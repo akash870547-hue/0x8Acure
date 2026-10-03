@@ -62,7 +62,7 @@
         "Rule 14: Data Principal rights workflow, subject to phased commencement."
       ],
       "penalty_analysis": [
-        ["Act Schedule, entry 6", "Any other established contravention of the Act or Rules, including applicable notice/consent obligations", "Up to ₹50 crore", "Catch-all ceiling only; identify the precise contravention and operative provision. No penalty follows merely from optional analytics or overseas access without the legal analysis."]
+        ["Act Schedule, entry 7", "Any other established contravention of the Act or Rules, including applicable notice/consent obligations", "Up to ₹50 crore", "Catch-all ceiling only; identify the precise contravention and operative provision. No penalty follows merely from optional analytics or overseas access without the legal analysis."]
       ],
       "remediation": [
         "Separate account-service processing from genuinely optional analytics and marketing choices.",
@@ -100,7 +100,7 @@
         "Assess consumer-protection dark-pattern rules separately where applicable."
       ],
       "penalty_analysis": [
-        ["Act Schedule, entry 6", "Any other established contravention, potentially including applicable notice/consent or rights duties", "Up to ₹50 crore", "Maximum, not automatic. Identify the breached provision and operative rule; consumer-protection consequences are a separate analysis."]
+        ["Act Schedule, entry 7", "Any other established contravention, potentially including applicable notice/consent or rights duties", "Up to ₹50 crore", "Maximum, not automatic. Identify the breached provision and operative rule; consumer-protection consequences are a separate analysis."]
       ],
       "remediation": [
         "Redesign the interface so optional purposes are separately and neutrally presented.",
@@ -176,7 +176,7 @@
       "penalty_analysis": [
         ["Act Schedule, entry 1", "Failure by the Data Fiduciary to take reasonable security safeguards under Section 8(5)", "Up to ₹250 crore", "Potential ceiling if the contravention is established; outsourcing does not automatically avoid the Data Fiduciary's accountability."],
         ["Act Schedule, entry 2", "Failure to give required breach intimation under Section 8(6)", "Up to ₹200 crore", "Assess the Data Fiduciary's own notification conduct and applicable commencement; the processor incident alone does not prove this contravention."],
-        ["Act Schedule, entry 6", "Other established contravention, such as an applicable processor-contract duty", "Up to ₹50 crore", "Apply only after identifying the exact breached provision; do not stack maxima mechanically."]
+        ["Act Schedule, entry 7", "Other established contravention, such as an applicable processor-contract duty", "Up to ₹50 crore", "Apply only after identifying the exact breached provision; do not stack maxima mechanically."]
       ],
       "remediation": [
         "Contain compromised devices and accounts; preserve endpoint, identity, call-recording and subprocessor evidence.",
@@ -213,7 +213,7 @@
         "Do not treat Section 7 as a general employer-interest exemption or as blanket permission for unrelated profiling."
       ],
       "penalty_analysis": [
-        ["Act Schedule, entry 6", "Any other established contravention of the Act, such as an applicable notice or general duty", "Up to ₹50 crore", "No automatic penalty for using HR data; identify the specific provision, purpose and commencement. Other employment/privacy obligations require separate analysis."]
+        ["Act Schedule, entry 7", "Any other established contravention of the Act, such as an applicable notice or general duty", "Up to ₹50 crore", "No automatic penalty for using HR data; identify the specific provision, purpose and commencement. Other employment/privacy obligations require separate analysis."]
       ],
       "remediation": [
         "Create a purpose-by-purpose HR data inventory and document the exact Section 7 condition, if any, for each activity.",

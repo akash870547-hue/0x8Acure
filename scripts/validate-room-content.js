@@ -19,18 +19,33 @@ if(!fs.existsSync(ROOT)){
   if(!Array.isArray(references.rules)||references.rules.length!==23) errors.push("Rules reference catalog must cover Rules 1-23");
   if(!Array.isArray(references.rule_6_safeguards)||references.rule_6_safeguards.length<6) errors.push("Rule 6 safeguard catalog is incomplete");
   if(!Array.isArray(references.data_principal_workflow)||references.data_principal_workflow.length<5) errors.push("Data Principal rights workflow is incomplete");
-  if(!Array.isArray(references.act_penalty_schedule)||references.act_penalty_schedule.length!==6) errors.push("Act penalty Schedule must list all six categories");
-  if(!String(references.enforcement_note||"").includes("does not prescribe a fixed")) errors.push("Penalty note must clarify that the Act does not prescribe a fixed frivolous-complaint cost");
+  if(!Array.isArray(references.act_penalty_schedule)||references.act_penalty_schedule.length!==7) errors.push("Act penalty Schedule must list all seven categories");
+  if(!String(references.enforcement_note||"").includes("not a frivolous complaint")) errors.push("Penalty note must distinguish the Section 15 ₹10,000 ceiling from frivolous-complaint costs");
+  const dpDutyPenalty=references.act_penalty_schedule?.find(item=>item.reference.includes("entry 5"));
+  if(dpDutyPenalty?.maximum_amount!=="₹10,000"||!dpDutyPenalty.reference.includes("Section 15")) errors.push("₹10,000 must map to Data Principal duties under Section 15");
+  const otherBreachPenalty=references.act_penalty_schedule?.find(item=>item.reference.includes("entry 7"));
+  if(otherBreachPenalty?.maximum_amount!=="₹50 crore") errors.push("Act Schedule entry 7 must retain the ₹50 crore other-contravention ceiling");
   if(!Array.isArray(taskBank.tasks)||taskBank.tasks.length!==rooms.length*6) errors.push("Task bank must contain six questions for each legal room");
   if(!Array.isArray(caseRegistry.cases)||caseRegistry.cases.length<6) errors.push("Case-study registry must contain at least six cases");
+  const requiredCases=["healthcare-telemedicine-ransomware","fintech-consent-cross-border","ecommerce-dark-pattern-withdrawal","edtech-child-tracking","bpo-processor-fiduciary-liability","employee-hr-section-7"];
+  for(const id of requiredCases) if(!caseRegistry.cases?.some(item=>item.id===id)) errors.push("Missing required case study: "+id);
+  for(const item of caseRegistry.cases||[]){
+    if(!item.scenario_background||!item.legal_issues?.length||!item.penalty_analysis?.length||!item.remediation_strategy||!item.remediation?.length) errors.push((item.id||"(case)")+": incomplete case-study analysis");
+    for(const penalty of item.penalty_analysis||[]){
+      if(String(penalty[2]).includes("₹50 crore")&&penalty[0]!=="Act Schedule, entry 7") errors.push(item.id+": ₹50 crore catch-all must cite Act Schedule entry 7");
+    }
+  }
   const sectionCoverage=new Set();
   const ruleCoverage=new Set();
   const bankIds=new Set();
   for(const task of (taskBank.tasks||[])){
     if(!task?.id||bankIds.has(task.id)) errors.push("Task bank contains an invalid or duplicate task ID: "+(task?.id||"(missing)"));
     bankIds.add(task?.id);
+    const answerIsValid=task?.type==="multi-select"
+      ? Array.isArray(task.correct_answer)&&task.correct_answer.length>0&&task.correct_answer.every(index=>Number.isInteger(index)&&index>=0&&index<task.options?.length)
+      : Number.isInteger(task?.correct_answer)&&task.correct_answer>=0&&task.correct_answer<task.options?.length;
     if(!task?.prompt||!Array.isArray(task.options)||task.options.length<2||
-      !Number.isInteger(task.correct_answer)||task.correct_answer<0||task.correct_answer>=task.options.length||
+      !answerIsValid||
       !task.explanation||!task.why||!Array.isArray(task.hints)||task.hints.length<2||
       !Array.isArray(task.why_wrong)||task.why_wrong.length!==task.options.length||!task.section_reference){
       errors.push((task?.id||"(missing task)")+": incomplete prompt, answer, hints, citation or rationale");
