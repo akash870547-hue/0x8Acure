@@ -1,0 +1,347 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0x8acure.github.io/0x8Acure/content/room-content-v2.schema.json",
+  "title": "0x8Acure Room Content v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "room",
+    "tasks",
+    "room_end"
+  ],
+  "properties": {
+    "room": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "path",
+        "title",
+        "difficulty",
+        "estimated_minutes",
+        "sections_covered",
+        "learning_objectives",
+        "last_verified"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "enum": [
+            "foundation",
+            "intermediate",
+            "advanced"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": [
+            "beginner",
+            "intermediate",
+            "advanced"
+          ]
+        },
+        "estimated_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sections_covered": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "learning_objectives": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "last_verified": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "concept",
+          "official_text",
+          "simple_words",
+          "key_terms",
+          "real_world_example",
+          "student_angle",
+          "common_mistakes",
+          "questions"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "concept": {
+            "type": "string",
+            "minLength": 1
+          },
+          "official_text": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "document",
+              "provision",
+              "verbatim"
+            ],
+            "properties": {
+              "document": {
+                "type": "string",
+                "enum": [
+                  "DPDP Act, 2023",
+                  "DPDP Rules, 2025",
+                  "Official notification"
+                ]
+              },
+              "provision": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verbatim": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "simple_words": {
+            "type": "string",
+            "minLength": 1
+          },
+          "key_terms": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "term",
+                "definition_reference"
+              ],
+              "properties": {
+                "term": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "definition_reference": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "real_world_example": {
+            "type": "string",
+            "minLength": 1
+          },
+          "student_angle": {
+            "type": "string",
+            "minLength": 1
+          },
+          "common_mistakes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "claim",
+                "fact"
+              ],
+              "properties": {
+                "claim": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "fact": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "questions": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "type",
+                "prompt",
+                "options",
+                "correct_answer",
+                "why",
+                "why_wrong",
+                "section_reference"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "mcq",
+                    "multi-select",
+                    "true-false-reason",
+                    "spot-the-violation",
+                    "order-the-steps",
+                    "match",
+                    "scenario-section",
+                    "flag"
+                  ]
+                },
+                "prompt": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "correct_answer": {},
+                "reason": {
+                  "type": "string"
+                },
+                "why": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "why_wrong": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "section_reference": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "room_end": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "cheat_sheet",
+        "final_challenge",
+        "score_screen"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cheat_sheet": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "final_challenge": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scenario",
+            "flag_prompt",
+            "correct_flag",
+            "section_reference"
+          ],
+          "properties": {
+            "scenario": {
+              "type": "string",
+              "minLength": 1
+            },
+            "flag_prompt": {
+              "type": "string",
+              "minLength": 1
+            },
+            "correct_flag": {
+              "type": "string",
+              "minLength": 1
+            },
+            "section_reference": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "score_screen": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pass_score",
+            "feedback_bands"
+          ],
+          "properties": {
+            "pass_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "feedback_bands": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "min",
+                  "max",
+                  "message"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "min": {
+                    "type": "integer"
+                  },
+                  "max": {
+                    "type": "integer"
+                  },
+                  "message": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

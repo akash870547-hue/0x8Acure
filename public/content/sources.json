@@ -1,0 +1,72 @@
+{
+  "last_verified": "2026-09-30",
+  "policy": {
+    "allowed_publishers": ["Government of India", "Ministry of Electronics and Information Technology"],
+    "note": "Only official Government of India sources are listed for legal content. Draft materials are excluded."
+  },
+  "sources": [
+    {
+      "id": "act-2023",
+      "title": "Digital Personal Data Protection Act, 2023",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "url": "https://www.meity.gov.in/static/uploads/2024/02/Digital-Personal-Data-Protection-Act-2023.pdf",
+      "document_type": "Act text / Gazette publication",
+      "date": "2023-08-11",
+      "covers": "Sections 1-44 and the Schedule."
+    },
+    {
+      "id": "act-commencement-2025",
+      "title": "Notification appointing dates for commencement of provisions of the Digital Personal Data Protection Act, 2023, G.S.R. 843(E)",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "url": "https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf",
+      "document_type": "Gazette notification",
+      "date": "2025-11-13",
+      "covers": "Section 1(2); Section 2; Sections 18-26; Section 35; Sections 38-43; Section 44(1) and 44(3); one-year commencement for Section 6(9) and Section 27(1)(d); eighteen-month commencement for Sections 3-5, Section 6(1)-(8) and 6(10), Sections 7-10, Sections 11-17, Section 27 except Section 27(1)(d), Sections 28-34, Sections 36-37, and Section 44(2)."
+    },
+    {
+      "id": "rules-2025",
+      "title": "Digital Personal Data Protection Rules, 2025",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf",
+      "document_type": "Gazette notification / Rules",
+      "date": "2025-11-13",
+      "covers": "Rules 1-23 and the First to Seventh Schedules, including phased commencement under Rule 1."
+    },
+    {
+      "id": "rules-corrigendum-2025",
+      "title": "Corrigendum to Digital Personal Data Protection Rules, 2025",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "url": "https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa?pageTitle=Digital-Personal-Data-Protection-Rules-2025",
+      "document_type": "Official MeitY corrigendum listing",
+      "date": "2025-12-16",
+      "covers": "Corrections to the notified DPDP Rules, 2025. Exact corrected text must be read from the official corrigendum document."
+    },
+    {
+      "id": "board-establishment-2025",
+      "title": "Establishment of the Data Protection Board of India, G.S.R. 844(E)",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "url": "https://www.meity.gov.in/static/uploads/2025/11/cc217843dc3bcb37b2b05bcc3b4e031f.pdf",
+      "document_type": "Gazette notification",
+      "date": "2025-11-13",
+      "covers": "Establishment of the Data Protection Board of India under Section 18(1) and (3)."
+    },
+    {
+      "id": "board-members-2025",
+      "title": "Decision Regarding Number of Members in the Data Protection Board of India, G.S.R. 845(E)",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "url": "https://www.meity.gov.in/static/uploads/2025/11/f6c0837972422cf79d890bfe84cc04d6.pdf",
+      "document_type": "Gazette notification",
+      "date": "2025-11-13",
+      "covers": "Section 19(1): number of members of the Data Protection Board of India."
+    },
+    {
+      "id": "rules-explanatory-note-2025",
+      "title": "Explanatory Note to Digital Personal Data Protection Rules, 2025",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "url": "https://www.meity.gov.in/writereaddata/files/Explanatory-Note-DPDP-Rules-2025.pdf",
+      "document_type": "Explanatory note",
+      "date": "2025-11-13",
+      "covers": "Explanatory overview of the Rules. This note is not part of the Rules and is not for legal interpretation."
+    }
+  ]
+}

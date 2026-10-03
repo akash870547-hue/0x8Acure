@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0x8acure.github.io/0x8Acure/content/room.schema.json",
+  "title": "0x8Acure Room Content",
+  "type": "object",
+  "required": ["room", "tasks"],
+  "additionalProperties": false,
+  "properties": {
+    "room": {
+      "type": "object",
+      "required": ["id", "path", "title", "difficulty", "estimated_minutes", "learning_objectives", "prerequisites", "sources", "last_verified"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type":"string","minLength":1},
+        "path": {"type":"string","minLength":1},
+        "title": {"type":"string","minLength":1},
+        "difficulty": {"type":"string","enum":["beginner","intermediate","advanced"]},
+        "estimated_minutes": {"type":"integer","minimum":1},
+        "learning_objectives": {"type":"array","items":{"type":"string","minLength":1},"minItems":1},
+        "prerequisites": {"type":"array","items":{"type":"string"}},
+        "sources": {"type":"array","items":{"type":"string","minLength":1},"minItems":1},
+        "last_verified": {"type":"string","format":"date"}
+      }
+    },
+    "tasks": {
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["id","type","prompt","correct_answer","explanation","citation","hints","points","difficulty"],
+        "additionalProperties":false,
+        "properties":{
+          "id":{"type":"string","minLength":1},
+          "type":{"type":"string","enum":["read","mcq","multi","scenario","spot-the-violation","order-the-steps","flag","match"]},
+          "prompt":{"type":"string","minLength":1},
+          "options":{"type":"array","items":{"type":"string"}},
+          "correct_answer":{},
+          "explanation":{"type":"string","minLength":1},
+          "citation":{"type":"object","required":["reference","source_id"],"additionalProperties":false,"properties":{"reference":{"type":"string","minLength":1},"source_id":{"type":"string","minLength":1}}},
+          "hints":{"type":"array","items":{"type":"object","required":["text","cost"],"additionalProperties":false,"properties":{"text":{"type":"string","minLength":1},"cost":{"type":"integer","minimum":0}}}},
+          "points":{"type":"integer","minimum":0},
+          "difficulty":{"type":"string","enum":["beginner","intermediate","advanced"]}
+        }
+      }
+    }
+  }
+}
