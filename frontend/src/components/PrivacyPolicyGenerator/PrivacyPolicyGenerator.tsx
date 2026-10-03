@@ -209,8 +209,8 @@ function makeBannerSnippet(form: FormData): string {
   const config = ${config};
   const key = "lexconsent-preferences-v1";
   const labels = {
-    en: { title: "Your privacy choices", body: config.organization + " uses optional cookies to improve the experience. Choose what you allow. You can change your choice at any time.", analytics: "Analytics", marketing: "Marketing", functional: "Functional", accept: "Accept selected", reject: "Reject optional", settings: "Manage choices", withdraw: "Withdraw consent", language: "हिंदी", saved: "Your choice has been saved." },
-    hi: { title: "आपकी गोपनीयता पसंद", body: config.organization + " अनुभव बेहतर बनाने के लिए वैकल्पिक कुकीज़ का उपयोग करता है। अपनी पसंद चुनें। आप इसे कभी भी बदल सकते हैं।", analytics: "विश्लेषण", marketing: "मार्केटिंग", functional: "कार्यात्मक", accept: "चयन स्वीकारें", reject: "वैकल्पिक अस्वीकारें", settings: "पसंद प्रबंधित करें", withdraw: "सहमति वापस लें", language: "English", saved: "आपकी पसंद सहेज ली गई है।" }
+    en: { title: "Your privacy choices", body: config.organization + " uses optional cookies to improve the experience. Choose what you allow. You can change your choice at any time.", analytics: "Analytics", marketing: "Marketing", functional: "Functional", accept: "Accept selected", reject: "Reject optional", settings: "Save preferences", withdraw: "Withdraw consent", language: "हिंदी", saved: "Your choice has been saved." },
+    hi: { title: "आपकी गोपनीयता पसंद", body: config.organization + " अनुभव बेहतर बनाने के लिए वैकल्पिक कुकीज़ का उपयोग करता है। अपनी पसंद चुनें। आप इसे कभी भी बदल सकते हैं।", analytics: "विश्लेषण", marketing: "मार्केटिंग", functional: "कार्यात्मक", accept: "चयन स्वीकारें", reject: "वैकल्पिक अस्वीकारें", settings: "पसंद सहेजें", withdraw: "सहमति वापस लें", language: "English", saved: "आपकी पसंद सहेज ली गई है।" }
   };
   let language = "en";
   let choice = { analytics: false, marketing: false, functional: false };
@@ -236,6 +236,7 @@ function makeBannerSnippet(form: FormData): string {
     } catch (error) {
       console.warn("LexConsent: preferences could not be saved to local storage.", error);
     }
+    window.dispatchEvent(new CustomEvent("lexconsent:change", { detail: { ...choice } }));
     withdraw.style.display = "block";
   };
   const render = () => {
@@ -284,8 +285,17 @@ function makeBannerSnippet(form: FormData): string {
     card.appendChild(actions);
     root.appendChild(card);
   };
+  window.lexConsent = {
+    getPreferences: () => ({ ...choice }),
+    open: render,
+    withdraw: () => {
+      choice = { analytics: false, marketing: false, functional: false };
+      save();
+      render();
+    }
+  };
   withdraw.textContent = labels[language].withdraw;
-  withdraw.addEventListener("click", () => { choice = { analytics: false, marketing: false, functional: false }; save(); render(); });
+  withdraw.addEventListener("click", () => window.lexConsent.withdraw());
   let hasStoredChoice = false;
   try {
   hasStoredChoice = Boolean(localStorage.getItem(key));
@@ -471,7 +481,7 @@ export function PrivacyPolicyGenerator() {
             <div className="lc-demo-banner"><div><strong>Your privacy choices</strong><p>{form.organization.trim() || "This website"} uses optional cookies to improve your experience. Choose what you allow.</p></div><div className="lc-demo-controls"><label><input type="checkbox" /> Analytics</label><label><input type="checkbox" /> Marketing</label><label><input type="checkbox" /> Functional</label></div><div className="lc-demo-actions"><button type="button">Reject optional</button><button type="button">Accept selected</button></div><small>English · हिंदी &nbsp; · &nbsp; Withdraw consent</small></div>
             <label className="lc-code-label">Copy-paste snippet <span>Generated from your configuration</span></label>
             <pre className="lc-code"><code>{bannerCode}</code></pre>
-            <p className="lc-legal-note"><LockKeyhole size={14} /> Preference state is stored locally. Connect category choices to your actual tags before deployment.</p>
+            <p className="lc-legal-note"><LockKeyhole size={14} /> Preferences emit a lexconsent:change event and are queryable via window.lexConsent. Connect choices to your actual tags before deployment.</p>
           </div>}
 
           {deliverable === "pro" && <div className="lc-deliverable-panel lc-pro-panel" role="tabpanel">
