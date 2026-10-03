@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowDownToLine, BadgeCheck, Check, Clipboard, LockKeyhole, ShieldAlert, ShieldCheck, Sparkles, X } from "lucide-react";
+import { Activity, ArrowDownToLine, BadgeCheck, Check, Clipboard, LockKeyhole, ShieldAlert, ShieldCheck, Sparkles, X } from "lucide-react";
 
 type AuditKey = "camera" | "location" | "contacts" | "admob" | "firebase" | "analytics";
 type AppCategory = "Commerce" | "Finance" | "Health" | "Education" | "Social" | "Productivity" | "Other";
@@ -106,7 +106,7 @@ export function AppComplianceScanner() {
 
       <aside className="store-results">
         <section className="store-panel store-score-panel">
-          <div className="store-score-top"><div><span className="store-result-label"><Activity size={14}/> PRIVACY EXPOSURE SCORE</span><p>Heuristic indicator from selected category, permissions, and controls.</p></div><strong className={riskScore >= 65 ? "store-score high" : riskScore >= 35 ? "store-score medium" : "store-score low"}>{riskScore}<small>/100</small></strong></div>
+          <div className="store-score-top"><div><span className="store-result-label"><Activity size={14}/> PRIVACY EXPOSURE SCORE</span><p>Heuristic indicator from selected category, permissions, and controls.</p></div><strong className={riskScore >= 65 ? "store-score high" : riskScore >= 35 ? "store-score medium" : "store-score low"}>{riskScore}<small>%</small></strong></div>
           <div className="store-score-track" role="meter" aria-label="Privacy exposure score" aria-valuemin={0} aria-valuemax={100} aria-valuenow={riskScore}><span style={{ width: `${riskScore}%` }}/></div>
           <div className="store-risk-caption"><span>{riskScore >= 70 ? "HIGH REVIEW PRIORITY" : riskScore >= 40 ? "ELEVATED REVIEW" : "LOWER DECLARED EXPOSURE"}</span><span>Not a legal risk rating</span></div>
         </section>

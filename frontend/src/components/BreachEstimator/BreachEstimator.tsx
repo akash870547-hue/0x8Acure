@@ -23,7 +23,7 @@ const controlOptions: Control[] = [
   "AES-256 encryption at rest", "TLS 1.3 in transit", "MFA on all endpoints",
   "Centralized SIEM audit logs", "Incident response playbook",
 ];
-const demos: { label: string; values: { tier: Tier; data: DataKind[]; scale: Scale; vector: Vector; controls: Control[]; contained: boolean } }[] = [
+const demos: { label: string; values: Scenario }[] = [
   { label: "Fintech UPI payment gateway leak", values: { tier: "Regular Data Fiduciary", data: ["Financial & payment data", "Government identifiers", "Basic contact information"], scale: "100,000", principalCount: 100_000, vector: "Exposed S3 / Cloud Storage", controls: ["TLS 1.3 in transit", "MFA on all endpoints", "Centralized SIEM audit logs"], contained: false } },
   { label: "EdTech minor data exposure", values: { tier: "Significant Data Fiduciary", data: ["Children's / minors' data", "Basic contact information", "Authentication credentials"], scale: "100,000", principalCount: 100_000, vector: "Third-Party Vendor / Processor", controls: ["AES-256 encryption at rest", "TLS 1.3 in transit", "Incident response playbook"], contained: false } },
   { label: "Hospital telemedicine misconfiguration", values: { tier: "Regular Data Fiduciary", data: ["Health & biometric information", "Basic contact information", "Authentication credentials"], scale: "10,000", principalCount: 10_000, vector: "Exposed S3 / Cloud Storage", controls: ["TLS 1.3 in transit", "MFA on all endpoints", "Incident response playbook"], contained: true } },
@@ -115,7 +115,7 @@ export function BreachEstimator() {
     const tierPoints = scenario.tier === "Significant Data Fiduciary" ? 10 : scenario.tier === "Regular Data Fiduciary" ? 5 : 0;
     const dataPoints = dataKinds.filter(item => scenario.data.includes(item.name)).reduce((sum, item) => sum + item.weight, 0);
     const controlCredit = scenario.controls.length * 4;
-    const rawScore = 12 + dataPoints + scalePoints[scenario.scale] + vectorPoints[scenario.vector] + tierPoints - controlCredit;
+    const rawScore = 12 + dataPoints + scalePoints[scaleForPrincipalCount(scenario.principalCount)] + vectorPoints[scenario.vector] + tierPoints - controlCredit;
     const score = clamp(Math.round(rawScore), 0, 100);
     const children = scenario.data.includes("Children's / minors' data");
     const credit = scenario.contained && scenario.controls.includes("AES-256 encryption at rest") ? 40 : 0;
@@ -123,7 +123,7 @@ export function BreachEstimator() {
     const risk = {
       legal: clamp(Math.round(mitigatedScore * (children ? 1 : 0.82) + (children ? 12 : 0)), 0, 100),
       operational: clamp(Math.round(mitigatedScore * 0.8 + (scenario.vector.includes("Ransomware") ? 14 : 0)), 0, 100),
-      reputational: clamp(Math.round(mitigatedScore * 0.72 + (scenario.scale === "1,000,000+" ? 15 : 0)), 0, 100),
+      reputational: clamp(Math.round(mitigatedScore * 0.72 + (scenario.principalCount >= 1_000_000 ? 15 : 0)), 0, 100),
     };
     const upperCapCr = (score >= 45 ? 250 : 75) + (children ? (score >= 45 ? 200 : 60) : 0);
     const upper = Math.max(0.1, Math.round(upperCapCr * (mitigatedScore / 100) * 10) / 10);
@@ -150,7 +150,7 @@ export function BreachEstimator() {
 
   return <section className="content-page breach-page">
     <div className="breach-heading">
-      <div className="page-heading"><span className="eyebrow"><span className="online-dot"/> RISK INTELLIGENCE · INDIA DPDP ACT</span><h1>RiskMatrix AI</h1><p>Model breach impact, reporting urgency, and illustrative statutory exposure.</p></div>
+      <div className="page-heading"><span className="eyebrow"><span className="online-dot"/> INCIDENT IMPACT · INDIA DPDP ACT</span><h1>Breach Liability Calculator</h1><p>Estimate incident blast radius, reporting urgency, and illustrative statutory exposure.</p></div>
       <span className="breach-live"><Activity size={14}/> LOCAL SCENARIO MODEL</span>
     </div>
     <div className="breach-disclaimer" role="note"><AlertTriangle size={17}/><span><strong>Planning estimate only.</strong> This educational heuristic is not legal advice, a regulator assessment, or a prediction of a penalty. Statutory ceilings are maximums for specified contraventions, not automatic fines; obtain qualified counsel and verify current rules and reporting applicability.</span></div>
@@ -162,7 +162,7 @@ export function BreachEstimator() {
         <section className="breach-panel">
           <div className="breach-panel-title"><span className="breach-step">01</span><div><h2>Organization & incident</h2><p>Set the scenario context and estimated reach.</p></div></div>
           <label className="breach-field"><span>Organization tier</span><select value={scenario.tier} onChange={event => update("tier", event.target.value as Tier)}><option>Startup / MSME</option><option>Regular Data Fiduciary</option><option>Significant Data Fiduciary</option></select></label>
-          <div className="breach-field"><span>Affected data principals</span><div className="scale-options">{(["<1,000", "10,000", "100,000", "1,000,000+"] as Scale[]).map(value => <button type="button" key={value} className={scenario.scale === value ? "scale-option selected" : "scale-option"} aria-pressed={scenario.scale === value} onClick={() => update("scale", value)}>{value}</button>)}</div></div>
+          <label className="breach-field"><span>Affected data principals</span><input className="principal-count-input" type="number" min={1} max={1_000_000_000} step={1} value={scenario.principalCount} onChange={event => { const count = Math.max(1, Math.min(1_000_000_000, Number(event.target.value) || 1)); setScenario(previous => ({ ...previous, principalCount: count, scale: scaleForPrincipalCount(count) })); }}/><small>Estimated unique people whose personal data may be affected.</small></label>
           <label className="breach-field"><span>Breach vector</span><select value={scenario.vector} onChange={event => update("vector", event.target.value as Vector)}><option>Exposed S3 / Cloud Storage</option><option>SQLi / Web Application Flaw</option><option>Ransomware / Malicious Insider</option><option>Third-Party Vendor / Processor</option></select></label>
         </section>
 
