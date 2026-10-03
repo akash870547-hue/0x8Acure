@@ -45,16 +45,20 @@ async function listFiles(dir) {
 
 await mkdir(publicDir, { recursive: true });
 
-const appIndex = path.join(appDir, "index.html");
-if (!existsSync(appIndex)) throw new Error("Vercel build did not produce public/app/index.html.");
-const appFiles = await listFiles(appDir);
-const appAssetFiles = appFiles.filter(file => file.startsWith("assets/"));
-if (!appAssetFiles.length) throw new Error("Vercel build did not produce public/app/assets/* chunks.");
-console.log(`[Vercel] verified Cyber Lab bundle: ${appFiles.length} files, ${appAssetFiles.length} asset chunks.`);
-
 if (!existsSync(appDir)) {
   throw new Error("Expected Vite output at public/app, but it was not found. Run npm run build first.");
 }
+
+const appIndex = path.join(appDir, "index.html");
+if (!existsSync(appIndex)) {
+  throw new Error("Vercel build did not produce public/app/index.html.");
+}
+const appFiles = await listFiles(appDir);
+const appAssetFiles = appFiles.filter(file => file.startsWith("assets/"));
+if (!appAssetFiles.length) {
+  throw new Error("Vercel build did not produce public/app/assets/* chunks.");
+}
+console.log(`[Vercel] verified Cyber Lab bundle: ${appFiles.length} files, ${appAssetFiles.length} asset chunks.`);
 
 for (const file of staticFiles) {
   const source = path.join(root, file);
