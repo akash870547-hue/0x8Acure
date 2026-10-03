@@ -7,15 +7,11 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/content/:path*",
-      "destination": "/content/:path*"
-    },
-    {
-      "source": "/app/assets/:match*",
-      "destination": "/app/assets/:match*"
-    },
-    {
       "source": "/app",
+      "destination": "/app/index.html"
+    },
+    {
+      "source": "/app/",
       "destination": "/app/index.html"
     },
     {
