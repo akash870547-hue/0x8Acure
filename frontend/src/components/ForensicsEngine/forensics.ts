@@ -74,6 +74,8 @@ const eventIdMap: Record<string, { title: string; category: ArtifactCategory; se
   "4625": { title: "Failed logon", category: "Event Log", severity: "Medium", technique: "T1110" },
   "4672": { title: "Special privileges assigned", category: "Event Log", severity: "High", technique: "T1078" },
   "4688": { title: "Process created", category: "Process", severity: "Medium", technique: "T1059" },
+  "4697": { title: "Service installed", category: "Event Log", severity: "High", technique: "T1543.003" },
+  "4698": { title: "Scheduled task created", category: "Event Log", severity: "High", technique: "T1053.005" },
   "7045": { title: "New service installed", category: "Event Log", severity: "High", technique: "T1543.003" },
   "1102": { title: "Audit log cleared", category: "Event Log", severity: "Critical", technique: "T1070.001" },
   "1": { title: "Sysmon process creation", category: "Process", severity: "Medium", technique: "T1059" },
@@ -155,21 +157,6 @@ function parseXml(text: string): Record<string, string>[] {
       if (value) record[field] = value.replace(/<[^>]+>/g, "").trim();
     }
     events.push(record);
-  }
-  for (const event of events.filter(item => item.eventId === "4624")) {
-    const logonType = event.details.match(/(?:LogonType|Logon Type)[:= ]+(\d+)/i)?.[1];
-    const authPackage = event.details.match(/(?:AuthenticationPackageName|Authentication Package)[:= ]+([^·,; ]+)/i)?.[1];
-    const logonUser = event.details.match(/(?:TargetUserName|AccountName|SubjectUserName)[:= ]+([^·,; ]+)/i)?.[1];
-    const privilegedFollowup = events.some(candidate => {
-      if (candidate.eventId !== "4672" || Math.abs(Date.parse(candidate.timestamp) - Date.parse(event.timestamp)) > 30_000) return false;
-      const privilegedUser = candidate.details.match(/(?:SubjectUserName|AccountName)[:= ]+([^·,; ]+)/i)?.[1];
-      return !logonUser || !privilegedUser || logonUser.toLowerCase() === privilegedUser.toLowerCase();
-    });
-    if ((logonType === "9" || (logonType === "3" && /NTLM/i.test(authPackage ?? ""))) && privilegedFollowup) {
-      event.title = "Possible pass-the-hash privileged logon";
-      event.severity = "High";
-      event.technique = "T1550.002";
-    }
   }
   return events;
 }
@@ -314,6 +301,7 @@ function makeEvent(record: Record<string, unknown>, fileName: string, index: num
 export function analyzeRecords(records: Record<string, unknown>[], fileName: string): ForensicEvent[] {
   const events = expandMacb(records, fileName).map((record, index) => {
     const item = makeEvent(record, fileName, index);
+    const recordText = Object.entries(record).map(([key, value]) => `${key} ${String(value)}`).join(" ");
     if (record._macb) item.title = `${String(record._macb)} timestamp · ${item.title}`;
     const message = valueFrom(record, ["message", "Message"]);
     if (/possible hidden dll injection indicator/i.test(message)) {
@@ -332,14 +320,45 @@ export function analyzeRecords(records: Record<string, unknown>[], fileName: str
       item.severity = "High";
       item.technique = "T1059";
     }
+    if (/uac.?bypass|fodhelper|eventvwr\.exe|token.?impersonat|seimpersonate|privilege.?escalat/i.test(recordText)) {
+      item.title = "Possible privilege escalation";
+      item.severity = "High";
+      item.technique = /token.?impersonat|seimpersonate/i.test(recordText) ? "T1134.001" : "T1068";
+    }
+    if (/scheduled task|schtasks|cron(?:\.d)?\/|autorun|runonce|run key|startup folder|wmi event (?:consumer|subscription)|new service installed|service installed/i.test(recordText)) {
+      item.title = "Possible persistence mechanism";
+      item.severity = "High";
+      item.technique = /scheduled task|schtasks/i.test(recordText) ? "T1053.005"
+        : /cron(?:\.d)?\//i.test(recordText) ? "T1053.003"
+          : /wmi event/i.test(recordText) ? "T1546.003"
+            : /runonce|run key|autorun|startup folder/i.test(recordText) ? "T1547.001" : "T1543.003";
+    }
     return item;
   });
+  for (const event of events.filter(item => item.eventId === "4624")) {
+    const logonType = event.details.match(/(?:LogonType|Logon Type)[:= ]+(\d+)/i)?.[1];
+    const authPackage = event.details.match(/(?:AuthenticationPackageName|Authentication Package)[:= ]+([^·,; ]+)/i)?.[1];
+    const logonUser = event.details.match(/(?:TargetUserName|AccountName|SubjectUserName)[:= ]+([^·,; ]+)/i)?.[1];
+    const privilegedFollowup = events.some(candidate => {
+      if (candidate.eventId !== "4672" || Math.abs(Date.parse(candidate.timestamp) - Date.parse(event.timestamp)) > 30_000) return false;
+      const privilegedUser = candidate.details.match(/(?:SubjectUserName|AccountName)[:= ]+([^·,; ]+)/i)?.[1];
+      return !logonUser || !privilegedUser || logonUser.toLowerCase() === privilegedUser.toLowerCase();
+    });
+    if ((logonType === "9" || (logonType === "3" && /NTLM/i.test(authPackage ?? ""))) && privilegedFollowup) {
+      event.title = "Possible pass-the-hash privileged logon";
+      event.severity = "High";
+      event.technique = "T1550.002";
+    }
+  }
   const failedLogons = events.filter(event => event.eventId === "4625");
   for (const event of failedLogons) {
     const address = event.details.match(/(?:IpAddress|SourceIp|src_ip|Source Network Address)[:= ]+([0-9.]+)/i)?.[1];
     const similar = failedLogons.filter(candidate => {
       const candidateAddress = candidate.details.match(/(?:IpAddress|SourceIp|src_ip|Source Network Address)[:= ]+([0-9.]+)/i)?.[1];
-      return address && candidateAddress === address && Math.abs(Date.parse(candidate.timestamp) - Date.parse(event.timestamp)) <= 5 * 60_000;
+      const account = event.details.match(/(?:TargetUserName|AccountName|SubjectUserName)[:= ]+([^·,; ]+)/i)?.[1];
+      const candidateAccount = candidate.details.match(/(?:TargetUserName|AccountName|SubjectUserName)[:= ]+([^·,; ]+)/i)?.[1];
+      const sameActor = address ? candidateAddress === address : !!account && candidateAccount?.toLowerCase() === account.toLowerCase();
+      return sameActor && Math.abs(Date.parse(candidate.timestamp) - Date.parse(event.timestamp)) <= 5 * 60_000;
     });
     if (similar.length >= 5) {
       event.title = "Brute-force login activity";
@@ -417,8 +436,8 @@ function event(
 export const sampleCases: SampleCase[] = [
   {
     id: "case-01",
-    title: "Case 01 · Ransomware Execution & Lateral Movement",
-    summary: "Encoded PowerShell, credential dumping, SMB spread, and staged encryption activity.",
+    title: "Ransomware Execution & Shadow Copy Deletion",
+    summary: "Encoded PowerShell, credential dumping, shadow-copy deletion, SMB spread, and staged encryption activity.",
     events: [
       event("r-1", "2026-09-18T08:14:02Z", "Security.evtx", "Event Log", "Successful logon", "AccountName: j.smith · IpAddress: 10.20.4.18 · LogonType: 10", "Low", "T1078", ["10.20.4.18"]),
       event("r-2", "2026-09-18T08:21:19Z", "Sysmon.json", "Process", "Suspicious process execution", "Image: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe · CommandLine: powershell.exe -enc SQBFAFgA... · ParentImage: WINWORD.EXE · ProcessId: 4480 · ParentProcessId: 3120 · User: j.smith", "High", "T1059.001", [], "1"),
@@ -426,6 +445,7 @@ export const sampleCases: SampleCase[] = [
       event("r-4", "2026-09-18T08:24:40Z", "Sysmon.json", "Network", "SMB lateral movement connection", "SourceIp: 10.20.4.18 · DestinationIp: 10.20.4.22 · DestinationPort: 445 · Protocol: TCP", "High", "T1021.002", ["10.20.4.18", "10.20.4.22"], "3"),
       event("r-5", "2026-09-18T08:25:02Z", "Security.evtx", "Process", "Process created", "EventID: 4688 · NewProcessName: \\\\10.20.4.22\\ADMIN$\\update.exe · SubjectUserName: j.smith", "High", "T1021.002", ["10.20.4.22"], "4688"),
       event("r-6", "2026-09-18T08:29:13Z", "Sysmon.json", "File System", "Ransom note dropped", "TargetFilename: C:\\Users\\Public\\RECOVER_FILES.txt · Image: C:\\Users\\Public\\update.exe", "Critical", "T1486", ["RECOVER_FILES.txt"], "11"),
+      event("r-7", "2026-09-18T08:27:44Z", "Sysmon.json", "Process", "Shadow copies deleted", "Image: C:\\Windows\\System32\\vssadmin.exe · CommandLine: vssadmin.exe delete shadows /all /quiet · User: j.smith", "Critical", "T1490"),
     ],
     processes: [
       { name: "WINWORD.EXE", pid: "3120", ppid: "1080", user: "j.smith", detail: "Opened invoice_0926.docm", suspicious: false },
@@ -440,7 +460,7 @@ export const sampleCases: SampleCase[] = [
   },
   {
     id: "case-02",
-    title: "Case 02 · Insider Threat Data Exfiltration",
+    title: "Insider Threat Mass Exfiltration",
     summary: "Removable media use, mass staging, shadow copy deletion, and suspicious outbound transfer.",
     events: [
       event("i-1", "2026-09-21T13:02:11Z", "System.evtx", "USB", "Removable volume attached", "Device: USBSTOR\\Disk&Ven_SanDisk · Volume: E: · User: a.lee · Serial: 4C530001230918", "Medium", "T1091", ["4C530001230918"]),
@@ -461,8 +481,8 @@ export const sampleCases: SampleCase[] = [
   },
   {
     id: "case-03",
-    title: "Case 03 · Web Shell Deployment & Persistence",
-    summary: "Exploit requests followed by web-shell execution and a new persistence service.",
+    title: "Web Shell / C2 Beaconing Activity",
+    summary: "Exploit requests followed by web-shell execution, persistence, and repeated C2 callbacks.",
     events: [
       event("w-1", "2026-09-24T02:11:06Z", "access.log", "Web", "Suspicious web request", "Client: 198.51.100.23 · GET /download?file=../../etc/passwd · Status: 200 · User-Agent: curl/8.1", "High", "T1190", ["198.51.100.23"]),
       event("w-2", "2026-09-24T02:13:48Z", "access.log", "Web", "Web shell uploaded", "Client: 198.51.100.23 · POST /uploads/cache.aspx · Status: 200 · Bytes: 1842", "Critical", "T1505.003", ["198.51.100.23", "cache.aspx"]),
@@ -470,6 +490,8 @@ export const sampleCases: SampleCase[] = [
       event("w-4", "2026-09-24T02:18:30Z", "auth.log", "Event Log", "New service installed", "ServiceName: system-update · ImagePath: /usr/local/bin/.cache-sync · User: root · EventID: 7045", "Critical", "T1543.002"),
       event("w-5", "2026-09-24T02:19:13Z", "syslog", "File System", "Cron persistence created", "Path: /etc/cron.d/system-update · Command: /usr/local/bin/.cache-sync · User: root", "High", "T1053.003"),
       event("w-6", "2026-09-24T02:22:07Z", "syslog", "Network", "Repeated outbound callback", "SourceIp: 10.40.1.8 · DestinationIp: 198.51.100.23 · DestinationPort: 443 · Protocol: TCP", "High", "T1071.001", ["10.40.1.8", "198.51.100.23"]),
+      event("w-7", "2026-09-24T02:24:07Z", "syslog", "Network", "Periodic C2 beacon", "SourceIp: 10.40.1.8 · DestinationIp: 198.51.100.23 · DestinationPort: 443 · Protocol: TCP", "High", "T1071.001", ["10.40.1.8", "198.51.100.23"]),
+      event("w-8", "2026-09-24T02:26:07Z", "syslog", "Network", "Periodic C2 beacon", "SourceIp: 10.40.1.8 · DestinationIp: 198.51.100.23 · DestinationPort: 443 · Protocol: TCP", "High", "T1071.001", ["10.40.1.8", "198.51.100.23"]),
     ],
     processes: [
       { name: "apache2", pid: "874", ppid: "1", user: "www-data", detail: "Public-facing web worker", suspicious: false },
@@ -478,6 +500,8 @@ export const sampleCases: SampleCase[] = [
     ],
     network: [
       { timestamp: "2026-09-24T02:22:07Z", source: "10.40.1.8", destination: "198.51.100.23", protocol: "TCP/443", detail: "Outbound callback to initial access host", suspicious: true, dnsTunnel: false },
+      { timestamp: "2026-09-24T02:24:07Z", source: "10.40.1.8", destination: "198.51.100.23", protocol: "TCP/443", detail: "Periodic outbound callback", suspicious: true, dnsTunnel: false },
+      { timestamp: "2026-09-24T02:26:07Z", source: "10.40.1.8", destination: "198.51.100.23", protocol: "TCP/443", detail: "Periodic outbound callback", suspicious: true, dnsTunnel: false },
     ],
   },
 ];

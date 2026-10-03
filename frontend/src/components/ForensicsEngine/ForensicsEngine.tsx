@@ -108,6 +108,7 @@ export function ForensicsEngine() {
       try {
         const buffer = await file.arrayBuffer();
         const bytes = new Uint8Array(buffer);
+        if (!globalThis.crypto?.subtle) throw new Error("Web Crypto is unavailable; serve this page over HTTPS or localhost to calculate SHA-256.");
         const sha256 = await crypto.subtle.digest("SHA-256", buffer);
         const sha256Hex = Array.from(new Uint8Array(sha256), byte => byte.toString(16).padStart(2, "0")).join("");
         const text = new TextDecoder("utf-8", { fatal: false }).decode(bytes);
@@ -164,7 +165,7 @@ export function ForensicsEngine() {
 
   return <section className="forensics-page">
     <div className="page-heading forensic-heading">
-      <div><span className="eyebrow"><Fingerprint size={14}/> DIGITAL FORENSICS · CLIENT-SIDE TRIAGE</span><h1>Forensics Lab</h1><p>Inspect local evidence, correlate artifacts, and preserve file hashes in your case report.</p></div>
+      <div><span className="eyebrow"><Fingerprint size={14}/> DIGITAL FORENSICS · CLIENT-SIDE TRIAGE</span><h1>DFIR Log & Artifact Analyzer</h1><p>Inspect local evidence, correlate artifacts, and preserve file hashes in your case report.</p></div>
       <div className="forensic-heading-actions">
         <label className="sample-select"><Database size={15}/><span className="visually-hidden">Load a sample case</span>
           <select value="" onChange={event => loadCase(event.target.value)} aria-label="Load sample case">
@@ -179,10 +180,10 @@ export function ForensicsEngine() {
       </div>
     </div>
 
-    <div className="forensic-disclaimer"><ShieldCheck size={15}/><span>Evidence stays in this browser session. Hashes are for integrity verification; this triage tool does not replace forensic acquisition, validated parsers, or documented chain of custody.</span></div>
+    <div className="forensic-disclaimer"><ShieldCheck size={15}/><span>Evidence stays in this browser session. SHA-256 is the primary integrity digest; MD5 is included for legacy comparison only and is collision-prone. This triage tool does not replace forensic acquisition, validated parsers, or documented chain of custody.</span></div>
 
     <div className={`forensic-dropzone${dragging ? " dragging" : ""}`} onDragOver={event => { event.preventDefault(); setDragging(true); }} onDragLeave={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDragging(false); }} onDrop={event => { event.preventDefault(); setDragging(false); void ingestFiles(Array.from(event.dataTransfer.files)); }}>
-      <input ref={inputRef} type="file" multiple hidden onChange={event => void ingestFiles(Array.from(event.target.files ?? []))} aria-label="Choose evidence files" />
+      <input ref={inputRef} type="file" multiple hidden accept=".evtx,.xml,.csv,.tsv,.json,.jsonl,.log,.txt,.dmp,.mem" onChange={event => void ingestFiles(Array.from(event.target.files ?? []))} aria-label="Choose evidence files" />
       <div className="drop-icon"><Upload size={21}/></div><div><strong>Drop forensic evidence to begin triage</strong><p>Memory snippets · EVTX XML/CSV exports · JSON/CSV logs · PCAP metadata · Disk timelines</p><small>All parsing and hashing runs locally. Native binary EVTX is hashed; export it as XML/CSV for event parsing.</small></div>
       <button className="btn secondary" onClick={() => inputRef.current?.click()} disabled={busy}>{busy ? <Activity size={15} className="forensic-spin"/> : <FileSearch size={15}/>} {busy ? "Analyzing…" : "Browse evidence"}</button>
     </div>

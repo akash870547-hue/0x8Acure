@@ -908,3 +908,9 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
   .room-layout{grid-template-columns:minmax(0,1fr)}
   .room-layout>.challenge-panel{position:static}
 }
+
+.nav-btn-highlight{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 12px;border:1px solid color-mix(in srgb,#00ff9d 36%,var(--line));border-radius:10px;background:linear-gradient(110deg,rgba(0,255,157,.16),rgba(34,211,238,.09));color:#9bf5cf;font-size:12px;font-weight:750;white-space:nowrap;box-shadow:0 0 18px rgba(0,255,157,.08);transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.nav-btn-highlight:hover{transform:translateY(-1px);border-color:#00ff9d;background:rgba(0,255,157,.18);color:#c4ffe5}
+@media(max-width:1100px){.nav-btn-highlight{padding:8px 9px;font-size:11px}.nav-actions{gap:6px}}
+@media(max-width:900px){.nav-btn-highlight{padding:8px;font-size:10px}.nav-btn-highlight{max-width:150px;white-space:normal;text-align:center}}
+@media(max-width:700px){.nav-btn-highlight{max-width:none;min-height:34px;padding:7px 9px;font-size:10px}.nav-actions{gap:5px}}

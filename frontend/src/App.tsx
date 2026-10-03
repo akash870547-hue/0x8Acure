@@ -1,51 +1,105 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Activity, ArrowUpRight, BookOpen, ChevronRight, Command, Fingerprint, GraduationCap, LogIn, LogOut, Moon, Shield, Sun, Terminal, Trophy, Users } from "lucide-react";
-import { AuthProvider, useAuth } from "./auth/AuthProvider";
-import { api } from "./lib/api";
-import { TerminalView } from "./components/TerminalView";
+import { Component, lazy, Suspense, useEffect, useState, type ErrorInfo, type ReactNode } from "react";
+import { Activity, ArrowUpRight, Calculator, Fingerprint, ShieldCheck } from "lucide-react";
 
-const MaterialsView=lazy(()=>import("./components/MaterialsView").then(module=>({default:module.MaterialsView})));
-const QuizView=lazy(()=>import("./components/QuizView").then(module=>({default:module.QuizView})));
-const RoomsView=lazy(()=>import("./components/RoomsView").then(module=>({default:module.RoomsView})));
-const ProjectsView=lazy(()=>import("./components/ProjectsView").then(module=>({default:module.ProjectsView})));
-const CaseStudiesView=lazy(()=>import("./components/CaseStudiesView").then(module=>({default:module.CaseStudiesView})));
-const AdminView=lazy(()=>import("./components/AdminView").then(module=>({default:module.AdminView})));
-const ForensicsEngine=lazy(()=>import("./components/ForensicsEngine/ForensicsEngine").then(module=>({default:module.ForensicsEngine})));
+const ForensicsEngine = lazy(() => import("./components/ForensicsEngine/ForensicsEngine").then(module => ({ default: module.ForensicsEngine })));
+const AppComplianceScanner = lazy(() => import("./components/AppComplianceScanner").then(module => ({ default: module.AppComplianceScanner })));
+const BreachEstimator = lazy(() => import("./components/BreachEstimator/BreachEstimator").then(module => ({ default: module.BreachEstimator })));
+type Tool = "forensics" | "storeshield" | "breach";
 
-type Tab="overview"|"materials"|"quiz"|"rooms"|"projects"|"cases"|"forensics"|"leaderboard"|"admin";
-type TabItem={id:Tab;label:string;icon:typeof Activity};
-const tabs:TabItem[]=[{id:"overview",label:"Overview",icon:Activity},{id:"materials",label:"Materials",icon:BookOpen},{id:"quiz",label:"Quiz Arena",icon:GraduationCap},{id:"rooms",label:"War Rooms",icon:Users},{id:"projects",label:"Arsenal",icon:Shield},{id:"forensics",label:"Forensics Lab",icon:Fingerprint},{id:"cases",label:"Case Studies",icon:BookOpen},{id:"leaderboard",label:"Leaderboard",icon:Trophy}];
-function Shell(){
-  const {user,loading,openAuth,signOut}=useAuth();
-  const route=()=>{const routed=new URLSearchParams(window.location.search).get("route");const path=routed?decodeURIComponent(routed):window.location.pathname;return path};
-  const tabFromLocation=():Tab=>{const view=new URLSearchParams(window.location.search).get("view");if(view==="cases"||view==="forensics")return view;const path=route();return path==="/admin/dashboard"?"admin":path.endsWith("/quiz")?"quiz":path.endsWith("/materials")?"materials":"overview";};
-  const routePath=route();
-  const [tab,setTab]=useState<Tab>(tabFromLocation),[theme,setTheme]=useState<"dark"|"light">(()=>localStorage.getItem("0x8acure-theme")==="light"?"light":"dark"),[palette,setPalette]=useState(false),[xp,setXp]=useState(user?.xp||0);
-  useEffect(()=>{document.documentElement.dataset.theme=theme;localStorage.setItem("0x8acure-theme",theme);},[theme]);
-  useEffect(()=>{if(user)setXp(user.xp);},[user]);
-  useEffect(()=>{if(routePath.endsWith("/login"))openAuth();},[routePath,openAuth]);
-  useEffect(()=>{const onKey=(event:KeyboardEvent)=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="k"){event.preventDefault();setPalette(true);}if(event.key==="Escape")setPalette(false);};window.addEventListener("keydown",onKey);return()=>window.removeEventListener("keydown",onKey);},[]);
-  const visibleTabs=useMemo(()=>user?.role==="admin"?[...tabs,{id:"admin" as Tab,label:"Admin",icon:Shield}]:tabs,[user]);
-  const go=(next:Tab)=>{setTab(next);setPalette(false);const url=new URL(window.location.href);const hadCaseView=url.searchParams.has("view");if(next==="admin"){url.pathname="/admin/dashboard";url.searchParams.delete("view");}else if(next==="cases"||next==="forensics"){if(url.pathname==="/admin/dashboard")url.pathname="/app/";url.searchParams.delete("route");url.searchParams.set("view",next);}else if(url.pathname==="/admin/dashboard"){url.pathname="/app/";url.searchParams.delete("route");url.searchParams.delete("view");}else if(hadCaseView)url.searchParams.delete("view");if(next==="admin"||next==="cases"||next==="forensics"||window.location.pathname==="/admin/dashboard"||hadCaseView)window.history.pushState({},"",`${url.pathname}${url.search}${url.hash}`);window.scrollTo({top:0,behavior:"smooth"});};
-  useEffect(()=>{const onPop=()=>setTab(tabFromLocation());window.addEventListener("popstate",onPop);const onAuth=()=>{if(window.location.pathname==="/admin/dashboard")setTab("admin");};window.addEventListener("0x8acure-auth-changed",onAuth);return()=>{window.removeEventListener("popstate",onPop);window.removeEventListener("0x8acure-auth-changed",onAuth);};},[]);
-  return <div className="app-shell">
-    <a className="skip-link" href="#main-content">Skip to content</a>
-    <header className="topbar"><a className="brand" href="./" aria-label="0x8Acure Cyber Lab home"><span className="brand-script">0x8Acure</span><small>CYBER LAB</small></a><nav className="top-nav" aria-label="Main navigation">{visibleTabs.map(({id,label,icon:Icon})=><button key={id} onClick={()=>go(id)} className={tab===id?"nav-item active":"nav-item"} aria-current={tab===id?"page":undefined}><Icon size={16}/>{label}</button>)}</nav><div className="top-actions"><button className="icon-button" onClick={()=>setPalette(true)} aria-label="Open command palette"><Command size={17}/><kbd>⌘K</kbd></button><button className="icon-button theme-toggle" onClick={()=>setTheme(theme==="dark"?"light":"dark")} aria-label={`Switch to ${theme==="dark"?"light":"dark"} theme`}>{theme==="dark"?<Sun size={17}/>:<Moon size={17}/>}</button>{user?<button className="user-chip" onClick={signOut} title="Sign out"><span className="avatar">{user.username.slice(0,1).toUpperCase()}</span><span>{user.username}<small>{xp} XP</small></span><LogOut size={15}/></button>:<button className="btn primary sign-in" onClick={openAuth} disabled={loading}><LogIn size={15}/>{loading?"Loading…":"Sign in"}</button>}</div></header>
-    <div className="app-layout"><aside className="sidebar"><div className="sidebar-label">WORKSPACE</div>{visibleTabs.map(({id,label,icon:Icon})=><button key={id} onClick={()=>go(id)} className={tab===id?"side-item active":"side-item"} aria-current={tab===id?"page":undefined}><Icon size={17}/>{label}<ChevronRight className="side-chevron" size={14}/></button>)}<div className="sidebar-bottom"><span className="online-dot"/> All systems operational<p>Learn safely. Build deliberately.</p><a href="../" className="legacy-link">DPDP Learning Platform <ArrowUpRight size={13}/></a></div></aside>
-      <main id="main-content" className="main-content" tabIndex={-1}><AnimatePresence mode="wait"><motion.div key={tab} initial={{opacity:0,y:7}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-5}} transition={{duration:.16}}><Suspense fallback={<div className="panel content-loading" role="status">Loading Cyber Lab module…</div>}>{tab==="overview"?<Overview onNavigate={go}/>:tab==="materials"?<MaterialsView/>:tab==="quiz"?<QuizView onXp={setXp}/>:tab==="rooms"?<RoomsView/>:tab==="projects"?<ProjectsView/>:tab==="cases"?<CaseStudiesView/>:tab==="forensics"?<ForensicsEngine/>:tab==="leaderboard"?<Leaderboard/>:<AdminView/>}</Suspense></motion.div></AnimatePresence></main>
+const tools: { id: Tool; label: string; icon: typeof Activity }[] = [
+  { id: "forensics", label: "DFIR Log & Artifact Analyzer", icon: Fingerprint },
+  { id: "storeshield", label: "StoreShield App Auditor", icon: ShieldCheck },
+  { id: "breach", label: "Breach Liability Calculator", icon: Calculator },
+];
+
+function toolFromLocation(): Tool {
+  const view = new URLSearchParams(window.location.search).get("view");
+  if (view === "storeshield" || view === "compliance" || view === "policy-generator") return "storeshield";
+  if (view === "breach" || view === "estimator") return "breach";
+  return "forensics";
+}
+
+class ModuleErrorBoundary extends Component<{ children: ReactNode }, { error: boolean }> {
+  state = { error: false };
+
+  static getDerivedStateFromError() {
+    return { error: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error("CyberLab module failed to load.", error, info.componentStack);
+  }
+
+  render() {
+    if (this.state.error) {
+      return <section className="engine-error" role="alert">
+        <h2>Workbench module unavailable</h2>
+        <p>The requested tool could not be loaded. Check your connection and reload the application.</p>
+        <button className="btn secondary" onClick={() => window.location.reload()}>Reload workbench</button>
+      </section>;
+    }
+    return this.props.children;
+  }
+}
+
+function App() {
+  const [tool, setTool] = useState<Tool>(toolFromLocation);
+
+  useEffect(() => {
+    const handleBack = () => setTool(toolFromLocation());
+    window.addEventListener("popstate", handleBack);
+    return () => window.removeEventListener("popstate", handleBack);
+  }, []);
+
+  const navigate = (next: Tool) => {
+    setTool(next);
+    const url = new URL(window.location.href);
+    url.searchParams.set("view", next);
+    window.history.pushState({}, "", `${url.pathname}${url.search}${url.hash}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return <div className="app-shell cyber-workspace">
+    <a className="skip-link" href="#main-content">Skip to workbench</a>
+    <header className="topbar cyber-topbar">
+      <a className="brand cyber-brand" href="/app/" aria-label="ForensiX CyberLab Suite">
+        <span className="brand-mark">FX</span>
+        <span>ForensiX<small>CYBERLAB SUITE</small></span>
+      </a>
+      <nav className="top-nav cyber-nav" aria-label="Security workbenches">
+        {tools.map(({ id, label, icon: Icon }) => <button
+          key={id}
+          type="button"
+          className={tool === id ? "nav-item active" : "nav-item"}
+          aria-current={tool === id ? "page" : undefined}
+          onClick={() => navigate(id)}
+        ><Icon size={16}/>{label}</button>)}
+      </nav>
+      <a className="academy-link" href="/" target="_self"><ArrowUpRight size={15}/> Back to DPDP Academy</a>
+    </header>
+    <div className="app-layout cyber-layout">
+      <aside className="sidebar cyber-sidebar">
+        <div className="sidebar-label">OPERATIONAL TOOLS</div>
+        {tools.map(({ id, label, icon: Icon }) => <button
+          key={id}
+          type="button"
+          className={tool === id ? "side-item active" : "side-item"}
+          aria-current={tool === id ? "page" : undefined}
+          onClick={() => navigate(id)}
+        ><Icon size={17}/><span>{label}</span></button>)}
+        <div className="sidebar-bottom"><span className="online-dot"/> LOCAL-FIRST WORKBENCH<p>Evidence and risk assessments stay in your browser.</p><a href="/" target="_self" className="legacy-link">Back to DPDP Academy <ArrowUpRight size={13}/></a></div>
+      </aside>
+      <main id="main-content" className="main-content cyber-main" tabIndex={-1}>
+        <div className="workbench-status"><span><Activity size={14}/> CYBER OPERATIONS · INDIA</span><span className="workbench-live"><i/> WORKBENCH READY</span></div>
+        <ModuleErrorBoundary key={tool}>
+          <Suspense fallback={<div className="panel content-loading" role="status">Loading security workbench…</div>}>
+            {tool === "forensics" ? <ForensicsEngine/> : tool === "storeshield" ? <AppComplianceScanner/> : <BreachEstimator/>}
+          </Suspense>
+        </ModuleErrorBoundary>
+      </main>
     </div>
-    <footer className="app-footer"><span>© 0x8Acure · Cybersecurity learning environment</span><span>Use labs only within authorized environments.</span></footer>
-    {palette&&<CommandPalette tabs={visibleTabs} onClose={()=>setPalette(false)} onNavigate={go}/>}
+    <footer className="app-footer cyber-footer"><span>ForensiX · Digital Forensics & Automated Incident Response Engine</span><span>Authorized defensive use only.</span></footer>
   </div>;
 }
-function Overview({onNavigate}:{onNavigate:(tab:Tab)=>void}){
- return <div className="overview"><section className="welcome-hero"><div className="welcome-copy"><span className="eyebrow"><span className="online-dot"/> CYBER LEARNING ENVIRONMENT</span><h1>Build skill.<br/><em>Trace the evidence.</em></h1><p>A practical workspace for cybersecurity, digital forensics, and defensive thinking.</p><div className="hero-actions"><button className="btn primary" onClick={()=>onNavigate("quiz")}><GraduationCap size={17}/>Start a challenge</button><button className="btn ghost" onClick={()=>onNavigate("materials")}><BookOpen size={17}/>Browse study materials</button></div></div><div className="hero-terminal"><div className="terminal-top"><span><i/> LIVE CONSOLE</span><span>zsh · user</span></div><div className="terminal-lines"><p><b>user@0x8acure</b>:~$ help</p><p className="terminal-out">Type a command to explore the lab.</p><p><b>user@0x8acure</b>:~$ <span className="terminal-caret">_</span></p></div><div className="terminal-orbit" aria-hidden="true">0x</div></div><div className="hero-grid" aria-hidden="true"/></section>
-   <TerminalView onNavigate={onNavigate}/>
-   <section className="feature-grid" aria-label="Explore the learning platform"><button className="feature-card" onClick={()=>onNavigate("materials")}><span className="feature-icon green"><BookOpen/></span><span className="feature-kicker">REFERENCE LIBRARY</span><h2>Study Materials</h2><p>CHFI v10/v11, forensic workflows, and DFIR field notes.</p><span className="feature-link">Open materials <ArrowUpRight size={15}/></span></button><button className="feature-card" onClick={()=>onNavigate("quiz")}><span className="feature-icon cyan"><GraduationCap/></span><span className="feature-kicker">KNOWLEDGE CHECK</span><h2>Quiz Arena</h2><p>Timed challenges across web, network, and identity security.</p><span className="feature-link">Enter arena <ArrowUpRight size={15}/></span></button><button className="feature-card" onClick={()=>onNavigate("rooms")}><span className="feature-icon violet"><Users/></span><span className="feature-kicker">LIVE COLLABORATION</span><h2>War Rooms</h2><p>Discuss defensive scenarios and share notes with your team.</p><span className="feature-link">Join a room <ArrowUpRight size={15}/></span></button><button className="feature-card" onClick={()=>onNavigate("projects")}><span className="feature-icon amber"><Shield/></span><span className="feature-kicker">FIELD ARSENAL</span><h2>Projects & Writeups</h2><p>Browse security tools, research, and technical walkthroughs.</p><span className="feature-link">View arsenal <ArrowUpRight size={15}/></span></button></section>
-  </div>;
-}
-function Leaderboard(){const [rows,setRows]=useState<{rank:number;username:string;xp:number;attempts:number;totalSeconds:number}[]>([]),[error,setError]=useState("");useEffect(()=>{let alive=true;const load=()=>api<{rows:typeof rows}>("/api/cyber/leaderboard").then(data=>{if(alive)setRows(data.rows);}).catch(e=>{if(alive)setError(e.message);});void load();const timer=window.setInterval(load,30000);return()=>{alive=false;window.clearInterval(timer);};},[]);return <section className="content-page"><div className="page-heading"><span className="eyebrow">GLOBAL RANKING · LIVE</span><h1>Leaderboard</h1><p>Ranked by XP, then cumulative best completion time per quiz. Refreshes every 30 seconds.</p></div>{error?<div className="notice">{error}</div>:<div className="panel table-panel"><div className="table-head"><span>RANK</span><span>LEARNER</span><span>BEST TIME</span><span>XP</span></div>{rows.length?rows.map(row=><div className="leader-row" key={row.username}><b className={row.rank<=3?"rank top-rank":"rank"}>{String(row.rank).padStart(2,"0")}</b><span>{row.username}<small className="muted-attempts">{row.attempts} attempts</small></span><span>{Math.floor(row.totalSeconds/60)}m {row.totalSeconds%60}s</span><b className="xp-number">{row.xp} XP</b></div>):<p className="empty-note">No learners have earned XP yet. Your run can be the first.</p>}</div>}</section>}
-function CommandPalette({tabs,onClose,onNavigate}:{tabs:TabItem[];onClose:()=>void;onNavigate:(tab:Tab)=>void}){const [query,setQuery]=useState(""),[selectedIndex,setSelectedIndex]=useState(0),[projects,setProjects]=useState<{id:string;title:string;slug:string}[]>([]);const sections=tabs.filter(item=>item.label.toLowerCase().includes(query.toLowerCase()));useEffect(()=>{let alive=true;setSelectedIndex(0);if(query.trim().length<2){setProjects([]);return;}const timeout=window.setTimeout(()=>api<{projects:{id:string;title:string;slug:string}[]}>("/api/projects?q="+encodeURIComponent(query.trim())).then(data=>{if(alive)setProjects(data.projects);}).catch(()=>{if(alive)setProjects([]);}),160);return()=>{alive=false;window.clearTimeout(timeout);};},[query]);const count=sections.length+projects.length;const choose=(index:number)=>{if(index<sections.length){onNavigate(sections[index].id);return;}const project=projects[index-sections.length];if(project){sessionStorage.setItem("0x:project-search",project.title);onNavigate("projects");}};useEffect(()=>{const onKey=(event:KeyboardEvent)=>{if(event.key==="Escape")onClose();if(event.key==="ArrowDown"){event.preventDefault();setSelectedIndex(index=>count?(index+1)%count:0);}if(event.key==="ArrowUp"){event.preventDefault();setSelectedIndex(index=>count?(index-1+count)%count:0);}if(event.key==="Enter"&&count){event.preventDefault();choose(selectedIndex);}};window.addEventListener("keydown",onKey);return()=>window.removeEventListener("keydown",onKey);},[count,selectedIndex,sections,projects,onClose,onNavigate]);let position=0;return <div className="palette-backdrop" onMouseDown={event=>{if(event.target===event.currentTarget)onClose();}}><section className="command-palette" role="dialog" aria-modal="true" aria-labelledby="palette-title"><h2 id="palette-title" className="visually-hidden">Command palette</h2><label><Command size={18}/><input autoFocus value={query} onChange={event=>setQuery(event.target.value)} placeholder="Jump to a section or search projects…" aria-label="Search sections and projects" aria-controls="palette-options"/><kbd>ESC</kbd></label><div id="palette-options" role="listbox" aria-label="Search results">{sections.map(({id,label,icon:Icon})=>{const index=position++;return <button role="option" aria-selected={selectedIndex===index} className={selectedIndex===index?"palette-option selected":"palette-option"} key={id} onMouseEnter={()=>setSelectedIndex(index)} onClick={()=>choose(index)}><Icon size={17}/>{label}<ArrowUpRight size={14}/></button>})}{projects.map(project=>{const index=position++;return <button role="option" aria-selected={selectedIndex===index} className={selectedIndex===index?"palette-option selected":"palette-option"} key={project.id} onMouseEnter={()=>setSelectedIndex(index)} onClick={()=>choose(index)}><Shield size={17}/>{project.title}<ArrowUpRight size={14}/></button>})}{!count&&<p className="empty-note">{query.length>1?"No matching sections or projects.":"No matching sections."}</p>}</div><footer><span>Navigate quickly</span><span><kbd>↑</kbd><kbd>↓</kbd> move <kbd>Enter</kbd> select <kbd>Esc</kbd> close</span></footer></section></div>}
-function App(){return <AuthProvider><Shell/></AuthProvider>}
+
 export default App;

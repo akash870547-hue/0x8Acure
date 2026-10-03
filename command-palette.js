@@ -14,6 +14,7 @@
     ["Home", "Dashboard and recent progress", "home", ["dashboard", "start"]],
     ["Learn", "Browse all learning paths", "paths", ["learning", "courses"]],
     ["Quiz Library", "Open assessments", "quiz", ["assessment", "questions"]],
+    ["Breach Liability Engine", "Model DPDPA breach impact, liability bands, and reporting urgency", "estimator", ["riskmatrix", "risk matrix", "breach", "liability", "dpdpa", "security audit"]],
     ["Official Sources", "Government documents and citations", "sources", ["acts", "rules", "references"]],
     ["My Progress", "Completion, XP, badges, and certificates", "progress", ["account", "scores"]],
     ["Leaderboard", "Opt-in learner rankings", "leaderboard", ["rankings"]],

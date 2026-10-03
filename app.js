@@ -930,6 +930,7 @@
       else if(target.value==="certificates") window.DPDP_CERTS?.page();
       else if(target.value==="leaderboard") leaderboard();
       else if(target.value==="account") document.getElementById("auth-nav")?.click();
+      else if(target.value==="estimator"){window.location.assign("/app/?view=estimator");}
       else if(["home","paths","quiz","sources","progress","cases"].includes(target.value)){navigate(target.value, {pathId:null,moduleId:null,roomId:null});}
       else return false;
       return true;
