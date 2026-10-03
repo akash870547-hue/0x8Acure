@@ -1,23 +1,26 @@
 import { Component, lazy, Suspense, useEffect, useState, type ErrorInfo, type ReactNode } from "react";
-import { Activity, ArrowUpRight, Calculator, Fingerprint, ShieldCheck } from "lucide-react";
+import { Activity, ArrowUpRight, Calculator, Fingerprint, Globe2, ShieldCheck } from "lucide-react";
 
 const ForensicsEngine = lazy(() => import("./components/ForensicsEngine/ForensicsEngine").then(module => ({ default: module.ForensicsEngine })));
 const AppComplianceScanner = lazy(() => import("./components/AppComplianceScanner").then(module => ({ default: module.AppComplianceScanner })));
 const BreachEstimator = lazy(() => import("./components/BreachEstimator/BreachEstimator").then(module => ({ default: module.BreachEstimator })));
 const PrivacyPolicyGenerator = lazy(() => import("./components/PrivacyPolicyGenerator/PrivacyPolicyGenerator").then(module => ({ default: module.PrivacyPolicyGenerator })));
-type Tool = "forensics" | "storeshield" | "breach" | "policy-generator";
+const AssetPulseDashboard = lazy(() => import("./components/AssetPulse/AssetPulseDashboard").then(module => ({ default: module.AssetPulseDashboard })));
+type Tool = "forensics" | "storeshield" | "breach" | "policy-generator" | "assetpulse";
 
 const tools: { id: Tool; label: string; icon: typeof Activity }[] = [
   { id: "forensics", label: "DFIR Log & Artifact Analyzer", icon: Fingerprint },
   { id: "storeshield", label: "StoreShield App Auditor", icon: ShieldCheck },
   { id: "breach", label: "Breach Liability Calculator", icon: Calculator },
   { id: "policy-generator", label: "LexConsent AI", icon: ShieldCheck },
+  { id: "assetpulse", label: "AssetPulse Monitor", icon: Globe2 },
 ];
 
 function toolFromLocation(): Tool {
   const view = new URLSearchParams(window.location.search).get("view");
   if (view === "storeshield" || view === "compliance") return "storeshield";
   if (view === "policy-generator") return "policy-generator";
+  if (view === "assetpulse") return "assetpulse";
   if (view === "breach" || view === "estimator") return "breach";
   return "forensics";
 }
@@ -96,7 +99,7 @@ function App() {
         <div className="workbench-status"><span><Activity size={14}/> CYBER OPERATIONS · INDIA</span><span className="workbench-live"><i/> WORKBENCH READY</span></div>
         <ModuleErrorBoundary key={tool}>
           <Suspense fallback={<div className="panel content-loading" role="status">Loading security workbench…</div>}>
-            {tool === "forensics" ? <ForensicsEngine/> : tool === "storeshield" ? <AppComplianceScanner/> : tool === "policy-generator" ? <PrivacyPolicyGenerator/> : <BreachEstimator/>}
+            {tool === "forensics" ? <ForensicsEngine/> : tool === "storeshield" ? <AppComplianceScanner/> : tool === "policy-generator" ? <PrivacyPolicyGenerator/> : tool === "assetpulse" ? <AssetPulseDashboard/> : <BreachEstimator/>}
           </Suspense>
         </ModuleErrorBoundary>
       </main>

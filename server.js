@@ -11,6 +11,8 @@ import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import { createFeatureApi } from "./services/feature-api.js";
+import { createAssetMonitorApi } from "./services/asset-monitor/api.js";
+import { startAssetMonitorWorker } from "./services/asset-monitor/worker.js";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PORT || 8080);
@@ -60,19 +62,21 @@ const corsOrigins=(process.env.CORS_ORIGINS||"http://localhost:5173,http://127.0
 app.use(helmet({
   contentSecurityPolicy:{directives:{
     defaultSrc:["'self'"],baseUri:["'self'"],formAction:["'self'"],frameAncestors:["'none'"],objectSrc:["'none'"],
-    scriptSrc:["'self'","https://cdn.jsdelivr.net"],styleSrc:["'self'","'unsafe-inline'","https://fonts.googleapis.com"],
+    scriptSrc:["'self'","https://cdn.jsdelivr.net","https://checkout.razorpay.com"],styleSrc:["'self'","'unsafe-inline'","https://fonts.googleapis.com"],
     fontSrc:["'self'","https://fonts.gstatic.com","data:"],imgSrc:["'self'","data:","blob:","https:"],
-    connectSrc:["'self'","https://*.supabase.co","wss://*.supabase.co"],upgradeInsecureRequests:process.env.NODE_ENV==="production"?[]:null
+    connectSrc:["'self'","https://*.supabase.co","wss://*.supabase.co","https://*.razorpay.com"],
+    frameSrc:["'self'","https://*.razorpay.com"],upgradeInsecureRequests:process.env.NODE_ENV==="production"?[]:null
   }},crossOriginResourcePolicy:{policy:"cross-origin"}
 }));
 app.use(cors({origin(origin,callback){if(!origin||corsOrigins.includes(origin))return callback(null,true);return callback(new Error("Origin is not allowed by CORS."));},credentials:true,methods:["GET","POST","PUT","PATCH","DELETE","OPTIONS"],allowedHeaders:["Authorization","Content-Type","X-Request-Id"]}));
-app.use(express.json({limit:"64kb"}));
+app.use(express.json({limit:"64kb",verify(req,res,buffer){req.rawBody=Buffer.from(buffer);}}));
 const apiLimiter=rateLimit({windowMs:15*60_000,limit:300,standardHeaders:"draft-8",legacyHeaders:false,message:{error:"Too many requests. Try again shortly."}});
 const authLimiter=rateLimit({windowMs:15*60_000,limit:10,standardHeaders:"draft-8",legacyHeaders:false,message:{error:"Too many sign-in attempts. Try again later."}});
 app.use("/api",apiLimiter);
 app.use("/api/auth/login",authLimiter);
 app.use("/api/auth/register",authLimiter);
 app.use("/api",createFeatureApi());
+app.use("/api/asset-monitor",createAssetMonitorApi());
 app.use("/app",express.static(path.join(root,"public","app"),{index:false,maxAge:"1y",immutable:true,setHeaders(res,filePath){if(path.basename(filePath)==="index.html")res.setHeader("Cache-Control","no-cache");}}));
 app.get(/^\/app(?:\/.*)?$/, (req,res)=>res.sendFile(path.join(root,"public","app","index.html")));
 const privateAsset=(req,res,next)=>{
@@ -297,4 +301,7 @@ if(adminEmail && adminPassword && !db.prepare("SELECT id FROM users WHERE email=
   audit({id:Number(info.lastInsertRowid)},"bootstrap_admin","user",String(info.lastInsertRowid));
 }
 
-app.listen(port,function(){console.log("DPDP CTF running on http://localhost:"+port);});
+app.listen(port,function(){
+  console.log("DPDP CTF running on http://localhost:"+port);
+  startAssetMonitorWorker();
+});
