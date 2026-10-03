@@ -32,13 +32,13 @@ const staticFiles = [
   "og-preview.png"
 ];
 
-async function listFiles(dir) {
+async function listFiles(dir, rootDir = dir) {
   const entries = await readdir(dir, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
     const absolute = path.join(dir, entry.name);
-    if (entry.isDirectory()) files.push(...await listFiles(absolute));
-    else files.push(path.relative(dir, absolute).split(path.sep).join("/"));
+    if (entry.isDirectory()) files.push(...await listFiles(absolute, rootDir));
+    else files.push(path.relative(rootDir, absolute).split(path.sep).join("/"));
   }
   return files.sort();
 }
